@@ -72,6 +72,9 @@ class MasterScoreboardController < ApplicationController
 					@game_data[number_of_games][:home_run] = score.css('r').attribute('home').text
 					@game_data[number_of_games][:away_hit] = score.css('h').attribute('away').text
 					@game_data[number_of_games][:home_hit] = score.css('h').attribute('home').text
+					@game_data[number_of_games][:away_er] = score.css('e').attribute('away').text
+					@game_data[number_of_games][:home_er] = score.css('e').attribute('home').text
+
 
 
 					if score.css('hr').empty?
@@ -85,11 +88,14 @@ class MasterScoreboardController < ApplicationController
 					if game.css('linescore hr').empty?
 					else
 
-						game.css('home_runs player').each do |hr|
+						hr_player = 0
 
-						@game_data[number_of_games][:hr_player_name] = hr.attribute('first').text + ' ' + hr.attribute('last').text
-						@game_data[number_of_games][:hr_player_hr_number] = hr.attribute('hr').text
-						@game_data[number_of_games][:hr_player_hr_inning] = hr.attribute('inning').text
+						game.css('home_runs player').each do |hr|
+							@game_data[number_of_games][hr_player] = {}
+						@game_data[number_of_games][hr_player][:hr_player_name] = hr.attribute('first').text + ' ' + hr.attribute('last').text
+						@game_data[number_of_games][hr_player][:hr_player_hr_number] = hr.attribute('hr').text
+						@game_data[number_of_games][hr_player][:hr_player_hr_inning] = hr.attribute('inning').text
+						hr_player += 1
 
 						end
 					end
@@ -121,7 +127,7 @@ class MasterScoreboardController < ApplicationController
 				end
 
 
-			  if game.css('save_pitcher').attribute('id') == ''
+			  if game.css('save_pitcher').attribute('id') == ' '
 
 			  	else
 				  	@game_data[number_of_games][:save_pitcher] = game.css('save_pitcher').attribute('first').text + " " + game.css('save_pitcher').attribute('last').text
@@ -129,6 +135,7 @@ class MasterScoreboardController < ApplicationController
 				  	@game_data[number_of_games][:save_pitcher_lose] = game.css('save_pitcher').attribute('losses').text
 				  	@game_data[number_of_games][:save_pitcher_save] = game.css('save_pitcher').attribute('saves').text
 				  	@game_data[number_of_games][:save_pitcher_era] = game.css('save_pitcher').attribute('era').text
+				  	@game_data[number_of_games][:save_pitcher_svo] = game.css('save_pitcher').attribute('svo').text
 				end
 			end
 			number_of_games += 1
