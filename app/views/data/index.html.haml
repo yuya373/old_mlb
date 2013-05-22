@@ -1,0 +1,31 @@
+%h1 Listing data
+%table
+  %thead
+    %tr
+      /
+        <th>Gid</th>
+      %th Year
+      %th Month
+      %th Day
+      /
+        <th>Team name</th>
+        <th>Team</th>
+      %th
+      %th
+      %th
+  %tbody
+    - @data.each do |datum|
+      %tr
+        /
+          <td><haml:loud> datum.gid </haml:loud></td>
+        %td= datum.year
+        %td= datum.month
+        %td= datum.day
+        /
+          <td><haml:loud> datum.team_name </haml:loud></td>
+          <td><haml:loud> datum.team_id </haml:loud></td>
+        %td= link_to 'Show', datum
+        %td= link_to 'Edit', edit_datum_path(datum)
+        %td= link_to 'Destroy', datum, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Datum', new_datum_path

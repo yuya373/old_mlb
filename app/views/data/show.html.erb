@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Gid:</strong>
+  <%= @datum.gid %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @datum.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @datum.month %>
+</p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @datum.day %>
+</p>
+
+<p>
+  <strong>Team name:</strong>
+  <%= @datum.team_name %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @datum.team_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_datum_path(@datum) %> |
+<%= link_to 'Back', data_path %>

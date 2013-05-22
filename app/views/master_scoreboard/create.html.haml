@@ -1,0 +1,51 @@
+= debug@game_data[0]
+- number = 0
+-
+-while @game_data[number] do
+  -if @game_data[number][:status] == 'Postponed'
+    =puts "Postponed"
+  %table.table.table-bordered
+    %tr
+      %th
+      %th 1
+      %th 2
+      %th 3
+      %th 4
+      %th 5
+      %th 6
+      %th 7
+      %th 8
+      %th 9
+      %th R
+      %th H
+      %th E
+    %tbody
+      %tr
+        %td= @game_data[number][:away_team_name]
+        %td= @game_data[number][:score][1][:away]
+        %td= @game_data[number][:score][2][:away]
+        %td= @game_data[number][:score][3][:away]
+        %td= @game_data[number][:score][4][:away]
+        %td= @game_data[number][:score][5][:away]
+        %td= @game_data[number][:score][6][:away]
+        %td= @game_data[number][:score][7][:away]
+        %td= @game_data[number][:score][8][:away]
+        %td= @game_data[number][:score][9][:away]
+        %td= @game_data[number][:away_run]
+        %td= @game_data[number][:away_hit]
+      %tr
+        %td= @game_data[number][:home_team_name]
+        %td= @game_data[number][:score][1][:home]
+        %td= @game_data[number][:score][2][:home]
+        %td= @game_data[number][:score][3][:home]
+        %td= @game_data[number][:score][4][:home]
+        %td= @game_data[number][:score][5][:home]
+        %td= @game_data[number][:score][6][:home]
+        %td= @game_data[number][:score][7][:home]
+        %td= @game_data[number][:score][8][:home]
+        %td= @game_data[number][:score][9][:home]
+        %td= @game_data[number][:home_run]
+        %td= @game_data[number][:home_hit]
+
+  - number += 1
+

@@ -1,0 +1,2 @@
+class BattersController < ApplicationController
+end

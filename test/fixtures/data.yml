@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  gid: MyString
+  year: 1
+  month: 1
+  day: 1
+  team_name: MyString
+  team_id: 1
+
+two:
+  gid: MyString
+  year: 1
+  month: 1
+  day: 1
+  team_name: MyString
+  team_id: 1

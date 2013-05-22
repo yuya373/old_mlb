@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %strong Gid:
+  = @datum.gid
+%p
+  %strong Year:
+  = @datum.year
+%p
+  %strong Month:
+  = @datum.month
+%p
+  %strong Day:
+  = @datum.day
+%p
+  %strong Team name:
+  = @datum.team_name
+%p
+  %strong Team:
+  = @datum.team_id
+= link_to 'Edit', edit_datum_path(@datum)
+|
+\#{link_to 'Back', data_path}
