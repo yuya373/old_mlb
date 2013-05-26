@@ -8,6 +8,10 @@
         - @datum.errors.full_messages.each do |msg|
           %li= msg
   .field
+    = f.label :ex
+    %br
+    = select_date Date.today, {:prefix=>"ex", :use_month_numbers => true, :end_year => Date.today.year}
+  .field
     = f.label :year
     %br/
     = f.select :year,['2013','2012','2011','2010']

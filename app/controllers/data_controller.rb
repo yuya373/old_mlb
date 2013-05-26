@@ -23,6 +23,8 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new
+    #team_id,team_abbrev
+
   end
 
   # GET /data/1/edit
@@ -66,7 +68,6 @@ class DataController < ApplicationController
       # team[team_name][:id] = game.attribute('home_team_id').text
     end
 
-    @datum.gid = team[team_name][:gid]
 
 
     respond_to do |format|
