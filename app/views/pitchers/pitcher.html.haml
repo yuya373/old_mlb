@@ -1,0 +1,150 @@
+.row-fluid
+  .span12
+    .hello-unit
+      %h2= "#{@data[:first_name]} #{@data[:last_name]}"
+      %ul.inline
+        %li= "生年月日:#{@data[:dob]}"
+        %li= "背番号##{@data[:jersey_number]}"
+        %li= "身長:#{@data[:height]}"
+        %li= "体重:#{@data[:weight]}"
+        %li= "#{@data[:throws]}投#{@data[:bats]}打"
+    .row-fluid
+      .span6
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th
+              %th 防御率
+              %th 被打率
+              %th ウィップ
+              %th 被安打
+              %th 被本塁打
+              %th 四球
+              %th 奪三振
+              %th 投球回
+              %th 打者数
+              %th rbi
+              %th 勝
+              %th 負
+              %th セーブ
+          %tbody
+            %tr
+              %th 今シーズン
+              %td= @data[:season][:era]
+              %td= @data[:season][:avg]
+              %td= @data[:season][:whip]
+              %td= @data[:season][:h]
+              %td= @data[:season][:hr]
+              %td= @data[:season][:bb]
+              %td= @data[:season][:so]
+              %td= @data[:season][:ip]
+              %td= @data[:season][:ab]
+              %td= @data[:season][:rbi]
+              %td= @data[:season][:w]
+              %td= @data[:season][:l]
+              %td= @data[:season][:sv]
+            %tr
+              %th 通算
+              %td= @data[:career][:era]
+              %td= @data[:career][:avg]
+              %td= @data[:career][:whip]
+              %td= @data[:career][:h]
+              %td= @data[:career][:hr]
+              %td= @data[:career][:bb]
+              %td= @data[:career][:so]
+              %td= @data[:career][:ip]
+              %td= @data[:career][:ab]
+              %td= @data[:career][:rbi]
+              %td= @data[:career][:w]
+              %td= @data[:career][:l]
+              %td= @data[:career][:sv]
+            %tr
+              %th= "Month:#{@data[:month][:des]}"
+              %td= @data[:month][:era]
+              %td= @data[:month][:avg]
+              %td= @data[:month][:whip]
+              %td= @data[:month][:h]
+              %td= @data[:month][:hr]
+              %td= @data[:month][:bb]
+              %td= @data[:month][:so]
+              %td= @data[:month][:ip]
+              %td= @data[:month][:ab]
+              %td= @data[:month][:rbi]
+              %td= @data[:month][:w]
+              %td= @data[:month][:l]
+              %td= @data[:month][:sv]
+            %tr
+              %th ランナーなし
+              %td= @data[:men_on][:era]
+              %td= @data[:men_on][:avg]
+              %td= @data[:men_on][:whip]
+              %td= @data[:men_on][:h]
+              %td= @data[:men_on][:hr]
+              %td= @data[:men_on][:bb]
+              %td= @data[:men_on][:so]
+              %td= @data[:men_on][:ip]
+              %td= @data[:men_on][:ab]
+              %td= @data[:men_on][:rbi]
+              %td= @data[:men_on][:w]
+              %td= @data[:men_on][:l]
+              %td= @data[:men_on][:sv]
+            %tr
+              %th 得点圏
+              %td= @data[:risp][:era]
+              %td= @data[:risp][:avg]
+              %td= @data[:risp][:whip]
+              %td= @data[:risp][:h]
+              %td= @data[:risp][:hr]
+              %td= @data[:risp][:bb]
+              %td= @data[:risp][:so]
+              %td= @data[:risp][:ip]
+              %td= @data[:risp][:ab]
+              %td= @data[:risp][:rbi]
+              %td= @data[:risp][:w]
+              %td= @data[:risp][:l]
+              %td= @data[:risp][:sv]
+            %tr
+              %th 満塁
+              %td= @data[:loaded][:era]
+              %td= @data[:loaded][:avg]
+              %td= @data[:loaded][:whip]
+              %td= @data[:loaded][:h]
+              %td= @data[:loaded][:hr]
+              %td= @data[:loaded][:bb]
+              %td= @data[:loaded][:so]
+              %td= @data[:loaded][:ip]
+              %td= @data[:loaded][:ab]
+              %td= @data[:loaded][:rbi]
+              %td= @data[:loaded][:w]
+              %td= @data[:loaded][:l]
+              %td= @data[:loaded][:sv]
+            %tr
+              %th 対右打者
+              %td= @data[:vs_rhb][:era]
+              %td= @data[:vs_rhb][:avg]
+              %td= @data[:vs_rhb][:whip]
+              %td= @data[:vs_rhb][:h]
+              %td= @data[:vs_rhb][:hr]
+              %td= @data[:vs_rhb][:bb]
+              %td= @data[:vs_rhb][:so]
+              %td= @data[:vs_rhb][:ip]
+              %td= @data[:vs_rhb][:ab]
+              %td= @data[:vs_rhb][:rbi]
+              %td= @data[:vs_rhb][:w]
+              %td= @data[:vs_rhb][:l]
+              %td= @data[:vs_rhb][:sv]
+            %tr
+              %th 対左打者
+              %td= @data[:vs_lhb][:era]
+              %td= @data[:vs_lhb][:avg]
+              %td= @data[:vs_lhb][:whip]
+              %td= @data[:vs_lhb][:h]
+              %td= @data[:vs_lhb][:hr]
+              %td= @data[:vs_lhb][:bb]
+              %td= @data[:vs_lhb][:so]
+              %td= @data[:vs_lhb][:ip]
+              %td= @data[:vs_lhb][:ab]
+              %td= @data[:vs_lhb][:rbi]
+              %td= @data[:vs_lhb][:w]
+              %td= @data[:vs_lhb][:l]
+              %td= @data[:vs_lhb][:sv]

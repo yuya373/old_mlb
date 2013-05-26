@@ -55,7 +55,7 @@ class DataController < ApplicationController
 
       elsif game.attribute('home_code').text =="#{team_name}"
 
-        team[team_naem][:team_id] = game.attribute('home`_team_id').text
+        team[team_name][:team_id] = game.attribute('home_team_id').text
 
         gid = game.attribute('gameday').text
         team[team_name][:gid] = gid

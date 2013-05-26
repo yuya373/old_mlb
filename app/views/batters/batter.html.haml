@@ -1,0 +1,131 @@
+.row-fluid
+  .span12
+    .hello-unit
+      %h2= "#{@data[:first_name]} #{@data[:last_name]}"
+      %ul.inline
+        %li= "生年月日:#{@data[:dob]}"
+        %li= "背番号##{@data[:jersey_number]}"
+        %li= "身長:#{@data[:height]}"
+        %li= "体重:#{@data[:weight]}"
+        %li= "#{@data[:throws]}投#{@data[:bats]}打"
+        %li= @data[:current_position]
+    .row-fluid
+      .span6
+        %table.table.table-bordered
+          %thead
+            %th
+              %th 打率
+              %th 打数
+              %th 四球
+              %th ヒット
+              %th ホームラン
+              %th 得点
+              %th 打点
+              %th 盗塁
+              %th 三振
+              %th OPS
+          %tbody
+            %tr
+              %th 今シーズン
+              %td= @data[:season][:avg]
+              %td= @data[:season][:ab]
+              %td= @data[:season][:bb]
+              %td= @data[:season][:h]
+              %td= @data[:season][:hr]
+              %td= @data[:season][:r]
+              %td= @data[:season][:rbi]
+              %td= @data[:season][:sb]
+              %td= @data[:season][:so]
+              %td= @data[:season][:ops]
+            %tr
+              %th 通算
+              %td= @data[:career][:avg]
+              %td= @data[:career][:ab]
+              %td= @data[:career][:bb]
+              %td= @data[:career][:h]
+              %td= @data[:career][:hr]
+              %td= @data[:career][:r]
+              %td= @data[:career][:rbi]
+              %td= @data[:career][:sb]
+              %td= @data[:career][:so]
+              %td= @data[:career][:ops]
+            %tr
+              %th= "Month:#{@data[:month][:des]}"
+              %td= @data[:month][:avg]
+              %td= @data[:month][:ab]
+              %td= @data[:month][:bb]
+              %td= @data[:month][:h]
+              %td= @data[:month][:hr]
+              %td= @data[:month][:r]
+              %td= @data[:month][:rbi]
+              %td= @data[:month][:sb]
+              %td= @data[:month][:so]
+              %td= @data[:month][:ops]
+            %tr
+              %th ランナー1塁
+              %td= @data[:men_on][:avg]
+              %td= @data[:men_on][:ab]
+              %td= @data[:men_on][:bb]
+              %td= @data[:men_on][:h]
+              %td= @data[:men_on][:hr]
+              %td= @data[:men_on][:r]
+              %td= @data[:men_on][:rbi]
+              %td= @data[:men_on][:sb]
+              %td= @data[:men_on][:so]
+              %td= @data[:men_on][:ops]
+            %tr
+              %th 得点圏
+              %td= @data[:risp][:avg]
+              %td= @data[:risp][:ab]
+              %td= @data[:risp][:bb]
+              %td= @data[:risp][:h]
+              %td= @data[:risp][:hr]
+              %td= @data[:risp][:r]
+              %td= @data[:risp][:rbi]
+              %td= @data[:risp][:sb]
+              %td= @data[:risp][:so]
+              %td= @data[:risp][:ops]
+            %tr
+              %th 満塁
+              %td= @data[:loaded][:avg]
+              %td= @data[:loaded][:ab]
+              %td= @data[:loaded][:bb]
+              %td= @data[:loaded][:h]
+              %td= @data[:loaded][:hr]
+              %td= @data[:loaded][:r]
+              %td= @data[:loaded][:rbi]
+              %td= @data[:loaded][:sb]
+              %td= @data[:loaded][:so]
+              %td= @data[:loaded][:ops]
+            %tr
+              %th 対右投手
+              %td= @data[:vs_rhp][:avg]
+              %td= @data[:vs_rhp][:ab]
+              %td= @data[:vs_rhp][:bb]
+              %td= @data[:vs_rhp][:h]
+              %td= @data[:vs_rhp][:hr]
+              %td= @data[:vs_rhp][:r]
+              %td= @data[:vs_rhp][:rbi]
+              %td= @data[:vs_rhp][:sb]
+              %td= @data[:vs_rhp][:so]
+              %td= @data[:vs_rhp][:ops]
+            %tr
+              %th 対左投手
+              %td= @data[:vs_lhp][:avg]
+              %td= @data[:vs_lhp][:ab]
+              %td= @data[:vs_lhp][:bb]
+              %td= @data[:vs_lhp][:h]
+              %td= @data[:vs_lhp][:hr]
+              %td= @data[:vs_lhp][:r]
+              %td= @data[:vs_lhp][:rbi]
+              %td= @data[:vs_lhp][:sb]
+              %td= @data[:vs_lhp][:so]
+              %td= @data[:vs_lhp][:ops]
+
+
+
+
+
+
+
+

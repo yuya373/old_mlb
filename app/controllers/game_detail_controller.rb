@@ -7,14 +7,20 @@ class GameDetailController < ApplicationController
 
 
 	def game_details
-		team_name = params[:team_name].to_s
-		year = params[:year].to_i
-		month = params[:month].to_i
-		day = params[:day].to_i
-		uu = build_score_board_url(year,month,day)
-		gid = get_gid(team_name,year,month,day)
-		url = build_game_details_url(gid)
-		doc = Nokogiri::XML(open(url))
+		if params[:gid]
+			@gid = params[:gid]
+			@url = build_game_details_url(@gid)
+		else
+			team_name = params[:team_name].to_s
+			year = params[:year].to_i
+			month = params[:month].to_i
+			day = params[:day].to_i
+			uu = build_score_board_url(year,month,day)
+			@gid = get_gid(team_name,year,month,day)
+			@url = build_game_details_url(@gid)
+		end
+
+		doc = Nokogiri::XML(open(@url))
 
 		@data = {}
 

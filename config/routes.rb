@@ -1,9 +1,13 @@
 Mlb::Application.routes.draw do
   root to: 'data#new'
   resources :data
+  get 'master_scoreboard/create' => 'master_scoreboard#today_score'
   resources :master_scoreboard
   post 'game_detail/details' => 'game_detail#game_details'
   resources :game_detail
+  post 'pitchers/pitcher' => 'pitchers#pitcher'
+  post 'batters/batter' => 'batters#batter'
+
   # get 'master_scoreboard' => 'master_scoreboard#index'
   # get 'master_scoreboard/show' => 'master_scoreboard#show'
   # The priority is based upon order of creation: first created -> highest priority.

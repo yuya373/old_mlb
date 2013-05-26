@@ -1,0 +1,2 @@
+class PlayersTodayController < ApplicationController
+end

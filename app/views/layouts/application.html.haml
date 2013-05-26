@@ -30,21 +30,12 @@
             %ul.nav
               %li= link_to "ScoreBoard",new_master_scoreboard_path
               %li= link_to "GameDetails", game_detail_index_path
-              %li= link_to "Link 3", "/path3"
-
+              %li= link_to "今日のスコアボード", :controller => 'master_scoreboard', :action => 'today_score'
     .container-fluid
 
       .row-fluid
-        .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
-        .span9
-          = bootstrap_flash
-          = yield
+        = bootstrap_flash
+        = yield
 
       %footer
         %p &copy; Company 2013
