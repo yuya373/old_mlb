@@ -1,241 +1,61 @@
-= debug @data[:batter][0]
 .hero-unit
   %h4= @data[:team_name]
   %ul.inline
     %li= "#{@data[:date]}現在"
-.span12
+.span9
   %h2 チーム打撃成績
+  -if @data[:home_batting]
+    -h_a_b = :home_batting
+  -else
+    -h_a_b = :away_batting
   %table.table.table-bordered
     %thead
       %tr
-        %th ヒット
-        %th 打数
-        %th 塁打数
-        %th 打率
-        %th 長打率
-        %th 出塁率
-        %th OPS
-        %th 試合数
-        %th 得点
-        %th 二塁打
-        %th 三塁打
-        %th ホームラン
-        %th 打点
-        %th 犠打
-        %th 犠牲フライ
-        %th 死球
-        %th 四球
-        %th 敬遠
-        %th 三振
-        %th 盗塁
-        %th 盗塁失敗
-        %th 併殺
+      -@data[h_a_b].each do |k,v|
+        %th= t(k, :scope => 'bat')
     %tbody
       %tr
-        -if @data[:home_batting]
-          -h_a_b = :home_batting
-        -else
-          -h_a_b = :away_batting
-        %td= @data[h_a_b][:H]
-        %td= @data[h_a_b][:AB]
-        %td= @data[h_a_b][:TB]
-        %td= @data[h_a_b][:AVG]
-        %td= @data[h_a_b][:SLG]
-        %td= @data[h_a_b][:OBP]
-        %td= @data[h_a_b][:OPS]
-        %td= @data[h_a_b][:G]
-        %td= @data[h_a_b][:R]
-        %td= @data[h_a_b][:B2]
-        %td= @data[h_a_b][:B3]
-        %td= @data[h_a_b][:HR]
-        %td= @data[h_a_b][:RBI]
-        %td= @data[h_a_b][:SAC]
-        %td= @data[h_a_b][:SF]
-        %td= @data[h_a_b][:HBP]
-        %td= @data[h_a_b][:BB]
-        %td= @data[h_a_b][:IBB]
-        %td= @data[h_a_b][:SO]
-        %td= @data[h_a_b][:SB]
-        %td= @data[h_a_b][:CS]
-        %td= @data[h_a_b][:GIDP]
+      -@data[h_a_b].each do |k,v|
+        %td= v
   %h2 チーム投手成績
+  -if @data[:home_pitching]
+    -h_a_p = :home_pitching
+  -else
+    -h_a_p = :away_pitching
   %table.table.table-bordered
     %thead
       %tr
-        %th 投球回
-        %th 自責点
-        %th 防御率
-        %th ウィップ
-        %th ヒット
-        %th 失点
-        %th 被ホームラン
-        %th 四球
-        %th 死球
-        %th 敬遠
-        %th 奪三振
-        %th ワイルドピッチ
-        %th 試合数
-        %th 先発数
-        %th 勝ち
-        %th 負け
-        %th 完投
-        %th 最終投手？
-
-        %th 完封
-        %th セーブ
-        %th セーブ失敗？
-        %th セーブ機会
+      -@data[h_a_p].each do |k,v|
+        %th= t(k, :scope => 'pitch')
     %tbody
       %tr
-      -if @data[:home_pitching]
-        -h_a_p = :home_pitching
-      -else
-        -h_a_p = :away_pitching
-      %td= @data[h_a_p][:IP]
-      %td= @data[h_a_p][:ER]
-      %td= @data[h_a_p][:ERA]
-      %td= @data[h_a_p][:WHIP]
-      %td= @data[h_a_p][:H]
-      %td= @data[h_a_p][:R]
-      %td= @data[h_a_p][:HR]
-      %td= @data[h_a_p][:HB]
-      %td= @data[h_a_p][:BB]
-      %td= @data[h_a_p][:IBB]
-      %td= @data[h_a_p][:SO]
-      %td= @data[h_a_p][:SO]
-      %td= @data[h_a_p][:WP]
-      %td= @data[h_a_p][:G]
-      %td= @data[h_a_p][:GS]
-      %td= @data[h_a_p][:W]
-      %td= @data[h_a_p][:L]
-      %td= @data[h_a_p][:CG]
-      %td= @data[h_a_p][:GF]
-      %td= @data[h_a_p][:SHO]
-      %td= @data[h_a_p][:SV]
-      %td= @data[h_a_p][:BSV]
-      %td= @data[h_a_p][:SVO]
+      -@data[h_a_p].each do |k,v|
+        %td= v
   %h2 打者成績
   %table.table.table-bordered
     %thead
       %tr
-        %th
-        %th ポジション
-        %th 背番号
-        %th ヒット
-        %th 打数
-        %th 塁打数
-        %th 打率
-        %th 長打率
-        %th 補殺
-        %th エラー
-        %th 刺殺数
-        %th 試合数
-        %th 得点
-        %th 二塁打
-        %th 三塁打
-        %th ホームラン
-        %th 打点
-        %th 犠打
-        %th 犠牲フライ
-        %th 犠牲フライ
-        %th 死球
-        %th 四球
-        %th 敬遠
-        %th 三振
-        %th 盗塁
-        %th 盗塁失敗
-        %th 併殺
-        %th OPS
-        %th 被投球数
-        %th ゴロアウト
-        %th フライアウト
-        %th 打席数
-        %th 外野補殺数
-        %th 代打:ヒット
-        %th 代打:ホームラン
-        %th 代打:打点
-        %th 最近10試合:打数
-        %th 最近10試合:ヒット
-        %th 最近10試合:ホームラン
-        %th 最近10試合:打点
+      -@data[:batter][0].each do |k,v|
+        %th= t(k, :scope => 'bat')
     %tbody
-      -b_num = 0
-      -while @data[:batter][b_num]
+    -b_num = 0
+    -while @data[:batter][b_num]
+      %tr
+      -@data[:batter][b_num].each do |k,v|
+        -if @data[:batter][b_num][:POS] == 'P'
+        -else
+          %td= v
+      -b_num += 1
+  %h2 投手成績
+  %table.table.table-bordered
+    %thead
+      %tr
+      -@data[:pitcher][0].each do |k,v|
+        %th= t(k, :scope => 'pitch')
+    %tbody
+      -p_num = 0
+      -while @data[:pitcher][p_num]
         %tr
-          %td= @data[:batter][b_num][:name]
-          %td= @data[:batter][b_num][:POS]
-          %td= @data[:batter][b_num][:JERSEY_NUMBER]
-          %td= @data[:batter][b_num][:H]
-          %td= @data[:batter][b_num][:AB]
-          %td= @data[:batter][b_num][:TB]
-          %td= @data[:batter][b_num][:AVG]
-          %td= @data[:batter][b_num][:SLG]
-          %td= @data[:batter][b_num][:A]
-          %td= @data[:batter][b_num][:E]
-          %td= @data[:batter][b_num][:PO]
-          %td= @data[:batter][b_num][:G]
-          %td= @data[:batter][b_num][:R]
-          %td= @data[:batter][b_num][:B2]
-          %td= @data[:batter][b_num][:B3]
-          %td= @data[:batter][b_num][:HR]
-          %td= @data[:batter][b_num][:RBI]
-          %td= @data[:batter][b_num][:SAC]
-          %td= @data[:batter][b_num][:SF]
-          %td= @data[:batter][b_num][:HBP]
-          %td= @data[:batter][b_num][:BB]
-          %td= @data[:batter][b_num][:IBB]
-          %td= @data[:batter][b_num][:SO]
-          %td= @data[:batter][b_num][:SB]
-          %td= @data[:batter][b_num][:CS]
-          %td= @data[:batter][b_num][:GIDP]
-          %td= @data[:batter][b_num][:OPS]
-          %td= @data[:batter][b_num][:OBP]
-          %td= @data[:batter][b_num][:NP]
-          %td= @data[:batter][b_num][:GO]
-          %td= @data[:batter][b_num][:AO]
-          %td= @data[:batter][b_num][:TPA]
-          %td= @data[:batter][b_num][:OF_A]
-          %td= @data[:batter][b_num][:PH_AB]
-          %td= @data[:batter][b_num][:PH_H]
-          %td= @data[:batter][b_num][:PH_HR]
-          %td= @data[:batter][b_num][:PH_RBI]
-          %td= @data[:batter][b_num][:LAST10_H]
-          %td= @data[:batter][b_num][:LAST10_HR]
-          %td= @data[:batter][b_num][:LAST10_RBI]
-          - b_num += 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        -@data[:pitcher][p_num].each do |k,v|
+          %td= v
+        -p_num += 1

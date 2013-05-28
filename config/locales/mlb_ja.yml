@@ -1,0 +1,86 @@
+ja:
+  bat:
+    POS: ポジション
+    JERSEY_NUMBER: 背番号
+    LEAGUE: リーグ
+    AL: アメリカンリーグ
+    NL: ナショナルリーグ
+    H: ヒット
+    R: 得点
+    AB: 打数
+    TB: 塁打
+    AVG: 打率
+    SLG: 長打率
+    A: 補殺
+    E: エラー
+    PO: 刺殺
+    G: 試合数
+    B2: 二塁打
+    B3: 三塁打
+    HR: ホームラン
+    RBI: 打点
+    SAC: 犠打
+    SF: 犠牲フライ
+    HBP: 死球
+    BB: 四球
+    IBB: 敬遠
+    SO: 三振
+    SB: 盗塁
+    CS: 盗塁失敗
+    GIDP: ダブルプレー
+    OBP: 出塁率
+    NP: 球数
+    GO: ゴロアウト
+    AO: フライアウト
+    TPA: 打席数
+    OF_A: 外野補殺
+    PH_AB: 代打 打数
+    PH_HR: 代打 ホームラン
+    PH_RBI: 代打 打点
+    PH_H: 代打 ヒット
+    LAST10_RBI: 最近10試合 打点
+    LAST10_HR: 最近10試合 ホームラン
+    LAST10_H: 最近10試合 ヒット
+    LAST10_AB: 最近10試合 打数
+  pitch:
+    JERSEY_NUMBER: 背番号
+    AVG: 被打率
+    SLG: 被長打率
+    PCT: 守備率
+    AB: 打数
+    SF: 犠牲フライ
+    SAC: 犠打
+    AO: フライアウト
+    GO: ゴロアウト
+    NP: 投球数
+    BK: ボーク
+    HLD: ホールド
+    TPA: 打席数
+    PO: 刺殺
+    A: 補殺
+    E: エラー
+    IP: 投球回
+    ER: 自責点
+    ERA: 防御率
+    H: 被安打
+    HR: 被ホームラン
+    SO: 奪三振
+    BB: 四球
+    IBB: 敬遠
+    G: 試合数
+    R: 失点
+    HB: 死球
+    WP: 暴投
+    GS: 先発
+    W: 勝ち
+    L: 負け
+    CG: 完投
+    GF: 最終投手
+    SHO: 完封
+    SV: セーブ
+    BSV: セーブ失敗
+    SVO: セーブ機会
+    GIDP: ダブルプレイ
+    P_INH_RUNNER: 引き継いだ走者
+    P_INH_RUNNER_SCORED: 引き継いだ走者のうち得点
+

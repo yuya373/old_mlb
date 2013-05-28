@@ -9,6 +9,7 @@ gem 'nokogiri'
 gem 'debugger'
 gem 'haml-rails'
 gem 'erb2haml'
+gem 'rails-i18n'
 
 
 # Gems used only for assets and not required

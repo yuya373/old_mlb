@@ -54,7 +54,35 @@ class TeamController < ApplicationController
     @data[:batter] = {}
 
     batter.each do |b|
-      key = b.keys.to_a
+      key = [
+      'name',
+      'POS',
+      'JERSEY_NUMBER',
+      'H',
+      'AB',
+      'AVG',
+      'SLG',
+      'G',
+      'R',
+      'B2',
+      'B3',
+      'HR',
+      'RBI',
+      'SAC',
+      'SF',
+      'HBP',
+      'BB',
+      'IBB',
+      'SO',
+      'SB',
+      'CS',
+      'GIDP',
+      'OPS',
+      'OBP',
+      'GO',
+      'AO',
+      'TPA'
+    ]
       @data[:batter][b_num] = {}
       key.each do |k|
         v = b.attribute(k).text
@@ -84,7 +112,41 @@ class TeamController < ApplicationController
     p_num = 0
     pitcher.each do |b|
       @data[:pitcher][p_num] = {}
-      key = b.keys.to_a
+      key = [
+        'name',
+        'JERSEY_NUMBER',
+        'IP',
+        'NP',
+        'ER',
+        'ERA',
+        'AVG',
+        'SLG',
+        'WHIP',
+        'H',
+        'R',
+        'HR',
+        'HB',
+        'BB',
+        'IBB',
+        'SO',
+        'WP',
+        'BK',
+        'GIDP',
+        'P_INH_RUNNER',
+        'P_INH_RUNNER_SCORED',
+        'AO',
+        'GO',
+        'G',
+        'GS',
+        'W',
+        'L',
+        'HLD',
+        'GF',
+        'CG',
+        'SHO',
+        'SV',
+        'BSV',
+        'SVO']
       key.each do |k|
         v = b.attribute(k).text
         @data[:pitcher][p_num][k.to_sym] = v
