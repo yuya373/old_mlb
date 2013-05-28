@@ -1,4 +1,4 @@
-= debug @data
+= debug @data[:batter][0]
 .hero-unit
   %h4= @data[:team_name]
   %ul.inline
@@ -114,7 +114,7 @@
       %td= @data[h_a_p][:SV]
       %td= @data[h_a_p][:BSV]
       %td= @data[h_a_p][:SVO]
-%h2 打者成績
+  %h2 打者成績
   %table.table.table-bordered
     %thead
       %tr
@@ -154,9 +154,55 @@
         %th 代打:ヒット
         %th 代打:ホームラン
         %th 代打:打点
-        %th 最近10打席:ヒット
-        %th 最近10打席:ホームラン
-        %th 最近10打席:打点
+        %th 最近10試合:打数
+        %th 最近10試合:ヒット
+        %th 最近10試合:ホームラン
+        %th 最近10試合:打点
+    %tbody
+      -b_num = 0
+      -while @data[:batter][b_num]
+        %tr
+          %td= @data[:batter][b_num][:name]
+          %td= @data[:batter][b_num][:POS]
+          %td= @data[:batter][b_num][:JERSEY_NUMBER]
+          %td= @data[:batter][b_num][:H]
+          %td= @data[:batter][b_num][:AB]
+          %td= @data[:batter][b_num][:TB]
+          %td= @data[:batter][b_num][:AVG]
+          %td= @data[:batter][b_num][:SLG]
+          %td= @data[:batter][b_num][:A]
+          %td= @data[:batter][b_num][:E]
+          %td= @data[:batter][b_num][:PO]
+          %td= @data[:batter][b_num][:G]
+          %td= @data[:batter][b_num][:R]
+          %td= @data[:batter][b_num][:B2]
+          %td= @data[:batter][b_num][:B3]
+          %td= @data[:batter][b_num][:HR]
+          %td= @data[:batter][b_num][:RBI]
+          %td= @data[:batter][b_num][:SAC]
+          %td= @data[:batter][b_num][:SF]
+          %td= @data[:batter][b_num][:HBP]
+          %td= @data[:batter][b_num][:BB]
+          %td= @data[:batter][b_num][:IBB]
+          %td= @data[:batter][b_num][:SO]
+          %td= @data[:batter][b_num][:SB]
+          %td= @data[:batter][b_num][:CS]
+          %td= @data[:batter][b_num][:GIDP]
+          %td= @data[:batter][b_num][:OPS]
+          %td= @data[:batter][b_num][:OBP]
+          %td= @data[:batter][b_num][:NP]
+          %td= @data[:batter][b_num][:GO]
+          %td= @data[:batter][b_num][:AO]
+          %td= @data[:batter][b_num][:TPA]
+          %td= @data[:batter][b_num][:OF_A]
+          %td= @data[:batter][b_num][:PH_AB]
+          %td= @data[:batter][b_num][:PH_H]
+          %td= @data[:batter][b_num][:PH_HR]
+          %td= @data[:batter][b_num][:PH_RBI]
+          %td= @data[:batter][b_num][:LAST10_H]
+          %td= @data[:batter][b_num][:LAST10_HR]
+          %td= @data[:batter][b_num][:LAST10_RBI]
+          - b_num += 1
 
 
 
