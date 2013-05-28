@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def build_team_url(id)
+    url = "http://gd2.mlb.com/components/team/stats/#{id}-stats.xml"
+  end
+
   def build_today
     date = Date.today.to_s
     year = date.slice(0,4)

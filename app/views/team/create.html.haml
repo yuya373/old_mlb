@@ -1,0 +1,195 @@
+= debug @data
+.hero-unit
+  %h4= @data[:team_name]
+  %ul.inline
+    %li= "#{@data[:date]}現在"
+.span12
+  %h2 チーム打撃成績
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th ヒット
+        %th 打数
+        %th 塁打数
+        %th 打率
+        %th 長打率
+        %th 出塁率
+        %th OPS
+        %th 試合数
+        %th 得点
+        %th 二塁打
+        %th 三塁打
+        %th ホームラン
+        %th 打点
+        %th 犠打
+        %th 犠牲フライ
+        %th 死球
+        %th 四球
+        %th 敬遠
+        %th 三振
+        %th 盗塁
+        %th 盗塁失敗
+        %th 併殺
+    %tbody
+      %tr
+        -if @data[:home_batting]
+          -h_a_b = :home_batting
+        -else
+          -h_a_b = :away_batting
+        %td= @data[h_a_b][:H]
+        %td= @data[h_a_b][:AB]
+        %td= @data[h_a_b][:TB]
+        %td= @data[h_a_b][:AVG]
+        %td= @data[h_a_b][:SLG]
+        %td= @data[h_a_b][:OBP]
+        %td= @data[h_a_b][:OPS]
+        %td= @data[h_a_b][:G]
+        %td= @data[h_a_b][:R]
+        %td= @data[h_a_b][:B2]
+        %td= @data[h_a_b][:B3]
+        %td= @data[h_a_b][:HR]
+        %td= @data[h_a_b][:RBI]
+        %td= @data[h_a_b][:SAC]
+        %td= @data[h_a_b][:SF]
+        %td= @data[h_a_b][:HBP]
+        %td= @data[h_a_b][:BB]
+        %td= @data[h_a_b][:IBB]
+        %td= @data[h_a_b][:SO]
+        %td= @data[h_a_b][:SB]
+        %td= @data[h_a_b][:CS]
+        %td= @data[h_a_b][:GIDP]
+  %h2 チーム投手成績
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th 投球回
+        %th 自責点
+        %th 防御率
+        %th ウィップ
+        %th ヒット
+        %th 失点
+        %th 被ホームラン
+        %th 四球
+        %th 死球
+        %th 敬遠
+        %th 奪三振
+        %th ワイルドピッチ
+        %th 試合数
+        %th 先発数
+        %th 勝ち
+        %th 負け
+        %th 完投
+        %th 最終投手？
+
+        %th 完封
+        %th セーブ
+        %th セーブ失敗？
+        %th セーブ機会
+    %tbody
+      %tr
+      -if @data[:home_pitching]
+        -h_a_p = :home_pitching
+      -else
+        -h_a_p = :away_pitching
+      %td= @data[h_a_p][:IP]
+      %td= @data[h_a_p][:ER]
+      %td= @data[h_a_p][:ERA]
+      %td= @data[h_a_p][:WHIP]
+      %td= @data[h_a_p][:H]
+      %td= @data[h_a_p][:R]
+      %td= @data[h_a_p][:HR]
+      %td= @data[h_a_p][:HB]
+      %td= @data[h_a_p][:BB]
+      %td= @data[h_a_p][:IBB]
+      %td= @data[h_a_p][:SO]
+      %td= @data[h_a_p][:SO]
+      %td= @data[h_a_p][:WP]
+      %td= @data[h_a_p][:G]
+      %td= @data[h_a_p][:GS]
+      %td= @data[h_a_p][:W]
+      %td= @data[h_a_p][:L]
+      %td= @data[h_a_p][:CG]
+      %td= @data[h_a_p][:GF]
+      %td= @data[h_a_p][:SHO]
+      %td= @data[h_a_p][:SV]
+      %td= @data[h_a_p][:BSV]
+      %td= @data[h_a_p][:SVO]
+%h2 打者成績
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th
+        %th ポジション
+        %th 背番号
+        %th ヒット
+        %th 打数
+        %th 塁打数
+        %th 打率
+        %th 長打率
+        %th 補殺
+        %th エラー
+        %th 刺殺数
+        %th 試合数
+        %th 得点
+        %th 二塁打
+        %th 三塁打
+        %th ホームラン
+        %th 打点
+        %th 犠打
+        %th 犠牲フライ
+        %th 犠牲フライ
+        %th 死球
+        %th 四球
+        %th 敬遠
+        %th 三振
+        %th 盗塁
+        %th 盗塁失敗
+        %th 併殺
+        %th OPS
+        %th 被投球数
+        %th ゴロアウト
+        %th フライアウト
+        %th 打席数
+        %th 外野補殺数
+        %th 代打:ヒット
+        %th 代打:ホームラン
+        %th 代打:打点
+        %th 最近10打席:ヒット
+        %th 最近10打席:ホームラン
+        %th 最近10打席:打点
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

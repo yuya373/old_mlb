@@ -1,0 +1,5 @@
+#form.form-inline
+  #span.help-inline チームを選んでください
+  = form_tag({:controller => 'team', :action => 'create'}) do
+    = collection_select :team, :name, @tname, :fname, :fname
+    = submit_tag :Go!, :class => 'btn btn-primary'
