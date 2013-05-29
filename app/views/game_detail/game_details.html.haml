@@ -1,3 +1,4 @@
+= debug @data[:batting][:away][1].keys
 .hero-unit
   %h3= @data[:away_fname] + ' - ' + @data[:home_fname]
   %ul.inline
@@ -13,44 +14,27 @@
 %table.table.table-bordered
   %tr
     %th
-    %th 1
-    %th 2
-    %th 3
-    %th 4
-    %th 5
-    %th 6
-    %th 7
-    %th 8
-    %th 9
+    - @data[:inning_line_score].each do |k,v|
+      %th= k
     %th R
     %th H
     %th E
   %tbody
     %tr
       %th= @data[:away_sname]
-      %td= @data[:inning_line_score][1][:away]
-      %td= @data[:inning_line_score][2][:away]
-      %td= @data[:inning_line_score][3][:away]
-      %td= @data[:inning_line_score][4][:away]
-      %td= @data[:inning_line_score][5][:away]
-      %td= @data[:inning_line_score][6][:away]
-      %td= @data[:inning_line_score][7][:away]
-      %td= @data[:inning_line_score][8][:away]
-      %td= @data[:inning_line_score][9][:away]
+      -a_inn_number = 1
+      -while @data[:inning_line_score][a_inn_number]
+        %td= @data[:inning_line_score][a_inn_number][:away]
+        -a_inn_number += 1
       %td= @data[:linescore][:away_team_runs]
       %td= @data[:linescore][:away_team_hits]
       %td= @data[:linescore][:away_team_errors]
     %tr
       %th= @data[:home_sname]
-      %td= @data[:inning_line_score][1][:home]
-      %td= @data[:inning_line_score][2][:home]
-      %td= @data[:inning_line_score][3][:home]
-      %td= @data[:inning_line_score][4][:home]
-      %td= @data[:inning_line_score][5][:home]
-      %td= @data[:inning_line_score][6][:home]
-      %td= @data[:inning_line_score][7][:home]
-      %td= @data[:inning_line_score][8][:home]
-      %td= @data[:inning_line_score][9][:home]
+      -h_inn_number = 1
+      -while @data[:inning_line_score][h_inn_number]
+        %td= @data[:inning_line_score][h_inn_number][:home]
+        -h_inn_number += 1
       %td= @data[:linescore][:home_team_runs]
       %td= @data[:linescore][:home_team_hits]
       %td= @data[:linescore][:home_team_errors]
@@ -64,93 +48,38 @@
           %thead
             %tr
               %th
-              %th 奪ったアウトの数
-              %th 対戦打者数
-              %th 自責点
-              %th 失点
-              %th 被安打
-              %th 奪三振
-              %th 被本塁打
-              %th 四球
-              %th 球数
-              %th ストライク
-              %th 勝ち
-              %th 負け
-              %th セーブ
-              %th セーブ失敗
-              %th ホールド
-              %th シーズン投球回
-              %th シーズン被安打
-              %th シーズン自責点
-              %th シーズン四球
-              %th シーズン奪三振
-              %th 防御率
-              %th loss?
-              %th note
+              -@data[:pitching][:away][1].each do |k,v|
+                -case k
+                -when :id
+                -when :name_display_first_last
+                -when :loss
+                -else
+                  %th= t(k, :scope => 'pitch')
           %tbody
           - ap_number = 1
           - while @data[:pitching][:away][ap_number]
             %tr
-              %th= link_to @data[:pitching][:away][ap_number][:name], {:controller => 'pitchers', :action => 'pitcher', :p_id => "#{@data[:pitching][:away][ap_number][:id]}", :gid => @gid}, :method => :post
-              %td= @data[:pitching][:away][ap_number][:out]
-              %td= @data[:pitching][:away][ap_number][:bf]
-              %td= @data[:pitching][:away][ap_number][:er]
-              %td= @data[:pitching][:away][ap_number][:r]
-              %td= @data[:pitching][:away][ap_number][:h]
-              %td= @data[:pitching][:away][ap_number][:so]
-              %td= @data[:pitching][:away][ap_number][:hr]
-              %td= @data[:pitching][:away][ap_number][:bb]
-              %td= @data[:pitching][:away][ap_number][:np]
-              %td= @data[:pitching][:away][ap_number][:s]
-              %td= @data[:pitching][:away][ap_number][:w]
-              %td= @data[:pitching][:away][ap_number][:l]
-              %td= @data[:pitching][:away][ap_number][:sv]
-              %td= @data[:pitching][:away][ap_number][:sv]
-              %td= @data[:pitching][:away][ap_number][:hld]
-              %td= @data[:pitching][:away][ap_number][:s_ip]
-              %td= @data[:pitching][:away][ap_number][:s_h]
-              %td= @data[:pitching][:away][ap_number][:s_er]
-              %td= @data[:pitching][:away][ap_number][:s_bb]
-              %td= @data[:pitching][:away][ap_number][:s_so]
-              %td= @data[:pitching][:away][ap_number][:era]
-              %td= @data[:pitching][:away][ap_number][:loss]
-              %td= @data[:pitching][:away][ap_number][:note]
+              %th= link_to @data[:pitching][:away][ap_number][:name_display_first_last], {:controller => 'pitchers', :action => 'pitcher', :p_id => "#{@data[:pitching][:away][ap_number][:id]}", :gid => @gid}, :method => :post
+              -@data[:pitching][:away][ap_number].each do |k,v|
+                -case k
+                -when :id
+                -when :name_display_first_last
+                -when :loss
+                -else
+                  %td= v
             -ap_number += 1
         %p 野手
         %table.table.table-bordered.table-condensed
           %thead
             %tr
               %th
-              %th ポジション
-              %th 打順
-              %th 打率
-              %th 打数
-              %th ヒット
-              %th 二塁打
-              %th 三塁打
-              %th ホームラン
-              %th 四球
-              %th 死球
-              %th 犠牲フライ
-              %th 打点
-              %th 盗塁
-              %th 犠打
-              %th 盗塁失敗
-              %th 三振
-              %th ゴロアウト
-              %th フライアウト
-              %th 残塁数
-              %th 刺殺
-              %th 得点
-              %th 補殺
-              %th エラー
-              %th 守備率
-              %th シーズン本塁打
-              %th シーズン打点
-              %th シーズンヒット
-              %th シーズン四球
-              %th シーズン得点
-              %th シーズン三振
+              -@data[:batting][:away][2].each do |k,v|
+                -case k
+                -when :id
+                -when :name
+                -when :name_display_first_last
+                -else
+                  %th= t(k, :scope => 'bat')
           %tbody
           - ab_number = 1
           - while @data[:batting][:away][ab_number]
@@ -159,36 +88,13 @@
             -else
               %tr
                 %th= link_to @data[:batting][:away][ab_number][:name], {:controller => 'batters', :action => 'batter', :b_id => "#{@data[:batting][:away][ab_number][:id]}", :gid => @gid}, :method => :post
-                %td= @data[:batting][:away][ab_number][:pos]
-                %td= @data[:batting][:away][ab_number][:bo]
-                %td= @data[:batting][:away][ab_number][:avg]
-                %td= @data[:batting][:away][ab_number][:ab]
-                %td= @data[:batting][:away][ab_number][:h]
-                %td= @data[:batting][:away][ab_number][:d]
-                %td= @data[:batting][:away][ab_number][:t]
-                %td= @data[:batting][:away][ab_number][:hr]
-                %td= @data[:batting][:away][ab_number][:bb]
-                %td= @data[:batting][:away][ab_number][:hbp]
-                %td= @data[:batting][:away][ab_number][:sf]
-                %td= @data[:batting][:away][ab_number][:rbi]
-                %td= @data[:batting][:away][ab_number][:sb]
-                %td= @data[:batting][:away][ab_number][:cs]
-                %td= @data[:batting][:away][ab_number][:sac]
-                %td= @data[:batting][:away][ab_number][:so]
-                %td= @data[:batting][:away][ab_number][:go]
-                %td= @data[:batting][:away][ab_number][:ao]
-                %td= @data[:batting][:away][ab_number][:lob]
-                %td= @data[:batting][:away][ab_number][:po]
-                %td= @data[:batting][:away][ab_number][:r]
-                %td= @data[:batting][:away][ab_number][:a]
-                %td= @data[:batting][:away][ab_number][:e]
-                %td= @data[:batting][:away][ab_number][:fldg]
-                %td= @data[:batting][:away][ab_number][:s_hr]
-                %td= @data[:batting][:away][ab_number][:s_rbi]
-                %td= @data[:batting][:away][ab_number][:s_h]
-                %td= @data[:batting][:away][ab_number][:s_bb]
-                %td= @data[:batting][:away][ab_number][:s_r]
-                %td= @data[:batting][:away][ab_number][:s_so]
+                -@data[:batting][:away][ab_number].each do |k,v|
+                  -case k
+                  -when :id
+                  -when :name
+                  -when :name_display_first_last
+                  -else
+                    %td= v
               - ab_number += 1
         %h5= "#{@data[:home_sname]}選手一覧"
         .row-fluidshow-grid
@@ -198,92 +104,35 @@
               %thead
                 %tr
                   %th
-                  %th 奪ったアウトの数
-                  %th 対戦打者数
-                  %th 自責点
-                  %th 失点
-                  %th 被安打
-                  %th 奪三振
-                  %th 被本塁打
-                  %th 四球
-                  %th 球数
-                  %th ストライク
-                  %th 勝ち
-                  %th 負け
-                  %th セーブ
-                  %th セーブ失敗
-                  %th ホールド
-                  %th シーズン投球回
-                  %th シーズン被安打
-                  %th シーズン自責点
-                  %th シーズン四球
-                  %th シーズン奪三振
-                  %th 防御率
-                  %th loss?
-                  %th note
+                  -@data[:pitching][:home][1].each do |k,v|
+                    -case k
+                    -when :id
+                    -when :name_display_first_last
+                    -else
+                      %th= t(k, :scope => 'pitch')
               %tbody
                 - hp_number = 1
                 - while @data[:pitching][:home][hp_number]
                   %tr
-                    %th= link_to @data[:pitching][:home][hp_number][:name], {:controller => 'pitchers', :action => 'pitcher', :p_id => "#{@data[:pitching][:home][hp_number][:id]}", :gid => @gid}, :method => :post
-                    %td= @data[:pitching][:home][hp_number][:out]
-                    %td= @data[:pitching][:home][hp_number][:bf]
-                    %td= @data[:pitching][:home][hp_number][:er]
-                    %td= @data[:pitching][:home][hp_number][:r]
-                    %td= @data[:pitching][:home][hp_number][:h]
-                    %td= @data[:pitching][:home][hp_number][:so]
-                    %td= @data[:pitching][:home][hp_number][:hr]
-                    %td= @data[:pitching][:home][hp_number][:bb]
-                    %td= @data[:pitching][:home][hp_number][:np]
-                    %td= @data[:pitching][:home][hp_number][:s]
-                    %td= @data[:pitching][:home][hp_number][:w]
-                    %td= @data[:pitching][:home][hp_number][:l]
-                    %td= @data[:pitching][:home][hp_number][:sv]
-                    %td= @data[:pitching][:home][hp_number][:sv]
-                    %td= @data[:pitching][:home][hp_number][:hld]
-                    %td= @data[:pitching][:home][hp_number][:s_ip]
-                    %td= @data[:pitching][:home][hp_number][:s_h]
-                    %td= @data[:pitching][:home][hp_number][:s_er]
-                    %td= @data[:pitching][:home][hp_number][:s_bb]
-                    %td= @data[:pitching][:home][hp_number][:s_so]
-                    %td= @data[:pitching][:home][hp_number][:era]
-                    %td= @data[:pitching][:home][hp_number][:loss]
-                    %td= @data[:pitching][:home][hp_number][:note]
-                  -hp_number += 1
+                    %th= link_to @data[:pitching][:home][hp_number][:name_display_first_last], {:controller => 'pitchers', :action => 'pitcher', :p_id => "#{@data[:pitching][:home][hp_number][:id]}", :gid => @gid}, :method => :post
+                    -@data[:pitching][:home][hp_number].each do |k,v|
+                      -case k
+                      -when :id
+                      -when :name_display_first_last
+                      -else
+                        %td= v
+                    -hp_number += 1
             %p 野手
             %table.table.table-bordered.table-condensed
               %thead
                 %th
-                %th ポジション
-                %th 打順
-                %th 打率
-                %th 打数
-                %th ヒット
-                %th 二塁打
-                %th 三塁打
-                %th ホームラン
-                %th 四球
-                %th 死球
-                %th 犠牲フライ
-                %th 打点
-                %th 盗塁
-                %th 盗塁失敗
-                %th 犠打
-                %th 三振
-                %th ゴロアウト
-                %th フライアウト
-                %th 残塁数
-                %th 刺殺
-                %th 得点
-                %th 補殺
-                %th エラー
-                %th 守備率
-                %th シーズン本塁打
-                %th シーズン打点
-                %th シーズンヒット
-                %th シーズン四球
-                %th シーズン得点
-                %th シーズン三振
+                -@data[:batting][:home][1].each do |k,v|
+                  -case k
+                  -when :id
+                  -when :name
+                  -when :name_display_first_last
+                  -else
+                    %th= t(k, :scope => 'bat')
               %tbody
                 - hb_number = 1
                 - while @data[:batting][:home][hb_number]
@@ -292,34 +141,11 @@
                   -else
                     %tr
                       %th= link_to @data[:batting][:home][hb_number][:name], {:controller => 'batters', :action => 'batter', :b_id => "#{@data[:batting][:home][hb_number][:id]}", :gid => @gid}, :method => :post
-                      %td= @data[:batting][:home][hb_number][:pos]
-                      %td= @data[:batting][:home][hb_number][:bo]
-                      %td= @data[:batting][:home][hb_number][:avg]
-                      %td= @data[:batting][:home][hb_number][:ab]
-                      %td= @data[:batting][:home][hb_number][:h]
-                      %td= @data[:batting][:home][hb_number][:d]
-                      %td= @data[:batting][:home][hb_number][:t]
-                      %td= @data[:batting][:home][hb_number][:hr]
-                      %td= @data[:batting][:home][hb_number][:bb]
-                      %td= @data[:batting][:home][hb_number][:hbp]
-                      %td= @data[:batting][:home][hb_number][:sf]
-                      %td= @data[:batting][:home][hb_number][:rbi]
-                      %td= @data[:batting][:home][hb_number][:sb]
-                      %td= @data[:batting][:home][hb_number][:cs]
-                      %td= @data[:batting][:home][hb_number][:sac]
-                      %td= @data[:batting][:home][hb_number][:so]
-                      %td= @data[:batting][:home][hb_number][:go]
-                      %td= @data[:batting][:home][hb_number][:ao]
-                      %td= @data[:batting][:home][hb_number][:lob]
-                      %td= @data[:batting][:home][hb_number][:po]
-                      %td= @data[:batting][:home][hb_number][:r]
-                      %td= @data[:batting][:home][hb_number][:a]
-                      %td= @data[:batting][:home][hb_number][:e]
-                      %td= @data[:batting][:home][hb_number][:fldg]
-                      %td= @data[:batting][:home][hb_number][:s_hr]
-                      %td= @data[:batting][:home][hb_number][:s_rbi]
-                      %td= @data[:batting][:home][hb_number][:s_h]
-                      %td= @data[:batting][:home][hb_number][:s_bb]
-                      %td= @data[:batting][:home][hb_number][:s_r]
-                      %td= @data[:batting][:home][hb_number][:s_so]
+                      -@data[:batting][:home][hb_number].each do |k,v|
+                        -case k
+                        -when :id
+                        -when :name
+                        -when :name_display_first_last
+                        -else
+                          %td= v
                     - hb_number += 1

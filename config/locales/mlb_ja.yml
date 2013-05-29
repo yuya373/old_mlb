@@ -1,5 +1,35 @@
 ja:
   bat:
+    pos: ポジション
+    bo: 打順
+    ab: 打数
+    po: 刺殺
+    r: 得点
+    a: 補殺
+    bb: 四球
+    sac: 犠打
+    t: 三塁打
+    sf: 犠牲フライ
+    h: ヒット
+    e: エラー
+    d: 二塁打
+    hbp: 死球
+    so: 三振
+    hr: ホームラン
+    rbi: 打点
+    lob: 残塁
+    fldg: 守備率
+    sb: 盗塁
+    cs: 盗塁失敗
+    s_hr: シーズン本塁打
+    s_rbi: シーズン打点
+    s_h: シーズン安打
+    s_bb: シーズン四球
+    s_r: シーズン得点
+    s_so: シーズン三振
+    avg: 打率
+    ao: フライアウト
+    go: ゴロアウト
     POS: ポジション
     JERSEY_NUMBER: 背番号
     LEAGUE: リーグ
@@ -43,6 +73,30 @@ ja:
     LAST10_H: 最近10試合 ヒット
     LAST10_AB: 最近10試合 打数
   pitch:
+    out: 奪ったアウトの数
+    bf: 打者数
+    er: 自責点
+    r: 失点
+    h: 被安打
+    so: 奪三振
+    hr: 被本塁打
+    bb: 四球
+    np: 球数
+    s: ストライク
+    w: 勝ち
+    l: 負け
+    sv: セーブ
+    bs: セーブ失敗
+    hld: ホールド
+    s_ip: シーズン投球回
+    s_h: シーズン被安打
+    s_r: シーズン失点
+    s_er: シーズン防御率
+    s_bb: シーズン四球
+    s_so: シーズン奪三振
+    era: 防御率
+    loss: 負け
+    note: 成績
     JERSEY_NUMBER: 背番号
     AVG: 被打率
     SLG: 被長打率
