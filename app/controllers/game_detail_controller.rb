@@ -34,6 +34,7 @@ class GameDetailController < ApplicationController
 		@data[:away_loss] = boxscore.attribute('away_loss').text
 		@data[:home_wins] = boxscore.attribute('home_wins').text
 		@data[:home_loss] = boxscore.attribute('home_loss').text
+		@data[:status_ind] = boxscore.attribute('status_ind').text
 
 		@data[:linescore] = {}
 
