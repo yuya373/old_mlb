@@ -3,6 +3,9 @@ class BattersController < ApplicationController
   def batter
     gid = params[:gid]
     b_id = params[:b_id]
+    @year = gid.slice(0,4)
+    @month = gid.slice(5,2)
+    @day = gid.slice(8,2)
     url = build_batters_url(gid,b_id)
     doc = Nokogiri::XML(open(url))
 
@@ -126,10 +129,21 @@ class BattersController < ApplicationController
           @data[:vs_lhp][k.to_sym] = v
         end
       end
-
-
     end
+  end
 
-
+  def al_batter
+    @al_batter = Player.where(:league_id => '103')
+    number = 0
+    @batter = {}
+    @al_batter.each do |batter|
+      @batter[number] = {}
+      if batter[:pos] == 'P'
+      else
+        @batter[number][:name] = batter[:name]
+        @batter[number][:pos] = batter[:pos]
+        number += 1
+      end
+    end
   end
 end

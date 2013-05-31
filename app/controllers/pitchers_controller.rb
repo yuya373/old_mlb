@@ -6,6 +6,9 @@ class PitchersController < ApplicationController
   def pitcher
     p_id = params[:p_id]
     gid = params[:gid]
+    @year = gid.slice(0,4)
+    @month = gid.slice(5,2)
+    @day = gid.slice(8,2)
     url = build_pitchers_url(gid,p_id)
     doc = Nokogiri::XML(open(url))
 

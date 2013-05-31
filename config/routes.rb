@@ -2,12 +2,13 @@ Mlb::Application.routes.draw do
   root to: 'data#new'
   resources :team
   resources :data
-  get 'master_scoreboard/create' => 'master_scoreboard#today_score'
+  get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'
   resources :master_scoreboard
-  post 'game_detail/details' => 'game_detail#game_details'
+  post 'game_detail' => 'game_detail#game_details'
   resources :game_detail
-  post 'pitchers/pitcher' => 'pitchers#pitcher'
-  post 'batters/batter' => 'batters#batter'
+  post 'pitcher' => 'pitchers#pitcher'
+  post 'batter' => 'batters#batter'
+  get 'al_batter', to: 'batters#al_batter'
 
   # get 'master_scoreboard' => 'master_scoreboard#index'
   # get 'master_scoreboard/show' => 'master_scoreboard#show'
