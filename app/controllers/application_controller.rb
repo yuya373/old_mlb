@@ -41,14 +41,22 @@ class ApplicationController < ActionController::Base
     year = gid.slice(0,4)
     month = gid.slice(5,2)
     day = gid.slice(8,2)
-    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{gid}/pitchers/#{p_id}.xml"
+    away_team = gid.slice(11,6)
+    home_team = gid.slice(18,6)
+    num = gid.slice(25,1)
+
+    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/pitchers/#{p_id}.xml"
   end
 
   def build_batters_url(gid,b_id)
     year = gid.slice(0,4)
     month = gid.slice(5,2)
     day = gid.slice(8,2)
-    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{gid}/batters/#{b_id}.xml"
+    # 2013/06/01/wasmlb-atlmlb-1
+    away_team = gid.slice(11,6)
+    home_team = gid.slice(18,6)
+    num = gid.slice(25,1)
+    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/batters/#{b_id}.xml"
   end
 
 	def get_gid(team_name,year,month,day)

@@ -55,6 +55,7 @@ class TeamController < ApplicationController
 
     batter.each do |b|
       key = [
+        'id',
       'name',
       'POS',
       'JERSEY_NUMBER',
@@ -113,6 +114,7 @@ class TeamController < ApplicationController
     pitcher.each do |b|
       @data[:pitcher][p_num] = {}
       key = [
+        'id',
         'name',
         'JERSEY_NUMBER',
         'IP',

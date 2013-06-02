@@ -10,6 +10,7 @@ gem 'debugger'
 gem 'haml-rails'
 gem 'erb2haml'
 gem 'rails-i18n'
+gem 'whenever', :require => false
 
 
 # Gems used only for assets and not required

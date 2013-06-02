@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130527061819) do
+ActiveRecord::Schema.define(version: 20130602133614) do
+
+  create_table "batters", force: true do |t|
+    t.string   "name"
+    t.integer  "p_id"
+    t.integer  "team_id"
+    t.float    "avg"
+    t.integer  "ab"
+    t.integer  "h"
+    t.integer  "r"
+    t.integer  "rbi"
+    t.integer  "single"
+    t.integer  "double"
+    t.integer  "triple"
+    t.integer  "hr"
+    t.integer  "bb"
+    t.integer  "hbp"
+    t.integer  "sb"
+    t.integer  "cs"
+    t.integer  "so"
+    t.integer  "err"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "data", force: true do |t|
     t.string   "gid"
@@ -28,6 +51,27 @@ ActiveRecord::Schema.define(version: 20130527061819) do
     t.string   "gid"
     t.string   "team_name"
     t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pitchers", force: true do |t|
+    t.string   "name"
+    t.integer  "p_id"
+    t.integer  "team_id"
+    t.float    "era"
+    t.integer  "w"
+    t.integer  "l"
+    t.float    "whip"
+    t.float    "ip"
+    t.integer  "h"
+    t.integer  "er"
+    t.integer  "r"
+    t.integer  "bb"
+    t.integer  "k"
+    t.integer  "sv"
+    t.integer  "hbp"
+    t.integer  "hra"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

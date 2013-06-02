@@ -1,6 +1,7 @@
 class BattersController < ApplicationController
 
   def batter
+    # gid = 2013_05_01_anamlb_oakmlb_1
     gid = params[:gid]
     b_id = params[:b_id]
     @year = gid.slice(0,4)
@@ -133,17 +134,7 @@ class BattersController < ApplicationController
   end
 
   def al_batter
-    @al_batter = Player.where(:league_id => '103')
-    number = 0
-    @batter = {}
-    @al_batter.each do |batter|
-      @batter[number] = {}
-      if batter[:pos] == 'P'
-      else
-        @batter[number][:name] = batter[:name]
-        @batter[number][:pos] = batter[:pos]
-        number += 1
-      end
-    end
+    @b = Batter.where('p_id = :p_id',{:p_id => '492841'})
+    @batter = @b.first
   end
 end
