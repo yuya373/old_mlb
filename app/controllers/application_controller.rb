@@ -9,11 +9,10 @@ class ApplicationController < ActionController::Base
   end
 
   def build_today
-    date = Date.today.to_s
+    date = Date.yesterday.to_s
     year = date.slice(0,4)
     month = date.slice(5,2)
-    day_i = date.slice(8,2).to_i - 1
-    day = day_i.to_s
+    day = date.slice(8,2)
 
     url =  "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/master_scoreboard.xml"
 

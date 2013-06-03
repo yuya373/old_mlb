@@ -9,46 +9,46 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-Pitcher.delete_all
+# Pitcher.delete_all
 
- @all_pitcher = Player.where(:pos => "P")
-    number = 0
-    @pitcher = {}
-    @all_pitcher.each do |pitcher|
-      @pitcher[number] = {
-        p_id: pitcher[:p_id],
-        team_id: pitcher[:team_id],
-        name: pitcher[:name],
-      }
+#  @all_pitcher = Player.where(:pos => "P")
+#     number = 0
+#     @pitcher = {}
+#     @all_pitcher.each do |pitcher|
+#       @pitcher[number] = {
+#         p_id: pitcher[:p_id],
+#         team_id: pitcher[:team_id],
+#         name: pitcher[:name],
+#       }
 
-    url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
+#     url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
 
-    doc = Nokogiri::XML(open(url))
+#     doc = Nokogiri::XML(open(url))
 
-    pitching = doc.css('pitching')
+#     pitching = doc.css('pitching')
 
-    @pitcher[number] = {
-      name: pitcher[:name],
-      p_id: pitcher[:p_id],
-      team_id: pitcher[:team_id],
-      era: pitching.attribute('era').text,
-      w: pitching.attribute('w').text,
-      l: pitching.attribute('l').text,
-      whip: pitching.attribute('whip').text,
-      ip: pitching.attribute('s_ip').text,
-      h: pitching.attribute('s_h').text,
-      er: pitching.attribute('s_er').text,
-      r: pitching.attribute('s_r').text,
-      bb: pitching.attribute('s_bb').text,
-      k: pitching.attribute('s_k').text,
-      sv: pitching.attribute('s_sv').text,
-      hbp: pitching.attribute('s_hbp').text,
-      hra: pitching.attribute('s_hra').text
-    }
+#     @pitcher[number] = {
+#       name: pitcher[:name],
+#       p_id: pitcher[:p_id],
+#       team_id: pitcher[:team_id],
+#       era: pitching.attribute('era').text,
+#       w: pitching.attribute('w').text,
+#       l: pitching.attribute('l').text,
+#       whip: pitching.attribute('whip').text,
+#       ip: pitching.attribute('s_ip').text,
+#       h: pitching.attribute('s_h').text,
+#       er: pitching.attribute('s_er').text,
+#       r: pitching.attribute('s_r').text,
+#       bb: pitching.attribute('s_bb').text,
+#       k: pitching.attribute('s_k').text,
+#       sv: pitching.attribute('s_sv').text,
+#       hbp: pitching.attribute('s_hbp').text,
+#       hra: pitching.attribute('s_hra').text
+#     }
 
-    Pitcher.create(@pitcher[number])
-    number += 1
-    end
+#     Pitcher.create(@pitcher[number])
+#     number += 1
+#     end
 
 
 
