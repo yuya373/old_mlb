@@ -1,0 +1,127 @@
+class AddClomnToPitchers < ActiveRecord::Migration
+  def change
+    add_column :pitchers, :height, :string
+    add_column :pitchers, :weight, :string
+    add_column :pitchers, :dob, :string
+    add_column :pitchers, :career_avg, :float
+    add_column :pitchers, :career_ab, :integer
+    add_column :pitchers, :career_h, :integer
+    add_column :pitchers, :career_bb, :integer
+    add_column :pitchers, :career_so, :integer
+    add_column :pitchers, :career_hr, :integer
+    add_column :pitchers, :career_rbi, :integer
+    add_column :pitchers, :career_w, :integer
+    add_column :pitchers, :career_l, :integer
+    add_column :pitchers, :career_sv, :integer
+    add_column :pitchers, :career_ip, :float
+    add_column :pitchers, :career_whip, :float
+    add_column :pitchers, :career_era, :float
+    add_column :pitchers, :empty_avg, :float
+    add_column :pitchers, :empty_ab, :integer
+    add_column :pitchers, :empty_h, :integer
+    add_column :pitchers, :empty_bb, :integer
+    add_column :pitchers, :empty_so, :integer
+    add_column :pitchers, :empty_sb, :integer
+    add_column :pitchers, :empty_hr, :integer
+    add_column :pitchers, :empty_rbi, :integer
+    add_column :pitchers, :empty_w, :integer
+    add_column :pitchers, :empty_l, :integer
+    add_column :pitchers, :empty_sv, :integer
+    add_column :pitchers, :empty_ip, :float
+    add_column :pitchers, :empty_whip, :float
+    add_column :pitchers, :empty_era, :float
+
+    add_column :pitchers, :month_des, :string
+    add_column :pitchers, :month_avg, :float
+    add_column :pitchers, :month_ab, :integer
+    add_column :pitchers, :month_h, :integer
+    add_column :pitchers, :month_bb, :integer
+    add_column :pitchers, :month_so, :integer
+    add_column :pitchers, :month_sb, :integer
+    add_column :pitchers, :month_hr, :integer
+    add_column :pitchers, :month_rbi, :integer
+    add_column :pitchers, :month_w, :integer
+    add_column :pitchers, :month_l, :integer
+    add_column :pitchers, :month_sv, :integer
+    add_column :pitchers, :month_ip, :float
+    add_column :pitchers, :month_whip, :float
+    add_column :pitchers, :month_era, :float
+
+    add_column :pitchers, :risp_avg, :float
+    add_column :pitchers, :risp_ab, :integer
+    add_column :pitchers, :risp_h, :integer
+    add_column :pitchers, :risp_bb, :integer
+    add_column :pitchers, :risp_so, :integer
+    add_column :pitchers, :risp_sb, :integer
+    add_column :pitchers, :risp_hr, :integer
+    add_column :pitchers, :risp_rbi, :integer
+    add_column :pitchers, :risp_w, :integer
+    add_column :pitchers, :risp_l, :integer
+    add_column :pitchers, :risp_sv, :integer
+    add_column :pitchers, :risp_ip, :float
+    add_column :pitchers, :risp_whip, :float
+    add_column :pitchers, :risp_era, :float
+
+    add_column :pitchers, :men_on_avg, :float
+    add_column :pitchers, :men_on_ab, :integer
+    add_column :pitchers, :men_on_h, :integer
+    add_column :pitchers, :men_on_bb, :integer
+    add_column :pitchers, :men_on_so, :integer
+    add_column :pitchers, :men_on_sb, :integer
+    add_column :pitchers, :men_on_hr, :integer
+    add_column :pitchers, :men_on_rbi, :integer
+    add_column :pitchers, :men_on_w, :integer
+    add_column :pitchers, :men_on_l, :integer
+    add_column :pitchers, :men_on_sv, :integer
+    add_column :pitchers, :men_on_ip, :float
+    add_column :pitchers, :men_on_whip, :float
+    add_column :pitchers, :men_on_era, :float
+
+    add_column :pitchers, :loaded_avg, :float
+    add_column :pitchers, :loaded_ab, :integer
+    add_column :pitchers, :loaded_h, :integer
+    add_column :pitchers, :loaded_bb, :integer
+    add_column :pitchers, :loaded_so, :integer
+    add_column :pitchers, :loaded_sb, :integer
+    add_column :pitchers, :loaded_hr, :integer
+    add_column :pitchers, :loaded_rbi, :integer
+    add_column :pitchers, :loaded_w, :integer
+    add_column :pitchers, :loaded_l, :integer
+    add_column :pitchers, :loaded_sv, :integer
+    add_column :pitchers, :loaded_ip, :float
+    add_column :pitchers, :loaded_whip, :float
+    add_column :pitchers, :loaded_era, :float
+
+    add_column :pitchers, :vs_lhb_avg, :float
+    add_column :pitchers, :vs_lhb_ab, :integer
+    add_column :pitchers, :vs_lhb_h, :integer
+    add_column :pitchers, :vs_lhb_bb, :integer
+    add_column :pitchers, :vs_lhb_so, :integer
+    add_column :pitchers, :vs_lhb_sb, :integer
+    add_column :pitchers, :vs_lhb_hr, :integer
+    add_column :pitchers, :vs_lhb_rbi, :integer
+    add_column :pitchers, :vs_lhb_w, :integer
+    add_column :pitchers, :vs_lhb_l, :integer
+    add_column :pitchers, :vs_lhb_sv, :integer
+    add_column :pitchers, :vs_lhb_ip, :float
+    add_column :pitchers, :vs_lhb_whip, :float
+    add_column :pitchers, :vs_lhb_era, :float
+
+    add_column :pitchers, :vs_rhb_avg, :float
+    add_column :pitchers, :vs_rhb_ab, :integer
+    add_column :pitchers, :vs_rhb_h, :integer
+    add_column :pitchers, :vs_rhb_bb, :integer
+    add_column :pitchers, :vs_rhb_so, :integer
+    add_column :pitchers, :vs_rhb_sb, :integer
+    add_column :pitchers, :vs_rhb_hr, :integer
+    add_column :pitchers, :vs_rhb_rbi, :integer
+    add_column :pitchers, :vs_rhb_w, :integer
+    add_column :pitchers, :vs_rhb_l, :integer
+    add_column :pitchers, :vs_rhb_sv, :integer
+    add_column :pitchers, :vs_rhb_ip, :float
+    add_column :pitchers, :vs_rhb_whip, :float
+    add_column :pitchers, :vs_rhb_era, :float
+
+
+  end
+end

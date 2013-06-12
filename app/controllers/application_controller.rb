@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_score_board_url(year,month,day)
-		date = Date.new(year,month,day).xmlschema
+		date = Date.new(year,month,day).to_s
 		year = date.slice(0,4)
 		month = date.slice(5,2)
 		day = date.slice(8,2)
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
 	def get_gid(team_name,year,month,day)
 
 		url = build_score_board_url(year,month,day)
-    doc = Nokogiri::XML(open (url))
+    doc = Nokogiri::XML(open(url))
 
     # team = {}
     name = team_name
@@ -69,18 +69,19 @@ class ApplicationController < ActionController::Base
     doc.css('game').each do |game|
       # team[team_name] = {}
 
-      if game.attribute('away_code').text === name.to_s
+      if game.attribute('away_code').text == name.to_s
 
         # team[team_name][:team_id] = game.attribute('away_team_id').text
 
         return gid = game.attribute('gameday').text
 
-      elsif game.attribute('home_code').text === name.to_s
+      elsif game.attribute('home_code').text == name.to_s
 
         # team[team_name][:team_id] = game.attribute('home_team_id').text
 
        return gid = game.attribute('gameday').text
-
+      else
+        return nil
       end
     end
   end

@@ -30,6 +30,10 @@
     avg: 打率
     ao: フライアウト
     go: ゴロアウト
+    single: 単打
+    double: 二塁打
+    triple: 三塁打
+    err: エラー
     POS: ポジション
     JERSEY_NUMBER: 背番号
     LEAGUE: リーグ

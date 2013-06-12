@@ -1,0 +1,71 @@
+class CreateTablePitchers < ActiveRecord::Migration
+  def change
+    create_table :pitchers do |t|
+      t.integer :p_id
+      t.string :name
+      t.string :active_sw
+      t.string :status_cd
+      t.string :last_name
+      t.string :name_display_last_first
+      t.string :name_display_first_last
+      t.string :name_display_roster
+      t.string :bats
+      t.string :throws
+      t.string :pos
+      t.integer :jersey_number
+      t.integer :year
+      t.integer :team_id
+      t.string :team_abbrev
+      t.integer :league_id
+      t.string :league
+      t.integer :league_games
+      t.integer :ip
+      t.float :ip_sort
+      t.integer :er
+      t.float :era
+      t.float :era_sort
+      t.integer :h
+      t.integer :r
+      t.integer :hr
+      t.integer :hb
+      t.integer :bb
+      t.integer :ibb
+      t.integer :so
+      t.integer :wp
+      t.float :avg
+      t.float :avg_sort
+      t.float :slg
+      t.float :slg_sort
+      t.float :whip
+      t.float :whip_sort
+      t.float :pct
+      t.float :pct_sort
+      t.integer :ab
+      t.integer :sf
+      t.integer :sac
+      t.integer :gidp
+      t.integer :p_inh_runner
+      t.integer :p_inh_runner_scored
+      t.integer :ao
+      t.integer :go
+      t.integer :np
+      t.integer :bk
+      t.integer :hld
+      t.integer :tpa
+      t.integer :po
+      t.integer :a
+      t.integer :e
+      t.integer :g
+      t.integer :gs
+      t.integer :w
+      t.integer :l
+      t.integer :cg
+      t.integer :gf
+      t.integer :sho
+      t.integer :sv
+      t.integer :bsv
+      t.integer :svo
+      t.timestamps
+    end
+  end
+end

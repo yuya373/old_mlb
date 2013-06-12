@@ -1,5 +1,9 @@
 Mlb::Application.routes.draw do
+  resources :examples
+
   root to: 'data#new'
+  get 'team/:team_id' => 'team#show'
+  get 'team' => 'team#new'
   resources :team
   resources :data
   get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'

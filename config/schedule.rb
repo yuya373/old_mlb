@@ -18,9 +18,18 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :environment, :development
+set :output, { :error => 'log/error.log', :standard => 'log/cron.log' }
+job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
 
-set :environment, "development"
-every 1.day, :at => '1:00 pm' do
-  runner "Batter::all_batter"
-  runner "Pitcher::all_pitcher"
+
+# every 1.minutes do
+# 　runner "Batter.test"
+# end
+
+
+every 1.day, :at => '13:00 pm' do
+  rbenv_bundle_runner "Team.get"
+  rbenv_bundle_runner "Batter.all_batter"
+  rbenv_bundle_runner "Pitcher.all_pitcher"
 end

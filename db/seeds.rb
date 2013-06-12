@@ -9,46 +9,71 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-# Pitcher.delete_all
+# team = Team.where("team_id not ?", nil)
+#     team.each do |t|
 
-#  @all_pitcher = Player.where(:pos => "P")
-#     number = 0
-#     @pitcher = {}
-#     @all_pitcher.each do |pitcher|
-#       @pitcher[number] = {
-#         p_id: pitcher[:p_id],
-#         team_id: pitcher[:team_id],
-#         name: pitcher[:name],
-#       }
+#       url = "http://gd2.mlb.com/components/team/stats/#{t[:team_id]}-stats.xml"
+#       doc = Nokogiri::XML(open(url))
+#       batter = doc.css('TeamStats batter')
+#       game = doc.css('TeamStats')
+#       batter.each do |b|
+#         @batter = {}
+#         @batter[:p_id] = b.attribute('id').text
+#         @batter[:name] = b.attribute('name').text
+#         @batter[:bats] = b.attribute('BATS').text
+#         @batter[:throws] = b.attribute('THROWS').text
+#         @batter[:pos] =  b.attribute('POS').text
+#         @batter[:jersey_number] = b.attribute('JERSEY_NUMBER').text
+#         @batter[:team_id] = b.attribute('TEAM_ID').text
+#         @batter[:league_id] = b.attribute('LEAGUE_ID').text
+#         @batter[:game] = game.children[0].attribute('G').text
+#         @old_player = Player.where('p_id = :p_id', {:p_id => @batter[:p_id]}).first
 
-#     url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
-
-#     doc = Nokogiri::XML(open(url))
-
-#     pitching = doc.css('pitching')
-
-#     @pitcher[number] = {
-#       name: pitcher[:name],
-#       p_id: pitcher[:p_id],
-#       team_id: pitcher[:team_id],
-#       era: pitching.attribute('era').text,
-#       w: pitching.attribute('w').text,
-#       l: pitching.attribute('l').text,
-#       whip: pitching.attribute('whip').text,
-#       ip: pitching.attribute('s_ip').text,
-#       h: pitching.attribute('s_h').text,
-#       er: pitching.attribute('s_er').text,
-#       r: pitching.attribute('s_r').text,
-#       bb: pitching.attribute('s_bb').text,
-#       k: pitching.attribute('s_k').text,
-#       sv: pitching.attribute('s_sv').text,
-#       hbp: pitching.attribute('s_hbp').text,
-#       hra: pitching.attribute('s_hra').text
-#     }
-
-#     Pitcher.create(@pitcher[number])
-#     number += 1
+#         @old_player.update_attributes(@batter)
+#       end
 #     end
+
+Pitcher.delete_all
+
+ @all_pitcher = Player.where(:pos => "P")
+    number = 0
+    @pitcher = {}
+    @all_pitcher.each do |pitcher|
+      @pitcher[number] = {
+        p_id: pitcher[:p_id],
+        team_id: pitcher[:team_id],
+        name: pitcher[:name],
+      }
+
+    url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
+
+    doc = Nokogiri::XML(open(url))
+
+    pitching = doc.css('pitching')
+
+    @pitcher[number] = {
+      name: pitcher[:name],
+      p_id: pitcher[:p_id],
+      team_id: pitcher[:team_id],
+      league_id: pitcher[:league_id],
+      era: pitching.attribute('era').text,
+      w: pitching.attribute('w').text,
+      l: pitching.attribute('l').text,
+      whip: pitching.attribute('whip').text,
+      ip: pitching.attribute('s_ip').text,
+      h: pitching.attribute('s_h').text,
+      er: pitching.attribute('s_er').text,
+      r: pitching.attribute('s_r').text,
+      bb: pitching.attribute('s_bb').text,
+      k: pitching.attribute('s_k').text,
+      sv: pitching.attribute('s_sv').text,
+      hbp: pitching.attribute('s_hbp').text,
+      hra: pitching.attribute('s_hra').text
+    }
+
+    Pitcher.create(@pitcher[number])
+    number += 1
+    end
 
 
 
@@ -73,6 +98,8 @@ require 'open-uri'
 #           name: batter[:name],
 #           p_id: batter[:p_id],
 #           team_id: batter[:team_id],
+#           league_id: batter[:league_id],
+#           game: batter[:game],
 #           avg: batting.attribute('avg').text,
 #           ab: batting.attribute('s_ab').text,
 #           h: batting.attribute('s_h').text,
@@ -90,25 +117,7 @@ require 'open-uri'
 #           err: batting.attribute('s_err').text
 #         }
 
-#         Batter.create(
-#           name: @batter[number][:name],
-#           p_id: @batter[number][:p_id],
-#           team_id: @batter[number][:team_id],
-#           avg: @batter[number][:avg],
-#           ab: @batter[number][:ab],
-#           h: @batter[number][:h],
-#           r: @batter[number][:r],
-#           rbi: @batter[number][:rbi],
-#           single: @batter[number][:single],
-#           double: @batter[number][:double],
-#           triple: @batter[number][:triple],
-#           hr: @batter[number][:hr],
-#           bb: @batter[number][:bb],
-#           hbp: @batter[number][:hbp],
-#           sb: @batter[number][:sb],
-#           cs: @batter[number][:cs],
-#           so: @batter[number][:so],
-#           err: @batter[number][:err])
+#         Batter.create(@batter[number])
 
 #         number += 1
 #       end
@@ -116,12 +125,13 @@ require 'open-uri'
 
 # Player.delete_all
 
-# team = Team.where("team_id not ?",nil)
+# team = Team.where("team_id not ?", nil)
 # team.each do |t|
 
-#   url = "http://gd2.mlb.com/components/team/stats/#{t.team_id}-stats.xml"
+#   url = "http://gd2.mlb.com/components/team/stats/#{t[:team_id]}-stats.xml"
 #   doc = Nokogiri::XML(open(url))
 #   batter = doc.css('TeamStats batter')
+#   game = doc.css('TeamStats')
 #   batter.each do |b|
 #     @batter = {}
 #     @batter[:p_id] = b.attribute('id').text
@@ -132,17 +142,14 @@ require 'open-uri'
 #     @batter[:jersey_number] = b.attribute('JERSEY_NUMBER').text
 #     @batter[:team_id] = b.attribute('TEAM_ID').text
 #     @batter[:league_id] = b.attribute('LEAGUE_ID').text
-#     Player.create(
-#       :p_id => @batter[:p_id],
-#       :name => @batter[:name],
-#       :bats => @batter[:bats],
-#       :throws => @batter[:throws],
-#       :pos => @batter[:pos],
-#       :jersey_number => @batter[:jersey_number],
-#       :team_id => @batter[:team_id],
-#       :league_id => @batter[:league_id]
-#       )
+#     @batter[:game] = game.children[0].attribute('G').text
+#     Player.create(@batter)
 #   end
+
+  # pitcher = doc.css('TeamStats pitcher')
+  # pitcher.each do |p|
+  #   @pitcher = {}
+  # end
 # end
 
 

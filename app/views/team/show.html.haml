@@ -1,0 +1,88 @@
+= debug @team
+= debug @team_pitcher[0]
+/ 内野手
+/ = debug @if_batter
+/ 外野手
+/ = debug @of_batter
+.span6
+  %table.table.table-bordered.table-striped.table-condensed
+    %thead
+      %tr
+        %th Batting
+        -@b_thead.each do |b_head|
+          %th= b_head.slice(3..100)
+    %tbody
+      %tr
+        %td
+        -@b_thead.each do |b_head|
+          %td= @team[b_head.to_sym]
+.span6
+  %table.table.table-bordered.table-striped.table-condensed
+    %thead
+      %tr
+        %th Pitching
+        -@p_thead.each do |p_head|
+          %th= p_head.slice(3..10)
+
+    %tbody
+      %tr
+      -@p_thead.each do |p_head|
+        %td= @team[p_head.to_sym]
+.row-fluid
+  .span12
+    .span6
+      %table.table.table-bordered.table-striped.table-condensed
+        %tbody
+          %tr
+            %th 内野手
+            %th Pos
+            %th avg
+            %th last10 ab
+            %th last10 h
+            %th last10 hr
+            %th last10 rbi
+          -@if_batter.each do |batter|
+            %tr
+              %td= batter.name_display_first_last
+              %td= batter.pos
+              %td= batter.avg
+              %td= batter.last10_ab
+              %td= batter.last10_h
+              %td= batter.last10_hr
+              %td= batter.last10_rbi
+          %tr
+            %th 外野手
+            %th Pos
+            %th avg
+            %th last10 ab
+            %th last10 h
+            %th last10 hr
+            %th last10 rbi
+
+          -@of_batter.each do |batter|
+            %tr
+              %td= batter.name_display_first_last
+              %td= batter.pos
+              %td= batter.avg
+              %td= batter.last10_ab
+              %td= batter.last10_h
+              %td= batter.last10_hr
+              %td= batter.last10_rbi
+    .span5
+      %table.table.table-bordered.table-striped.table-condensed
+        %tbody
+          %tr
+            %th 投手
+            %th ip
+            %th era
+            %th whip
+            %th avg
+            %th slg
+            -@team_pitcher.each do |p|
+              %tr
+                %td= p.name_display_first_last
+                %td= p.ip
+                %td= p.era
+                %td= p.whip
+                %td= p.avg
+                %td= p.slg

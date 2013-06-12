@@ -134,7 +134,66 @@ class BattersController < ApplicationController
   end
 
   def al_batter
-    @b = Batter.where('p_id = :p_id',{:p_id => '492841'})
-    @batter = @b.first
+
+
+    @batter = Batter.where('league_id = :league_id',{:league_id => '103'}).order('avg DESC')
+    @p = {}
+    num = 0
+    @batter.each do |batter|
+      @p[batter[:p_id]] = batter.player
+      num += 1
+    end
+
+    number = 0
+    @r_atbat = []
+    @nr_atbat = []
+    @batter.each do |batter|
+      @player = @p[batter[:p_id]]
+      if @player
+        game_counts = @player.game
+        atbat =batter[:ab]
+        if atbat > (game_counts * 3.1)
+          @r_atbat << batter
+        else
+          @nr_atbat << batter
+        end
+      end
+      number += 1
+    end
+
+    # @b = @batter[1].player.game
+    # @game_counts = @batter[0].player
+    # num = 0
+    # @a_batter = []
+    # while @batter[num]
+    #   @game_counts = @batter[num].player
+      # if (@batter[num][:ab].to_i) > (@game_counts * 3.1)
+        # @a_batter << @batter[num]
+      # else
+      # end
+      # num += 1
+    # end
+    @att = Batter.attribute_names
+    @thead = [
+      'name',
+      'avg',
+      'ab',
+      'h',
+      'r',
+      'rbi',
+      'single',
+      'double',
+      'triple',
+      'hr',
+      'bb',
+      'hbp',
+      'sb',
+      'cs',
+      'so',
+      'err',
+
+    ]
+
+
   end
 end

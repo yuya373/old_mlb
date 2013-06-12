@@ -1,21 +1,91 @@
 class TeamController < ApplicationController
 
+  before_action :set_team, only: [:show]
+
+
   def index
 
   end
 
   def new
     @team = Team.new
-    @tname = Team.select('DISTINCT fname')
+    @team_name = Team.select('DISTINCT team_name')
+    @ale_team = Team.league_division(['110','111','141','139','147'])
+    @alc_team = Team.league_division(['114','116','142','118','145'])
+    @alw_team = Team.league_division(['108','117','133','136','140'])
+    @nle_team = Team.league_division(['120','121','143','144','146'])
+    @nlc_team = Team.league_division(['112','113','134','138','158'])
+    @nlw_team = Team.league_division(['109','115','119','135','137'])
   end
 
   def show
+    @b_thead = [
+      'tb_avg',
+      'tb_slg',
+      'tb_obp',
+      'tb_ops',
+      'tb_ab',
+      'tb_tb',
+      'tb_h',
+      'tb_b2',
+      'tb_b3',
+      'tb_hr',
+      'tb_rbi',
+      'tb_sac',
+      'tb_sf',
+      'tb_bb',
+      'tb_ibb',
+      'tb_so',
+      'tb_sb',
+      'tb_cs',
+      'tb_gidp'
+    ]
+
+    @p_thead = [
+      'tp_era',
+      'tp_whip',
+      'tp_ip',
+      'tp_er',
+      'tp_h',
+      'tp_r',
+      'tp_hr',
+      'tp_hb',
+      'tp_bb',
+      'tp_ibb',
+      'tp_so',
+      'tp_wp',
+      'tp_w',
+      'tp_l',
+      'tp_cg',
+      'tp_sho',
+      'tp_sv',
+      'tp_bsv',
+      'tp_svo',
+    ]
+    @of_batter = []
+    @if_batter = []
+    @team_batter.each do |batter|
+      case batter.pos
+      when 'CF'
+        @of_batter << batter
+
+      when 'LF'
+        @of_batter << batter
+
+      when 'RF'
+        @of_batter << batter
+      when 'P'
+      else
+        @if_batter << batter
+      end
+
+    end
   end
 
   def create
-    @name = params[:team][:name]
-    @team = Team.where(fname: @name)
-    id = @team[0][:team_id]
+    @name = params[:team][:team_name]
+    @team = Team.where('team_name = ?',@name).first
+    id = @team[:team_id]
 
     url = build_team_url(id)
 
@@ -158,4 +228,10 @@ class TeamController < ApplicationController
 
   end
 
+  private
+  def set_team
+    @team = Team.where('team_id = ?', params[:team_id]).first
+    @team_batter = @team.batters.order('pos asc')
+    @team_pitcher = @team.pitchers.order('ip desc')
+  end
 end

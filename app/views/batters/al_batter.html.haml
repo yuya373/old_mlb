@@ -1,1 +1,28 @@
-= debug @batter
+= debug @nr_atbat[0]
+= debug @r_atbat[0]
+.span9
+  %table.table.table-bordered
+    %thead
+      %tr
+      -@thead.each do |k|
+        %th= t(k, :scope => :bat)
+    %tbody
+    -r_number = 0
+    -while @r_atbat[r_number]
+      %tr
+        -@thead.each do |k|
+          %td= @r_atbat[r_number][k.to_sym]
+        -r_number += 1
+    %thead
+      %tr
+        %th 規定到達未満
+      %tr
+      -@thead.each do |k|
+        %th= t(k, :scope => :bat)
+    %tbody
+      -nr_number = 0
+      -while @nr_atbat[nr_number]
+        %tr
+          -@thead.each do |k|
+            %td= @nr_atbat[nr_number][k.to_sym]
+          -nr_number += 1

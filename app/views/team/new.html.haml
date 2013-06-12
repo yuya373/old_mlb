@@ -1,5 +1,41 @@
-#form.form-inline
-  #span.help-inline チームを選んでください
+%form.form-inline
+  .span.help-inline チームを選んでください
   = form_tag({:controller => 'team', :action => 'create'}) do
-    = collection_select :team, :name, @tname, :fname, :fname
+    = collection_select :team, :team_name, @team_name, :team_name, :team_name
     = submit_tag :Go!, :class => 'btn btn-primary'
+= debug @ale_team
+.row-fluid
+  .span4
+    %h3 American League
+    %h4 East
+    -@ale_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
+    %h4 Central
+    -@alc_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
+    %h4 West
+    -@alw_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
+  .span4
+    %h3 National League
+    %h4 East
+    -@nle_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
+    %h4 Central
+    -@nlc_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
+    %h4 West
+    -@nlw_team.each do |team|
+      %ul.inline
+        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+        %li= "(#{team.tp_w}-#{team.tp_l})"
