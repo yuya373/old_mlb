@@ -1,8 +1,6 @@
 class CreateBatters < ActiveRecord::Migration
   def change
 
-    drop_table :batters
-
     create_table :batters do |t|
       t.string :name
       t.integer :p_id
