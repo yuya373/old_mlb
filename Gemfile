@@ -11,7 +11,8 @@ gem 'haml-rails'
 gem 'erb2haml'
 gem 'rails-i18n'
 gem 'whenever', :require => false
-
+gem 'lazy_high_charts'
+gem 'highcharts-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

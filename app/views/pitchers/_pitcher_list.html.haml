@@ -1,0 +1,31 @@
+.span9
+  %table.table.table-hover.table.table-condensed
+    %thead
+      %tr.success
+      -@thead.each do |head|
+        -case head
+        -when 'Name'
+          %th
+        -else
+          %th=link_to t(head, :scope => 'pitch'), :sort => head
+    %tbody
+    -@r_pitcher.each do |pitcher|
+      %tr
+      -@thead.each do |head|
+        -case head
+        -when 'Name'
+          %td= link_to pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitcher.p_id}
+        -when 'Team'
+          %td= pitcher.team_abbrev
+        -when 'ip'
+          %td= pitcher.ip_sort.round(1)
+        -when 'era'
+          %td= pitcher.era_sort.round(2)
+        -when 'whip'
+          %td= pitcher.whip_sort.round(2)
+        -when 'avg'
+          %td= pitcher.avg_sort.round(3)
+        -when 'slg'
+          %td= pitcher.slg_sort.round(3)
+        -else
+          %td= pitcher[head.to_sym]

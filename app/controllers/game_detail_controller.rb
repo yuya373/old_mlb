@@ -7,24 +7,25 @@ class GameDetailController < ApplicationController
 
 
 	def game_details
-		if params[:gid]
-			@gid = params[:gid]
-			@url = build_game_details_url(@gid)
-		else
+		if params[:gid] == nil
 			team_name = params[:team_name].to_s
 			year = params[:year].to_i
 			month = params[:month].to_i
 			day = params[:day].to_i
-			uu = build_score_board_url(year,month,day)
 			@gid = get_gid(team_name,year,month,day)
-			if @gid == nil
+			if @gid[0] == 'no-game'
 				@nogame = "no-game"
 			else
 				@nogame = nil
-				@url = build_game_details_url(@gid)
+				gameday = @gid[0]
+				@url = build_game_details_url(gameday)
+			end
+		else
+			@gid = params[:gid]
+			@url = build_game_details_url(@gid)
+		end
 
-
-
+		if @nogame == nil
 				doc = Nokogiri::XML(open(@url))
 
 				@data = {}
@@ -186,17 +187,14 @@ class GameDetailController < ApplicationController
 						key.each do |k|
 							v = batter.attribute(k)
 							@data[:batting][batter_flag][batter_number][k.to_sym] = v
-							if not @data[:batting][batter_flag][batter_number].has_key?(:go)
+							# if not @data[:batting][batter_flag][batter_number].has_key?(:go)
 
-								@data[:batting][batter_flag][batter_number][:go] = 0
-							end
+							# 	@data[:batting][batter_flag][batter_number][:go] = 0
+							# end
 						end
 						batter_number += 1
 					end
 				end
 			end
 		end
-
-
 	end
-end

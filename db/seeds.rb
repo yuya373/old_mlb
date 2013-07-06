@@ -5,9 +5,526 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
+
+
+num = 1.upto(31).to_a
+game_id = []
+num.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_05/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+url = {}
+game_id.each do |gid|
+
+      # 2013/06/01/wasmlb-atlmlb-1
+      year = gid.slice(0,4)
+      month = gid.slice(5,2)
+      day = gid.slice(8,2)
+      away_team = gid.slice(11,6)
+      home_team = gid.slice(18,6)
+      num = gid.slice(25,1)
+      u = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
+
+      url[gid] = u
+
+
+end
+
+
+url.each do |gid,url|
+  begin
+    doc = Nokogiri::XML(open(url))
+    inning = doc.css('inning')
+    top = inning.css('top')
+    bot = inning.css('bottom')
+    top_atbat = top.css('atbat')
+    bot_atbat = bot.css('atbat')
+
+    top_atbat.each do |atbat|
+      atbat_num = atbat.attribute('num').text
+      p = atbat.attribute('pitcher').text
+      b = atbat.attribute('batter').text
+      atbat.css('pitch').each do |pitch|
+        @pitching = {}
+        @pitching[:inning] = 'top'
+        @pitching[:inning_num] = inning.attribute('num').text
+        @pitching[:away_team] = inning.attribute('away_team').text
+        @pitching[:home_team] = inning.attribute('home_team').text
+
+        @pitching[:game_id] = gid
+        @pitching[:num] = atbat_num
+        @pitching[:pitcher_id] = p
+        @pitching[:batter_id] = b
+        @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+        pitch.keys.to_a.each do |k|
+          v = pitch.attribute(k).text
+          case k
+          when 'id'
+          when 'type'
+            k = 's_or_ball'
+            @pitching[k.to_sym] = v
+          else
+            @pitching[k.to_sym] = v
+          end
+        end
+        begin
+          Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+        rescue
+          Pitching.create(@pitching)
+        end
+      end
+    end
+
+    bot_atbat.each do |atbat|
+      atbat_num = atbat.attribute('num').text
+      p = atbat.attribute('pitcher').text
+      b = atbat.attribute('batter').text
+      atbat.css('pitch').each do |pitch|
+        @pitching = {}
+        @pitching[:inning] = 'bot'
+        @pitching[:inning_num] = inning.attribute('num').text
+        @pitching[:away_team] = inning.attribute('away_team').text
+        @pitching[:home_team] = inning.attribute('home_team').text
+
+        @pitching[:game_id] = gid
+        @pitching[:num] = atbat_num
+        @pitching[:pitcher_id] = p
+        @pitching[:batter_id] = b
+        @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+        pitch.keys.to_a.each do |k|
+          v = pitch.attribute(k).text
+          case k
+          when 'id'
+          when 'type'
+            k = 's_or_ball'
+            @pitching[k.to_sym] = v
+          else
+            @pitching[k.to_sym] = v
+          end
+        end
+        begin
+          Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+        rescue
+          Pitching.create(@pitching)
+        end
+      end
+    end
+  rescue
+  end
+end
+
+
+
+
+# Atbat.find_each do |atbat|
+#   begin
+#     # @p_name = atbat.pitcher.name_display_first_last
+#     # @b_name = atbat.batter.name_display_first_last
+#       @pitcher_team = atbat.pitcher.team_abbrev
+#       @batter_team = atbat.batter.team_abbrev
+#   rescue
+#       @pitcher_team = '-'
+#       @batter_team = '-'
+#     # @b_name = '-'
+#   end
+
+#   atbat.update_attributes(pitcher_team: @pitcher_team, batter_team: @batter_team)
+#     # pitcher_name: @p_name)
+#     # , batter_name: @b_name)
+# end
+
+
+
+# num = 1.upto(30).to_a
+# game_id = []
+# num.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
+
+# url = {}
+# game_id.each do |gid|
+
+#       # 2013/06/01/wasmlb-atlmlb-1
+#       year = gid.slice(0,4)
+#       month = gid.slice(5,2)
+#       day = gid.slice(8,2)
+#       away_team = gid.slice(11,6)
+#       home_team = gid.slice(18,6)
+#       num = gid.slice(25,1)
+#       url1 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
+
+#       begin
+#         doc = Nokogiri::XML(open(url1)).css('a')
+
+#         p_id = []
+
+#         doc.each do |doc|
+#           p_id << doc.attribute('href').text
+#         end
+
+#         p_id.delete_at(0)
+
+#         p_id.each do |p_id|
+#           url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}pitchtendencies_history.xml"
+#           url[p_id.to_sym] = url2
+#         end
+#       rescue
+#       end
+# end
+#       url.each do |k,v|
+#         begin
+#           pt = Nokogiri::XML(open(v))
+#           lf = pt.css('last_five')
+#           @pt_lf = {
+#             p_id: k.slice(0,6),
+#             game_id: 'last_five',
+#             game_num: lf.attribute('num').text,
+#             game_vel: lf.attribute('vel').text
+#           }
+#           lf.css('type').each do |ty|
+#             ty.keys.to_a.each do |k|
+#               if k == 'id'
+#                 @pt_lf[:pitch_type] = ty.attribute('id').text
+#               else
+#                 @pt_lf[k.to_sym] = ty.attribute(k).text
+#               end
+#             end
+#             begin
+#               PitchTendency.where('game_id = ?', @pt_lf[:game_id]).where('p_id = ?', @pt_lf[:p_id]).where('pitch_type = ?',@pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
+#             rescue
+#               PitchTendency.create(@pt_lf)
+#             end
+#           end
+
+#           game = pt.css('game')
+#           game.each do |game|
+#             @pt_g = {
+#               p_id: k.slice(0,6),
+#               game_id: game.attribute('id').text,
+#               game_num: game.attribute('num').text,
+#               game_vel: game.attribute('vel').text
+#             }
+
+#             game.css('type').each do |ty|
+#               ty.keys.to_a.each do |k|
+#                 if k == 'id'
+#                   @pt_g[:pitch_type] = ty.attribute('id').text
+#                 else
+#                   @pt_g[k.to_sym] = ty.attribute(k).text
+#                 end
+#               end
+#               begin
+#                 PitchTendency.where('game_id = ?', @pt_g[:game_id]).where('p_id = ?', @pt_g[:p_id]).where('pitch_type = ?',@pt_g[:pitch_type]).first.update_attributes!(@pt_g)
+#               rescue
+#                 PitchTendency.create(@pt_g)
+#               end
+#             end
+#           end
+#         rescue
+#         end
+#       end
+
+
+
+
+# PitchTypeDetail.where('p_b = ?', 'p').each do |b|
+#   p_id = b.p_id
+#   pitch_type = b.pitch_type.slice(1,2)
+
+#   b.update_attributes(p_id_ty: "#{p_id}_#{pitch_type}", pitch_type: pitch_type)
+# end
+
+# num = 1.upto(30).to_a
+# game_id = []
+# num.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
+# url = {}
+# game_id.each do |gid|
+
+#   # gid = '2013_05_19_detmlb_texmlb_1'
+#   year = gid.slice(0,4)
+#   month = gid.slice(5,2)
+#   day = gid.slice(8,2)
+#   # 2013/06/01/wasmlb-atlmlb-1
+#   away_team = gid.slice(11,6)
+#   home_team = gid.slice(18,6)
+#   num = gid.slice(25,1)
+
+#   p_id_url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
+#     begin
+#       doc = Nokogiri::XML(open(p_id_url)).css('a')
+
+#       p_id = []
+
+#       doc.each do |doc|
+#         p_id << doc.attribute('href').text
+#       end
+
+#       p_id.delete_at(0)
+
+#       pitch_type = [
+#         'pch',
+#         'pcu',
+#         'pfa',
+#         'pfc',
+#         'pff',
+#         'pfs',
+#         'pft',
+#         'pkn',
+#         'psi',
+#         'psl'
+#       ]
+
+#       p_id.each do |p_id|
+#         ary = []
+#         pitch_type.each do |ty|
+#           aaa = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}#{ty}.xml"
+
+#           # url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_28/gid_2013_06_28_wasmlb_nynmlb_1/premium/batters/150029/#{ty}.xml"
+
+#           ary << aaa
+
+#           url[p_id.to_sym] = ary
+
+#         end
+#       end
+#     rescue
+#     end
+# end
+
+
+
+#       url.each do |k,v|
+#         v.each do |v|
+#           doc2 = Nokogiri::XML(open(v))
+#           sit = doc2.css('sit')
+#           cont = {
+#             p_b: 'p',
+#             p_id: k.slice(0,6),
+#             p_id_ty: "#{k.slice(0,6)}_#{v.to_s.slice(120,3)}",
+#             pitch_type: v.to_s.slice(120,3),
+#             ab: sit.attribute('ab').text,
+#             avg: sit.attribute('avg').text,
+#             hr: sit.attribute('hr').text,
+#             rbi: sit.attribute('rbi').text,
+#             bb: sit.attribute('bb').text,
+#             so: sit.attribute('so').text,
+#             ops: sit.attribute('ops').text,
+#             rating: sit.attribute('rating').text,
+#             sweetness: sit.attribute('sweetness').text
+#           }
+#           begin
+#             PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).first.update_attributes!(cont)
+#           rescue
+#             PitchTypeDetail.create(cont)
+#           end
+#         end
+#       end
+
+
+
+
+
+# num = 1.upto(10).to_a
+# game_id = []
+# num.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_05/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
+
+# game_id.each do |gid|
+
+#   # gid = '2013_05_19_detmlb_texmlb_1'
+#   year = gid.slice(0,4)
+#   month = gid.slice(5,2)
+#   day = gid.slice(8,2)
+#   # 2013/06/01/wasmlb-atlmlb-1
+#   away_team = gid.slice(11,6)
+#   home_team = gid.slice(18,6)
+#   num = gid.slice(25,1)
+
+
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/batters/"
+#   begin
+#     doc = Nokogiri::XML(open(url)).css('a')
+#     p_id = []
+
+#     doc.each do |doc|
+#       p_id << doc.attribute('href').text
+#     end
+
+
+#     pitch_type = [
+#       'pch',
+#       'pcu',
+#       'pfa',
+#       'pfc',
+#       'pff',
+#       'pfs',
+#       'pft',
+#       'pkn',
+#       'psi',
+#       'psl'
+#     ]
+
+
+#     p_id.each do |p_id|
+#       pitch_type.each do |ty|
+#         url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/batters/#{p_id}#{ty}.xml"
+#         begin
+#           sit = Nokogiri::XML(open(url)).css('sit')
+#           cont = {
+#             p_id: p_id.slice(0,6),
+#             p_id_ty: "#{p_id.slice(0,6)}_#{ty}",
+#             pitch_type: ty,
+#             ab: sit.attribute('ab').text,
+#             avg: sit.attribute('avg').text,
+#             hr: sit.attribute('hr').text,
+#             rbi: sit.attribute('rbi').text,
+#             bb: sit.attribute('bb').text,
+#             so: sit.attribute('so').text,
+#             ops: sit.attribute('ops').text,
+#             rating: sit.attribute('rating').text,
+#             sweetness: sit.attribute('sweetness').text
+#           }
+
+#           begin
+#             BatterDetail.where('p_id_ty = ?',cont[:p_id_ty]).first.update_attributes!(cont)
+#           rescue
+#             BatterDetail.create(cont)
+#           end
+#         rescue
+#           next
+#         end
+#       end
+#     end
+#   rescue
+#     next
+#   end
+# end
+
+
+# Team.all.each do |team|
+#   win = team.tp_w.to_f
+#   game = team.tp_g.to_f
+#   win_pct = win/game
+#   team.update_attribute(:win_pct, win_pct)
+# end
+
+# Pitching.find_each do |p|
+#   num = p.num
+#   game_id = p.game_id
+#   p.update_attribute(:game_id_num,"#{game_id}_#{num}")
+# end
+
+# Atbat.find_each do |atbat|
+#   num = atbat.num
+#   game_id = atbat.game_id
+#   @new = {game_id_num: "#{game_id}_#{num}"}
+#   atbat.update_attribute(:game_id_num,"#{game_id}_#{num}")
+# end
+
+
+# num = 1.upto(31).to_a
+# game_id = []
+# num.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
+
+# game_id.each do |gid|
+
+#   # gid = '2013_05_19_detmlb_texmlb_1'
+#   year = gid.slice(0,4)
+#   month = gid.slice(5,2)
+#   day = gid.slice(8,2)
+#   # 2013/06/01/wasmlb-atlmlb-1
+#   away_team = gid.slice(11,6)
+#   home_team = gid.slice(18,6)
+#   num = gid.slice(25,1)
+
+#   url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+
+#     atbat = doc.css('atbat')
+#     atbat.each do |atbat|
+#         atbat_num = atbat.attribute('num').text
+#         p = atbat.attribute('pitcher').text
+#         b = atbat.attribute('batter').text
+#         atbat.css('pitch').each do |pitch|
+#           @pitching = {}
+#           @pitching[:game_id] = gid
+#           @pitching[:num] = atbat_num
+#           @pitching[:pitcher_id] = p
+#           @pitching[:batter_id] = b
+#           pitch.keys.to_a.each do |k|
+#             v = pitch.attribute(k).text
+#             case k
+#             when 'id'
+#             when 'type'
+#               k = 's_or_ball'
+#               @pitching[k.to_sym] = v
+#             else
+#               @pitching[k.to_sym] = v
+#             end
+#           end
+#             Pitching.create(@pitching)
+#         end
+#       end
+#   rescue
+#       next
+#   end
+# end
+
 
 # team = Team.where("team_id not ?", nil)
 #     team.each do |t|
@@ -33,47 +550,47 @@ require 'open-uri'
 #       end
 #     end
 
-Pitcher.delete_all
+# Pitcher.delete_all
 
- @all_pitcher = Player.where(:pos => "P")
-    number = 0
-    @pitcher = {}
-    @all_pitcher.each do |pitcher|
-      @pitcher[number] = {
-        p_id: pitcher[:p_id],
-        team_id: pitcher[:team_id],
-        name: pitcher[:name],
-      }
+#  @all_pitcher = Player.where(:pos => "P")
+#     number = 0
+#     @pitcher = {}
+#     @all_pitcher.each do |pitcher|
+#       @pitcher[number] = {
+#         p_id: pitcher[:p_id],
+#         team_id: pitcher[:team_id],
+#         name: pitcher[:name],
+#       }
 
-    url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
+#     url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
 
-    doc = Nokogiri::XML(open(url))
+#     doc = Nokogiri::XML(open(url))
 
-    pitching = doc.css('pitching')
+#     pitching = doc.css('pitching')
 
-    @pitcher[number] = {
-      name: pitcher[:name],
-      p_id: pitcher[:p_id],
-      team_id: pitcher[:team_id],
-      league_id: pitcher[:league_id],
-      era: pitching.attribute('era').text,
-      w: pitching.attribute('w').text,
-      l: pitching.attribute('l').text,
-      whip: pitching.attribute('whip').text,
-      ip: pitching.attribute('s_ip').text,
-      h: pitching.attribute('s_h').text,
-      er: pitching.attribute('s_er').text,
-      r: pitching.attribute('s_r').text,
-      bb: pitching.attribute('s_bb').text,
-      k: pitching.attribute('s_k').text,
-      sv: pitching.attribute('s_sv').text,
-      hbp: pitching.attribute('s_hbp').text,
-      hra: pitching.attribute('s_hra').text
-    }
+#     @pitcher[number] = {
+#       name: pitcher[:name],
+#       p_id: pitcher[:p_id],
+#       team_id: pitcher[:team_id],
+#       league_id: pitcher[:league_id],
+#       era: pitching.attribute('era').text,
+#       w: pitching.attribute('w').text,
+#       l: pitching.attribute('l').text,
+#       whip: pitching.attribute('whip').text,
+#       ip: pitching.attribute('s_ip').text,
+#       h: pitching.attribute('s_h').text,
+#       er: pitching.attribute('s_er').text,
+#       r: pitching.attribute('s_r').text,
+#       bb: pitching.attribute('s_bb').text,
+#       k: pitching.attribute('s_k').text,
+#       sv: pitching.attribute('s_sv').text,
+#       hbp: pitching.attribute('s_hbp').text,
+#       hra: pitching.attribute('s_hra').text
+#     }
 
-    Pitcher.create(@pitcher[number])
-    number += 1
-    end
+#     Pitcher.create(@pitcher[number])
+#     number += 1
+#     end
 
 
 

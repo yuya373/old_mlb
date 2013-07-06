@@ -1,9 +1,11 @@
-= debug @team
-= debug @team_pitcher[0]
+/ = debug @team
+/ = debug @team_pitcher[0]
 / 内野手
 / = debug @if_batter
 / 外野手
 / = debug @of_batter
+.hero-unit
+  %h3= @team.team_name
 .span6
   %table.table.table-bordered.table-striped.table-condensed
     %thead
@@ -23,11 +25,12 @@
         %th Pitching
         -@p_thead.each do |p_head|
           %th= p_head.slice(3..10)
-
     %tbody
       %tr
-      -@p_thead.each do |p_head|
-        %td= @team[p_head.to_sym]
+        %td
+        -@p_thead.each do |p_head|
+          %td= @team[p_head.to_sym]
+
 .row-fluid
   .span12
     .span6
@@ -43,7 +46,7 @@
             %th last10 rbi
           -@if_batter.each do |batter|
             %tr
-              %td= batter.name_display_first_last
+              %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
               %td= batter.pos
               %td= batter.avg
               %td= batter.last10_ab
@@ -61,7 +64,7 @@
 
           -@of_batter.each do |batter|
             %tr
-              %td= batter.name_display_first_last
+              %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
               %td= batter.pos
               %td= batter.avg
               %td= batter.last10_ab
@@ -80,7 +83,7 @@
             %th slg
             -@team_pitcher.each do |p|
               %tr
-                %td= p.name_display_first_last
+                %td= link_to p.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => p.p_id}
                 %td= p.ip
                 %td= p.era
                 %td= p.whip

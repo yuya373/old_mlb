@@ -1,0 +1,21 @@
+.span9
+%table.table.table-hover.table.table-condensed
+  %thead
+    %tr
+    -@tb_head.each do |head|
+      -case head
+      -when 'team_name'
+        %th
+      -when 'team_id'
+        %th
+      -else
+        %th=link_to t(head.slice(3,10), :scope => 'bat'), :sort => head
+  %tbody
+  -@t_b.each do |team|
+    %tr
+    -@tb_head.each do |head|
+      -case head
+      -when 'team_id'
+        %td
+      -else
+        %td= team[head.to_sym]

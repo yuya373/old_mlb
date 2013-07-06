@@ -1,41 +1,90 @@
-%form.form-inline
-  .span.help-inline チームを選んでください
-  = form_tag({:controller => 'team', :action => 'create'}) do
-    = collection_select :team, :team_name, @team_name, :team_name, :team_name
-    = submit_tag :Go!, :class => 'btn btn-primary'
-= debug @ale_team
+
 .row-fluid
-  .span4
+  .span5
     %h3 American League
-    %h4 East
-    -@ale_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
-    %h4 Central
-    -@alc_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
-    %h4 West
-    -@alw_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
-  .span4
+    %table.table.table-striped
+      %thead
+        %tr
+          %th East
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@ale_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Central
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@alc_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)
+    %table.table.table-striped
+      %thead
+        %tr
+          %th West
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@alw_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)
+  .span5
     %h3 National League
-    %h4 East
-    -@nle_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
-    %h4 Central
-    -@nlc_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
-    %h4 West
-    -@nlw_team.each do |team|
-      %ul.inline
-        %li=link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
-        %li= "(#{team.tp_w}-#{team.tp_l})"
+    %table.table.table-striped
+      %thead
+        %tr
+          %th East
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@nle_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Central
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@nlc_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)
+    %table.table.table-striped
+      %thead
+        %tr
+          %th West
+          %th Win
+          %th Loss
+          %th Win-pct
+      %tbody
+      -@nlw_team.each do |team|
+        %tr
+          %td= link_to team.team_name, {:controller => 'team', :action => 'show', :id => team.team_id}
+          %td= team.tp_w
+          %td= team.tp_l
+          %td= team.win_pct.round(3)

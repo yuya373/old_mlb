@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  p_id: 1
+  game_id: MyString
+  game_num: 1
+  game_vel: 1.5
+  pitch_type: MyString
+  num: 1
+  movement: 1.5
+  pfx: 1.5
+  vel: 1.5
+  avg_x0: 1.5
+  avg_z0: 1.5
+
+two:
+  p_id: 1
+  game_id: MyString
+  game_num: 1
+  game_vel: 1.5
+  pitch_type: MyString
+  num: 1
+  movement: 1.5
+  pfx: 1.5
+  vel: 1.5
+  avg_x0: 1.5
+  avg_z0: 1.5

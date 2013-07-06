@@ -91,12 +91,12 @@
               %td= @game_data[number][:linescore][:e][:home]
 
       %span.label.label-success 勝ち投手
-      = link_to (@game_data[number][:winning_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:winning_pitcher][:wins]}-#{@game_data[number][:winning_pitcher][:losses]})" + ' ' + @game_data[number][:winning_pitcher][:era].to_s), {:controller => 'pitchers', :action => 'pitcher', :p_id => @game_data[number][:winning_pitcher][:id], :gid => @game_data[number][:gameday] }, :method => :post
+      = link_to (@game_data[number][:winning_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:winning_pitcher][:wins]}-#{@game_data[number][:winning_pitcher][:losses]})" + ' ' + @game_data[number][:winning_pitcher][:era].to_s), {:controller => 'pitchers', :action => 'show', :p_id => @game_data[number][:winning_pitcher][:id] }
       %span.label.label-important 負け投手
-      = link_to (@game_data[number][:losing_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:losing_pitcher][:wins]}-#{@game_data[number][:losing_pitcher][:losses]})" + ' ' + @game_data[number][:losing_pitcher][:era].to_s), {:controller => 'pitchers', :action => 'pitcher', :p_id => @game_data[number][:losing_pitcher][:id], :gid => @game_data[number][:gameday] }, :method => :post
+      = link_to (@game_data[number][:losing_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:losing_pitcher][:wins]}-#{@game_data[number][:losing_pitcher][:losses]})" + ' ' + @game_data[number][:losing_pitcher][:era].to_s), {:controller => 'pitchers', :action => 'show', :p_id => @game_data[number][:losing_pitcher][:id]}
       -if @game_data[number][:save_pitcher][:svo] != '0'
         %span.label セーブ
-        = link_to (@game_data[number][:save_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:save_pitcher][:wins]}-#{@game_data[number][:save_pitcher][:losses]})" + ' ' + @game_data[number][:save_pitcher][:saves] + '/' +@game_data[number][:save_pitcher][:svo] + ' ' + @game_data[number][:save_pitcher][:era].to_s),{:controller => 'pitchers', :action => 'pitcher', :p_id => @game_data[number][:save_pitcher][:id], :gid => @game_data[number][:gameday] }, :method => :post
+        = link_to (@game_data[number][:save_pitcher][:name_display_roster].to_s + "(#{@game_data[number][:save_pitcher][:wins]}-#{@game_data[number][:save_pitcher][:losses]})" + ' ' + @game_data[number][:save_pitcher][:saves] + '/' +@game_data[number][:save_pitcher][:svo] + ' ' + @game_data[number][:save_pitcher][:era].to_s),{:controller => 'pitchers', :action => 'show', :p_id => @game_data[number][:save_pitcher][:id]}
       -else
       %br
       .alert.alert-block
@@ -107,7 +107,7 @@
         %p ホームラン
         -while @game_data[number][:home_runs][hr_player]
           %p
-            = link_to (@game_data[number][:home_runs][hr_player][:name_display_roster]),{:controller => 'batters', :action => 'batter', :b_id => @game_data[number][:home_runs][hr_player][:id], :gid => @game_data[number][:gameday] }, :method => :post
+            = link_to (@game_data[number][:home_runs][hr_player][:name_display_roster]),{:controller => 'batters', :action => 'show', :p_id => @game_data[number][:home_runs][hr_player][:id]}
             = @game_data[number][:home_runs][hr_player][:hr] + "本 " + @game_data[number][:home_runs][hr_player][:std_hr] + '号' + " #{@game_data[number][:home_runs][hr_player][:team_code]}"
           - hr_player += 1
   -number += 1

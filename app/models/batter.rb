@@ -1,17 +1,20 @@
 require 'open-uri'
 
 class Batter < ActiveRecord::Base
-
+  self.primary_key = 'p_id'
   belongs_to :team, :foreign_key => 'team_id'
-
+  has_many :pitchings, :foreign_key => 'batter_id'
+  has_many :batter_details, :foreign_key => 'p_id'
+  has_many :pitch_type_details, :foreign_key => 'p_id'
+  has_many :atbats, :foreign_key => 'p_id'
   def self.test
     print "Hello whenever"
   end
 
-  def self.all_batter
+  def self.get
     Team.find_each do |team|
-      team_id = team[:team_id]
-      gid = team[:game_id]
+      team_id = team.team_id
+      gid = team.game_id
       url = "http://gd2.mlb.com/components/team/stats/#{team_id}-stats.xml"
       doc = Nokogiri::XML(open(url))
 

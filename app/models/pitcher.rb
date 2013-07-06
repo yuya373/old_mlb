@@ -1,10 +1,14 @@
 require 'open-uri'
 
 class Pitcher < ActiveRecord::Base
-
+  self.primary_key = 'p_id'
   belongs_to :team, :foreign_key => 'team_id'
+  has_many :pitchings, :foreign_key => 'pitcher_id'
+  has_many :atbats, :foreign_key => 'p_id'
+  has_many :pitch_type_details, :foreign_key => 'p_id'
+  has_many :pitch_tendencies, :foreign_key => 'p_id'
 
-  def self.all_pitcher
+  def self.get
     Team.find_each do |team|
       team_id = team[:team_id]
       gid = team[:game_id]
@@ -59,7 +63,7 @@ class Pitcher < ActiveRecord::Base
             end
           end
 
-          month = data.css('month')
+          month = data.css('Month')
           month.each do |month|
             m_key = month.keys.to_a
             m_key.each do |k|

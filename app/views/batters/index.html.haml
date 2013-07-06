@@ -1,0 +1,8 @@
+%ul.nav.nav-tabs
+  %li.active= link_to 'MLB', {:controller => 'batters', :action => 'all_batters'}
+  %li= link_to 'American League', {:controller => 'batters', :action => 'al_batter'}
+  %li= link_to 'National League', {:controller => 'batters', :action => 'nl_batter'}
+
+.hero-unit
+  %h4= link_to 'Batters Of American League', {:controller => 'batters', :action => 'al_batter'}
+  %h4= link_to 'Batters Of National League', {:controller => 'batters', :action => 'nl_batter'}

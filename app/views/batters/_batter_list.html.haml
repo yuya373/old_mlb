@@ -1,0 +1,49 @@
+.span9
+  %table.table.table-hover.table.table-condensed
+    %thead
+      %tr
+      -@thead.each do |k|
+        -case k
+        -when 'name'
+          %th
+        -when 'Team'
+          %th= t(k, :scope => 'bat')
+        -else
+          %th= link_to t(k, :scope => :bat), :sort => "#{k}"
+    %tbody
+    -r_number = 0
+    -while @r_atbat[r_number]
+      %tr
+        -@thead.each do |k|
+          -if k == 'Team'
+            %td= @r_atbat[r_number].team.team_abbrev
+          -elsif k == 'name'
+            %td= link_to @r_atbat[r_number][k.to_sym], {:controller => 'batters', :action => 'show', :p_id => @r_atbat[r_number].p_id}
+          -else
+            %td= @r_atbat[r_number][k.to_sym]
+        -r_number += 1
+  / %table.table.table-hover.table.table-condensed
+  /   %thead
+  /     %tr
+  /       %th 規定到達未満
+  /     %tr
+  /     -@thead.each do |k|
+  /       -case k
+  /       -when 'name'
+  /         %th
+  /       -when 'Team'
+  /         %th= t(k, :scope => 'bat')
+  /       -else
+  /         %th= link_to t(k, :scope => :bat), :sort => "#{k}"
+  /   %tbody
+  /     -nr_number = 0
+  /     -while @nr_atbat[nr_number]
+  /       %tr
+  /         -@thead.each do |k|
+  /           -if k == 'Team'
+  /             %td= @nr_atbat[nr_number].team.team_abbrev
+  /           -elsif k == 'name'
+  /             %td= link_to @nr_atbat[nr_number][k.to_sym], {:controller => 'batters', :action => 'show', :p_id => @nr_atbat[nr_number].p_id}
+  /           -else
+  /             %td= @nr_atbat[nr_number][k.to_sym]
+  /         -nr_number += 1

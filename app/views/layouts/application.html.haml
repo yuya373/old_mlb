@@ -32,6 +32,7 @@
               %li= link_to "GameDetails", game_detail_index_path
               %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
               %li= link_to 'Team', team_path
+              %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
     .container-fluid
 
       .row-fluid

@@ -1,0 +1,8 @@
+%script{type: 'text/javascript', charset: 'utf-8'}
+  $(function () {
+  new Highcharts.Chart({
+  chart: { renderTo: 'orders_chart' }
+  });
+  });
+/ = high_chart("sample",@h)
+%div#orders_chart

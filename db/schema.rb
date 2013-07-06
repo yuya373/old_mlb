@@ -11,7 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130612012331) do
+ActiveRecord::Schema.define(version: 20130705211434) do
+
+  create_table "atbats", force: true do |t|
+    t.integer  "num"
+    t.integer  "b"
+    t.integer  "s"
+    t.integer  "o"
+    t.integer  "start_tfs"
+    t.string   "start_tfs_zulu"
+    t.integer  "batter_id"
+    t.integer  "pitcher_id"
+    t.string   "stand"
+    t.string   "b_height"
+    t.string   "p_throws"
+    t.string   "des"
+    t.string   "event"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "game_id"
+    t.string   "game_id_num"
+    t.string   "pitcher_name"
+    t.string   "batter_name"
+    t.string   "batter_team"
+    t.string   "pitcher_team"
+  end
+
+  create_table "batter_details", force: true do |t|
+    t.string   "p_id_ty"
+    t.integer  "p_id"
+    t.string   "pitch_type"
+    t.string   "ab"
+    t.float    "avg"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "bb"
+    t.integer  "so"
+    t.float    "ops"
+    t.string   "rating"
+    t.string   "sweetness"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "p_b"
+  end
 
   create_table "batters", force: true do |t|
     t.integer  "p_id"
@@ -182,6 +224,40 @@ ActiveRecord::Schema.define(version: 20130612012331) do
   end
 
   create_table "examples", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pitch_tendencies", force: true do |t|
+    t.integer  "p_id"
+    t.string   "game_id"
+    t.integer  "game_num"
+    t.float    "game_vel"
+    t.string   "pitch_type"
+    t.integer  "num"
+    t.float    "movement"
+    t.float    "pfx"
+    t.float    "vel"
+    t.float    "avg_x0"
+    t.float    "avg_z0"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pitch_type_details", force: true do |t|
+    t.string   "p_b"
+    t.string   "p_id_ty"
+    t.integer  "p_id"
+    t.string   "pitch_type"
+    t.integer  "ab",         limit: 255
+    t.float    "avg"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "bb"
+    t.integer  "so"
+    t.float    "ops"
+    t.string   "rating"
+    t.string   "sweetness"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -370,6 +446,9 @@ ActiveRecord::Schema.define(version: 20130612012331) do
     t.float    "vs_rhb_era"
   end
 
+# Could not dump table "pitchings" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
   create_table "players", force: true do |t|
     t.integer  "p_id"
     t.string   "name"
@@ -436,6 +515,7 @@ ActiveRecord::Schema.define(version: 20130612012331) do
     t.integer  "team_id"
     t.integer  "league_id"
     t.string   "game_id"
+    t.float    "win_pct"
   end
 
 end

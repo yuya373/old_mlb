@@ -1,0 +1,21 @@
+.span9
+%table.table.table-hover.table.table-condensed
+  %thead
+    %tr
+    -@tp_head.each do |head|
+      -case head
+      -when 'team_name'
+        %th
+      -when 'team_id'
+        %th
+      -else
+        %th= link_to t(head.slice(3,10), :scope => 'pitch'), :sort => head
+  %tbody
+  -@t_p.each do |team|
+    %tr
+    -@tp_head.each do |head|
+      -case head
+      -when 'team_id'
+        %td
+      -else
+        %td= team[head.to_sym]

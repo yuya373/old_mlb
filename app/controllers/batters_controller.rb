@@ -133,67 +133,148 @@ class BattersController < ApplicationController
     end
   end
 
-  def al_batter
+  def index
+  end
 
+  def show
+    @p_id = params[:p_id]
+    @batter = Batter.where('p_id = ?',@p_id).first
+    @details = @batter.pitch_type_details
 
-    @batter = Batter.where('league_id = :league_id',{:league_id => '103'}).order('avg DESC')
-    @p = {}
-    num = 0
-    @batter.each do |batter|
-      @p[batter[:p_id]] = batter.player
-      num += 1
-    end
+    @pitcher = Atbat.where.not('pitcher_name = ?', '-').where('batter_id = ?',@p_id).select('DISTINCT pitcher_id, pitcher_name, pitcher_team').order('pitcher_name asc')
 
-    number = 0
-    @r_atbat = []
-    @nr_atbat = []
-    @batter.each do |batter|
-      @player = @p[batter[:p_id]]
-      if @player
-        game_counts = @player.game
-        atbat =batter[:ab]
-        if atbat > (game_counts * 3.1)
-          @r_atbat << batter
-        else
-          @nr_atbat << batter
-        end
-      end
-      number += 1
-    end
-
-    # @b = @batter[1].player.game
-    # @game_counts = @batter[0].player
-    # num = 0
-    # @a_batter = []
-    # while @batter[num]
-    #   @game_counts = @batter[num].player
-      # if (@batter[num][:ab].to_i) > (@game_counts * 3.1)
-        # @a_batter << @batter[num]
-      # else
-      # end
-      # num += 1
+    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?', params[:batter])
+    # @atbat = []
+    # @at.each do |at|
+    #   game_id = at.game_id
+    #   num = at.num
+    #   @pitching = at.pitchings.where('game_id = ?',game_id)
+    #   @atbat << [at,@pitching]
     # end
-    @att = Batter.attribute_names
+  end
+
+
+  def all
+
+    @sort = sort('avg')
+    @item = @sort[0]
+    @direction = @sort[1]
+
+    @batter = Batter.where('not pos = ?',  'P').order(@item + ' ' + @direction)
+
+    @r_atbat = r_batter(@batter)
+    @nr_atbat = nr_batter(@batter)
     @thead = [
       'name',
+      'Team',
+      'pos',
       'avg',
+      'obp',
+      'slg',
+      'ops',
       'ab',
       'h',
       'r',
       'rbi',
-      'single',
-      'double',
-      'triple',
+      'b2',
+      'b3',
       'hr',
       'bb',
       'hbp',
       'sb',
       'cs',
       'so',
-      'err',
-
     ]
+  end
+
+  def nl
+    @sort = sort('avg')
+    @item = @sort[0]
+    @direction = @sort[1]
 
 
+    @batter = Batter.where('league_id = :league_id',{:league_id => '104'}).where('not pos = ?',  'P').order(@item + ' ' + @direction)
+
+    @r_atbat = r_batter(@batter)
+    @nr_atbat = nr_batter(@batter)
+
+    @thead = [
+      'name',
+      'Team',
+      'pos',
+      'avg',
+      'obp',
+      'slg',
+      'ops',
+      'ab',
+      'h',
+      'r',
+      'rbi',
+      'b2',
+      'b3',
+      'hr',
+      'bb',
+      'hbp',
+      'sb',
+      'cs',
+      'so',
+    ]
+  end
+
+  def r_batter(batter)
+    r_atbat = []
+    batter.each do |batter|
+      game_counts = batter.team.tb_g
+      if batter.ab > (game_counts * 3.1)
+        r_atbat << batter
+      end
+    end
+    return r_atbat
+  end
+
+  def nr_batter(batter)
+    nr_atbat = []
+    batter.each do |batter|
+      game_counts = batter.team.tb_g
+      if batter.ab > (game_counts * 3.1)
+      else
+        nr_atbat << batter
+      end
+    end
+    return nr_atbat
+  end
+
+
+  def al
+    @sort = sort('avg')
+    @item = @sort[0]
+    @direction = @sort[1]
+
+    @batter = Batter.where('league_id = :league_id',{:league_id => '103'}).where('not pos = ?',  'P').order(@item + ' ' + @direction)
+
+    @r_atbat = r_batter(@batter)
+    @nr_atbat = nr_batter(@batter)
+
+    @thead = [
+      'name',
+      'Team',
+      'pos',
+      'avg',
+      'obp',
+      'slg',
+      'ops',
+      'ab',
+      'h',
+      'r',
+      'rbi',
+      'b2',
+      'b3',
+      'hr',
+      'bb',
+      'hbp',
+      'sb',
+      'cs',
+      'so',
+    ]
   end
 end

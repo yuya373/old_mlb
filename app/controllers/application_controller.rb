@@ -4,6 +4,30 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def sort(default)
+    case params[:sort]
+    when nil
+      @sort = default.to_s
+    else
+      @sort = params[:sort]
+    end
+
+    if @sort == session[:sort]
+      if session[:direction] == 'asc'
+        session[:direction] = 'desc'
+      else
+        session[:direction] = 'asc'
+      end
+      @direction = session[:direction]
+    else
+      @direction = 'desc'
+    end
+
+    session[:sort] = @sort
+    session[:direction] = @direction
+    return [@sort,@direction]
+  end
+
   def build_team_url(id)
     url = "http://gd2.mlb.com/components/team/stats/#{id}-stats.xml"
   end
@@ -29,7 +53,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def build_game_details_url(gid)
-
+    #2013_05_01_nynmlb_miamlb_1
 		year = gid.slice(0,4)
 		month = gid.slice(5,2)
 		day = gid.slice(8,2)
@@ -65,25 +89,25 @@ class ApplicationController < ActionController::Base
 
     # team = {}
     name = team_name
-
+    gid = []
     doc.css('game').each do |game|
       # team[team_name] = {}
 
-      if game.attribute('away_code').text == name.to_s
+      if game.attribute('away_code').text == name
 
         # team[team_name][:team_id] = game.attribute('away_team_id').text
 
-        return gid = game.attribute('gameday').text
+        gid << game.attribute('gameday').text
 
-      elsif game.attribute('home_code').text == name.to_s
+      elsif game.attribute('home_code').text == name
 
         # team[team_name][:team_id] = game.attribute('home_team_id').text
 
-       return gid = game.attribute('gameday').text
-      else
-        return nil
+       gid << game.attribute('gameday').text
+
       end
     end
+    return gid
   end
 
 end

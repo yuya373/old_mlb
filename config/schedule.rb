@@ -28,8 +28,13 @@ job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$
 # end
 
 
-every 1.day, :at => '13:00 pm' do
+every 1.day, :at => '2:26 am' do
   rbenv_bundle_runner "Team.get"
-  rbenv_bundle_runner "Batter.all_batter"
-  rbenv_bundle_runner "Pitcher.all_pitcher"
+  rbenv_bundle_runner "Batter.get"
+  rbenv_bundle_runner "Pitcher.get"
+  rbenv_bundle_runner "Pitching.get"
+  rbenv_bundle_runner "Atbat.get"
+  rbenv_bundle_runner "PitchTypeDetail.get"
+  rbenv_bundle_runner "PitchTendency.get"
+
 end

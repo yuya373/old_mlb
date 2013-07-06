@@ -1,0 +1,5 @@
+= render :partial => 'layouts/frame'
+%ul.nav.nav-tabs
+  %li.active= link_to 'Hitting', {:controller => 'team', :action => 'al_hitting'}
+  %li= link_to 'Pitching', {:controller => 'team', :action => 'al_pitching'}
+= render :partial => 'list_team_hitting'

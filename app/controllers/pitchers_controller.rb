@@ -127,42 +127,369 @@ class PitchersController < ApplicationController
     end
   end
 
-  def all_pitcher
-    @all_pitcher = Player.where(:pos => "P")
-    number = 0
-    @pitcher = {}
-    @all_pitcher.each do |pitcher|
-      @pitcher[number] = {
-        p_id: pitcher[:p_id],
-        team_id: pitcher[:team_id],
-        name: pitcher[:name],
-      }
+  def show
+    @p_id = params[:p_id]
+    @pitcher = Pitcher.where('p_id = ?',@p_id).first
 
-    url = "http://gd2.mlb.com/components/game/mlb/year_2013/pitchers/#{@pitcher[number][:p_id]}.xml"
+    @pitch_tendencies = @pitcher.pitch_tendencies.where('game_id = ?','last_five').order('num desc')
+    @pitch_type = @pitcher.pitch_type_details
 
-    doc = Nokogiri::XML(open(url))
+    @batter = Atbat.where.not('batter_name = ?','-').where('pitcher_id = ?', @p_id).select('DISTINCT batter_name, batter_id, batter_team').order('batter_name asc')
 
-    pitching = doc.css('pitching')
+    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?',params[:batter])
 
-    @pitcher[number] = {
-      era: pitching.attribute('era').text,
-      w: pitching.attribute('w').text,
-      l: pitching.attribute('l').text,
-      whip: pitching.attribute('whip').text,
-      ip: pitching.attribute('s_ip').text,
-      h: pitching.attribute('s_h').text,
-      er: pitching.attribute('s_er').text,
-      r: pitching.attribute('s_r').text,
-      bb: pitching.attribute('s_bb').text,
-      k: pitching.attribute('s_k').text,
-      sv: pitching.attribute('s_sv').text,
-      hbp: pitching.attribute('s_hbp').text,
-      hra: pitching.attribute('s_hra').text
-    }
+    @pitchings = {}
 
-    Pitcher.create(@pitcher[number])
-    number += 1
+    # @atbat.each do |atbat|
+    #   k = atbat.game_id_num
+    #   v = atbat.pitchings
+    #   v.each do |pitch|
+    #     ary = []
+    #     ary << pitch
+    #     @pitchings[k] = ary
+    #   end
+    # end
+
+
+    # @pitching = @pitcher.pitchings.order('sv_id asc')
+    # pitch_type = [
+    #   #fastball
+    #   'FA',
+    #   #four-seam fastball
+    #   'FF',
+    #   #two-seam fastball
+    #   'FT',
+    #   # sff
+    #   'FS',
+    #   #fork ball
+    #   'FO',
+    #   #cut fast ball
+    #   'FC',
+    #   #slider
+    #   'SL',
+    #   #sinker
+    #   'SI',
+    #   #curve
+    #   'CU',
+    #   # knuckle curve
+    #   'KC',
+    #   # change up
+    #   'CH',
+    #   #screw ball
+    #   'SC',
+    #   #knuckle ball
+    #   'KN',
+    #   # eeephas
+    #   'EP',
+    #   # unknown
+    #   'UN',
+    #   # pitch out
+    #   'PO',
+    #   # intentional ball
+    #   'IN'
+    # ]
+
+    # @pitch_dis = {}
+    # pitch_type.each do |ty|
+    #   @total = @pitching.count
+    #   type = ty.downcase
+    #   @kind_of_pitch = @pitching.where('pitch_type = ?',ty)
+    #   begin
+    #     @percent = ((@kind_of_pitch.count.to_f/@total.to_f) * 100).round(1)
+    #     @speed = @kind_of_pitch.average(:start_speed).round(1)
+    #     @pitch_dis[type.to_sym] = [@percent ,@speed]
+
+    #   rescue
+    #     type.delete(ty)
+    #   end
+    # end
+  end
+
+  def r_pitcher(pitcher)
+    r_pitcher = []
+    pitcher.each do |pitcher|
+      team_game = pitcher.team.tp_g
+      ip = pitcher.ip_sort
+      if ip >= team_game
+        r_pitcher << pitcher
+      end
     end
+    return r_pitcher
+  end
+
+  def nr_pitcher(pitcher)
+    nr_pitcher = []
+    pitcher.each do |pitcher|
+      team_game = pitcher.team.tp_g
+      ip = pitcher.ip_sort
+      if ip >= team_game
+      else
+        nr_pitcher << pitcher
+      end
+    end
+    return nr_pitcher
+  end
+
+  def all
+
+    @sort = sort('era')
+    @item = @sort[0]
+    @direction = @sort[1]
+
+    @pitcher = Pitcher.select('
+      p_id,
+      team_id,
+      team_abbrev,
+      name_display_first_last,
+      g,
+      gs,
+      w,
+      l,
+      hld,
+      sv,
+      bsv,
+      svo,
+      ip_sort,
+      era_sort,
+      whip_sort,
+      avg_sort,
+      slg_sort,
+      so,
+      ao,
+      go,
+      gidp,
+      p_inh_runner,
+      p_inh_runner_scored,
+      cg,
+      sho,
+      gf,
+      np,
+      er,
+      h,
+      r,
+      hr,
+      hb,
+      bb,
+      ibb,
+      wp,
+      tpa,
+      ab,
+      sf,
+      sac,
+      pct_sort,
+      bk
+          ').order(@item + ' ' + @direction)
+
+    @s_pitcher = @pitcher.where('gs > 0')
+
+
+    @r_pitcher = r_pitcher(@s_pitcher)
+    @nr_pitcher = nr_pitcher(@s_pitcher)
+
+    @thead = [
+      'Name',
+      'Team',
+      'w',
+      'l',
+      'g',
+      'gs',
+      'hld',
+      'sv',
+      'bsv',
+      'svo',
+      'era',
+      'ip',
+      'whip',
+      'avg',
+      'slg',
+      'so',
+      'ao',
+      'go',
+      'gidp',
+      'er',
+      'r',
+      'h',
+      'hr',
+      'hb',
+      'bb',
+      'ibb',
+      'wp',
+      'bk'
+    ]
+  end
+
+  def nl
+    @sort = sort('era')
+    @item = @sort[0]
+    @direction = @sort[1]
+
+    @pitcher = Pitcher.where('league_id = 104').select('
+      p_id,
+      team_id,
+      team_abbrev,
+      name_display_first_last,
+      g,
+      gs,
+      w,
+      l,
+      hld,
+      sv,
+      bsv,
+      svo,
+      ip_sort,
+      era_sort,
+      whip_sort,
+      avg_sort,
+      slg_sort,
+      so,
+      ao,
+      go,
+      gidp,
+      p_inh_runner,
+      p_inh_runner_scored,
+      cg,
+      sho,
+      gf,
+      np,
+      er,
+      h,
+      r,
+      hr,
+      hb,
+      bb,
+      ibb,
+      wp,
+      tpa,
+      ab,
+      sf,
+      sac,
+      pct_sort,
+      bk
+          ').order(@item + ' ' + @direction)
+
+    @s_pitcher = @pitcher.where('gs > 0')
+
+
+    @r_pitcher = r_pitcher(@s_pitcher)
+    @nr_pitcher = nr_pitcher(@s_pitcher)
+
+    @thead = [
+      'Name',
+      'Team',
+      'w',
+      'l',
+      'g',
+      'gs',
+      'hld',
+      'sv',
+      'bsv',
+      'svo',
+      'era',
+      'ip',
+      'whip',
+      'avg',
+      'slg',
+      'so',
+      'ao',
+      'go',
+      'gidp',
+      'er',
+      'r',
+      'h',
+      'hr',
+      'hb',
+      'bb',
+      'ibb',
+      'wp',
+      'bk'
+    ]
+  end
+
+  def al
+    @sort = sort('era')
+    @item = @sort[0]
+    @direction = @sort[1]
+
+    @pitcher = Pitcher.where('league_id = 103').select('
+      p_id,
+      team_id,
+      team_abbrev,
+      name_display_first_last,
+      g,
+      gs,
+      w,
+      l,
+      hld,
+      sv,
+      bsv,
+      svo,
+      ip_sort,
+      era_sort,
+      whip_sort,
+      avg_sort,
+      slg_sort,
+      so,
+      ao,
+      go,
+      gidp,
+      p_inh_runner,
+      p_inh_runner_scored,
+      cg,
+      sho,
+      gf,
+      np,
+      er,
+      h,
+      r,
+      hr,
+      hb,
+      bb,
+      ibb,
+      wp,
+      tpa,
+      ab,
+      sf,
+      sac,
+      pct_sort,
+      bk
+          ').order(@item + ' ' + @direction)
+
+    @s_pitcher = @pitcher.where('gs > 0')
+
+
+    @r_pitcher = r_pitcher(@s_pitcher)
+    @nr_pitcher = nr_pitcher(@s_pitcher)
+
+    @thead = [
+      'Name',
+      'Team',
+      'w',
+      'l',
+      'g',
+      'gs',
+      'hld',
+      'sv',
+      'bsv',
+      'svo',
+      'era',
+      'ip',
+      'whip',
+      'avg',
+      'slg',
+      'so',
+      'ao',
+      'go',
+      'gidp',
+      'er',
+      'r',
+      'h',
+      'hr',
+      'hb',
+      'bb',
+      'ibb',
+      'wp',
+      'bk'
+    ]
   end
 
 end

@@ -1,9 +1,18 @@
 Mlb::Application.routes.draw do
   resources :examples
 
-  root to: 'data#new'
+  root to: 'team#new'
+  resources :stat
+  get 'batter/:p_id' => 'batters#show'
+  get 'pitcher/:p_id' => 'pitchers#show'
   get 'team/:team_id' => 'team#show'
   get 'team' => 'team#new'
+  get 'all_team_hitting', to: 'team#all_hitting'
+  get 'all_team_pitching', to: 'team#all_pitching'
+  get 'al_team_hitting', to: 'team#al_hitting'
+  get 'al_team_pitching', to: 'team#al_pitching'
+  get 'nl_team_hitting', to: 'team#nl_hitting'
+  get 'nl_team_pitching', to: 'team#nl_pitching'
   resources :team
   resources :data
   get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'
@@ -12,7 +21,17 @@ Mlb::Application.routes.draw do
   resources :game_detail
   post 'pitcher' => 'pitchers#pitcher'
   post 'batter' => 'batters#batter'
-  get 'al_batter', to: 'batters#al_batter'
+  get 'batters', to: 'batters#index'
+  get 'all_batters', to: 'batters#all'
+  get 'al_batter', to: 'batters#al'
+  get 'nl_batter', to: 'batters#nl'
+  get 'pitchers', to: 'pitchers#index'
+  get 'all_pitchers', to: 'pitchers#all'
+  get 'al_pitcher', to: 'pitchers#al'
+  get 'nl_pitcher', to: 'pitchers#nl'
+  get 'pitchings', to: 'pitch_type_details#pitchings'
+  get 'battings', to: 'pitch_type_details#battings'
+  get 'atbat', to: 'atbat#show'
 
   # get 'master_scoreboard' => 'master_scoreboard#index'
   # get 'master_scoreboard/show' => 'master_scoreboard#show'

@@ -1,0 +1,35 @@
+/ = debug @column
+/ = debug @pitch_type
+/ = debug @pitchings
+= render :partial => 'layouts/frame'
+%h4 球種別成績 投手
+%form.form-inline
+  = select_tag :type, options_from_collection_for_select(@column, :pitch_type, :pitch_type)
+  = submit_tag 'Go!', {:controller => 'pitch_type_details', :action => 'pitchings'}
+%table.table.table-hover.table.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th TEAM
+      %th= link_to 'AB' ,{:sort => 'AB', :type => @pitch_type}
+      %th= link_to 'AVG' ,{:sort => 'AVG', :type => @pitch_type}
+      %th= link_to 'HR' ,{:sort => 'HR', :type => @pitch_type}
+      %th= link_to 'RBI' ,{:sort => 'RBI', :type => @pitch_type}
+      %th= link_to 'BB' ,{:sort => 'BB', :type => @pitch_type}
+      %th= link_to 'SO' ,{:sort => 'SO', :type => @pitch_type}
+      %th= link_to 'OPS' ,{:sort => 'OPS', :type => @pitch_type}
+  %tbody
+  -@pitchings.each do |pitch|
+    %tr
+    -begin
+      %th= link_to pitch.pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitch.p_id}
+      %td= pitch.pitcher.team_abbrev
+      %td= pitch.ab
+      %td= pitch.avg
+      %td= pitch.hr
+      %td= pitch.rbi
+      %td= pitch.bb
+      %td= pitch.so
+      %td= pitch.ops
+    -rescue
+      -next

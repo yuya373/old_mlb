@@ -1,0 +1,36 @@
+/ =debug session[:pitcher]
+/ =debug session[:batter]
+/ =debug @atbat
+/ = select_tag :pitch, option_groups_from_collection_for_select(@pitcher, :atbats, :team_abbrev, :pitcher_id, :pitcher_name)
+/ = select_tag :pitch, grouped_options_for_select(@column)
+%form.form-inline
+  = select_tag :pitcher, options_from_collection_for_select(@p_column, :pitcher_id, :pitcher_name)
+  = submit_tag 'Go!', {:controller => 'atbats', :action => 'show'}
+%form.form-inline
+  = select_tag :batter, options_from_collection_for_select(@b_column, :batter_id, :batter_name)
+  = hidden_field_tag :pitcher, @p_id
+  = submit_tag 'Go!', {:controller => 'atbats', :action => 'show'}
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+      %th Pitcher
+      %th Batter
+      %th Count
+      %th Event
+  %tbody
+    -@atbat.each do |atbat|
+      %tr
+        %th= atbat.game_id.slice(0,10)
+        %td= atbat.pitcher_name
+        %td= atbat.batter_name
+        %td= "B:#{atbat.b} S:#{atbat.s} O:#{atbat.o}"
+        %td= atbat.event
+      %tr
+        %th Velocity
+        %th Type
+        %th Nasty
+        %th Zone
+      %tr
+        %td @pitchings[atbat.game_id_num].end_speed
