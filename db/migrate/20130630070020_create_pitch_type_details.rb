@@ -5,7 +5,7 @@ class CreatePitchTypeDetails < ActiveRecord::Migration
       t.string   "p_id_ty"
       t.integer  "p_id"
       t.string   "pitch_type"
-      t.string   "ab"
+      t.integer  "ab"
       t.float    "avg"
       t.integer  "hr"
       t.integer  "rbi"
