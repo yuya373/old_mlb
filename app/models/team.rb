@@ -36,11 +36,11 @@ class Team < ActiveRecord::Base
       @team[:win_pct] = @team[:tp_w].to_f/@team[:tp_g].to_f
       team_id = @team[:team_id]
 
-      # begin
+      begin
         Team.where('team_id = ?', team_id).first.update_attributes!(@team)
-      # rescue
-        # Team.create(@team)
-    # end
+      rescue
+        Team.create(@team)
+      end
     end
   end
 end
