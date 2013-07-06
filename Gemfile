@@ -1,18 +1,20 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '4.0.0.beta1'
 gem 'rails', '4.0.0.rc1'
 
-gem 'sqlite3'
+# gem 'sqlite3'
+gem 'pg'
 gem 'nokogiri'
-gem 'debugger'
+# gem 'debugger'
 gem 'haml-rails'
 gem 'erb2haml'
 gem 'rails-i18n'
-gem 'whenever', :require => false
-gem 'lazy_high_charts'
-gem 'highcharts-rails'
+# gem 'whenever', :require => false
+gem 'rails_12factor', group: :production
 
 # Gems used only for assets and not required
 # in production environments by default.
