@@ -6,7 +6,7 @@ ruby '2.0.0'
 # gem 'rails', '4.0.0.beta1'
 gem 'rails', '4.0.0.rc1'
 
-# gem 'sqlite3'
+gem 'sqlite3', group: :development
 gem 'pg'
 gem 'nokogiri'
 # gem 'debugger'
@@ -15,14 +15,14 @@ gem 'erb2haml'
 gem 'rails-i18n'
 # gem 'whenever', :require => false
 gem 'rails_12factor', group: :production
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'sass-rails',   '~> 4.0.0.rc1'
+gem 'coffee-rails', '~> 4.0.0.rc1'
+gem "less-rails", '2.3.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 4.0.0.rc1'
-  gem 'coffee-rails', '~> 4.0.0.rc1'
-  gem "less-rails", '2.3.2'
-  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 
 
