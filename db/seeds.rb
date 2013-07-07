@@ -10,12 +10,55 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-
-num = 1.upto(31).to_a
+num_4 = 1.upto(30).to_a
 game_id = []
-num.each do |num|
+num_4.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_04/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+
+num_5 = 1.upto(31).to_a
+num_5.each do |num|
   day = sprintf("%.2d",num)
   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_05/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+
+num_6 = 1.upto(31).to_a
+num_6.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+num_7 = 1.upto(6).to_a
+num_7.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
   begin
     doc = Nokogiri::XML(open(url))
     doc.css('game').each do |game|
@@ -136,23 +179,30 @@ end
 
 
 
-# Atbat.find_each do |atbat|
-#   begin
-#     @p_name = atbat.pitcher.name_display_first_last
-#     @b_name = atbat.batter.name_display_first_last
-#       @pitcher_team = atbat.pitcher.team_abbrev
-#       @batter_team = atbat.batter.team_abbrev
-#   rescue
-#       @pitcher_team = '-'
-#       @batter_team = '-'
+Atbat.find_each do |atbat|
+  begin
+    @p_name = atbat.pitcher.name_display_first_last
+    @p_team = atbat.pitcher.team_abbrev
+  rescue
+    @p_team = '-'
+    @p_name = '-'
+  end
 
-#     # @b_name = '-'
-#   end
+  begin
+    @b_name = atbat.batter.name_display_first_last
+    @b_team = atbat.batter.team_abbrev
+  rescue
+    @b_team = '-'
+    @b_name = '-'
+  end
 
-#   atbat.update_attributes(pitcher_team: @pitcher_team, batter_team: @batter_team)
-#     # pitcher_name: @p_name)
-#     # , batter_name: @b_name)
-# end
+  atbat.update_attributes(
+    pitcher_team: @p_team,
+    pitcher_name: @p_name,
+    batter_name: @b_naem,
+    batter_team: @_team
+    )
+end
 
 
 
