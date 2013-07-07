@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707014720) do
+ActiveRecord::Schema.define(version: 20130707020504) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20130707014720) do
     t.string   "stand"
     t.string   "b_height"
     t.string   "p_throws"
-    t.string   "des"
+    t.text     "des",            limit: 255
     t.string   "event"
     t.datetime "created_at"
     t.datetime "updated_at"
