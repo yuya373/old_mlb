@@ -8,7 +8,7 @@ class Atbat < ActiveRecord::Base
   def self.get
     Team.find_each do |team|
 
-    # gid = '2013_05_19_detmlb_texmlb_1'
+      # gid = '2013_05_19_detmlb_texmlb_1'
       gid = team.game_id
       year = gid.slice(0,4)
       month = gid.slice(5,2)
@@ -44,7 +44,32 @@ class Atbat < ActiveRecord::Base
           game_id_num: "#{gid}_#{atbat.attribute('num').text}"
         }
 
-        Atbat.create(@at_bat)
+        @atbat = Atbat.create(@at_bat)
+
+        begin
+          pitcher = @atbat.pitcher
+          p_name = pitcher.name_display_first_last
+          p_team = pitcher.team_abbrev
+        rescue
+          p_name = '-'
+          p_team = '-'
+        end
+
+        begin
+          batter = @atbat.batter
+          b_name = batter.name_display_first_last
+          b_team = batter.team_abbrev
+        rescue
+          b_name = '-'
+          b_team = '-'
+        end
+
+        @atbat.update_attributes(
+          pitcher_name: p_name,
+          pitcher_team: p_team,
+          batter_name: b_name,
+          batter_team: b_team
+          )
       end
     end
   end

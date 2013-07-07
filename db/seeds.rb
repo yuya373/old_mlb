@@ -45,6 +45,8 @@ end
 
 
 url.each do |gid,url|
+
+  # Pitchings
   begin
     doc = Nokogiri::XML(open(url))
     inning = doc.css('inning')
@@ -124,6 +126,11 @@ url.each do |gid,url|
     end
   rescue
   end
+
+
+
+
+
 end
 
 
@@ -131,13 +138,14 @@ end
 
 # Atbat.find_each do |atbat|
 #   begin
-#     # @p_name = atbat.pitcher.name_display_first_last
-#     # @b_name = atbat.batter.name_display_first_last
+#     @p_name = atbat.pitcher.name_display_first_last
+#     @b_name = atbat.batter.name_display_first_last
 #       @pitcher_team = atbat.pitcher.team_abbrev
 #       @batter_team = atbat.batter.team_abbrev
 #   rescue
 #       @pitcher_team = '-'
 #       @batter_team = '-'
+
 #     # @b_name = '-'
 #   end
 
