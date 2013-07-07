@@ -5,7 +5,7 @@ class Pitching < ActiveRecord::Base
 
   belongs_to :pitcher, :foreign_key => 'pitcher_id'
   belongs_to :batter, :foreign_key => 'batter_id'
-  belongs_to :atbat, :primary_key => 'game_id_num'
+  belongs_to :atbat, :foreign_key => 'game_id_num'
 
   def self.get
     Team.find_each do |team|

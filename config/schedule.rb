@@ -34,7 +34,8 @@ every 1.day, :at => '2:26 am' do
   rbenv_bundle_runner "Pitcher.get"
   rbenv_bundle_runner "Pitching.get"
   rbenv_bundle_runner "Atbat.get"
-  rbenv_bundle_runner "PitchTypeDetail.get"
+  rbenv_bundle_runner "PitchTypeDetail.batter_get"
+  rbenv_bundle_runner "PitchTypeDetail.pitcher_get"
   rbenv_bundle_runner "PitchTendency.get"
 
 end

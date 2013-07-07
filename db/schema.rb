@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707020504) do
+ActiveRecord::Schema.define(version: 20130707025052) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20130707020504) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "game_id"
-    t.text     "game_id_num",    limit: 255
+    t.string   "game_id_num"
     t.string   "pitcher_name"
     t.string   "batter_name"
     t.string   "batter_team"
