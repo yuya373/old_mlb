@@ -67,8 +67,8 @@ class PitchTypeDetail < ActiveRecord::Base
           cont = {
             p_b: 'p',
             p_id: k.slice(0,6),
-            p_id_ty: "#{k.slice(0,6)}_#{v.to_s.slice(121,3)}",
-            pitch_type: v.to_s.slice(121,3),
+            p_id_ty: "#{k.slice(0,6)}_#{v.to_s.slice(121,2)}",
+            pitch_type: v.to_s.slice(121,2),
             ab: sit.attribute('ab').text,
             avg: sit.attribute('avg').text,
             hr: sit.attribute('hr').text,
