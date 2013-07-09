@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "stand"
     t.string   "b_height"
     t.string   "p_throws"
-    t.text     "des",            limit: 255
+    t.text     "des"
     t.string   "event"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,24 +35,6 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "batter_name"
     t.string   "batter_team"
     t.string   "pitcher_team"
-  end
-
-  create_table "batter_details", force: true do |t|
-    t.string   "p_id_ty"
-    t.integer  "p_id"
-    t.string   "pitch_type"
-    t.string   "ab"
-    t.float    "avg"
-    t.integer  "hr"
-    t.integer  "rbi"
-    t.integer  "bb"
-    t.integer  "so"
-    t.float    "ops"
-    t.string   "rating"
-    t.string   "sweetness"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "p_b"
   end
 
   create_table "batters", force: true do |t|
@@ -215,14 +197,6 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.datetime "updated_at"
   end
 
-  create_table "data_fetchers", force: true do |t|
-    t.string   "gid"
-    t.string   "team_name"
-    t.integer  "team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "examples", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -249,7 +223,7 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "p_id_ty"
     t.integer  "p_id"
     t.string   "pitch_type"
-    t.integer  "ab",         limit: 255
+    t.integer  "ab"
     t.float    "avg"
     t.integer  "hr"
     t.integer  "rbi"
@@ -446,8 +420,58 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.float    "vs_rhb_era"
   end
 
-# Could not dump table "pitchings" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "pitchings", force: true do |t|
+    t.integer  "pitcher_id"
+    t.integer  "batter_id"
+    t.integer  "on_1b"
+    t.integer  "on_2b"
+    t.integer  "on_3b"
+    t.string   "des"
+    t.string   "des_es"
+    t.string   "s_or_ball"
+    t.integer  "tfs"
+    t.string   "tfs_zulu"
+    t.float    "x"
+    t.float    "y"
+    t.string   "sv_id"
+    t.float    "start_speed"
+    t.float    "end_speed"
+    t.float    "sz_top"
+    t.float    "sz_bot"
+    t.float    "pfx_x"
+    t.float    "pfx_z"
+    t.float    "px"
+    t.float    "pz"
+    t.float    "x0"
+    t.float    "y0"
+    t.float    "z0"
+    t.float    "vx0"
+    t.float    "vy0"
+    t.float    "vz0"
+    t.float    "ax"
+    t.float    "ay"
+    t.float    "az"
+    t.float    "break_y"
+    t.float    "break_angle"
+    t.float    "break_length"
+    t.string   "pitch_type"
+    t.float    "type_confidence"
+    t.integer  "zone"
+    t.integer  "nasty"
+    t.float    "spin_dir"
+    t.float    "spin_rate"
+    t.string   "cc"
+    t.string   "mt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "num"
+    t.string   "game_id"
+    t.string   "game_id_num"
+    t.string   "inning"
+    t.integer  "inning_num"
+    t.string   "away_team"
+    t.string   "home_team"
+  end
 
   create_table "players", force: true do |t|
     t.integer  "p_id"
