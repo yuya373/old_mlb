@@ -13,7 +13,7 @@ gem 'nokogiri'
 gem 'haml-rails'
 gem 'erb2haml'
 gem 'rails-i18n'
-# gem 'whenever', :require => false
+gem 'whenever', :require => false
 gem 'rails_12factor', group: :production
 gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 4.0.0.rc1'
