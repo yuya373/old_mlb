@@ -21,6 +21,8 @@
 set :environment, :development
 set :output, { :error => 'log/error.log', :standard => 'log/cron.log' }
 job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
+job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :production ':task' :output"
+
 
 
 # every 1.minutes do
@@ -28,7 +30,7 @@ job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$
 # end
 
 
-every 1.day, :at => '2:26 am' do
+every 1.day, :at => '14:00 pm' do
   rbenv_bundle_runner "Team.get"
   rbenv_bundle_runner "Batter.get"
   rbenv_bundle_runner "Pitcher.get"
@@ -37,5 +39,17 @@ every 1.day, :at => '2:26 am' do
   rbenv_bundle_runner "PitchTypeDetail.batter_get"
   rbenv_bundle_runner "PitchTypeDetail.pitcher_get"
   rbenv_bundle_runner "PitchTendency.get"
+
+end
+
+every 1.day, :at => '14:00 pm' do
+  sakura_runner "Team.get"
+  sakura_runner "Batter.get"
+  sakura_runner "Pitcher.get"
+  sakura_runner "Pitching.get"
+  sakura_runner "Atbat.get"
+  sakura_runner "PitchTypeDetail.batter_get"
+  sakura_runner "PitchTypeDetail.pitcher_get"
+  sakura_runner "PitchTendency.get"
 
 end
