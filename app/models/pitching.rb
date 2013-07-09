@@ -31,7 +31,6 @@ class Pitching < ActiveRecord::Base
         atbat_num = atbat.attribute('num').text
         p = atbat.attribute('pitcher').text
         b = atbat.attribute('batter').text
-        num = 0
         atbat.css('pitch').each do |pitch|
           @pitching = {}
           @pitching[:game_id] = gid
@@ -50,9 +49,11 @@ class Pitching < ActiveRecord::Base
               @pitching[k.to_sym] = v
             end
           end
+          begin
+            Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+          rescue
             Pitching.create(@pitching)
-          num += 1
-
+          end
         end
       end
     end
