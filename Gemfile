@@ -6,7 +6,7 @@ ruby '2.0.0'
 # gem 'rails', '4.0.0.beta1'
 gem 'rails', '4.0.0.rc1'
 
-gem 'sqlite3', group: :development
+gem 'sqlite3'
 gem 'mysql2', group: :production
 gem 'nokogiri'
 # gem 'debugger'
