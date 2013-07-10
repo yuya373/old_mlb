@@ -75,6 +75,7 @@ GEM
     mini_portile (0.5.0)
     minitest (4.7.4)
     multi_json (1.7.6)
+    mysql2 (0.3.11)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     polyglot (0.3.3)
@@ -155,6 +156,7 @@ DEPENDENCIES
   jbuilder (~> 1.0.1)
   jquery-rails
   less-rails (= 2.3.2)
+  mysql2
   nokogiri
   rails (= 4.0.0.rc1)
   rails-i18n
