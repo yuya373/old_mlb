@@ -119,8 +119,12 @@ end
           @atbat = Atbat.create(@at_bat)
         end
 
+      end
+    end
+
+      Atbat.find_each do |atbat|
         begin
-          pitcher = @atbat.pitcher
+          pitcher = atbat.pitcher
           p_name = pitcher.name_display_first_last
           p_team = pitcher.team_abbrev
         rescue
@@ -129,7 +133,7 @@ end
         end
 
         begin
-          batter = @atbat.batter
+          batter = atbat.batter
           b_name = batter.name_display_first_last
           b_team = batter.team_abbrev
         rescue
@@ -137,14 +141,14 @@ end
           b_team = '-'
         end
 
-        @atbat.update_attributes(
+        atbat.update_attributes(
           pitcher_name: p_name,
           pitcher_team: p_team,
           batter_name: b_name,
           batter_team: b_team
           )
       end
-    end
+
 
 # url = {}
 # game_id.each do |gid|
