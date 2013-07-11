@@ -42,7 +42,7 @@ every 1.day, :at => '14:00 pm' do
 
 end
 
-every 1.day, :at => '15:06 pm' do
+every 1.day, :at => '14:00 pm' do
   sakura_runner "Team.get"
   sakura_runner "Batter.get"
   sakura_runner "Pitcher.get"

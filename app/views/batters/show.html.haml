@@ -1,4 +1,4 @@
-/ =debug @details
+/ =debug @batter
 / =debug @atbat
 .row-fluid
   .span12
@@ -13,7 +13,71 @@
         %li= "#{t(@batter[:throws])}投#{t(@batter[:bats])}打"
         %li= "ポジション:#{@batter.pos}"
         / %li= "#{@year}/#{@month}/#{@day} 現在"
+    .span12
+      %h5 成績
+      %table.table.table-striped
+        %thead
+          %tr
+            %th AB
+            %th AVG
+            %th OPS
+            %th OBP
+            %th H
+            %th 2B
+            %th 3B
+            %th HR
+            %th RBI
+            %th R
+            %th BB
+            %th SO
+            %th SB
+            %th CS
+            %th GIDP
+            %th GO
+            %th AO
+        %tbody
+          %tr
+            %td= @batter.ab
+            %td= @batter.avg_sort.round(3)
+            %td= @batter.ops_sort.round(3)
+            %td= @batter.obp_sort.round(3)
+            %td= @batter.h
+            %td= @batter.b2
+            %td= @batter.b3
+            %td= @batter.hr
+            %td= @batter.rbi
+            %td= @batter.r
+            %td= @batter.bb
+            %td= @batter.so
+            %td= @batter.sb
+            %td= @batter.cs
+            %td= @batter.gidp
+            %td= @batter.go
+            %td= @batter.ao
+        %thead
+          %tr
+            %th SAC
+            %th SF
+            %th IBB
+            %th HBP
+            %th A
+            %th PO
+            %th E
+            %th NP
+            %th TPA
+        %tbody
+          %tr
+            %td= @batter.sac
+            %td= @batter.sf
+            %td= @batter.ibb
+            %td= @batter.hbp
+            %td= @batter.a
+            %td= @batter.po
+            %td= @batter.e
+            %td= @batter.np
+            %td= @batter.tpa
     .span10
+      %h5 対ピッチャー
       %form.form-inline
         = select_tag :pitcher, options_from_collection_for_select(@pitcher, :pitcher_id, :pitcher_name)
         = hidden_field_tag :batter, @p_id
@@ -56,6 +120,7 @@
 
 
     .span6
+      %h5 球種別
       %table.table.table-hover.table-condensed
         %thead
           %tr
@@ -85,6 +150,7 @@
               %td= d.rating
               %td= d.sweetness
     .span6
+      %h5 Split
       %table.table.table-bordered.table.table-condensed
         %thead
           %th
