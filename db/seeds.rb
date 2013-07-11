@@ -55,7 +55,7 @@ num_6.each do |num|
   end
 end
 
-num_7 = 1.upto(6).to_a
+num_7 = 1.upto(10).to_a
 num_7.each do |num|
   day = sprintf("%.2d",num)
   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
@@ -70,139 +70,217 @@ num_7.each do |num|
 end
 
 url = {}
+
 game_id.each do |gid|
 
-      # 2013/06/01/wasmlb-atlmlb-1
+      gid = team.game_id
       year = gid.slice(0,4)
       month = gid.slice(5,2)
       day = gid.slice(8,2)
+      # 2013/06/01/wasmlb-atlmlb-1
       away_team = gid.slice(11,6)
       home_team = gid.slice(18,6)
       num = gid.slice(25,1)
+
       u = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
 
       url[gid] = u
 
-
 end
 
 
-url.each do |gid,url|
+    url.each do |gid,url|
+      doc = Nokogiri::XML(open(url))
 
-  # Pitchings
-  begin
-    doc = Nokogiri::XML(open(url))
-    inning = doc.css('inning')
-    top = inning.css('top')
-    bot = inning.css('bottom')
-    top_atbat = top.css('atbat')
-    bot_atbat = bot.css('atbat')
+      atbat = doc.css('atbat')
 
-    top_atbat.each do |atbat|
-      atbat_num = atbat.attribute('num').text
-      p = atbat.attribute('pitcher').text
-      b = atbat.attribute('batter').text
-      atbat.css('pitch').each do |pitch|
-        @pitching = {}
-        @pitching[:inning] = 'top'
-        @pitching[:inning_num] = inning.attribute('num').text
-        @pitching[:away_team] = inning.attribute('away_team').text
-        @pitching[:home_team] = inning.attribute('home_team').text
 
-        @pitching[:game_id] = gid
-        @pitching[:num] = atbat_num
-        @pitching[:pitcher_id] = p
-        @pitching[:batter_id] = b
-        @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
-        pitch.keys.to_a.each do |k|
-          v = pitch.attribute(k).text
-          case k
-          when 'id'
-          when 'type'
-            k = 's_or_ball'
-            @pitching[k.to_sym] = v
-          else
-            @pitching[k.to_sym] = v
-          end
-        end
+      atbat.each do |atbat|
+        @at_bat = {
+          game_id: gid,
+          num: atbat.attribute('num').text,
+          b: atbat.attribute('b').text,
+          s: atbat.attribute('s').text,
+          o: atbat.attribute('o').text,
+          start_tfs: atbat.attribute('start_tfs').text,
+          start_tfs_zulu: atbat.attribute('start_tfs_zulu').text,
+          batter_id: atbat.attribute('batter').text,
+          stand: atbat.attribute('stand').text,
+          b_height: atbat.attribute('b_height').text,
+          pitcher_id: atbat.attribute('pitcher').text,
+          p_throws: atbat.attribute('p_throws').text,
+          des: atbat.attribute('des').text,
+          event: atbat.attribute('event').text,
+          game_id_num: "#{gid}_#{atbat.attribute('num').text}"
+        }
+
         begin
-          Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+          @atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first.update_attributes!(@at_bat)
         rescue
-          Pitching.create(@pitching)
+          @atbat = Atbat.create(@at_bat)
         end
+
+        begin
+          pitcher = @atbat.pitcher
+          p_name = pitcher.name_display_first_last
+          p_team = pitcher.team_abbrev
+        rescue
+          p_name = '-'
+          p_team = '-'
+        end
+
+        begin
+          batter = @atbat.batter
+          b_name = batter.name_display_first_last
+          b_team = batter.team_abbrev
+        rescue
+          b_name = '-'
+          b_team = '-'
+        end
+
+        @atbat.update_attributes(
+          pitcher_name: p_name,
+          pitcher_team: p_team,
+          batter_name: b_name,
+          batter_team: b_team
+          )
       end
     end
 
-    bot_atbat.each do |atbat|
-      atbat_num = atbat.attribute('num').text
-      p = atbat.attribute('pitcher').text
-      b = atbat.attribute('batter').text
-      atbat.css('pitch').each do |pitch|
-        @pitching = {}
-        @pitching[:inning] = 'bot'
-        @pitching[:inning_num] = inning.attribute('num').text
-        @pitching[:away_team] = inning.attribute('away_team').text
-        @pitching[:home_team] = inning.attribute('home_team').text
+# url = {}
+# game_id.each do |gid|
 
-        @pitching[:game_id] = gid
-        @pitching[:num] = atbat_num
-        @pitching[:pitcher_id] = p
-        @pitching[:batter_id] = b
-        @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
-        pitch.keys.to_a.each do |k|
-          v = pitch.attribute(k).text
-          case k
-          when 'id'
-          when 'type'
-            k = 's_or_ball'
-            @pitching[k.to_sym] = v
-          else
-            @pitching[k.to_sym] = v
-          end
-        end
-        begin
-          Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
-        rescue
-          Pitching.create(@pitching)
-        end
-      end
-    end
-  rescue
-  end
+#       # 2013/06/01/wasmlb-atlmlb-1
+#       year = gid.slice(0,4)
+#       month = gid.slice(5,2)
+#       day = gid.slice(8,2)
+#       away_team = gid.slice(11,6)
+#       home_team = gid.slice(18,6)
+#       num = gid.slice(25,1)
+#       u = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
+
+#       url[gid] = u
 
 
+# end
+
+
+# url.each do |gid,url|
+
+#   # Pitchings
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     inning = doc.css('inning')
+#     top = inning.css('top')
+#     bot = inning.css('bottom')
+#     top_atbat = top.css('atbat')
+#     bot_atbat = bot.css('atbat')
+
+#     top_atbat.each do |atbat|
+#       atbat_num = atbat.attribute('num').text
+#       p = atbat.attribute('pitcher').text
+#       b = atbat.attribute('batter').text
+#       atbat.css('pitch').each do |pitch|
+#         @pitching = {}
+#         @pitching[:inning] = 'top'
+#         @pitching[:inning_num] = inning.attribute('num').text
+#         @pitching[:away_team] = inning.attribute('away_team').text
+#         @pitching[:home_team] = inning.attribute('home_team').text
+
+#         @pitching[:game_id] = gid
+#         @pitching[:num] = atbat_num
+#         @pitching[:pitcher_id] = p
+#         @pitching[:batter_id] = b
+#         @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+#         pitch.keys.to_a.each do |k|
+#           v = pitch.attribute(k).text
+#           case k
+#           when 'id'
+#           when 'type'
+#             k = 's_or_ball'
+#             @pitching[k.to_sym] = v
+#           else
+#             @pitching[k.to_sym] = v
+#           end
+#         end
+#         begin
+#           Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+#         rescue
+#           Pitching.create(@pitching)
+#         end
+#       end
+#     end
+
+#     bot_atbat.each do |atbat|
+#       atbat_num = atbat.attribute('num').text
+#       p = atbat.attribute('pitcher').text
+#       b = atbat.attribute('batter').text
+#       atbat.css('pitch').each do |pitch|
+#         @pitching = {}
+#         @pitching[:inning] = 'bot'
+#         @pitching[:inning_num] = inning.attribute('num').text
+#         @pitching[:away_team] = inning.attribute('away_team').text
+#         @pitching[:home_team] = inning.attribute('home_team').text
+
+#         @pitching[:game_id] = gid
+#         @pitching[:num] = atbat_num
+#         @pitching[:pitcher_id] = p
+#         @pitching[:batter_id] = b
+#         @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+#         pitch.keys.to_a.each do |k|
+#           v = pitch.attribute(k).text
+#           case k
+#           when 'id'
+#           when 'type'
+#             k = 's_or_ball'
+#             @pitching[k.to_sym] = v
+#           else
+#             @pitching[k.to_sym] = v
+#           end
+#         end
+#         begin
+#           Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+#         rescue
+#           Pitching.create(@pitching)
+#         end
+#       end
+#     end
+#   rescue
+#   end
 
 
 
-end
+
+
+# end
 
 
 
 
-Atbat.find_each do |atbat|
-  begin
-    @p_name = atbat.pitcher.name_display_first_last
-    @p_team = atbat.pitcher.team_abbrev
-  rescue
-    @p_team = '-'
-    @p_name = '-'
-  end
+# Atbat.find_each do |atbat|
+#   begin
+#     @p_name = atbat.pitcher.name_display_first_last
+#     @p_team = atbat.pitcher.team_abbrev
+#   rescue
+#     @p_team = '-'
+#     @p_name = '-'
+#   end
 
-  begin
-    @b_name = atbat.batter.name_display_first_last
-    @b_team = atbat.batter.team_abbrev
-  rescue
-    @b_team = '-'
-    @b_name = '-'
-  end
+#   begin
+#     @b_name = atbat.batter.name_display_first_last
+#     @b_team = atbat.batter.team_abbrev
+#   rescue
+#     @b_team = '-'
+#     @b_name = '-'
+#   end
 
-  atbat.update_attributes(
-    pitcher_team: @p_team,
-    pitcher_name: @p_name,
-    batter_name: @b_naem,
-    batter_team: @_team
-    )
-end
+#   atbat.update_attributes(
+#     pitcher_team: @p_team,
+#     pitcher_name: @p_name,
+#     batter_name: @b_naem,
+#     batter_team: @_team
+#     )
+# end
 
 
 
