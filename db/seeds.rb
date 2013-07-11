@@ -73,7 +73,6 @@ url = {}
 
 game_id.each do |gid|
 
-      gid = team.game_id
       year = gid.slice(0,4)
       month = gid.slice(5,2)
       day = gid.slice(8,2)
