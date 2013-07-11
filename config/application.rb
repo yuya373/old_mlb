@@ -19,5 +19,9 @@ module Mlb
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ja
     config.autoload_paths += %W(#{config.root}/lib)
+    config.app_generators.stylesheet_engine :less
+    config.less.paths << "#{Rails.root}/lib/less/protractor/stylesheets"
+    config.less.compress = true
+    config.assets.compress = true
   end
 end

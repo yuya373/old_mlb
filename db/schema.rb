@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707025052) do
+ActiveRecord::Schema.define(version: 20130711063354) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "stand"
     t.string   "b_height"
     t.string   "p_throws"
-    t.text     "des"
+    t.text     "des",            limit: 255
     t.string   "event"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,6 +35,24 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "batter_name"
     t.string   "batter_team"
     t.string   "pitcher_team"
+  end
+
+  create_table "batter_details", force: true do |t|
+    t.string   "p_id_ty"
+    t.integer  "p_id"
+    t.string   "pitch_type"
+    t.string   "ab"
+    t.float    "avg"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "bb"
+    t.integer  "so"
+    t.float    "ops"
+    t.string   "rating"
+    t.string   "sweetness"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "p_b"
   end
 
   create_table "batters", force: true do |t|
@@ -186,6 +204,14 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.float    "vs_rhp_ops"
   end
 
+  create_table "benches", force: true do |t|
+    t.string   "game_id"
+    t.integer  "team"
+    t.integer  "p_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "data", force: true do |t|
     t.string   "gid"
     t.integer  "year"
@@ -197,7 +223,134 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.datetime "updated_at"
   end
 
+  create_table "data_fetchers", force: true do |t|
+    t.string   "gid"
+    t.string   "team_name"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "examples", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_batters", force: true do |t|
+    t.string   "game_id"
+    t.string   "team_flag"
+    t.integer  "team_id"
+    t.integer  "p_id"
+    t.string   "name"
+    t.string   "name_display_first_last"
+    t.string   "pos"
+    t.integer  "bo"
+    t.integer  "ab"
+    t.integer  "po"
+    t.integer  "r"
+    t.integer  "a"
+    t.integer  "bb"
+    t.integer  "sac"
+    t.integer  "t"
+    t.integer  "sf"
+    t.integer  "h"
+    t.integer  "e"
+    t.integer  "d"
+    t.integer  "hbp"
+    t.integer  "so"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "lob"
+    t.float    "fldg"
+    t.integer  "sb"
+    t.integer  "cs"
+    t.integer  "s_hr"
+    t.integer  "s_rbi"
+    t.integer  "s_h"
+    t.integer  "s_bb"
+    t.integer  "s_r"
+    t.integer  "s_so"
+    t.float    "avg"
+    t.integer  "go"
+    t.integer  "ao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_pitchers", force: true do |t|
+    t.string   "game_id"
+    t.string   "team_flag"
+    t.integer  "team_id"
+    t.integer  "p_id"
+    t.string   "name"
+    t.string   "name_display_first_last"
+    t.string   "pos"
+    t.integer  "out"
+    t.integer  "bf"
+    t.integer  "er"
+    t.integer  "r"
+    t.integer  "h"
+    t.integer  "so"
+    t.integer  "hr"
+    t.integer  "bb"
+    t.integer  "np"
+    t.integer  "s"
+    t.integer  "w"
+    t.integer  "l"
+    t.integer  "sv"
+    t.integer  "bs"
+    t.integer  "hld"
+    t.float    "s_ip"
+    t.integer  "s_h"
+    t.integer  "s_r"
+    t.integer  "s_er"
+    t.integer  "s_bb"
+    t.integer  "s_so"
+    t.float    "era"
+    t.string   "win"
+    t.string   "loss"
+    t.string   "save"
+    t.string   "blown_save"
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games", force: true do |t|
+    t.string   "game_id"
+    t.string   "home_team_abbrev"
+    t.string   "home_team_name_full"
+    t.string   "home_team_name"
+    t.string   "home_team_name_brief"
+    t.integer  "home_w"
+    t.integer  "home_l"
+    t.integer  "home_league_id"
+    t.string   "home_league"
+    t.string   "away_team_abbrev"
+    t.string   "away_team_name_full"
+    t.string   "away_team_name"
+    t.string   "away_team_name_brief"
+    t.string   "away_w"
+    t.string   "away_l"
+    t.string   "away_league_id"
+    t.string   "away_league"
+    t.string   "stadium"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "line_scores", force: true do |t|
+    t.string   "game_id"
+    t.integer  "inning"
+    t.integer  "home"
+    t.integer  "away"
+    t.integer  "home_team_runs"
+    t.integer  "away_team_runs"
+    t.integer  "home_team_hits"
+    t.integer  "away_team_hits"
+    t.integer  "home_team_errors"
+    t.integer  "away_team_errors"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -223,7 +376,7 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.string   "p_id_ty"
     t.integer  "p_id"
     t.string   "pitch_type"
-    t.integer  "ab"
+    t.integer  "ab",         limit: 255
     t.float    "avg"
     t.integer  "hr"
     t.integer  "rbi"
@@ -420,72 +573,8 @@ ActiveRecord::Schema.define(version: 20130707025052) do
     t.float    "vs_rhb_era"
   end
 
-  create_table "pitchings", force: true do |t|
-    t.integer  "pitcher_id"
-    t.integer  "batter_id"
-    t.integer  "on_1b"
-    t.integer  "on_2b"
-    t.integer  "on_3b"
-    t.string   "des"
-    t.string   "des_es"
-    t.string   "s_or_ball"
-    t.integer  "tfs"
-    t.string   "tfs_zulu"
-    t.float    "x"
-    t.float    "y"
-    t.string   "sv_id"
-    t.float    "start_speed"
-    t.float    "end_speed"
-    t.float    "sz_top"
-    t.float    "sz_bot"
-    t.float    "pfx_x"
-    t.float    "pfx_z"
-    t.float    "px"
-    t.float    "pz"
-    t.float    "x0"
-    t.float    "y0"
-    t.float    "z0"
-    t.float    "vx0"
-    t.float    "vy0"
-    t.float    "vz0"
-    t.float    "ax"
-    t.float    "ay"
-    t.float    "az"
-    t.float    "break_y"
-    t.float    "break_angle"
-    t.float    "break_length"
-    t.string   "pitch_type"
-    t.float    "type_confidence"
-    t.integer  "zone"
-    t.integer  "nasty"
-    t.float    "spin_dir"
-    t.float    "spin_rate"
-    t.string   "cc"
-    t.string   "mt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "num"
-    t.string   "game_id"
-    t.string   "game_id_num"
-    t.string   "inning"
-    t.integer  "inning_num"
-    t.string   "away_team"
-    t.string   "home_team"
-  end
-
-  create_table "players", force: true do |t|
-    t.integer  "p_id"
-    t.string   "name"
-    t.string   "bats"
-    t.string   "throws"
-    t.string   "pos"
-    t.integer  "jersey_number"
-    t.integer  "team_id"
-    t.integer  "league_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "game"
-  end
+# Could not dump table "pitchings" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "teams", force: true do |t|
     t.string   "team_name"

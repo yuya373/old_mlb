@@ -4,7 +4,7 @@ ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '4.0.0.beta1'
-gem 'rails', '4.0.0.rc1'
+gem 'rails'
 
 gem 'sqlite3'
 gem 'mysql2', group: :production
@@ -15,10 +15,11 @@ gem 'erb2haml'
 gem 'rails-i18n'
 gem 'whenever', :require => false
 gem 'rails_12factor', group: :production
-gem 'twitter-bootstrap-rails'
+# gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 4.0.0.rc1'
 gem 'coffee-rails', '~> 4.0.0.rc1'
-gem "less-rails", '2.3.2'
+gem "less-rails"
+gem 'less-rails-bootstrap'
 
 # Gems used only for assets and not required
 # in production environments by default.
