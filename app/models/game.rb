@@ -35,6 +35,7 @@ class Game < ActiveRecord::Base
 
       @team = {
               game_id: gid,
+              home_team_id: home.attribute('id').text,
               home_team_abbrev: home.attribute('abbrev').text,
               home_team_name_full: home.attribute('name_full').text,
               home_team_name: home.attribute('name').text,
@@ -43,6 +44,7 @@ class Game < ActiveRecord::Base
               home_l: home.attribute('l').text,
               home_league_id: home.attribute('league_id').text,
               home_league: home.attribute('league').text,
+              away_team_id: away.attribute('id').text,
               away_team_abbrev: away.attribute('abbrev').text,
               away_team_name_full: away.attribute('name_full').text,
               away_team_name: away.attribute('name').text,

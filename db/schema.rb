@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711063354) do
+ActiveRecord::Schema.define(version: 20130711092230) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20130711063354) do
 
   create_table "benches", force: true do |t|
     t.string   "game_id"
-    t.integer  "team"
+    t.string   "team"
     t.integer  "p_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -275,6 +275,8 @@ ActiveRecord::Schema.define(version: 20130711063354) do
     t.integer  "ao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gidp"
+    t.string   "note"
   end
 
   create_table "game_pitchers", force: true do |t|
@@ -309,7 +311,7 @@ ActiveRecord::Schema.define(version: 20130711063354) do
     t.float    "era"
     t.string   "win"
     t.string   "loss"
-    t.string   "save"
+    t.string   "save_"
     t.string   "blown_save"
     t.string   "note"
     t.datetime "created_at"
@@ -338,6 +340,8 @@ ActiveRecord::Schema.define(version: 20130711063354) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "home_team_id"
+    t.integer  "away_team_id"
   end
 
   create_table "line_scores", force: true do |t|
