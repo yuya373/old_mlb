@@ -1,4 +1,4 @@
-/ =debug @pitch_tendencies
+=debug @pitcher
 / =debug @pitch_type
 / =debug @atbat.first.pitchings
 / =debug @pitchings
@@ -15,6 +15,79 @@
         %li= "#{t(@pitcher[:throws])}投#{t(@pitcher[:bats])}打"
         / %li= "#{@year}/#{@month}/#{@day} 現在"
     .span10
+      %h5 成績
+      %table.table.table-striped
+        %thead
+          %tr
+            %th IP
+            %th ERA
+            %th R
+            %th H
+            %th HR
+            %th BB
+            %th IBB
+            %th SO
+            %th HB
+            %th WP
+            %th AVG
+            %th WHIP
+            %th AB
+            %th SF
+            %th SAC
+        %tbody
+          %tr
+            %td= @pitcher.ip
+            %td= @pitcher.era_sort.round(3)
+            %td= @pitcher.r
+            %td= @pitcher.h
+            %td= @pitcher.hr
+            %td= @pitcher.bb
+            %td= @pitcher.ibb
+            %td= @pitcher.so
+            %td= @pitcher.hb
+            %td= @pitcher.wp
+            %td= @pitcher.avg_sort.round(3)
+            %td= @pitcher.whip_sort.round(3)
+            %td= @pitcher.ab
+            %td= @pitcher.sf
+            %td= @pitcher.sac
+        %thead
+          %tr
+            %th GIDP
+            %th GO
+            %th AO
+            %th TPA
+            %th NP
+            %th BK
+            %th HLD
+            %th SV
+            %th BSV
+            %th SVO
+            %th G
+            %th GS
+            %th CG
+            %th GF
+            %th SHO
+        %tbody
+          %tr
+            %td= @pitcher.gidp
+            %td= @pitcher.go
+            %td= @pitcher.ao
+            %td= @pitcher.tpa
+            %td= @pitcher.np
+            %td= @pitcher.bk
+            %td= @pitcher.hld
+            %td= @pitcher.sv
+            %td= @pitcher.bsv
+            %td= @pitcher.svo
+            %td= @pitcher.g
+            %td= @pitcher.gs
+            %td= @pitcher.cg
+            %td= @pitcher.gf
+            %td= @pitcher.sho
+
+    .span10
+      %h5 対バッター
       %form.form-inline
         = select_tag :batter, options_from_collection_for_select(@batter, :batter_id, :batter_name)
         = hidden_field_tag :pitcher, @p_id
@@ -56,6 +129,7 @@
           -num += 1
 
     .span6
+      %h5 球種別
       %table.table.table-hover.table.table-condensed
         %thead
           %tr
@@ -85,6 +159,7 @@
                   %td= ty.so
                   %td= ty.ops
     .span8
+      %h5 Split
       %table.table.table-hover.table.table-condensed
         %thead
           %tr

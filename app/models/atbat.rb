@@ -44,7 +44,11 @@ class Atbat < ActiveRecord::Base
           game_id_num: "#{gid}_#{atbat.attribute('num').text}"
         }
 
-        @atbat = Atbat.create(@at_bat)
+        begin
+          @atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first.update_attributes!(@at_bat)
+        rescue
+          @atbat = Atbat.create(@at_bat)
+        end
 
         begin
           pitcher = @atbat.pitcher
