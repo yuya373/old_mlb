@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'csv'
 class Team < ActiveRecord::Base
   self.primary_key = 'team_id'
   has_many :batters, :primary_key => 'team_id'
@@ -42,5 +43,22 @@ class Team < ActiveRecord::Base
         Team.create(@team)
       end
     end
+  end
+
+  def self.csv
+    CSV.open("team.csv","wb") do |csv|
+      att = Team.attribute_names
+      csv << att
+
+      Team.find_each do |team|
+        col = []
+        att.each do |att|
+          col << "#{team[att.to_sym]}"
+        end
+
+        csv << col
+      end
+    end
+
   end
 end
