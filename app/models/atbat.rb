@@ -77,4 +77,27 @@ class Atbat < ActiveRecord::Base
       end
     end
   end
+
+  def self.csv
+    CSV.open("atbat.csv","wb", headers: true) do |csv|
+
+      att = Atbat.attribute_names
+      att.delete('id')
+      att.delete('created_at')
+      att.delete('updated_at')
+
+      csv << att
+
+      Atbat.find_each do |atbat|
+        col = []
+        att.each do |att|
+          col << "#{atbat[att.to_sym]}"
+        end
+
+        csv << col
+      end
+    end
+  end
+
+  end
 end

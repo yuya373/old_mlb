@@ -11,18 +11,27 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-team = CSV.table('team.csv')
-att = team.headers
-team.each do |team|
-  @team = {}
-  att.each do |att|
-      @team[att] = team[att]
-  end
-  Team.create(@team)
-end
+# team = CSV.table('team.csv')
+# att = team.headers
+# team.each do |team|
+#   @team = {}
+#   att.each do |att|
+#       @team[att] = team[att]
+#   end
+#   Team.create(@team)
+# end
+
+# game_id = []
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_03/day_31/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('games>game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#   end
 
 # num_4 = 1.upto(30).to_a
-# game_id = []
 # num_4.each do |num|
 #   day = sprintf("%.2d",num)
 #   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_04/day_#{day}/master_scoreboard.xml"
@@ -81,7 +90,6 @@ end
 # end
 
 # url = {}
-
 # game_id.each do |gid|
 
 #       year = gid.slice(0,4)
@@ -95,10 +103,7 @@ end
 #       u = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
 
 #       url[gid] = u
-
 # end
-
-
 #     url.each do |gid,url|
 #       begin
 #         doc = Nokogiri::XML(open(url))
