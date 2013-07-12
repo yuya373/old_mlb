@@ -1,3 +1,5 @@
+require 'csv'
+
 class Atbat < ActiveRecord::Base
 
     self.primary_key = 'game_id_num'
@@ -90,6 +92,7 @@ class Atbat < ActiveRecord::Base
 
       Atbat.find_each do |atbat|
         col = []
+
         att.each do |att|
           col << "#{atbat[att.to_sym]}"
         end
@@ -97,7 +100,5 @@ class Atbat < ActiveRecord::Base
         csv << col
       end
     end
-  end
-
   end
 end

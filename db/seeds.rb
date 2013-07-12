@@ -11,11 +11,24 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+
+
+
+# atbat = CSV.table('atbat.csv')
+# atbat_att = atbat.headers
+# atbat.each do |atbat|
+#   @atbat = {}
+#   atbat_att.each do |att|
+#     @atbat[att] = atbat[att]
+#   end
+#   Atbat.create(@atbat)
+# end
+
 # team = CSV.table('team.csv')
-# att = team.headers
+# team_att = team.headers
 # team.each do |team|
 #   @team = {}
-#   att.each do |att|
+#   team_att.each do |att|
 #       @team[att] = team[att]
 #   end
 #   Team.create(@team)
