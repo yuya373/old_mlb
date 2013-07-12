@@ -42,14 +42,14 @@ every 1.day, :at => '14:00 pm' do
 
 end
 
-every 1.day, :at => '14:00 pm' do
-  sakura_runner "Team.get"
-  sakura_runner "Batter.get"
-  sakura_runner "Pitcher.get"
-  sakura_runner "Pitching.get"
-  sakura_runner "Atbat.get"
-  sakura_runner "PitchTypeDetail.batter_get"
-  sakura_runner "PitchTypeDetail.pitcher_get"
-  sakura_runner "PitchTendency.get"
+# every 1.day, :at => '14:00 pm' do
+#   sakura_runner "Team.get"
+#   sakura_runner "Batter.get"
+#   sakura_runner "Pitcher.get"
+#   sakura_runner "Pitching.get"
+#   sakura_runner "Atbat.get"
+#   sakura_runner "PitchTypeDetail.batter_get"
+#   sakura_runner "PitchTypeDetail.pitcher_get"
+#   sakura_runner "PitchTendency.get"
 
-end
+# end
