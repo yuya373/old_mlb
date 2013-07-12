@@ -46,8 +46,12 @@ class Team < ActiveRecord::Base
   end
 
   def self.csv
-    CSV.open("team.csv","wb") do |csv|
+    CSV.open("team.csv","wb", headers: true) do |csv|
       att = Team.attribute_names
+      att.delete("id")
+      att.delete("created_at")
+      att.delete("updated_at")
+
       csv << att
 
       Team.find_each do |team|
