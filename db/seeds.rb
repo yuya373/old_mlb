@@ -87,31 +87,31 @@ require 'csv'
 # end
 
 
-# Game.delete_all
+Game.delete_all
 
-# game = CSV.table('db/game.csv')
-# game_att = game.headers
-# game.each do |game|
-#   @game = {}
-#   game_att.each do |att|
-#     @game[att] = game[att]
-#   end
-#   Game.create(@game)
-# end
-
-
-
-Bench.delete_all
-
-bench = CSV.table('db/bench.csv')
-bench_att = bench.headers
-bench.each do |bench|
-  @bench = {}
-  bench_att.each do |att|
-    @bench[att] = bench[att]
+game = CSV.table('db/game.csv')
+game_att = game.headers
+game.each do |game|
+  @game = {}
+  game_att.each do |att|
+    @game[att] = game[att]
   end
-  Bench.create(@bench)
+  Game.create(@game)
 end
+
+
+
+# Bench.delete_all
+
+# bench = CSV.table('db/bench.csv')
+# bench_att = bench.headers
+# bench.each do |bench|
+#   @bench = {}
+#   bench_att.each do |att|
+#     @bench[att] = bench[att]
+#   end
+#   Bench.create(@bench)
+# end
 
 
 
