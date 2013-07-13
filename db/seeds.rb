@@ -13,7 +13,7 @@ require 'csv'
 
 Pitching.delete_all
 
-pitching = CSV.table('pitching.csv')
+pitching = CSV.table('db/pitching.csv')
 pitching_att = pitching.headers
 pitching.each do |pitching|
   @pitching = {}
@@ -25,7 +25,7 @@ end
 
 PitchTypeDetail.delete_all
 
-pitch_type_detail = CSV.table('pitch_type_detail.csv')
+pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
 pitch_type_detail_att = pitch_type_detail.headers
 pitch_type_detail.each do |pitch_type_detail|
   @pitch_type_detail = {}
@@ -38,7 +38,7 @@ end
 
 PitchTendency.delete_all
 
-pitch_tendency = CSV.table('pitch_tendency.csv')
+pitch_tendency = CSV.table('db/pitch_tendency.csv')
 pitch_tendency_att = pitch_tendency.headers
 pitch_tendency.each do |pitch_tendency|
   @pitch_tendency = {}
@@ -50,7 +50,7 @@ end
 
 LineScore.delete_all
 
-line_score = CSV.table('line_score.csv')
+line_score = CSV.table('db/line_score.csv')
 line_score_att = line_score.headers
 line_score.each do |line_score|
   @line_score = {}
@@ -63,7 +63,7 @@ end
 
 GameBatter.delete_all
 
-game_batter = CSV.table('game_batter.csv')
+game_batter = CSV.table('db/game_batter.csv')
 game_batter_att = game_batter.headers
 game_batter.each do |game_batter|
   @game_batter = {}
@@ -76,7 +76,7 @@ end
 
 GamePitcher.delete_all
 
-game_pitcher = CSV.table('game_pitcher.csv')
+game_pitcher = CSV.table('db/game_pitcher.csv')
 game_pitcher_att = game_pitcher.headers
 game_pitcher.each do |game_pitcher|
   @game_pitcher = {}
@@ -89,7 +89,7 @@ end
 
 Game.delete_all
 
-game = CSV.table('game.csv')
+game = CSV.table('db/game.csv')
 game_att = game.headers
 game.each do |game|
   @game = {}
@@ -103,7 +103,7 @@ end
 
 Bench.delete_all
 
-bench = CSV.table('bench.csv')
+bench = CSV.table('db/bench.csv')
 bench_att = bench.headers
 bench.each do |bench|
   @bench = {}
@@ -117,7 +117,7 @@ end
 
 Atbat.delete_all
 
-atbat = CSV.table('atbat.csv')
+atbat = CSV.table('db/atbat.csv')
 atbat_att = atbat.headers
 atbat.each do |atbat|
   @atbat = {}

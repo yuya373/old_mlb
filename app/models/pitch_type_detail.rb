@@ -80,7 +80,7 @@ class PitchTypeDetail < ActiveRecord::Base
             sweetness: sit.attribute('sweetness').text
           }
           begin
-            PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).first.update_attributes!(cont)
+            PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).where('p_b = ?','p').first.update_attributes!(cont)
           rescue
             PitchTypeDetail.create(cont)
           end
@@ -164,7 +164,7 @@ class PitchTypeDetail < ActiveRecord::Base
             sweetness: sit.attribute('sweetness').text
           }
           begin
-            PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).first.update_attributes!(cont)
+            PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).where('p_b = ?','b').first.update_attributes!(cont)
           rescue
             PitchTypeDetail.create(cont)
           end
