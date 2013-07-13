@@ -74,30 +74,30 @@ require 'csv'
 # end
 
 
-# GamePitcher.delete_all
+GamePitcher.delete_all
 
-# game_pitcher = CSV.table('db/game_pitcher.csv')
-# game_pitcher_att = game_pitcher.headers
-# game_pitcher.each do |game_pitcher|
-#   @game_pitcher = {}
-#   game_pitcher_att.each do |att|
-#     @game_pitcher[att] = game_pitcher[att]
-#   end
-#   GamePitcher.create(@game_pitcher)
-# end
-
-
-Game.delete_all
-
-game = CSV.table('db/game.csv')
-game_att = game.headers
-game.each do |game|
-  @game = {}
-  game_att.each do |att|
-    @game[att] = game[att]
+game_pitcher = CSV.table('db/game_pitcher.csv')
+game_pitcher_att = game_pitcher.headers
+game_pitcher.each do |game_pitcher|
+  @game_pitcher = {}
+  game_pitcher_att.each do |att|
+    @game_pitcher[att] = game_pitcher[att]
   end
-  Game.create(@game)
+  GamePitcher.create(@game_pitcher)
 end
+
+
+# Game.delete_all
+
+# game = CSV.table('db/game.csv')
+# game_att = game.headers
+# game.each do |game|
+#   @game = {}
+#   game_att.each do |att|
+#     @game[att] = game[att]
+#   end
+#   Game.create(@game)
+# end
 
 
 
