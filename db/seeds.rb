@@ -101,31 +101,31 @@ require 'csv'
 
 
 
-# Bench.delete_all
+Bench.delete_all
 
-# bench = CSV.table('db/bench.csv')
-# bench_att = bench.headers
-# bench.each do |bench|
-#   @bench = {}
-#   bench_att.each do |att|
-#     @bench[att] = bench[att]
-#   end
-#   Bench.create(@bench)
-# end
-
-
-
-Atbat.delete_all
-
-atbat = CSV.table('db/atbat.csv')
-atbat_att = atbat.headers
-atbat.each do |atbat|
-  @atbat = {}
-  atbat_att.each do |att|
-    @atbat[att] = atbat[att]
+bench = CSV.table('db/bench.csv')
+bench_att = bench.headers
+bench.each do |bench|
+  @bench = {}
+  bench_att.each do |att|
+    @bench[att] = bench[att]
   end
-  Atbat.create(@atbat)
+  Bench.create(@bench)
 end
+
+
+
+# Atbat.delete_all
+
+# atbat = CSV.table('db/atbat.csv')
+# atbat_att = atbat.headers
+# atbat.each do |atbat|
+#   @atbat = {}
+#   atbat_att.each do |att|
+#     @atbat[att] = atbat[att]
+#   end
+#   Atbat.create(@atbat)
+# end
 
 # team = CSV.table('team.csv')
 # team_att = team.headers
