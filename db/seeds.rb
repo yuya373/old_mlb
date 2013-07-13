@@ -11,107 +11,107 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Pitching.delete_all
+# Pitching.delete_all
 
-pitching = CSV.table('db/pitching.csv')
-pitching_att = pitching.headers
-pitching.each do |pitching|
-  @pitching = {}
-  pitching_att.each do |att|
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
+# pitching = CSV.table('db/pitching.csv')
+# pitching_att = pitching.headers
+# pitching.each do |pitching|
+#   @pitching = {}
+#   pitching_att.each do |att|
+#     @pitching[att] = pitching[att]
+#   end
+#   Pitching.create(@pitching)
+# end
 
-PitchTypeDetail.delete_all
+# PitchTypeDetail.delete_all
 
-pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
-pitch_type_detail_att = pitch_type_detail.headers
-pitch_type_detail.each do |pitch_type_detail|
-  @pitch_type_detail = {}
-  pitch_type_detail_att.each do |att|
-    @pitch_type_detail[att] = pitch_type_detail[att]
-  end
-  PitchTypeDetail.create(@pitch_type_detail)
-end
-
-
-PitchTendency.delete_all
-
-pitch_tendency = CSV.table('db/pitch_tendency.csv')
-pitch_tendency_att = pitch_tendency.headers
-pitch_tendency.each do |pitch_tendency|
-  @pitch_tendency = {}
-  pitch_tendency_att.each do |att|
-    @pitch_tendency[att] = pitch_tendency[att]
-  end
-  PitchTendency.create(@pitch_tendency)
-end
-
-LineScore.delete_all
-
-line_score = CSV.table('db/line_score.csv')
-line_score_att = line_score.headers
-line_score.each do |line_score|
-  @line_score = {}
-  line_score_att.each do |att|
-    @line_score[att] = line_score[att]
-  end
-  LineScore.create(@line_score)
-end
+# pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
+# pitch_type_detail_att = pitch_type_detail.headers
+# pitch_type_detail.each do |pitch_type_detail|
+#   @pitch_type_detail = {}
+#   pitch_type_detail_att.each do |att|
+#     @pitch_type_detail[att] = pitch_type_detail[att]
+#   end
+#   PitchTypeDetail.create(@pitch_type_detail)
+# end
 
 
-GameBatter.delete_all
+# PitchTendency.delete_all
 
-game_batter = CSV.table('db/game_batter.csv')
-game_batter_att = game_batter.headers
-game_batter.each do |game_batter|
-  @game_batter = {}
-  game_batter_att.each do |att|
-    @game_batter[att] = game_batter[att]
-  end
-  GameBatter.create(@game_batter)
-end
+# pitch_tendency = CSV.table('db/pitch_tendency.csv')
+# pitch_tendency_att = pitch_tendency.headers
+# pitch_tendency.each do |pitch_tendency|
+#   @pitch_tendency = {}
+#   pitch_tendency_att.each do |att|
+#     @pitch_tendency[att] = pitch_tendency[att]
+#   end
+#   PitchTendency.create(@pitch_tendency)
+# end
 
+# LineScore.delete_all
 
-GamePitcher.delete_all
-
-game_pitcher = CSV.table('db/game_pitcher.csv')
-game_pitcher_att = game_pitcher.headers
-game_pitcher.each do |game_pitcher|
-  @game_pitcher = {}
-  game_pitcher_att.each do |att|
-    @game_pitcher[att] = game_pitcher[att]
-  end
-  GamePitcher.create(@game_pitcher)
-end
-
-
-Game.delete_all
-
-game = CSV.table('db/game.csv')
-game_att = game.headers
-game.each do |game|
-  @game = {}
-  game_att.each do |att|
-    @game[att] = game[att]
-  end
-  Game.create(@game)
-end
+# line_score = CSV.table('db/line_score.csv')
+# line_score_att = line_score.headers
+# line_score.each do |line_score|
+#   @line_score = {}
+#   line_score_att.each do |att|
+#     @line_score[att] = line_score[att]
+#   end
+#   LineScore.create(@line_score)
+# end
 
 
+# GameBatter.delete_all
 
-Bench.delete_all
+# game_batter = CSV.table('db/game_batter.csv')
+# game_batter_att = game_batter.headers
+# game_batter.each do |game_batter|
+#   @game_batter = {}
+#   game_batter_att.each do |att|
+#     @game_batter[att] = game_batter[att]
+#   end
+#   GameBatter.create(@game_batter)
+# end
 
-bench = CSV.table('db/bench.csv')
-bench_att = bench.headers
-bench.each do |bench|
-  @bench = {}
-  bench_att.each do |att|
-    @bench[att] = bench[att]
-  end
-  Bench.create(@bench)
-end
+
+# GamePitcher.delete_all
+
+# game_pitcher = CSV.table('db/game_pitcher.csv')
+# game_pitcher_att = game_pitcher.headers
+# game_pitcher.each do |game_pitcher|
+#   @game_pitcher = {}
+#   game_pitcher_att.each do |att|
+#     @game_pitcher[att] = game_pitcher[att]
+#   end
+#   GamePitcher.create(@game_pitcher)
+# end
+
+
+# Game.delete_all
+
+# game = CSV.table('db/game.csv')
+# game_att = game.headers
+# game.each do |game|
+#   @game = {}
+#   game_att.each do |att|
+#     @game[att] = game[att]
+#   end
+#   Game.create(@game)
+# end
+
+
+
+# Bench.delete_all
+
+# bench = CSV.table('db/bench.csv')
+# bench_att = bench.headers
+# bench.each do |bench|
+#   @bench = {}
+#   bench_att.each do |att|
+#     @bench[att] = bench[att]
+#   end
+#   Bench.create(@bench)
+# end
 
 
 
