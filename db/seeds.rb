@@ -13,23 +13,23 @@ require 'csv'
 
 # Pitching.delete_all
 
-# pitching1 = CSV.table('db/pitching5_1.csv')
-# pitching1_att = pitching1.headers
+pitching1 = CSV.table('db/pitching6_1.csv')
+pitching1_att = pitching1.headers
 
 
-# pitching1.each do |pitching|
-#   @pitching = {}
+pitching1.each do |pitching|
+  @pitching = {}
 
-#   pitching1_att.each do |att|
+  pitching1_att.each do |att|
 
-#     @pitching[att] = pitching[att]
-#   end
-#   Pitching.create(@pitching)
-# end
+    @pitching[att] = pitching[att]
+  end
+  Pitching.create(@pitching)
+end
 
 
 
-pitching = CSV.table('db/pitching5_2.csv')
+pitching = CSV.table('db/pitching6_2.csv')
 pitching_att = pitching.headers
 
 
@@ -44,7 +44,7 @@ pitching.each do |pitching|
 end
 
 
-pitching2 = CSV.table('db/pitching5_3.csv')
+pitching2 = CSV.table('db/pitching6_3.csv')
 pitching2_att = pitching2.headers
 
 pitching2.each do |pitching|
@@ -58,7 +58,7 @@ pitching2.each do |pitching|
 end
 
 
-pitching3 = CSV.table('db/pitching5_4.csv')
+pitching3 = CSV.table('db/pitching6_4.csv')
 pitching3_att = pitching3.headers
 
 pitching3.each do |pitching|
@@ -72,7 +72,7 @@ pitching3.each do |pitching|
 end
 
 
-pitching4 = CSV.table('db/pitching5_5.csv')
+pitching4 = CSV.table('db/pitching6_5.csv')
 pitching4_att = pitching4.headers
 
 pitching4.each do |pitching|
