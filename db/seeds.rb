@@ -14,7 +14,7 @@ require 'csv'
 Pitching.delete_all
 
 
-pitcing = CSV.table('db/pitching_1_1.csv')
+pitching = CSV.table('db/pitching_1_1.csv')
 pitching_att = pitching.headers
 pitching.each do |pitching|
   @pitching = {}
