@@ -36,42 +36,42 @@ require 'csv'
 # end
 
 
-# PitchTendency.delete_all
+PitchTendency.delete_all
 
-# pitch_tendency = CSV.table('db/pitch_tendency.csv')
-# pitch_tendency_att = pitch_tendency.headers
-# pitch_tendency.each do |pitch_tendency|
-#   @pitch_tendency = {}
-#   pitch_tendency_att.each do |att|
-#     @pitch_tendency[att] = pitch_tendency[att]
+pitch_tendency = CSV.table('db/pitch_tendency.csv')
+pitch_tendency_att = pitch_tendency.headers
+pitch_tendency.each do |pitch_tendency|
+  @pitch_tendency = {}
+  pitch_tendency_att.each do |att|
+    @pitch_tendency[att] = pitch_tendency[att]
+  end
+  PitchTendency.create(@pitch_tendency)
+end
+
+# LineScore.delete_all
+
+# line_score = CSV.table('db/line_score.csv')
+# line_score_att = line_score.headers
+# line_score.each do |line_score|
+#   @line_score = {}
+#   line_score_att.each do |att|
+#     @line_score[att] = line_score[att]
 #   end
-#   PitchTendency.create(@pitch_tendency)
+#   LineScore.create(@line_score)
 # end
 
-LineScore.delete_all
 
-line_score = CSV.table('db/line_score.csv')
-line_score_att = line_score.headers
-line_score.each do |line_score|
-  @line_score = {}
-  line_score_att.each do |att|
-    @line_score[att] = line_score[att]
-  end
-  LineScore.create(@line_score)
-end
+# GameBatter.delete_all
 
-
-GameBatter.delete_all
-
-game_batter = CSV.table('db/game_batter.csv')
-game_batter_att = game_batter.headers
-game_batter.each do |game_batter|
-  @game_batter = {}
-  game_batter_att.each do |att|
-    @game_batter[att] = game_batter[att]
-  end
-  GameBatter.create(@game_batter)
-end
+# game_batter = CSV.table('db/game_batter.csv')
+# game_batter_att = game_batter.headers
+# game_batter.each do |game_batter|
+#   @game_batter = {}
+#   game_batter_att.each do |att|
+#     @game_batter[att] = game_batter[att]
+#   end
+#   GameBatter.create(@game_batter)
+# end
 
 
 # GamePitcher.delete_all
