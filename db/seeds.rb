@@ -23,30 +23,30 @@ require 'csv'
 #   Pitching.create(@pitching)
 # end
 
-# PitchTypeDetail.delete_all
+PitchTypeDetail.delete_all
 
-# pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
-# pitch_type_detail_att = pitch_type_detail.headers
-# pitch_type_detail.each do |pitch_type_detail|
-#   @pitch_type_detail = {}
-#   pitch_type_detail_att.each do |att|
-#     @pitch_type_detail[att] = pitch_type_detail[att]
-#   end
-#   PitchTypeDetail.create(@pitch_type_detail)
-# end
-
-
-PitchTendency.delete_all
-
-pitch_tendency = CSV.table('db/pitch_tendency.csv')
-pitch_tendency_att = pitch_tendency.headers
-pitch_tendency.each do |pitch_tendency|
-  @pitch_tendency = {}
-  pitch_tendency_att.each do |att|
-    @pitch_tendency[att] = pitch_tendency[att]
+pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
+pitch_type_detail_att = pitch_type_detail.headers
+pitch_type_detail.each do |pitch_type_detail|
+  @pitch_type_detail = {}
+  pitch_type_detail_att.each do |att|
+    @pitch_type_detail[att] = pitch_type_detail[att]
   end
-  PitchTendency.create(@pitch_tendency)
+  PitchTypeDetail.create(@pitch_type_detail)
 end
+
+
+# PitchTendency.delete_all
+
+# pitch_tendency = CSV.table('db/pitch_tendency.csv')
+# pitch_tendency_att = pitch_tendency.headers
+# pitch_tendency.each do |pitch_tendency|
+#   @pitch_tendency = {}
+#   pitch_tendency_att.each do |att|
+#     @pitch_tendency[att] = pitch_tendency[att]
+#   end
+#   PitchTendency.create(@pitch_tendency)
+# end
 
 # LineScore.delete_all
 
