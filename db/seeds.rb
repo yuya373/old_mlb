@@ -14,15 +14,64 @@ require 'csv'
 # Pitching.delete_all
 
 
-pitching = CSV.table('db/pitching2_1.csv')
+pitching = CSV.table('db/pitching2_2.csv')
 pitching_att = pitching.headers
+
+
 pitching.each do |pitching|
   @pitching = {}
+
   pitching_att.each do |att|
+
     @pitching[att] = pitching[att]
   end
   Pitching.create(@pitching)
 end
+
+
+pitching2 = CSV.table('db/pitching2_3.csv')
+pitching2_att = pitching2.headers
+
+pitching2.each do |pitching|
+  @pitching = {}
+
+  pitching2_att.each do |att|
+
+    @pitching[att] = pitching[att]
+  end
+  Pitching.create(@pitching)
+end
+
+
+pitching3 = CSV.table('db/pitching2_4.csv')
+pitching3_att = pitching3.headers
+
+pitching3.each do |pitching|
+  @pitching = {}
+
+  pitching3_att.each do |att|
+
+    @pitching[att] = pitching[att]
+  end
+  Pitching.create(@pitching)
+end
+
+
+pitching4 = CSV.table('db/pitching2_5.csv')
+pitching4_att = pitching4.headers
+
+pitching4.each do |pitching|
+  @pitching = {}
+
+  pitching4_att.each do |att|
+
+    @pitching[att] = pitching[att]
+  end
+  Pitching.create(@pitching)
+end
+
+
+
 
 # PitchTypeDetail.delete_all
 
