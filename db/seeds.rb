@@ -11,29 +11,29 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-# Pitching.delete_all
+Pitching.delete_all
 
-# pitching = CSV.table('db/pitching.csv')
-# pitching_att = pitching.headers
-# pitching.each do |pitching|
-#   @pitching = {}
-#   pitching_att.each do |att|
-#     @pitching[att] = pitching[att]
-#   end
-#   Pitching.create(@pitching)
-# end
-
-PitchTypeDetail.delete_all
-
-pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
-pitch_type_detail_att = pitch_type_detail.headers
-pitch_type_detail.each do |pitch_type_detail|
-  @pitch_type_detail = {}
-  pitch_type_detail_att.each do |att|
-    @pitch_type_detail[att] = pitch_type_detail[att]
+pitching = CSV.table('db/pitching.csv')
+pitching_att = pitching.headers
+pitching.each do |pitching|
+  @pitching = {}
+  pitching_att.each do |att|
+    @pitching[att] = pitching[att]
   end
-  PitchTypeDetail.create(@pitch_type_detail)
+  Pitching.create(@pitching)
 end
+
+# PitchTypeDetail.delete_all
+
+# pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
+# pitch_type_detail_att = pitch_type_detail.headers
+# pitch_type_detail.each do |pitch_type_detail|
+#   @pitch_type_detail = {}
+#   pitch_type_detail_att.each do |att|
+#     @pitch_type_detail[att] = pitch_type_detail[att]
+#   end
+#   PitchTypeDetail.create(@pitch_type_detail)
+# end
 
 
 # PitchTendency.delete_all
