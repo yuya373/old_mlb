@@ -138,71 +138,7 @@ class PitchersController < ApplicationController
 
     @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?',params[:batter])
 
-    @pitchings = {}
 
-    # @atbat.each do |atbat|
-    #   k = atbat.game_id_num
-    #   v = atbat.pitchings
-    #   v.each do |pitch|
-    #     ary = []
-    #     ary << pitch
-    #     @pitchings[k] = ary
-    #   end
-    # end
-
-
-    # @pitching = @pitcher.pitchings.order('sv_id asc')
-    # pitch_type = [
-    #   #fastball
-    #   'FA',
-    #   #four-seam fastball
-    #   'FF',
-    #   #two-seam fastball
-    #   'FT',
-    #   # sff
-    #   'FS',
-    #   #fork ball
-    #   'FO',
-    #   #cut fast ball
-    #   'FC',
-    #   #slider
-    #   'SL',
-    #   #sinker
-    #   'SI',
-    #   #curve
-    #   'CU',
-    #   # knuckle curve
-    #   'KC',
-    #   # change up
-    #   'CH',
-    #   #screw ball
-    #   'SC',
-    #   #knuckle ball
-    #   'KN',
-    #   # eeephas
-    #   'EP',
-    #   # unknown
-    #   'UN',
-    #   # pitch out
-    #   'PO',
-    #   # intentional ball
-    #   'IN'
-    # ]
-
-    # @pitch_dis = {}
-    # pitch_type.each do |ty|
-    #   @total = @pitching.count
-    #   type = ty.downcase
-    #   @kind_of_pitch = @pitching.where('pitch_type = ?',ty)
-    #   begin
-    #     @percent = ((@kind_of_pitch.count.to_f/@total.to_f) * 100).round(1)
-    #     @speed = @kind_of_pitch.average(:start_speed).round(1)
-    #     @pitch_dis[type.to_sym] = [@percent ,@speed]
-
-    #   rescue
-    #     type.delete(ty)
-    #   end
-    # end
   end
 
   def r_pitcher(pitcher)

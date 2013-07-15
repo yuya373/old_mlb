@@ -11,8 +11,109 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+atbat = CSV.table("db/atbat.csv")
+atbat_att = atbat.headers
+atbat.each do |row|
+  @atbat = {}
+  atbat_att.each do |att|
+    @atbat[att.to_sym] = row[att]
+  end
+  Atbat.create(@atbat)
+end
+
+bench = CSV.table("db/bench.csv")
+bench_att = bench.headers
+bench.each do |row|
+  @bench = {}
+  bench_att.each do |att|
+    @bench[att.to_sym] = row[att]
+  end
+  Bench.create(@bench)
+end
 
 
+game = CSV.table("db/game.csv")
+game_att = game.headers
+game.each do |row|
+  @game = {}
+  game_att.each do |att|
+    @game[att.to_sym] = row[att]
+  end
+  Game.create(@game)
+end
+
+game_batter = CSV.table("db/game_batter.csv")
+game_batter_att = game_batter.headers
+game_batter.each do |row|
+  @game_batter = {}
+  game_batter_att.each do |att|
+    @game_batter[att.to_sym] = row[att]
+  end
+  GameBatter.create(@game_batter)
+end
+
+
+game_pitcher = CSV.table("db/game_pitcher.csv")
+game_pitcher_att = game_pitcher.headers
+game_pitcher.each do |row|
+  @game_pitcher = {}
+  game_pitcher_att.each do |att|
+    @game_pitcher[att.to_sym] = row[att]
+  end
+  GamePitcher.create(@game_pitcher)
+end
+
+linescore = CSV.table("db/linescore.csv")
+linescore_att = linescore.headers
+linescore.each do |row|
+  @linescore = {}
+  linescore_att.each do |att|
+    @linescore[att.to_sym] = row[att]
+  end
+  LineScore.create(@linescore)
+end
+
+pitch_tendency = CSV.table("db/pitch_tendency.csv")
+pitch_tendency_att = pitch_tendency.headers
+pitch_tendency.each do |row|
+  @pitch_tendency = {}
+  pitch_tendency_att.each do |att|
+    @pitch_tendency[att.to_sym] = row[att]
+  end
+  PitchTendency.create(@pitch_tendency)
+end
+
+pitch_type_detail = CSV.table("db/pitch_type_detail.csv")
+pitch_type_detail_att = pitch_type_detail.headers
+pitch_type_detail.each do |row|
+  @pitch_type_detail = {}
+  pitch_type_detail_att.each do |att|
+    @pitch_type_detail[att.to_sym] = row[att]
+  end
+  PitchTypeDetail.create(@pitch_type_detail)
+end
+
+pitching = CSV.table("db/pitching.csv")
+pitching_att = pitching.headers
+pitching.each do |row|
+  @pitching = {}
+  pitching_att.each do |att|
+    @pitching[att.to_sym] = row[att]
+  end
+  Pitching.create(@pitching)
+end
+
+
+
+# Atbat.csv
+# Bench.csv
+# Game.csv
+# GameBatter.csv
+# GamePitcher.csv
+# LineScore.csv
+# PitchTendency.csv
+# PitchTypeDetail.csv
+# Pitching.csv
 
 #7月11日から14日までのデータ
 # db削除→dbに保存→csvに変換→sakuraに保存
@@ -28,26 +129,36 @@ require 'csv'
 # Pitching.delete_all
 
 
-game_id = []
+# game_id = []
 
-num_7 = 11.upto(14).to_a
-num_7.each do |num|
-  day = sprintf("%.2d",num)
-  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
-  begin
-    doc = Nokogiri::XML(open(url))
-    doc.css('game').each do |game|
-      game_id << game.attribute('gameday').text
-    end
-  rescue
-    next
-  end
-end
+# num_7 = 11.upto(14).to_a
+# num_7.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
 
-game_id.each do |gid|
-  Atbat.seed(gid)
+# game_id.each do |gid|
+#   # Atbat.seed(gid)
+#   # Bench.seed(gid)
+#   # Game.seed(gid)
+#   # GameBatter.seed(gid)
+#   # GamePitcher.seed(gid)
+#   # LineScore.seed(gid)
+#   # PitchTendency.seed(gid)
+#   # Pitching.seed(gid)
 
-end
+#   PitchTypeDetail.seed_pitcher(gid)
+#   PitchTypeDetail.seed_batter(gid)
+
+# end
 
 # url = {}
 # game_id.each do |gid|

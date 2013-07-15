@@ -144,4 +144,25 @@ class Batter < ActiveRecord::Base
       end
     end
   end
+
+  def self.csv
+    CSV.open("batter.csv","wb",headers: true) do |csv|
+      att = Batter.attribute_names
+      att.delete('id')
+      att.delete('created_at')
+      att.delete('updated_at')
+
+      csv << att
+
+      Batter.find_each do |v|
+        col = []
+
+        att.each do |att|
+          col << "#{v[att.to_sym]}"
+        end
+
+        csv << col
+      end
+    end
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711092230) do
+ActiveRecord::Schema.define(version: 20130715061110) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -36,6 +36,12 @@ ActiveRecord::Schema.define(version: 20130711092230) do
     t.string   "batter_team"
     t.string   "pitcher_team"
   end
+
+  add_index "atbats", ["batter_id"], name: "index_atbats_on_batter_id"
+  add_index "atbats", ["batter_name"], name: "index_atbats_on_batter_name"
+  add_index "atbats", ["game_id_num"], name: "index_atbats_on_game_id_num"
+  add_index "atbats", ["pitcher_id"], name: "index_atbats_on_pitcher_id"
+  add_index "atbats", ["pitcher_name"], name: "index_atbats_on_pitcher_name"
 
   create_table "batter_details", force: true do |t|
     t.string   "p_id_ty"
@@ -203,6 +209,9 @@ ActiveRecord::Schema.define(version: 20130711092230) do
     t.float    "vs_lhp_ops"
     t.float    "vs_rhp_ops"
   end
+
+  add_index "batters", ["p_id"], name: "index_batters_on_p_id"
+  add_index "batters", ["team_id"], name: "index_batters_on_team_id"
 
   create_table "benches", force: true do |t|
     t.string   "game_id"
@@ -375,6 +384,8 @@ ActiveRecord::Schema.define(version: 20130711092230) do
     t.datetime "updated_at"
   end
 
+  add_index "pitch_tendencies", ["game_id"], name: "index_pitch_tendencies_on_game_id"
+
   create_table "pitch_type_details", force: true do |t|
     t.string   "p_b"
     t.string   "p_id_ty"
@@ -392,6 +403,8 @@ ActiveRecord::Schema.define(version: 20130711092230) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "pitch_type_details", ["p_id"], name: "index_pitch_type_details_on_p_id"
 
   create_table "pitchers", force: true do |t|
     t.integer  "p_id"
@@ -576,6 +589,9 @@ ActiveRecord::Schema.define(version: 20130711092230) do
     t.float    "vs_rhb_whip"
     t.float    "vs_rhb_era"
   end
+
+  add_index "pitchers", ["p_id"], name: "index_pitchers_on_p_id"
+  add_index "pitchers", ["team_id"], name: "index_pitchers_on_team_id"
 
 # Could not dump table "pitchings" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
