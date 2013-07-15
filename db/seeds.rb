@@ -13,19 +13,19 @@ require 'csv'
 
 # Pitching.delete_all
 
-pitching1 = CSV.table('db/pitching7_1.csv')
-pitching1_att = pitching1.headers
+# pitching1 = CSV.table('db/pitching7_1.csv')
+# pitching1_att = pitching1.headers
 
 
-pitching1.each do |pitching|
-  @pitching = {}
+# pitching1.each do |pitching|
+#   @pitching = {}
 
-  pitching1_att.each do |att|
+#   pitching1_att.each do |att|
 
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
+#     @pitching[att] = pitching[att]
+#   end
+#   Pitching.create(@pitching)
+# end
 
 
 
