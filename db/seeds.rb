@@ -18,7 +18,11 @@ atbat.each do |row|
   atbat_att.each do |att|
     @atbat[att.to_sym] = row[att]
   end
-  Atbat.create(@atbat)
+  begin
+    @atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first.update_attributes!(@at_bat)
+  rescue
+    @atbat = Atbat.create(@at_bat)
+  end
 end
 
 bench = CSV.table("db/bench.csv")
@@ -28,7 +32,11 @@ bench.each do |row|
   bench_att.each do |att|
     @bench[att.to_sym] = row[att]
   end
-  Bench.create(@bench)
+  begin
+    Bench.where('game_id = ?',@bench[:game_id]).where('p_id = ?',@bench[:p_id]).first.update_attributes!(@bench)
+  rescue
+    Bench.create(@bench)
+  end
 end
 
 
@@ -39,7 +47,12 @@ game.each do |row|
   game_att.each do |att|
     @game[att.to_sym] = row[att]
   end
-  Game.create(@game)
+  begin
+    Game.where('game_id = ?',@game[:game_id]).first.update_attributes!(@game)
+  rescue
+    Game.create(@game)
+  end
+
 end
 
 game_batter = CSV.table("db/game_batter.csv")
@@ -49,7 +62,11 @@ game_batter.each do |row|
   game_batter_att.each do |att|
     @game_batter[att.to_sym] = row[att]
   end
-  GameBatter.create(@game_batter)
+  begin
+    GameBatter.where('game_id = ?',@game_batter[:game_id]).where('p_id = ?',@game_batter[:p_id]).first.update_attributes!(@game_batter)
+  rescue
+    GameBatter.create(@game_batter)
+  end
 end
 
 
@@ -60,17 +77,25 @@ game_pitcher.each do |row|
   game_pitcher_att.each do |att|
     @game_pitcher[att.to_sym] = row[att]
   end
-  GamePitcher.create(@game_pitcher)
+  begin
+    GamePitcher.where('game_id = ?',@game_pitcher[:game_id]).where('p_id = ?',@game_pitcher[:p_id]).first.update_attributes!(@game_pitcher)
+  rescue
+    GamePitcher.create(@game_pitcher)
+  end
 end
 
-linescore = CSV.table("db/linescore.csv")
+linescore = CSV.table("db/line_score.csv")
 linescore_att = linescore.headers
 linescore.each do |row|
   @linescore = {}
   linescore_att.each do |att|
     @linescore[att.to_sym] = row[att]
   end
-  LineScore.create(@linescore)
+  begin
+    LineScore.where('game_id = ?',@linescore[:game_id]).where('inning = ?',@linescore[:inning]).first.update_attributes!(@linescore)
+  rescue
+    LineScore.create(@linescore)
+  end
 end
 
 pitch_tendency = CSV.table("db/pitch_tendency.csv")
@@ -80,7 +105,11 @@ pitch_tendency.each do |row|
   pitch_tendency_att.each do |att|
     @pitch_tendency[att.to_sym] = row[att]
   end
-  PitchTendency.create(@pitch_tendency)
+  begin
+    PitchTendency.where('game_id = ?', @pitch_tendency[:game_id]).where('p_id = ?', @pitch_tendency[:p_id]).where('pitch_type = ?',@pitch_tendency[:pitch_type]).first.update_attributes!(@pitch_tendency)
+  rescue
+    PitchTendency.create(@pitch_tendency)
+  end
 end
 
 pitch_type_detail = CSV.table("db/pitch_type_detail.csv")
@@ -90,7 +119,11 @@ pitch_type_detail.each do |row|
   pitch_type_detail_att.each do |att|
     @pitch_type_detail[att.to_sym] = row[att]
   end
-  PitchTypeDetail.create(@pitch_type_detail)
+  begin
+    PitchTypeDetail.where('p_id_ty = ?',@pitch_type_detail[:p_id_ty]).where('p_b = ?',@pitch_type_detail[:p_b]).first.update_attributes!(@pitch_type_detail)
+  rescue
+    PitchTypeDetail.create(@pitch_type_detail)
+  end
 end
 
 pitching = CSV.table("db/pitching.csv")
@@ -100,7 +133,11 @@ pitching.each do |row|
   pitching_att.each do |att|
     @pitching[att.to_sym] = row[att]
   end
-  Pitching.create(@pitching)
+  begin
+    Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+  rescue
+    Pitching.create(@pitching)
+  end
 end
 
 
