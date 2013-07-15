@@ -11,264 +11,43 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-# Pitching.delete_all
-
-# pitching1 = CSV.table('db/pitching7_1.csv')
-# pitching1_att = pitching1.headers
-
-
-# pitching1.each do |pitching|
-#   @pitching = {}
-
-#   pitching1_att.each do |att|
-
-#     @pitching[att] = pitching[att]
-#   end
-#   Pitching.create(@pitching)
-# end
 
 
 
-pitching = CSV.table('db/pitching7_2.csv')
-pitching_att = pitching.headers
-
-
-pitching.each do |pitching|
-  @pitching = {}
-
-  pitching_att.each do |att|
-
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
-
-
-pitching2 = CSV.table('db/pitching7_3.csv')
-pitching2_att = pitching2.headers
-
-pitching2.each do |pitching|
-  @pitching = {}
-
-  pitching2_att.each do |att|
-
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
-
-
-pitching3 = CSV.table('db/pitching7_4.csv')
-pitching3_att = pitching3.headers
-
-pitching3.each do |pitching|
-  @pitching = {}
-
-  pitching3_att.each do |att|
-
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
-
-
-pitching4 = CSV.table('db/pitching7_5.csv')
-pitching4_att = pitching4.headers
-
-pitching4.each do |pitching|
-  @pitching = {}
-
-  pitching4_att.each do |att|
-
-    @pitching[att] = pitching[att]
-  end
-  Pitching.create(@pitching)
-end
-
-
-
-
-# PitchTypeDetail.delete_all
-
-# pitch_type_detail = CSV.table('db/pitch_type_detail.csv')
-# pitch_type_detail_att = pitch_type_detail.headers
-# pitch_type_detail.each do |pitch_type_detail|
-#   @pitch_type_detail = {}
-#   pitch_type_detail_att.each do |att|
-#     @pitch_type_detail[att] = pitch_type_detail[att]
-#   end
-#   PitchTypeDetail.create(@pitch_type_detail)
-# end
-
-
-# PitchTendency.delete_all
-
-# pitch_tendency = CSV.table('db/pitch_tendency.csv')
-# pitch_tendency_att = pitch_tendency.headers
-# pitch_tendency.each do |pitch_tendency|
-#   @pitch_tendency = {}
-#   pitch_tendency_att.each do |att|
-#     @pitch_tendency[att] = pitch_tendency[att]
-#   end
-#   PitchTendency.create(@pitch_tendency)
-# end
-
-# LineScore.delete_all
-
-# line_score = CSV.table('db/line_score.csv')
-# line_score_att = line_score.headers
-# line_score.each do |line_score|
-#   @line_score = {}
-#   line_score_att.each do |att|
-#     @line_score[att] = line_score[att]
-#   end
-#   LineScore.create(@line_score)
-# end
-
-
-# GameBatter.delete_all
-
-# game_batter = CSV.table('db/game_batter.csv')
-# game_batter_att = game_batter.headers
-# game_batter.each do |game_batter|
-#   @game_batter = {}
-#   game_batter_att.each do |att|
-#     @game_batter[att] = game_batter[att]
-#   end
-#   GameBatter.create(@game_batter)
-# end
-
-
-# GamePitcher.delete_all
-
-# game_pitcher = CSV.table('db/game_pitcher.csv')
-# game_pitcher_att = game_pitcher.headers
-# game_pitcher.each do |game_pitcher|
-#   @game_pitcher = {}
-#   game_pitcher_att.each do |att|
-#     @game_pitcher[att] = game_pitcher[att]
-#   end
-#   GamePitcher.create(@game_pitcher)
-# end
-
-
-# Game.delete_all
-
-# game = CSV.table('db/game.csv')
-# game_att = game.headers
-# game.each do |game|
-#   @game = {}
-#   game_att.each do |att|
-#     @game[att] = game[att]
-#   end
-#   Game.create(@game)
-# end
-
-
-
-# Bench.delete_all
-
-# bench = CSV.table('db/bench.csv')
-# bench_att = bench.headers
-# bench.each do |bench|
-#   @bench = {}
-#   bench_att.each do |att|
-#     @bench[att] = bench[att]
-#   end
-#   Bench.create(@bench)
-# end
-
-
+#7月11日から14日までのデータ
+# db削除→dbに保存→csvに変換→sakuraに保存
 
 # Atbat.delete_all
-
-# atbat = CSV.table('db/atbat.csv')
-# atbat_att = atbat.headers
-# atbat.each do |atbat|
-#   @atbat = {}
-#   atbat_att.each do |att|
-#     @atbat[att] = atbat[att]
-#   end
-#   Atbat.create(@atbat)
-# end
-
-# team = CSV.table('team.csv')
-# team_att = team.headers
-# team.each do |team|
-#   @team = {}
-#   team_att.each do |att|
-#       @team[att] = team[att]
-#   end
-#   Team.create(@team)
-# end
-
-# game_id = []
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_03/day_31/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('games>game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#   end
-
-# num_4 = 1.upto(30).to_a
-# num_4.each do |num|
-#   day = sprintf("%.2d",num)
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_04/day_#{day}/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('games>game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#     next
-#   end
-# end
+# Bench.delete_all
+# Game.delete_all
+# GameBatter.delete_all
+# GamePitcher.delete_all
+# LineScore.delete_all
+# PitchTendency.delete_all
+# PitchTypeDetail.delete_all
+# Pitching.delete_all
 
 
-# num_5 = 1.upto(31).to_a
-# num_5.each do |num|
-#   day = sprintf("%.2d",num)
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_05/day_#{day}/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#     next
-#   end
-# end
+game_id = []
 
+num_7 = 11.upto(14).to_a
+num_7.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
 
-# num_6 = 1.upto(31).to_a
-# num_6.each do |num|
-#   day = sprintf("%.2d",num)
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#     next
-#   end
-# end
+game_id.each do |gid|
+  Atbat.seed(gid)
 
-# num_7 = 1.upto(10).to_a
-# num_7.each do |num|
-#   day = sprintf("%.2d",num)
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#     next
-#   end
-# end
+end
 
 # url = {}
 # game_id.each do |gid|
@@ -285,6 +64,8 @@ end
 
 #       url[gid] = u
 # end
+
+
 #     url.each do |gid,url|
 #       begin
 #         doc = Nokogiri::XML(open(url))
@@ -349,22 +130,6 @@ end
 #       end
 
 
-# url = {}
-# game_id.each do |gid|
-
-#       # 2013/06/01/wasmlb-atlmlb-1
-#       year = gid.slice(0,4)
-#       month = gid.slice(5,2)
-#       day = gid.slice(8,2)
-#       away_team = gid.slice(11,6)
-#       home_team = gid.slice(18,6)
-#       num = gid.slice(25,1)
-#       u = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
-
-#       url[gid] = u
-
-
-# end
 
 
 # url.each do |gid,url|
@@ -450,10 +215,6 @@ end
 #   rescue
 #   end
 
-
-
-
-
 # end
 
 
@@ -486,22 +247,8 @@ end
 
 
 
-# num = 1.upto(30).to_a
-# game_id = []
-# num.each do |num|
-#   day = sprintf("%.2d",num)
-#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
-#   begin
-#     doc = Nokogiri::XML(open(url))
-#     doc.css('game').each do |game|
-#       game_id << game.attribute('gameday').text
-#     end
-#   rescue
-#     next
-#   end
-# end
 
-# url = {}
+# pt_url = {}
 # game_id.each do |gid|
 
 #       # 2013/06/01/wasmlb-atlmlb-1
@@ -526,12 +273,12 @@ end
 
 #         p_id.each do |p_id|
 #           url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}pitchtendencies_history.xml"
-#           url[p_id.to_sym] = url2
+#           pt_url[p_id.to_sym] = url2
 #         end
 #       rescue
 #       end
 # end
-#       url.each do |k,v|
+#       pt_url.each do |k,v|
 #         begin
 #           pt = Nokogiri::XML(open(v))
 #           lf = pt.css('last_five')
