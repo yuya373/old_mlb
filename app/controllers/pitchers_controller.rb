@@ -136,7 +136,7 @@ class PitchersController < ApplicationController
 
     @batter = Atbat.where.not('batter_name = ?','-').where('pitcher_id = ?', @p_id).select('DISTINCT batter_name, batter_id, batter_team').order('batter_name asc')
 
-    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?',params[:batter])
+    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?',params[:batter]).select('game_id,pitcher_name,batter_name,b,s,o,event,des,game_id_num')
 
 
   end
