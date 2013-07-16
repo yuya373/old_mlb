@@ -11,6 +11,70 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+Team.all.each do |team|
+  gid = team.game_id.tr('/','_')
+  team.update_attribute(:game_id, gid)
+
+end
+
+g_id = [
+'2013/07/14/anamlb-seamlb-1',
+'2013/07/14/milmlb-arimlb-1',
+'2013/07/14/tormlb-balmlb-1',
+'2013/07/14/bosmlb-oakmlb-1',
+'2013/07/14/slnmlb-chnmlb-1',
+'2013/07/14/cinmlb-atlmlb-1',
+'2013/07/14/kcamlb-clemlb-1',
+'2013/07/14/colmlb-lanmlb-1',
+'2013/07/14/texmlb-detmlb-1',
+'2013/07/14/houmlb-tbamlb-1',
+'2013/07/14/wasmlb-miamlb-1',
+'2013/07/14/nynmlb-pitmlb-1',
+'2013/07/14/sfnmlb-sdnmlb-1',
+'2013/07/14/minmlb-nyamlb-1',
+'2013/07/14/chamlb-phimlb-1',
+'2013/07/12/anamlb-seamlb-1',
+'2013/07/12/milmlb-arimlb-1',
+'2013/07/12/tormlb-balmlb-1',
+'2013/07/12/bosmlb-oakmlb-1',
+'2013/07/12/slnmlb-chnmlb-1',
+'2013/07/12/cinmlb-atlmlb-1',
+'2013/07/12/kcamlb-clemlb-1',
+'2013/07/12/colmlb-lanmlb-1',
+'2013/07/12/texmlb-detmlb-1',
+'2013/07/12/houmlb-tbamlb-1',
+'2013/07/12/wasmlb-miamlb-1',
+'2013/07/12/nynmlb-pitmlb-1',
+'2013/07/12/sfnmlb-sdnmlb-1',
+'2013/07/12/minmlb-nyamlb-1',
+'2013/07/13/anamlb-seamlb-1',
+'2013/07/13/milmlb-arimlb-1',
+'2013/07/13/tormlb-balmlb-1',
+'2013/07/13/bosmlb-oakmlb-1',
+'2013/07/13/slnmlb-chnmlb-1',
+'2013/07/13/cinmlb-atlmlb-1',
+'2013/07/13/kcamlb-clemlb-1',
+'2013/07/13/colmlb-lanmlb-1',
+'2013/07/13/texmlb-detmlb-1',
+'2013/07/13/houmlb-tbamlb-1',
+'2013/07/13/wasmlb-miamlb-1',
+'2013/07/13/nynmlb-pitmlb-1',
+'2013/07/13/sfnmlb-sdnmlb-1',
+'2013/07/13/minmlb-nyamlb-1',
+'2013/07/13/chamlb-phimlb-2']
+
+g_id.each do |gid|
+  Atbat.where('game_id = ?',gid).delete_all
+  Pitching.where('game_id = ?',gid).delete_all
+end
+
+g_id.each do |gid|
+  t_gid = gid.tr('/','_')
+  Atbat.seed(t_gid)
+  Pitching.seed(t_gid)
+end
+
+
 # game_id = []
 
 # num_7 = 11.upto(14).to_a

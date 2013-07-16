@@ -17,7 +17,7 @@ class Team < ActiveRecord::Base
       @team[:team_id] = team_stats.attribute('team_id').text
       @team[:league_id] = team_stats.attribute('league_id').text
       @team[:team_abbrev] = team_stats.attribute('team_abbrev').text
-      @team[:game_id] = team_stats.attribute('game_id').text
+      @team[:game_id] = team_stats.attribute('game_id').text.tr('/','_')
 
 
 
