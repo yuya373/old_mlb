@@ -11,11 +11,11 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Team.all.each do |team|
-  gid = team.game_id.tr('/','_')
-  team.update_attribute(:game_id, gid)
+# Team.all.each do |team|
+#   gid = team.game_id.tr('/','_')
+#   team.update_attribute(:game_id, gid)
 
-end
+# end
 
 g_id = [
 '2013/07/14/anamlb-seamlb-1',
@@ -68,11 +68,11 @@ g_id.each do |gid|
   Pitching.where('game_id = ?',gid).delete_all
 end
 
-g_id.each do |gid|
-  t_gid = gid.tr('/','_')
-  Atbat.seed(t_gid)
-  Pitching.seed(t_gid)
-end
+# g_id.each do |gid|
+#   t_gid = gid.tr('/','_')
+#   Atbat.seed(t_gid)
+#   Pitching.seed(t_gid)
+# end
 
 
 # game_id = []
