@@ -135,6 +135,16 @@ GEM
     treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
+    twitter-bootswatch-rails (2.3.2.7)
+      execjs (>= 1.4.0)
+      less-rails (>= 2.3)
+      railties (>= 3.1)
+    twitter-bootswatch-rails-fontawesome (3.2.1.2)
+      less-rails (>= 2.3)
+      railties (>= 3.1)
+      twitter-bootswatch-rails (>= 2.3.2)
+    twitter-bootswatch-rails-helpers (2.3.2)
+      twitter-bootswatch-rails (>= 2.3.2)
     tzinfo (0.3.37)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
@@ -162,5 +172,8 @@ DEPENDENCIES
   sass-rails (~> 4.0.0.rc1)
   sqlite3
   therubyracer
+  twitter-bootswatch-rails
+  twitter-bootswatch-rails-fontawesome
+  twitter-bootswatch-rails-helpers
   uglifier (>= 1.0.3)
   whenever

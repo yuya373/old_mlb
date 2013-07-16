@@ -126,33 +126,33 @@ require 'csv'
 #   end
 # end
 
-pitching = CSV.table("db/pitching1.csv")
-pitching_att = pitching.headers
-pitching.each do |row|
-  @pitching = {}
-  pitching_att.each do |att|
-    @pitching[att.to_sym] = row[att]
-  end
-  begin
-    Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
-  rescue
-    Pitching.create(@pitching)
-  end
-end
+# pitching = CSV.table("db/pitching1.csv")
+# pitching_att = pitching.headers
+# pitching.each do |row|
+#   @pitching = {}
+#   pitching_att.each do |att|
+#     @pitching[att.to_sym] = row[att]
+#   end
+#   begin
+#     Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+#   rescue
+#     Pitching.create(@pitching)
+#   end
+# end
 
-pitching = CSV.table("db/pitching2.csv")
-pitching_att = pitching.headers
-pitching.each do |row|
-  @pitching = {}
-  pitching_att.each do |att|
-    @pitching[att.to_sym] = row[att]
-  end
-  begin
-    Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
-  rescue
-    Pitching.create(@pitching)
-  end
-end
+# pitching = CSV.table("db/pitching2.csv")
+# pitching_att = pitching.headers
+# pitching.each do |row|
+#   @pitching = {}
+#   pitching_att.each do |att|
+#     @pitching[att.to_sym] = row[att]
+#   end
+#   begin
+#     Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+#   rescue
+#     Pitching.create(@pitching)
+#   end
+# end
 
 
 

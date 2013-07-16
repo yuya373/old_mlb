@@ -20,6 +20,9 @@ gem 'sass-rails',   '~> 4.0.0.rc1'
 gem 'coffee-rails', '~> 4.0.0.rc1'
 gem "less-rails"
 gem 'less-rails-bootstrap'
+gem 'twitter-bootswatch-rails'
+gem 'twitter-bootswatch-rails-fontawesome'
+gem 'twitter-bootswatch-rails-helpers'
 
 # Gems used only for assets and not required
 # in production environments by default.

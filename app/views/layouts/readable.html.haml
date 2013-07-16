@@ -19,28 +19,9 @@
 
 
   %body
-    .navbar.navbar-fluid-top.navbar-inverse
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand Mlb
-          .container.nav-collapse
-            %ul.nav
-              %li= link_to "ScoreBoard",new_master_scoreboard_path
-              %li= link_to "GameDetails", game_detail_index_path
-              %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
-              %li= link_to 'Team', team_path
-              %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
-    .container-fluid
 
-      .row-fluid
-        = yield
+    = yield
 
-      / %footer
-      /   %p &copy; Company 2013
     /
       Javascripts
       \==================================================
