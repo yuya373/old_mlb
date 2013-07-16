@@ -48,13 +48,14 @@ class Atbat < ActiveRecord::Base
         }
 
         begin
-          @atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first.update_attributes!(@at_bat)
+          n_atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first
+          n_atbat.update_attributes!(@at_bat)
         rescue
-          @atbat = Atbat.create(@at_bat)
+          n_atbat = Atbat.create(@at_bat)
         end
 
         begin
-          pitcher = @atbat.pitcher
+          pitcher = n_atbat.pitcher
           p_name = pitcher.name_display_first_last
           p_team = pitcher.team_abbrev
         rescue
@@ -63,7 +64,7 @@ class Atbat < ActiveRecord::Base
         end
 
         begin
-          batter = @atbat.batter
+          batter = n_atbat.batter
           b_name = batter.name_display_first_last
           b_team = batter.team_abbrev
         rescue
@@ -71,13 +72,40 @@ class Atbat < ActiveRecord::Base
           b_team = '-'
         end
 
-        @atbat.update_attributes(
+        n_atbat.update_attributes(
           pitcher_name: p_name,
           pitcher_team: p_team,
           batter_name: b_name,
           batter_team: b_team
           )
+
       end
+      # Atbat.find_each do |atbat|
+      #   begin
+      #     pitcher = atbat.pitcher
+      #     p_name = pitcher.name_display_first_last
+      #     p_team = pitcher.team_abbrev
+      #   rescue
+      #     p_name = '-'
+      #     p_team = '-'
+      #   end
+
+      #   begin
+      #     batter = atbat.batter
+      #     b_name = batter.name_display_first_last
+      #     b_team = batter.team_abbrev
+      #   rescue
+      #     b_name = '-'
+      #     b_team = '-'
+      #   end
+
+      #   atbat.update_attributes(
+      #     pitcher_name: p_name,
+      #     pitcher_team: p_team,
+      #     batter_name: b_name,
+      #     batter_team: b_team
+      #     )
+      # end
     end
   end
 
