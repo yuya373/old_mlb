@@ -11,6 +11,38 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+# game_id = []
+
+# num_7 = 11.upto(14).to_a
+# num_7.each do |num|
+#   day = sprintf("%.2d",num)
+#   url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
+#   begin
+#     doc = Nokogiri::XML(open(url))
+#     doc.css('game').each do |game|
+#       game_id << game.attribute('gameday').text
+#     end
+#   rescue
+#     next
+#   end
+# end
+
+# game_id.each do |gid|
+#   # Atbat.seed(gid)
+#   # Bench.seed(gid)
+#   # Game.seed(gid)
+#   # GameBatter.seed(gid)
+#   # GamePitcher.seed(gid)
+#   # LineScore.seed(gid)
+#   # PitchTendency.seed(gid)
+#   # Pitching.seed(gid)
+
+#   PitchTypeDetail.seed_pitcher(gid)
+#   PitchTypeDetail.seed_batter(gid)
+
+# end
+
+
 # atbat = CSV.table("db/atbat.csv")
 # atbat_att = atbat.headers
 # atbat.each do |row|
