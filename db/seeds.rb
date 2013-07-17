@@ -87,7 +87,12 @@ g_id = [
 '2013_07_11_slnmlb_chnmlb_1',
 '2013_07_11_texmlb_balmlb_1',
 '2013_07_11_tormlb_clemlb_1',
-'2013_07_11_wasmlb_phimlb_1']
+'2013_07_11_wasmlb_phimlb_1',
+'2013/07/11/milmlb-arimlb-1',
+'2013/07/11/bosmlb-seamlb-1',
+'2013/07/11/cinmlb-atlmlb-1',
+'2013/07/11/kcamlb-nyamlb-1'
+]
 
 
 g_id.each do |gid|
