@@ -11,20 +11,80 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+game_id = []
 
-Atbat.find_each do |atbat|
-  game_id_num = atbat.game_id_num
 
-  atbats = Atbat.where('game_id_num = ?',game_id_num)
-    num = 0
-      atbats.each do |atbats|
-        if num = 0
-        else
-          atbats.delete
-        end
-        num += 1
-      end
+
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_03/day_31/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+
+num_4 = 1.upto(30).to_a
+num_4.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_04/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
 end
+
+num_5 = 1.upto(31).to_a
+num_5.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_05/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+num_6 = 1.upto(30).to_a
+num_6.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+num_7 = 1.upto(14).to_a
+num_7.each do |num|
+  day = sprintf("%.2d",num)
+  url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_07/day_#{day}/master_scoreboard.xml"
+  begin
+    doc = Nokogiri::XML(open(url))
+    doc.css('game').each do |game|
+      game_id << game.attribute('gameday').text
+    end
+  rescue
+    next
+  end
+end
+
+game_id.each do |gid|
+  Atbat.seed(gid)
+end
+
 
 # # Team.all.each do |team|
 # #   gid = team.game_id.tr('/','_')
