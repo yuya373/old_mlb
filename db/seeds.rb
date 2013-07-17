@@ -17,7 +17,6 @@ Atbat.find_each do |atbat|
 
   atbats = Atbat.where('game_id_num = ?',game_id_num)
     num = 0
-    begin
       atbats.each do |atbats|
         if num = 0
         else
@@ -25,8 +24,6 @@ Atbat.find_each do |atbat|
         end
         num += 1
       end
-    rescue
-    end
 end
 
 # # Team.all.each do |team|
