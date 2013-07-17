@@ -21,7 +21,7 @@ Atbat.find_each do |atbat|
       atbats.each do |atbats|
         if num = 0
         else
-          atbats.delete_all
+          atbats.delete
         end
         num += 1
       end
