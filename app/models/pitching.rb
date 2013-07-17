@@ -125,6 +125,7 @@ class Pitching < ActiveRecord::Base
             Pitching.create(@pitching)
           end
         end
+      end
     rescue
     end
   end
