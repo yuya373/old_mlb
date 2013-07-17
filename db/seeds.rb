@@ -75,7 +75,7 @@ require 'csv'
 # '2013_07_11_tormlb_clemlb_1',
 # '2013_07_11_wasmlb_phimlb_1']
 
-game_id = [
+g_id = [
 '2013_07_11_bosmlb_seamlb_1',
 '2013_07_11_chamlb_detmlb_1',
 '2013_07_11_cinmlb_atlmlb_1',
