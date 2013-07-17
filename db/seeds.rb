@@ -16,16 +16,17 @@ Atbat.find_each do |atbat|
   game_id_num = atbat.game_id_num
 
   atbats = Atbat.where('game_id_num = ?',game_id_num)
-  if atbats.many?
     num = 0
-    atbats.each do |atbats|
-      if num = 0
-      else
-        atbats.delete_all
+    begin
+      atbats.each do |atbats|
+        if num = 0
+        else
+          atbats.delete_all
+        end
+        num += 1
       end
-      num += 1
+    rescue
     end
-  end
 end
 
 # # Team.all.each do |team|
