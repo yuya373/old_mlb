@@ -22,7 +22,6 @@ game_id = []
       game_id << game.attribute('gameday').text
     end
   rescue
-    next
   end
 
 num_4 = 1.upto(30).to_a
@@ -82,7 +81,7 @@ num_7.each do |num|
 end
 
 game_id.each do |gid|
-  Atbat.seed(gid)
+  Pitching.seed(gid)
 end
 
 

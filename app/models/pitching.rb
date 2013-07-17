@@ -91,39 +91,41 @@ class Pitching < ActiveRecord::Base
       num = gid.slice(25,1)
 
       url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
+      begin
+        doc = Nokogiri::XML(open(url))
 
-      doc = Nokogiri::XML(open(url))
-
-      atbat = doc.css('atbat')
+        atbat = doc.css('atbat')
 
 
-      atbat.each do |atbat|
-        atbat_num = atbat.attribute('num').text
-        p = atbat.attribute('pitcher').text
-        b = atbat.attribute('batter').text
-        atbat.css('pitch').each do |pitch|
-          @pitching = {}
-          @pitching[:game_id] = gid
-          @pitching[:num] = atbat_num
-          @pitching[:pitcher_id] = p
-          @pitching[:batter_id] = b
-          @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
-          pitch.keys.to_a.each do |k|
-            v = pitch.attribute(k).text
-            case k
-            when 'id'
-            when 'type'
-              k = 's_or_ball'
-              @pitching[k.to_sym] = v
-            else
-              @pitching[k.to_sym] = v
+        atbat.each do |atbat|
+          atbat_num = atbat.attribute('num').text
+          p = atbat.attribute('pitcher').text
+          b = atbat.attribute('batter').text
+          atbat.css('pitch').each do |pitch|
+            @pitching = {}
+            @pitching[:game_id] = gid
+            @pitching[:num] = atbat_num
+            @pitching[:pitcher_id] = p
+            @pitching[:batter_id] = b
+            @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+            pitch.keys.to_a.each do |k|
+              v = pitch.attribute(k).text
+              case k
+              when 'id'
+              when 'type'
+                k = 's_or_ball'
+                @pitching[k.to_sym] = v
+              else
+                @pitching[k.to_sym] = v
+              end
+            end
+            begin
+              Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+            rescue
+              Pitching.create(@pitching)
             end
           end
-          begin
-            Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
-          rescue
-            Pitching.create(@pitching)
-          end
+        rescue
         end
       end
     end

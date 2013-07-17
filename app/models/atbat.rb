@@ -169,6 +169,7 @@ class Atbat < ActiveRecord::Base
 
         begin
           n_atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first
+
           n_atbat.update_attributes!(@at_bat)
         rescue
           n_atbat = Atbat.create(@at_bat)
