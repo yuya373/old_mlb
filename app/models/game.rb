@@ -40,8 +40,8 @@ class Game < ActiveRecord::Base
         end
 
         stadium = doc.css('stadium')
-        status = doc.css('game').attribute('status').text
-        reason = doc.css('game').attribute('reason').text
+        status = doc2.css('game').attribute('status').text
+        reason = doc2.css('game').attribute('reason').text
         @team = {
                 year: year.to_i,
                 month: month.to_i,
@@ -111,8 +111,8 @@ class Game < ActiveRecord::Base
       end
 
       stadium = doc.css('stadium')
-      status = doc.css('game').attribute('status').text
-      reason = doc.css('game').attribute('reason').text
+      status = doc2.css('game').attribute('status').text
+      reason = doc2.css('game').attribute('reason').text
 
       @team = {
               year: year.to_i,
