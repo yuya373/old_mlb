@@ -14,7 +14,11 @@ require 'csv'
 
 CSV.foreach("game_id.csv") do |row|
   row.each do |gid|
-    Atbat.seed(gid)
+    # Atbat.seed(gid)
+    Game.seed(gid)
+    GameBatter.seed(gid)
+    GamePitcher.seed(gid)
+    LineScore.seed(gid)
   end
 end
 
