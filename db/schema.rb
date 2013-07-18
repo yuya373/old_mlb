@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130718094055) do
+ActiveRecord::Schema.define(version: 20130718193747) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -362,6 +362,8 @@ ActiveRecord::Schema.define(version: 20130718094055) do
     t.integer  "year"
     t.integer  "month"
     t.integer  "day"
+    t.string   "status"
+    t.string   "reason"
   end
 
   create_table "line_scores", force: true do |t|

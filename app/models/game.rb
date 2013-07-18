@@ -20,8 +20,11 @@ class Game < ActiveRecord::Base
       num = gid.slice(25,1)
 
       url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/game.xml"
+
+      url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/linescore.xml"
       begin
         doc = Nokogiri::XML(open(url))
+        doc2 = Nokogiri::XML(open(url2))
 
         @team = {}
         if doc.css('team')[0].attribute('type').text == 'home'
@@ -37,7 +40,8 @@ class Game < ActiveRecord::Base
         end
 
         stadium = doc.css('stadium')
-
+        status = doc.css('game').attribute('status').text
+        reason = doc.css('game').attribute('reason').text
         @team = {
                 year: year.to_i,
                 month: month.to_i,
@@ -62,7 +66,9 @@ class Game < ActiveRecord::Base
                 away_league_id: away.attribute('league_id').text,
                 away_league: away.attribute('league').text,
                 stadium: stadium.attribute('name').text,
-                location: stadium.attribute('location').text
+                location: stadium.attribute('location').text,
+                status: status,
+                reason: reason
         }
 
         begin
@@ -85,8 +91,11 @@ class Game < ActiveRecord::Base
     num = gid.slice(25,1)
 
     url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/game.xml"
+
+    url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/linescore.xml"
     begin
       doc = Nokogiri::XML(open(url))
+      doc2 = Nokogiri::XML(open(url2))
 
       @team = {}
       if doc.css('team')[0].attribute('type').text == 'home'
@@ -102,6 +111,8 @@ class Game < ActiveRecord::Base
       end
 
       stadium = doc.css('stadium')
+      status = doc.css('game').attribute('status').text
+      reason = doc.css('game').attribute('reason').text
 
       @team = {
               year: year.to_i,
@@ -127,7 +138,9 @@ class Game < ActiveRecord::Base
               away_league_id: away.attribute('league_id').text,
               away_league: away.attribute('league').text,
               stadium: stadium.attribute('name').text,
-              location: stadium.attribute('location').text
+              location: stadium.attribute('location').text,
+              status: status,
+              reason: reason
       }
 
       begin
