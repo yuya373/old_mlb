@@ -133,16 +133,16 @@ class Atbat < ActiveRecord::Base
 
   def self.seed(gid)
     # gid = '2013_05_19_detmlb_texmlb_1'
-      year = gid.slice(0,4)
-      month = gid.slice(5,2)
-      day = gid.slice(8,2)
-      # 2013/06/01/wasmlb-atlmlb-1
-      away_team = gid.slice(11,6)
-      home_team = gid.slice(18,6)
-      num = gid.slice(25,1)
+    year = gid.slice(0,4)
+    month = gid.slice(5,2)
+    day = gid.slice(8,2)
+    # 2013/06/01/wasmlb-atlmlb-1
+    away_team = gid.slice(11,6)
+    home_team = gid.slice(18,6)
+    num = gid.slice(25,1)
 
-      url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
-
+    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/inning/inning_all.xml"
+    begin
       doc = Nokogiri::XML(open(url))
 
       atbat = doc.css('atbat')
@@ -199,11 +199,8 @@ class Atbat < ActiveRecord::Base
           batter_name: b_name,
           batter_team: b_team
           )
-
-
       end
-
-
-
+    rescue
+    end
   end
 end
