@@ -38,10 +38,8 @@ class Game < ActiveRecord::Base
         else
           home = doc.css('team')[1]
         end
-
         stadium = doc.css('stadium')
-        status = doc2.css('game').attribute('status').text
-        reason = doc2.css('game').attribute('reason').text
+        game = doc2.css('game')
         @team = {
                 year: year.to_i,
                 month: month.to_i,
@@ -67,8 +65,8 @@ class Game < ActiveRecord::Base
                 away_league: away.attribute('league').text,
                 stadium: stadium.attribute('name').text,
                 location: stadium.attribute('location').text,
-                status: status,
-                reason: reason
+                status: game.attribute('status').text
+                # reason: game.attribute('reason').text
         }
 
         begin
@@ -112,7 +110,7 @@ class Game < ActiveRecord::Base
 
       stadium = doc.css('stadium')
       status = doc2.css('game').attribute('status').text
-      reason = doc2.css('game').attribute('reason').text
+      # reason = doc2.css('game').attribute('reason').text
 
       @team = {
               year: year.to_i,
@@ -139,8 +137,8 @@ class Game < ActiveRecord::Base
               away_league: away.attribute('league').text,
               stadium: stadium.attribute('name').text,
               location: stadium.attribute('location').text,
-              status: status,
-              reason: reason
+              status: status
+              # reason: reason
       }
 
       begin
