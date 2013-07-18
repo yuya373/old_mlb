@@ -98,6 +98,9 @@ class LineScore < ActiveRecord::Base
 
       game = doc.css('game')
       line = game.css('linescore')
+      wp = game.css('winning_pitcher')
+      lp = game.css('losing_pitcher')
+      sv = game.css('save_pitcher')
 
       line.each do |line|
         @score = {
