@@ -12,8 +12,10 @@ require 'open-uri'
 require 'csv'
 
 
-CSV.foreach("game_id.csv") do |gid|
-  Atbat.seed(gid)
+CSV.foreach("game_id.csv") do |row|
+  row.each do |gid|
+    Atbat.seed(gid)
+  end
 end
 
 
