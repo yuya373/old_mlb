@@ -11,14 +11,34 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+game_id = [
+  '2013_07_04_sfnmlb_cinmlb_1',
+  '2013_07_04_chamlb_phimlb_1',
+  '2013_06_06_nynmlb_wasmlb_1',
+  '2013_06_18_lanmlb_nyamlb_1',
+  '2013_05_19_tormlb_nyamlb_1',
+  '2013_05_29_arimlb_texmlb_1',
+  '2013_05_31_sfnmlb_slnmlb_1',
+  '2013_04_10_nyamlb_clemlb_1',
+  '2013_04_11_nyamlb_clemlb_1',
+  '2013_04_17_anamlb_minmlb_1',
+  '2013_04_19_lanmlb_balmlb_1',
+  '2013_04_26_clemlb_kcamlb_1',
+  '2013_04_23_kcamlb_detmlb_1']
+
+  game_id.each do |gid|
+    Atbat.seed(gid)
+  end
+
+
 
 CSV.foreach("game_id.csv") do |row|
   row.each do |gid|
     # Atbat.seed(gid)
     Game.seed(gid)
-    GameBatter.seed(gid)
-    GamePitcher.seed(gid)
-    LineScore.seed(gid)
+    # GameBatter.seed(gid)
+    # GamePitcher.seed(gid)
+    # LineScore.seed(gid)
   end
 end
 

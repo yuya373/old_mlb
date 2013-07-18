@@ -39,9 +39,9 @@ class Game < ActiveRecord::Base
       stadium = doc.css('stadium')
 
       @team = {
-              year: year,
-              month: month,
-              day: day,
+              year: year.to_i,
+              month: month.to_i,
+              day: day.to_i,
               gameday: gid,
               home_team_id: home.attribute('id').text,
               home_team_abbrev: home.attribute('abbrev').text,
@@ -104,9 +104,9 @@ class Game < ActiveRecord::Base
       stadium = doc.css('stadium')
 
       @team = {
-              year: year,
-              month: month,
-              day: day,
+              year: year.to_i,
+              month: month.to_i,
+              day: day.to_i,
               gameday: gid,
               home_team_id: home.attribute('id').text,
               home_team_abbrev: home.attribute('abbrev').text,
