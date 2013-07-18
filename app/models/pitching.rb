@@ -60,10 +60,12 @@ class Pitching < ActiveRecord::Base
           @pitching[:pitcher_id] = p
           @pitching[:batter_id] = b
           @pitching[:game_id_num] = "#{gid}_#{atbat_num}"
+
           pitch.keys.to_a.each do |k|
             v = pitch.attribute(k).text
             case k
             when 'id'
+              @pitching[:game_id_num_id] = "#{gid}_#{atbat_num}_#{v}"
             when 'type'
               k = 's_or_ball'
               @pitching[k.to_sym] = v
@@ -72,7 +74,7 @@ class Pitching < ActiveRecord::Base
             end
           end
           begin
-            Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+            Pitching.where('game_id_num_id = ?', @pitching[:game_id_num_id]).first.update_attributes!(@pitching)
           rescue
             Pitching.create(@pitching)
           end
@@ -112,6 +114,7 @@ class Pitching < ActiveRecord::Base
             v = pitch.attribute(k).text
             case k
             when 'id'
+              @pitching[:game_id_num_id] = "#{gid}_#{atbat_num}_#{v}"
             when 'type'
               k = 's_or_ball'
               @pitching[k.to_sym] = v
@@ -120,7 +123,7 @@ class Pitching < ActiveRecord::Base
             end
           end
           begin
-            Pitching.where('sv_id = ?', @pitching[:sv_id]).first.update_attributes!(@pitching)
+            Pitching.where('game_id_num_id = ?', @pitching[:game_id_num_id]).first.update_attributes!(@pitching)
           rescue
             Pitching.create(@pitching)
           end

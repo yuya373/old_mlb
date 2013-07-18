@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130715061110) do
+ActiveRecord::Schema.define(version: 20130718024852) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
