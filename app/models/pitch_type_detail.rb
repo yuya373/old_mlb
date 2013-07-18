@@ -42,41 +42,43 @@ class PitchTypeDetail < ActiveRecord::Base
 
 
       p_id_url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
+      begin
+        doc = Nokogiri::XML(open(p_id_url)).css('a')
+        p_id = []
 
-      doc = Nokogiri::XML(open(p_id_url)).css('a')
-      p_id = []
-
-      doc.each do |doc|
-        p_id << doc.attribute('href').text
-      end
-
-      p_id.delete_at(0)
-
-      pitch_type = [
-        'pch',
-        'pcu',
-        'pfa',
-        'pfc',
-        'pff',
-        'pfs',
-        'pft',
-        'pkn',
-        'psi',
-        'psl'
-      ]
-
-      p_id.each do |p_id|
-        ary = []
-        pitch_type.each do |ty|
-          aaa = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}#{ty}.xml"
-
-          # url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_28/gid_2013_06_28_wasmlb_nynmlb_1/premium/batters/150029/#{ty}.xml"
-
-          ary << aaa
-
-          url[p_id.to_sym] = ary
-
+        doc.each do |doc|
+          p_id << doc.attribute('href').text
         end
+
+        p_id.delete_at(0)
+
+        pitch_type = [
+          'pch',
+          'pcu',
+          'pfa',
+          'pfc',
+          'pff',
+          'pfs',
+          'pft',
+          'pkn',
+          'psi',
+          'psl'
+        ]
+
+        p_id.each do |p_id|
+          ary = []
+          pitch_type.each do |ty|
+            aaa = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}#{ty}.xml"
+
+            # url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_06/day_28/gid_2013_06_28_wasmlb_nynmlb_1/premium/batters/150029/#{ty}.xml"
+
+            ary << aaa
+
+            url[p_id.to_sym] = ary
+
+          end
+        end
+      rescue
       end
     end
 
@@ -85,27 +87,30 @@ class PitchTypeDetail < ActiveRecord::Base
 
     url.each do |k,v|
       v.each do |v|
-        doc2 = Nokogiri::XML(open(v))
-        sit = doc2.css('sit')
-        cont = {
-          p_b: 'p',
-          p_id: k.slice(0,6),
-          p_id_ty: "#{k.slice(0,6)}_#{v.to_s.slice(121,2)}",
-          pitch_type: v.to_s.slice(121,2),
-          ab: sit.attribute('ab').text,
-          avg: sit.attribute('avg').text,
-          hr: sit.attribute('hr').text,
-          rbi: sit.attribute('rbi').text,
-          bb: sit.attribute('bb').text,
-          so: sit.attribute('so').text,
-          ops: sit.attribute('ops').text,
-          rating: sit.attribute('rating').text,
-          sweetness: sit.attribute('sweetness').text
-        }
         begin
-          PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).where('p_b = ?','p').first.update_attributes!(cont)
+          doc2 = Nokogiri::XML(open(v))
+          sit = doc2.css('sit')
+          cont = {
+            p_b: 'p',
+            p_id: k.slice(0,6),
+            p_id_ty: "#{k.slice(0,6)}_#{v.to_s.slice(121,2)}",
+            pitch_type: v.to_s.slice(121,2),
+            ab: sit.attribute('ab').text,
+            avg: sit.attribute('avg').text,
+            hr: sit.attribute('hr').text,
+            rbi: sit.attribute('rbi').text,
+            bb: sit.attribute('bb').text,
+            so: sit.attribute('so').text,
+            ops: sit.attribute('ops').text,
+            rating: sit.attribute('rating').text,
+            sweetness: sit.attribute('sweetness').text
+          }
+          begin
+            PitchTypeDetail.where('p_id_ty = ?',cont[:p_id_ty]).where('p_b = ?','p').first.update_attributes!(cont)
+          rescue
+            PitchTypeDetail.create(cont)
+          end
         rescue
-          PitchTypeDetail.create(cont)
         end
       end
     end

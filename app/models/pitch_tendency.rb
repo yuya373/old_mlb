@@ -39,67 +39,69 @@ class PitchTendency < ActiveRecord::Base
       home_team = gid.slice(18,6)
       num = gid.slice(25,1)
       url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
+      begin
+        doc = Nokogiri::XML(open(url)).css('a')
 
-      doc = Nokogiri::XML(open(url)).css('a')
+        p_id = []
 
-      p_id = []
-
-      doc.each do |doc|
-        p_id << doc.attribute('href').text
-      end
-
-      p_id.delete_at(0)
-
-      p_id.each do |p_id|
-        url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}pitchtendencies_history.xml"
-
-        pt = Nokogiri::XML(open(url2))
-        lf = pt.css('last_five')
-        @pt_lf = {
-          p_id: p_id.slice(0,6),
-          game_id: 'last_five',
-          game_num: lf.attribute('num').text,
-          game_vel: lf.attribute('vel').text
-        }
-        lf.css('type').each do |ty|
-          ty.keys.to_a.each do |k|
-            if k == 'id'
-              @pt_lf[:pitch_type] = ty.attribute('id').text
-            else
-              @pt_lf[k.to_sym] = ty.attribute(k).text
-            end
-          end
-          begin
-            PitchTendency.where('game_id = ?', @pt_lf[:game_id]).where('p_id = ?', @pt_lf[:p_id]).where('pitch_type = ?',@pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
-          rescue
-            PitchTendency.create(@pt_lf)
-          end
+        doc.each do |doc|
+          p_id << doc.attribute('href').text
         end
 
-        game = pt.css('game')
-        game.each do |game|
-          @pt_g = {
-            p_id: p_id.slice(0,6),
-            game_id: game.attribute('id').text,
-            game_num: game.attribute('num').text,
-            game_vel: game.attribute('vel').text
-          }
+        p_id.delete_at(0)
 
-          game.css('type').each do |ty|
+        p_id.each do |p_id|
+          url2 = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/#{p_id}pitchtendencies_history.xml"
+
+          pt = Nokogiri::XML(open(url2))
+          lf = pt.css('last_five')
+          @pt_lf = {
+            p_id: p_id.slice(0,6),
+            game_id: 'last_five',
+            game_num: lf.attribute('num').text,
+            game_vel: lf.attribute('vel').text
+          }
+          lf.css('type').each do |ty|
             ty.keys.to_a.each do |k|
               if k == 'id'
-                @pt_g[:pitch_type] = ty.attribute('id').text
+                @pt_lf[:pitch_type] = ty.attribute('id').text
               else
-                @pt_g[k.to_sym] = ty.attribute(k).text
+                @pt_lf[k.to_sym] = ty.attribute(k).text
               end
             end
             begin
-              PitchTendency.where('game_id = ?', @pt_g[:game_id]).where('p_id = ?', @pt_g[:p_id]).where('pitch_type = ?',@pt_g[:pitch_type]).first.update_attributes!(@pt_g)
+              PitchTendency.where('game_id = ?', @pt_lf[:game_id]).where('p_id = ?', @pt_lf[:p_id]).where('pitch_type = ?',@pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
             rescue
-              PitchTendency.create(@pt_g)
+              PitchTendency.create(@pt_lf)
+            end
+          end
+
+          game = pt.css('game')
+          game.each do |game|
+            @pt_g = {
+              p_id: p_id.slice(0,6),
+              game_id: game.attribute('id').text,
+              game_num: game.attribute('num').text,
+              game_vel: game.attribute('vel').text
+            }
+
+            game.css('type').each do |ty|
+              ty.keys.to_a.each do |k|
+                if k == 'id'
+                  @pt_g[:pitch_type] = ty.attribute('id').text
+                else
+                  @pt_g[k.to_sym] = ty.attribute(k).text
+                end
+              end
+              begin
+                PitchTendency.where('game_id = ?', @pt_g[:game_id]).where('p_id = ?', @pt_g[:p_id]).where('pitch_type = ?',@pt_g[:pitch_type]).first.update_attributes!(@pt_g)
+              rescue
+                PitchTendency.create(@pt_g)
+              end
             end
           end
         end
+      rescue
       end
     end
   end

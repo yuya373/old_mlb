@@ -15,52 +15,54 @@ class GameBatter < ActiveRecord::Base
       num = gid.slice(25,1)
 
       url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/boxscore.xml"
+      begin
+        doc = Nokogiri::XML(open(url))
 
-      doc = Nokogiri::XML(open(url))
+        batting = doc.css('boxscore>batting')
+        batter_h = batting[0].css('batter')
 
-      batting = doc.css('boxscore>batting')
-      batter_h = batting[0].css('batter')
+        batter_h.each do |b|
+          @batter = {}
+          @batter[:game_id] = gid
+          @batter[:team_flag] = batting[0].attribute('team_flag').text
+          key = b.keys.to_a
+          key.each do |k|
+            if k == 'id'
+              @batter[:p_id] = b.attribute('id').text
+            else
+              @batter[k.to_sym] = b.attribute(k).text
+            end
+          end
 
-      batter_h.each do |b|
-        @batter = {}
-        @batter[:game_id] = gid
-        @batter[:team_flag] = batting[0].attribute('team_flag').text
-        key = b.keys.to_a
-        key.each do |k|
-          if k == 'id'
-            @batter[:p_id] = b.attribute('id').text
-          else
-            @batter[k.to_sym] = b.attribute(k).text
+          begin
+            GameBatter.where('game_id = ?',@batter[:game_id]).where('p_id = ?',@batter[:p_id]).first.update_attributes!(@batter)
+          rescue
+            GameBatter.create(@batter)
           end
         end
 
-        begin
-          GameBatter.where('game_id = ?',@batter[:game_id]).where('p_id = ?',@batter[:p_id]).first.update_attributes!(@batter)
-        rescue
-          GameBatter.create(@batter)
-        end
-      end
+        batter_a = batting[1].css('batter')
 
-      batter_a = batting[1].css('batter')
+        batter_a.each do |b|
+          @batter = {}
+          @batter[:game_id] = gid
+          @batter[:team_flag] = batting[1].attribute('team_flag').text
+          key = b.keys.to_a
+          key.each do |k|
+            if k == 'id'
+              @batter[:p_id] = b.attribute(k).text
+            else
+              @batter[k.to_sym] = b.attribute(k).text
+            end
+          end
 
-      batter_a.each do |b|
-        @batter = {}
-        @batter[:game_id] = gid
-        @batter[:team_flag] = batting[1].attribute('team_flag').text
-        key = b.keys.to_a
-        key.each do |k|
-          if k == 'id'
-            @batter[:p_id] = b.attribute(k).text
-          else
-            @batter[k.to_sym] = b.attribute(k).text
+          begin
+            GameBatter.where('game_id = ?',@batter[:game_id]).where('p_id = ?',@batter[:p_id]).first.update_attributes!(@batter)
+          rescue
+            GameBatter.create(@batter)
           end
         end
-
-        begin
-          GameBatter.where('game_id = ?',@batter[:game_id]).where('p_id = ?',@batter[:p_id]).first.update_attributes!(@batter)
-        rescue
-          GameBatter.create(@batter)
-        end
+      rescue
       end
     end
   end

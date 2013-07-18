@@ -208,7 +208,7 @@
     -@game.game_pitchers.each do |pitcher|
       -if pitcher.team_flag == 'home'
         %tr
-          %td= pitcher.name
+          %td=link_to pitcher.name, {controller: 'pitchers', action: 'show', p_id: pitcher.p_id}
           %td= pitcher.bf
           %td= pitcher.out
           %td= pitcher.era.round(3)
