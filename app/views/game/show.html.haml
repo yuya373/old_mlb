@@ -1,0 +1,228 @@
+/ = debug @game_id
+/ =debug @game
+/ =debug @game.line_scores
+/ =debug @game.benches
+/ =debug @game.game_batters
+/ =debug @game.game_pitchers
+.hero-unit
+  %h2= "#{@game.away_team_name_full} - #{@game.home_team_name_full}"
+  %ul.inline
+    %li= "#{@game.away_team_name_brief}: #{@game.away_w} - #{@game.away_l}"
+    %li= "#{@game.home_team_name_brief}: #{@game.home_w} - #{@game.home_l}"
+  %ul.inline
+    %li.text-success= "@ #{@game.stadium}"
+    %li.text-success= @game.location
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th
+        -@game.line_scores.each do|line|
+          %th= line.inning
+        %th R
+        %th H
+        %th E
+    %tbody
+      %tr
+        %td= @game.away_team_abbrev
+        -@game.line_scores.each do |line|
+          %td= line.away
+        %td= @game.line_scores.first.away_team_runs
+        %td= @game.line_scores.first.away_team_hits
+        %td= @game.line_scores.first.away_team_errors
+      %tr
+        %td= @game.home_team_abbrev
+        -@game.line_scores.each do |line|
+          %td= line.home
+        %td= @game.line_scores.first.home_team_runs
+        %td= @game.line_scores.first.home_team_hits
+        %td= @game.line_scores.first.home_team_errors
+  .page-header= @game.away_team_abbrev
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Batter
+        %th POS
+        %th BO
+        %th AB
+        %th AVG
+        %th H
+        %th 2B
+        %th 3B
+        %th HR
+        %th RBI
+        %th R
+        %th SO
+        %th BB
+        %th HBP
+        %th SB
+        %th CS
+        %th SAC
+        %th SF
+        %th GO
+        %th AO
+        %th GIDP
+        %th LOB
+    %tbody
+    -@game.game_batters.each do |batter|
+      -if batter.team_flag == 'away' && batter.bo != nil
+        %tr
+          %td=link_to batter.name, {controller: 'batters', action: 'show', p_id: batter.p_id}
+          %td= batter.pos
+          %td= batter.bo.to_s.slice(0,1)
+          %td= batter.ab
+          %td= batter.avg.round(3)
+          %td= batter.h
+          %td= batter.d
+          %td= batter.t
+          %td= batter.hr
+          %td= batter.rbi
+          %td= batter.r
+          %td= batter.so
+          %td= batter.bb
+          %td= batter.hbp
+          %td= batter.sb
+          %td= batter.cs
+          %td= batter.sac
+          %td= batter.sf
+          %td= batter.go
+          %td= batter.ao
+          %td= batter.gidp
+          %td= batter.lob
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Pitcher
+        %th BF
+        %th OUT
+        %th ERA
+        %th ER
+        %th R
+        %th NP
+        %th S
+        %th H
+        %th HR
+        %th SO
+        %th BB
+        %th W
+        %th L
+        %th HLD
+        %th SV
+        %th BS
+        %th
+    %tbody
+    -@game.game_pitchers.each do |pitcher|
+      -if pitcher.team_flag == 'away'
+        %tr
+          %td=link_to pitcher.name, {controller: 'pitchers', action: 'show', p_id: pitcher.p_id}
+          %td= pitcher.bf
+          %td= pitcher.out
+          %td= pitcher.era.round(3)
+          %td= pitcher.er
+          %td= pitcher.r
+          %td= pitcher.np
+          %td= pitcher.s
+          %td= pitcher.h
+          %td= pitcher.hr
+          %td= pitcher.so
+          %td= pitcher.bb
+          %td= pitcher.w
+          %td= pitcher.l
+          %td= pitcher.hld
+          %td= pitcher.sv
+          %td= pitcher.bs
+          %td= pitcher.note
+  .page-header= @game.home_team_abbrev
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Batters
+        %th POS
+        %th BO
+        %th AB
+        %th AVG
+        %th H
+        %th 2B
+        %th 3B
+        %th HR
+        %th RBI
+        %th R
+        %th SO
+        %th BB
+        %th HBP
+        %th SB
+        %th CS
+        %th SAC
+        %th SF
+        %th GO
+        %th AO
+        %th GIDP
+        %th LOB
+    %tbody
+    -@game.game_batters.each do |batter|
+      -if batter.team_flag == 'home' && batter.bo != nil
+        %tr
+          %td=link_to batter.name, {controller: 'batters', action: 'show', p_id: batter.p_id}
+          %td= batter.pos
+          %td= batter.bo.to_s.slice(0,1)
+          %td= batter.ab
+          %td= batter.avg.round(3)
+          %td= batter.h
+          %td= batter.d
+          %td= batter.t
+          %td= batter.hr
+          %td= batter.rbi
+          %td= batter.r
+          %td= batter.so
+          %td= batter.bb
+          %td= batter.hbp
+          %td= batter.sb
+          %td= batter.cs
+          %td= batter.sac
+          %td= batter.sf
+          %td= batter.go
+          %td= batter.ao
+          %td= batter.gidp
+          %td= batter.lob
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Pitcher
+        %th BF
+        %th OUT
+        %th ERA
+        %th ER
+        %th R
+        %th NP
+        %th S
+        %th H
+        %th HR
+        %th SO
+        %th BB
+        %th W
+        %th L
+        %th HLD
+        %th SV
+        %th BS
+        %th
+    %tbody
+    -@game.game_pitchers.each do |pitcher|
+      -if pitcher.team_flag == 'home'
+        %tr
+          %td= pitcher.name
+          %td= pitcher.bf
+          %td= pitcher.out
+          %td= pitcher.era.round(3)
+          %td= pitcher.er
+          %td= pitcher.r
+          %td= pitcher.np
+          %td= pitcher.s
+          %td= pitcher.h
+          %td= pitcher.hr
+          %td= pitcher.so
+          %td= pitcher.bb
+          %td= pitcher.w
+          %td= pitcher.l
+          %td= pitcher.hld
+          %td= pitcher.sv
+          %td= pitcher.bs
+          %td= pitcher.note

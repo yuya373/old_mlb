@@ -2,6 +2,11 @@ require 'open-uri'
 
 class Game < ActiveRecord::Base
 
+  self.primary_key = 'gameday'
+  has_many :line_scores, :foreign_key => 'game_id'
+  has_many :benches, :foreign_key => 'game_id'
+  has_many :game_batters, :foreign_key => 'game_id'
+  has_many :game_pitchers, :foreign_key => 'game_id'
   def self.get
     Team.find_each do |team|
       # gid = '2013_05_19_detmlb_texmlb_1'
@@ -34,7 +39,10 @@ class Game < ActiveRecord::Base
       stadium = doc.css('stadium')
 
       @team = {
-              game_id: gid,
+              year: year,
+              month: month,
+              day: day,
+              gameday: gid,
               home_team_id: home.attribute('id').text,
               home_team_abbrev: home.attribute('abbrev').text,
               home_team_name_full: home.attribute('name_full').text,
@@ -58,7 +66,7 @@ class Game < ActiveRecord::Base
       }
 
       begin
-        Game.where('game_id = ?',@team[:game_id]).first.update_attributes!(@team)
+        Game.where('gameday = ?',@team[:gameday]).first.update_attributes!(@team)
       rescue
         Game.create(@team)
       end
@@ -96,7 +104,10 @@ class Game < ActiveRecord::Base
     stadium = doc.css('stadium')
 
     @team = {
-            game_id: gid,
+            year: year,
+            month: month,
+            day: day,
+            gameday: gid,
             home_team_id: home.attribute('id').text,
             home_team_abbrev: home.attribute('abbrev').text,
             home_team_name_full: home.attribute('name_full').text,
@@ -120,7 +131,7 @@ class Game < ActiveRecord::Base
     }
 
     begin
-      Game.where('game_id = ?',@team[:game_id]).first.update_attributes!(@team)
+      Game.where('gameday = ?',@team[:gameday]).first.update_attributes!(@team)
     rescue
       Game.create(@team)
     end

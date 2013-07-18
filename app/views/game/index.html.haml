@@ -1,0 +1,49 @@
+%form.form-inline
+  =form_tag do
+    = select_date Time.now, :discard_year => true
+    = submit_tag "Go"
+-if @note
+  -if @game.blank?
+    .alert 試合はありません
+  -else
+    - @game.each do |game|
+      .hero-unit
+        %p.text-right= link_to "詳細", {controller: 'game', action: 'show', game_id: game.gameday}
+        %h2= "#{game.away_team_name_full} - #{game.home_team_name_full}"
+        %ul.inline
+          %li= "#{game.away_team_name_brief}: #{game.away_w} - #{game.away_l}"
+          %li= "#{game.home_team_name_brief}: #{game.home_w} - #{game.home_l}"
+        %ul.inline
+          %li= "@ #{game.stadium}"
+          %li= game.location
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th
+              -game.line_scores.each do|line|
+                %th= line.inning
+              %th R
+              %th H
+              %th E
+          %tbody
+            %tr
+              %td= game.away_team_abbrev
+              -game.line_scores.each do |line|
+                %td= line.away
+              %td= game.line_scores.first.away_team_runs
+              %td= game.line_scores.first.away_team_hits
+              %td= game.line_scores.first.away_team_errors
+            %tr
+              %td= game.home_team_abbrev
+              -game.line_scores.each do |line|
+                %td= line.home
+              %td= game.line_scores.first.home_team_runs
+              %td= game.line_scores.first.home_team_hits
+              %td= game.line_scores.first.home_team_errors
+        %span.label.label-success Win
+        = "#{game.line_scores.first.wp_name} (#{game.line_scores.first.wp_w}-#{game.line_scores.first.wp_l})  #{game.line_scores.first.wp_era}"
+        %span.label.label-important Lose
+        = "#{game.line_scores.first.lp_name} (#{game.line_scores.first.lp_w}-#{game.line_scores.first.lp_l})  #{game.line_scores.first.lp_era}"
+        -if game.line_scores.first.sv_id != nil
+          %span.label.label-info Save
+          = "#{game.line_scores.first.sv_name} (#{game.line_scores.first.sv_w}-#{game.line_scores.first.sv_l})  #{game.line_scores.first.sv_era}  #{game.line_scores.first.sv_sv}sv"

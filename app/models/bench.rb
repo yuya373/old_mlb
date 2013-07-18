@@ -1,5 +1,5 @@
 class Bench < ActiveRecord::Base
-
+  belongs_to :game, :foreign_key => 'gameday'
   def self.get
     Team.find_each do |team|
       # gid = '2013_05_19_detmlb_texmlb_1'
@@ -34,7 +34,7 @@ class Bench < ActiveRecord::Base
       h_p.each do |p|
         @player = {
           game_id: gid,
-          team: home.attribute('name').text,
+          team: 'home',
           p_id: p.attribute('id').text
         }
 

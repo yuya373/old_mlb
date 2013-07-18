@@ -1,5 +1,7 @@
 class GamePitcher < ActiveRecord::Base
   def self.get
+  belongs_to :game, :foreign_key => 'gameday'
+
     Team.find_each do |team|
       gid = team.game_id
       year = gid.slice(0,4)

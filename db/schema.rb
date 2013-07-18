@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130718024852) do
+ActiveRecord::Schema.define(version: 20130718094055) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -240,6 +240,14 @@ ActiveRecord::Schema.define(version: 20130718024852) do
     t.datetime "updated_at"
   end
 
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "examples", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -328,7 +336,7 @@ ActiveRecord::Schema.define(version: 20130718024852) do
   end
 
   create_table "games", force: true do |t|
-    t.string   "game_id"
+    t.string   "gameday"
     t.string   "home_team_abbrev"
     t.string   "home_team_name_full"
     t.string   "home_team_name"
@@ -351,6 +359,9 @@ ActiveRecord::Schema.define(version: 20130718024852) do
     t.datetime "updated_at"
     t.integer  "home_team_id"
     t.integer  "away_team_id"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
   end
 
   create_table "line_scores", force: true do |t|
@@ -366,6 +377,22 @@ ActiveRecord::Schema.define(version: 20130718024852) do
     t.integer  "away_team_errors"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "wp_id"
+    t.string   "wp_name"
+    t.integer  "wp_w"
+    t.integer  "wp_l"
+    t.float    "wp_era"
+    t.integer  "lp_id"
+    t.string   "lp_name"
+    t.integer  "lp_w"
+    t.integer  "lp_l"
+    t.float    "lp_era"
+    t.integer  "sv_id"
+    t.string   "sv_name"
+    t.integer  "sv_w"
+    t.integer  "sv_l"
+    t.float    "sv_era"
+    t.integer  "sv_sv"
   end
 
   create_table "pitch_tendencies", force: true do |t|

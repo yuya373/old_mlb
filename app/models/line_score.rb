@@ -1,6 +1,6 @@
 class LineScore < ActiveRecord::Base
 
-
+  belongs_to :game, :foreign_key => 'game_id'
   def self.csv
     CSV.open("line_score.csv","wb",headers: true) do |csv|
       att = LineScore.attribute_names
@@ -40,6 +40,9 @@ class LineScore < ActiveRecord::Base
 
       game = doc.css('game')
       line = game.css('linescore')
+      wp = game.css('winning_pitcher')
+      lp = game.css('losing_pitcher')
+      sv = game.css('save_pitcher')
 
       line.each do |line|
         @score = {
@@ -52,7 +55,24 @@ class LineScore < ActiveRecord::Base
           home_team_hits: game.attribute('home_team_hits').text,
           away_team_hits: game.attribute('away_team_hits').text,
           home_team_errors: game.attribute('home_team_errors').text,
-          away_team_errors: game.attribute('away_team_errors').text
+          away_team_errors: game.attribute('away_team_errors').text,
+          wp_id: wp.attribute('id').text,
+          wp_name: "#{wp.attribute('first').text} #{wp.attribute('last').text}",
+          wp_w: wp.attribute('wins').text,
+          wp_l: wp.attribute('losses').text,
+          wp_era: wp.attribute('era').text,
+          lp_id: lp.attribute('id').text,
+          lp_name: "#{lp.attribute('first').text} #{lp.attribute('last').text}",
+          lp_w: lp.attribute('wins').text,
+          lp_l: lp.attribute('losses').text,
+          lp_era: lp.attribute('era').text,
+          sv_id: sv.attribute('id').text,
+          sv_name: "#{sv.attribute('first').text} #{sv.attribute('last').text}",
+          sv_w: sv.attribute('wins').text,
+          sv_l: sv.attribute('losses').text,
+          sv_era: sv.attribute('era').text,
+          sv_sv: sv.attribute('saves').text
+
         }
         begin
           LineScore.where('game_id = ?',@score[:game_id]).where('inning = ?',@score[:inning]).first.update_attributes!(@score)
@@ -90,7 +110,23 @@ class LineScore < ActiveRecord::Base
           home_team_hits: game.attribute('home_team_hits').text,
           away_team_hits: game.attribute('away_team_hits').text,
           home_team_errors: game.attribute('home_team_errors').text,
-          away_team_errors: game.attribute('away_team_errors').text
+          away_team_errors: game.attribute('away_team_errors').text,
+          wp_id: wp.attribute('id').text,
+          wp_name: "#{wp.attribute('first').text} #{wp.attribute('last').text}",
+          wp_w: wp.attribute('wins').text,
+          wp_l: wp.attribute('losses').text,
+          wp_era: wp.attribute('era').text,
+          lp_id: lp.attribute('id').text,
+          lp_name: "#{lp.attribute('first').text} #{lp.attribute('last').text}",
+          lp_w: lp.attribute('wins').text,
+          lp_l: lp.attribute('losses').text,
+          lp_era: lp.attribute('era').text,
+          sv_id: sv.attribute('id').text,
+          sv_name: "#{sv.attribute('first').text} #{sv.attribute('last').text}",
+          sv_w: sv.attribute('wins').text,
+          sv_l: sv.attribute('losses').text,
+          sv_era: sv.attribute('era').text,
+          sv_sv: sv.attribute('saves').text
         }
         begin
           LineScore.where('game_id = ?',@score[:game_id]).where('inning = ?',@score[:inning]).first.update_attributes!(@score)

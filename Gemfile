@@ -9,6 +9,8 @@ gem 'rails'
 gem 'sqlite3'
 gem 'mysql2', group: :production
 gem 'nokogiri'
+gem 'kaminari'
+# gem 'fullcalendar-rails'
 # gem 'debugger'
 gem 'haml-rails'
 gem 'erb2haml'

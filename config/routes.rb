@@ -15,6 +15,8 @@ Mlb::Application.routes.draw do
   get 'nl_team_pitching', to: 'team#nl_pitching'
   resources :team
   resources :data
+  get 'game/show', to: 'game#show'
+  get 'game/index', to: 'game#index'
   get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'
