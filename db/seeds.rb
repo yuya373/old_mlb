@@ -48,7 +48,11 @@ require 'csv'
 #     Pitching.seed(gid)
 #   end
 # end
- Game.seed('2013_04_19_lanmlb_balmlb_1')
+
+
+ # Game.seed('2013_04_19_slnmlb_phimlb_1')
+ LineScore.seed('2013_04_19_slnmlb_phimlb_1')
+
 
 
 

@@ -16,7 +16,7 @@
         %ul.inline
           %li= "@ #{game.stadium}"
           %li= game.location
-        -if game.status != 'Final'
+        -if (game.status != 'Final') && (game.status != 'Completed Early')
           .alert.alert-error
             %ul.inline
               %li= game.status
