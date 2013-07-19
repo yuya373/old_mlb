@@ -12,10 +12,10 @@
   %ul.inline
     %li.text-success= "@ #{@game.stadium}"
     %li.text-success= @game.location
-  -if game.status != 'Final'
+  -if @game.status != 'Final'
     .alert.alert-error
       %ul.inline
-        %li= game.status
+        %li= @game.status
   -else
     %table.table.table-bordered
       %thead
