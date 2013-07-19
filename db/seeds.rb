@@ -43,9 +43,10 @@ require 'csv'
 # end
 
 
-CSV.foreach("gameid_7.csv") do |row|
+CSV.foreach("gameid_4.csv") do |row|
   row.each do |gid|
-    Pitching.seed(gid)
+    # Pitching.seed(gid)
+    Atbat.seed(gid)
   end
 end
 
