@@ -16,7 +16,8 @@ Batter.get
 Pitcher.get
 Atbat.get
 PitchTendency.get
-PitchTypeDetail.get
+PitchTypeDetail.pitcher_get
+PitchTypeDetail.batter_get
 Pitching.get
 Game.get
 GameBatter.get
