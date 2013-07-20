@@ -11,6 +11,18 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+Team.get
+Batter.get
+Pitcher.get
+Atbat.get
+PitchTendency.get
+PitchTypeDetail.get
+Pitching.get
+Game.get
+GameBatter.get
+GamePitcher.get
+LineScore.get
+
 # game_id = [
 #   '2013_07_04_sfnmlb_cinmlb_1',
 #   '2013_07_04_chamlb_phimlb_1',
