@@ -59,6 +59,6 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 
 # end
 
-every 1.day, :at => '20:10 pm' do
+every 1.day, :at => '20:25 pm' do
   runner "Example.test"
 end
