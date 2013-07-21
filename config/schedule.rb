@@ -18,9 +18,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, :development
+set :environment, :production
 set :output, { :error => 'log/error.log', :standard => 'log/cron.log' }
-job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
+# job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
 job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :production ':task' :output"
 
 
@@ -42,19 +42,23 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 
 # end
 
-every 1.day, :at => '19:45 pm' do
-  sakura_runner "Team.get"
-  sakura_runner "Batter.get"
-  sakura_runner "Pitcher.get"
-  sakura_runner "Pitching.get"
-  sakura_runner "Atbat.get"
-  sakura_runner "PitchTypeDetail.batter_get"
-  sakura_runner "PitchTypeDetail.pitcher_get"
-  sakura_runner "PitchTendency.get"
-  sakura_runner "Bench.get"
-  sakura_runner "Game.get"
-  sakura_runner "GameBatter.get"
-  sakura_runner "GamePitcher.get"
-  sakura_runner "LineScore.get"
+# every 1.day, :at => '19:45 pm' do
+#   sakura_runner "Team.get"
+#   sakura_runner "Batter.get"
+#   sakura_runner "Pitcher.get"
+#   sakura_runner "Pitching.get"
+#   sakura_runner "Atbat.get"
+#   sakura_runner "PitchTypeDetail.batter_get"
+#   sakura_runner "PitchTypeDetail.pitcher_get"
+#   sakura_runner "PitchTendency.get"
+#   sakura_runner "Bench.get"
+#   sakura_runner "Game.get"
+#   sakura_runner "GameBatter.get"
+#   sakura_runner "GamePitcher.get"
+#   sakura_runner "LineScore.get"
 
+# end
+
+every 1.day :at => '20:10 pm' do
+  sakura_runner "Example.test"
 end
