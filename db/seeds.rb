@@ -14,42 +14,42 @@ require 'csv'
 # Pitching.delete_all
 # Atbat.where('game_id like ?',"2013/07/14%").delete_all
 
-Team.get
-Batter.get
-Pitcher.get
-Pitching.get
-Atbat.get
-PitchTypeDetail.batter_get
-PitchTypeDetail.pitcher_get
-PitchTendency.get
-Bench.get
-Game.get
-GameBatter.get
-GamePitcher.get
-LineScore.get
+# Team.get
+# Batter.get
+# Pitcher.get
+# Pitching.get
+# Atbat.get
+# PitchTypeDetail.batter_get
+# PitchTypeDetail.pitcher_get
+# PitchTendency.get
+# Bench.get
+# Game.get
+# GameBatter.get
+# GamePitcher.get
+# LineScore.get
 
-game_id = [
-'2013_07_19_oakmlb-anamlb-1',
-'2013_07_19_chnmlb-colmlb-1',
-'2013_07_19_balmlb-texmlb-1',
-'2013_07_19_arimlb-sfnmlb-1',
-'2013_07_19_nyamlb-bosmlb-1',
-'2013_07_19_clemlb-minmlb-1',
-'2013_07_19_pitmlb-cinmlb-1',
-'2013_07_19_detmlb-kcamlb-1',
-'2013_07_19_seamlb-houmlb-1',
-'2013_07_19_lanmlb-wasmlb-1',
-'2013_07_19_phimlb-nynmlb-1',
-'2013_07_19_sdnmlb-slnmlb-1',
-'2013_07_19_tbamlb-tormlb-1',
-'2013_07_19_atlmlb-chamlb-1',
-'2013_07_19_miamlb-milmlb-1'
-]
+# game_id = [
+# '2013_07_19_oakmlb-anamlb-1',
+# '2013_07_19_chnmlb-colmlb-1',
+# '2013_07_19_balmlb-texmlb-1',
+# '2013_07_19_arimlb-sfnmlb-1',
+# '2013_07_19_nyamlb-bosmlb-1',
+# '2013_07_19_clemlb-minmlb-1',
+# '2013_07_19_pitmlb-cinmlb-1',
+# '2013_07_19_detmlb-kcamlb-1',
+# '2013_07_19_seamlb-houmlb-1',
+# '2013_07_19_lanmlb-wasmlb-1',
+# '2013_07_19_phimlb-nynmlb-1',
+# '2013_07_19_sdnmlb-slnmlb-1',
+# '2013_07_19_tbamlb-tormlb-1',
+# '2013_07_19_atlmlb-chamlb-1',
+# '2013_07_19_miamlb-milmlb-1'
+# ]
 
-game_id.each do |gid|
-  Pitching.seed(gid)
-    Atbat.seed(gid)
-end
+# game_id.each do |gid|
+#   Pitching.seed(gid)
+#     Atbat.seed(gid)
+# end
 
 CSV.foreach("gameid_4.csv") do |row|
   row.each do |gid|
