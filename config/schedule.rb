@@ -18,7 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-# set :environment, :production
+set :environment, :production
 set :output, { :error => 'log/error.log', :standard => 'log/cron.log' }
 job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
 job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :production ':task' :output"
