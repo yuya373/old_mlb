@@ -27,6 +27,7 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 
 every 1.minutes do
   sakura_runner "p 'SUCCESS!!!'"
+
 end
 
 
