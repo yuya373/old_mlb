@@ -11,18 +11,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Team.get
-Batter.get
-Pitcher.get
-Atbat.get
-PitchTendency.get
-PitchTypeDetail.pitcher_get
-PitchTypeDetail.batter_get
-Pitching.get
-Game.get
-GameBatter.get
-GamePitcher.get
-LineScore.get
+Atbat.where('game_id_num like ?',"2013_07_19%").delete_all
 
 # game_id = [
 #   '2013_07_04_sfnmlb_cinmlb_1',

@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'csv'
 
 class Pitcher < ActiveRecord::Base
   self.primary_key = 'p_id'
@@ -135,6 +136,27 @@ class Pitcher < ActiveRecord::Base
           end
         end
       rescue
+      end
+    end
+  end
+
+  def self.csv
+    CSV.open('test/fixtures/pitcher.csv','wb', headers: true) do |csv|
+      att = Pitcher.attribute_names
+      att.delete('id')
+      att.delete('created_at')
+      att.delete('updated_at')
+
+      csv << att
+
+      Pitcher.find_each do |pitcher|
+        col = []
+
+        att.each do |att|
+          col << "#{pitcher[att.to_sym]}"
+        end
+
+        csv << col
       end
     end
   end

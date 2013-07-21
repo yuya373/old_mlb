@@ -2,7 +2,7 @@ require 'csv'
 
 class Atbat < ActiveRecord::Base
 
-    self.primary_key = 'game_id_num'
+  self.primary_key = 'game_id_num'
 
   belongs_to :batter, :foreign_key => 'batter_id'
   belongs_to :pitcher, :foreign_key => 'pitcher_id'
@@ -48,12 +48,39 @@ class Atbat < ActiveRecord::Base
           }
 
           begin
-            n_atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first
-            n_atbat.update_attributes!(@at_bat)
+            Atbat.where('game_id_num = ?',@at_bat[:game_id_num]).first.update_attributes(@at_bat)
           rescue
-            n_atbat = Atbat.create(@at_bat)
+            Atbat.create(@at_bat)
           end
 
+          # begin
+          #   pitcher = n_atbat.pitcher
+          #   p_name = pitcher.name_display_first_last
+          #   p_team = pitcher.team_abbrev
+          # rescue
+          #   p_name = '-'
+          #   p_team = '-'
+          # end
+
+          # begin
+          #   batter = n_atbat.batter
+          #   b_name = batter.name_display_first_last
+          #   b_team = batter.team_abbrev
+          # rescue
+          #   b_name = '-'
+          #   b_team = '-'
+          # end
+
+          # n_atbat.update_attributes(
+          #   pitcher_name: p_name,
+          #   pitcher_team: p_team,
+          #   batter_name: b_name,
+          #   batter_team: b_team
+          #   )
+        end
+
+        n_atbat = Atbat.where('game_id = ?',gid)
+        n_atbat.each do |n_atbat|
           begin
             pitcher = n_atbat.pitcher
             p_name = pitcher.name_display_first_last
@@ -78,7 +105,6 @@ class Atbat < ActiveRecord::Base
             batter_name: b_name,
             batter_team: b_team
             )
-
         end
       rescue
       end
@@ -86,7 +112,7 @@ class Atbat < ActiveRecord::Base
   end
 
   def self.csv
-    CSV.open("atbat.csv","wb", headers: true) do |csv|
+    CSV.open("test/fixtures/atbat.csv","wb", headers: true) do |csv|
 
       att = Atbat.attribute_names
       att.delete('id')

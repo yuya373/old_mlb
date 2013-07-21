@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'csv'
 
 class Batter < ActiveRecord::Base
   self.primary_key = 'p_id'

@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'csv'
 
 class Pitching < ActiveRecord::Base
 

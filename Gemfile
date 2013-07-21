@@ -7,7 +7,6 @@ ruby '2.0.0'
 gem 'rails'
 
 gem 'sqlite3'
-gem 'mysql2', group: :production
 gem 'nokogiri'
 gem 'kaminari'
 # gem 'fullcalendar-rails'
@@ -16,7 +15,6 @@ gem 'haml-rails'
 gem 'erb2haml'
 gem 'rails-i18n'
 gem 'whenever', :require => false
-gem 'rails_12factor', group: :production
 # gem 'twitter-bootstrap-rails'
 gem 'sass-rails',   '~> 4.0.0.rc1'
 gem 'coffee-rails', '~> 4.0.0.rc1'
@@ -25,6 +23,17 @@ gem 'less-rails-bootstrap'
 gem 'twitter-bootswatch-rails'
 gem 'twitter-bootswatch-rails-fontawesome'
 gem 'twitter-bootswatch-rails-helpers'
+gem 'yaml_db'
+
+group :production do
+  gem 'rails_12factor'
+  gem 'mysql2'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
