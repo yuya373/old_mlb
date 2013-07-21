@@ -42,23 +42,23 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 
 # end
 
-# every 1.day, :at => '19:45 pm' do
-#   sakura_runner "Team.get"
-#   sakura_runner "Batter.get"
-#   sakura_runner "Pitcher.get"
-#   sakura_runner "Pitching.get"
-#   sakura_runner "Atbat.get"
-#   sakura_runner "PitchTypeDetail.batter_get"
-#   sakura_runner "PitchTypeDetail.pitcher_get"
-#   sakura_runner "PitchTendency.get"
-#   sakura_runner "Bench.get"
-#   sakura_runner "Game.get"
-#   sakura_runner "GameBatter.get"
-#   sakura_runner "GamePitcher.get"
-#   sakura_runner "LineScore.get"
-
-# end
-
-every 1.day, :at => '20:25 pm' do
-  runner "Example.test"
+every 1.day, :at => '20:40 pm' do
+  # sakura_runner "Team.get"
+  # sakura_runner "Batter.get"
+  # sakura_runner "Pitcher.get"
+  # sakura_runner "Pitching.get"
+  # sakura_runner "Atbat.get"
+  # sakura_runner "PitchTypeDetail.batter_get"
+  # sakura_runner "PitchTypeDetail.pitcher_get"
+  # sakura_runner "PitchTendency.get"
+  # sakura_runner "Bench.get"
+  # sakura_runner "Game.get"
+  # sakura_runner "GameBatter.get"
+  # sakura_runner "GamePitcher.get"
+  # sakura_runner "LineScore.get"
+  sakura_runner "Example.test"
 end
+
+# every 1.day, :at => '20:25 pm' do
+#   runner "Example.test"
+# end
