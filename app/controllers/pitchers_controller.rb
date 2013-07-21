@@ -172,7 +172,9 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @pitcher = Pitcher.select('
+
+
+    @pitcher = Pitcher.where.not('g = ?',0).select('
       p_id,
       team_id,
       team_abbrev,
@@ -216,11 +218,16 @@ class PitchersController < ApplicationController
       bk
           ').order(@item + ' ' + @direction)
 
-    @s_pitcher = @pitcher.where('gs > 0')
+    if @item == 'era'
 
+      @s_pitcher = @pitcher.where('gs > 0')
+      @r_pitcher = r_pitcher(@s_pitcher)
 
-    @r_pitcher = r_pitcher(@s_pitcher)
-    @nr_pitcher = nr_pitcher(@s_pitcher)
+    else
+      @r_pitcher = @pitcher
+    end
+
+    # @nr_pitcher = nr_pitcher(@s_pitcher)
 
     @thead = [
       'Name',
@@ -250,7 +257,12 @@ class PitchersController < ApplicationController
       'bb',
       'ibb',
       'wp',
-      'bk'
+      'bk',
+      'np',
+      'cg',
+      'sho'
+      # 'gf'
+
     ]
   end
 
@@ -259,7 +271,7 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @pitcher = Pitcher.where('league_id = 104').select('
+    @pitcher = Pitcher.where.not('g = ?',0).where('league_id = 104').select('
       p_id,
       team_id,
       team_abbrev,
@@ -303,11 +315,16 @@ class PitchersController < ApplicationController
       bk
           ').order(@item + ' ' + @direction)
 
-    @s_pitcher = @pitcher.where('gs > 0')
+    if @item == 'era'
 
+      @s_pitcher = @pitcher.where('gs > 0')
+      @r_pitcher = r_pitcher(@s_pitcher)
 
-    @r_pitcher = r_pitcher(@s_pitcher)
-    @nr_pitcher = nr_pitcher(@s_pitcher)
+    else
+      @r_pitcher = @pitcher
+    end
+
+    # @nr_pitcher = nr_pitcher(@s_pitcher)
 
     @thead = [
       'Name',
@@ -337,7 +354,12 @@ class PitchersController < ApplicationController
       'bb',
       'ibb',
       'wp',
-      'bk'
+      'bk',
+      'np',
+      'cg',
+      'sho'
+      # 'gf'
+
     ]
   end
 
@@ -346,7 +368,7 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @pitcher = Pitcher.where('league_id = 103').select('
+    @pitcher = Pitcher.where.not('g = ?',0).where('league_id = 103').select('
       p_id,
       team_id,
       team_abbrev,
@@ -390,11 +412,16 @@ class PitchersController < ApplicationController
       bk
           ').order(@item + ' ' + @direction)
 
-    @s_pitcher = @pitcher.where('gs > 0')
+    if @item == 'era'
 
+      @s_pitcher = @pitcher.where('gs > 0')
+      @r_pitcher = r_pitcher(@s_pitcher)
 
-    @r_pitcher = r_pitcher(@s_pitcher)
-    @nr_pitcher = nr_pitcher(@s_pitcher)
+    else
+      @r_pitcher = @pitcher
+    end
+
+    # @nr_pitcher = nr_pitcher(@s_pitcher)
 
     @thead = [
       'Name',
@@ -424,7 +451,12 @@ class PitchersController < ApplicationController
       'bb',
       'ibb',
       'wp',
-      'bk'
+      'bk',
+      'np',
+      'cg',
+      'sho'
+      # 'gf'
+
     ]
   end
 

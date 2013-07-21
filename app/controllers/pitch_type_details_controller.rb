@@ -4,9 +4,29 @@ class PitchTypeDetailsController < ApplicationController
 
   end
   def pitchings
-    @column = PitchTypeDetail.select('DISTINCT pitch_type')
-    @pitch_type = params[:type]
-    session[:type] = @pitch_type
+    @hash = {
+    'フォーシーム' => 'ff',
+    'ツーシーム' => 'ft',
+    'カットボール' => 'fc',
+    'スプリット' => 'fs',
+    'フォーク' => 'fo',
+    'シンカー' => 'si',
+    'スライダー' => 'sl',
+    'カーブ' => 'cu',
+    'ナックルカーブ' => 'kc',
+    'チェンジアップ' => 'ch',
+    'スクリュー' => 'sc',
+    'ナックル' => 'kn'
+    }
+
+    if params[:type]
+      @pitch_type = params[:type]
+      session[:type] = @pitch_type
+      @note = true
+    else
+      @note = nil
+    end
+
     @sort = sort('avg')
     @item = @sort[0]
     @direction = @sort[1]
@@ -16,9 +36,28 @@ class PitchTypeDetailsController < ApplicationController
   end
 
   def battings
-    @column = PitchTypeDetail.select('DISTINCT pitch_type')
-    @pitch_type = params[:type]
-    session[:type] = @pitch_type
+    @hash = {
+    'フォーシーム' => 'ff',
+    'ツーシーム' => 'ft',
+    'カットボール' => 'fc',
+    'スプリット' => 'fs',
+    'フォーク' => 'fo',
+    'シンカー' => 'si',
+    'スライダー' => 'sl',
+    'カーブ' => 'cu',
+    'ナックルカーブ' => 'kc',
+    'チェンジアップ' => 'ch',
+    'スクリュー' => 'sc',
+    'ナックル' => 'kn'
+    }
+    if params[:type]
+      @pitch_type = params[:type]
+      session[:type] = @pitch_type
+      @note = true
+    else
+      @note = nil
+    end
+
     @sort = sort('avg')
     @item = @sort[0]
     @direction = @sort[1]

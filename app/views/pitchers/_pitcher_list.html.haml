@@ -6,6 +6,8 @@
         -case head
         -when 'Name'
           %th
+        -when 'Team'
+          %th Team
         -else
           %th=link_to t(head, :scope => 'pitch'), :sort => head
     %tbody

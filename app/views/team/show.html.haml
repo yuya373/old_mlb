@@ -4,88 +4,198 @@
 / = debug @if_batter
 / 外野手
 / = debug @of_batter
-.hero-unit
-  %h3= @team.team_name
-.span6
-  %table.table.table-bordered.table-striped.table-condensed
+.span9
+  .hero-unit
+    %h2= @team.team_name
+.span2
+  .btn-group
+    %button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+      Info
+      / .span.caret
+    %ul.dropdown-menu
+      %li.text-center AVG:打率
+      %li.text-center SLG:長打率
+      %li.text-center OBP:出塁率
+      %li.text-center ERA:防御率
+      %li.text-center AB:打数
+      %li.text-center TB:
+      %li.text-center IP:投球回
+      %li.text-center H:ヒット
+      %li.text-center 2B:2塁打
+      %li.text-center 3B:3塁打
+      %li.text-center HR:本塁打
+      %li.text-center SAC:犠打
+      %li.text-center SF:犠牲フライ
+      %li.text-center BB:四球
+      %li.text-center IBB:故意四球
+      %li.text-center WP:暴投
+      %li.text-center SO:三振
+      %li.text-center SB:盗塁
+      %li.text-center CS:盗塁死
+      %li.text-center GIDP:併殺
+      %li.text-center W:勝
+      %li.text-center L:負
+      %li.text-center CG:完投
+      %li.text-center SHO:完封
+      %li.text-center SV:セーブ
+      %li.text-center BSV:セーブ失敗
+      %li.text-center SVO:セーブ機会
+.span5
+  %h4 BATTING
+  %table.table.table-striped
     %thead
       %tr
-        %th Batting
-        -@b_thead.each do |b_head|
-          %th= b_head.slice(3..100)
+        %th AVG
+        %th SLG
+        %th OBP
+        %th AB
+        %th TB
+        %th H
+        %th B2
+        %th B3
+        %th HR
+        %th RBI
     %tbody
       %tr
-        %td
-        -@b_thead.each do |b_head|
-          %td= @team[b_head.to_sym]
-.span6
-  %table.table.table-bordered.table-striped.table-condensed
+        %td= @team[:tb_avg]
+        %td= @team[:tb_slg]
+        %td= @team[:tb_obp]
+        %td= @team[:tb_ab]
+        %td= @team[:tb_tb]
+        %td= @team[:tb_h]
+        %td= @team[:tb_b2]
+        %td= @team[:tb_b3]
+        %td= @team[:tb_hr]
+        %td= @team[:tb_rbi]
     %thead
       %tr
-        %th Pitching
-        -@p_thead.each do |p_head|
-          %th= p_head.slice(3..10)
+        %th SAC
+        %th SF
+        %th BB
+        %th IBB
+        %th HBP
+        %th SO
+        %th SB
+        %th CS
+        %th GIDP
+        %th
     %tbody
       %tr
+        %td= @team[:tb_sac]
+        %td= @team[:tb_sf]
+        %td= @team[:tb_bb]
+        %td= @team[:tb_ibb]
+        %td= @team[:tb_hbp]
+        %td= @team[:tb_so]
+        %td= @team[:tb_sb]
+        %td= @team[:tb_cs]
+        %td= @team[:tb_gidp]
         %td
-        -@p_thead.each do |p_head|
-          %td= @team[p_head.to_sym]
+.span5
+  %h4 PITCHING
+  %table.table.table-striped
+    %thead
+      %tr
+        %th ERA
+        %th WHIP
+        %th IP
+        %th ER
+        %th H
+        %th HR
+        %th R
+        %th HB
+        %th BB
+        %th IBB
+    %tbody
+      %tr
+        %td= @team[:tp_era]
+        %td= @team[:tp_whip]
+        %td= @team[:tp_ip]
+        %td= @team[:tp_er]
+        %td= @team[:tp_h]
+        %td= @team[:tp_hr]
+        %td= @team[:tp_r]
+        %td= @team[:tp_hb]
+        %td= @team[:tp_bb]
+        %td= @team[:tp_ibb]
+    %thead
+      %tr
+        %th SO
+        %th WP
+        %th W
+        %th L
+        %th CG
+        %th SHO
+        %th SV
+        %th BSV
+        %th SVO
+        %th
+    %tbody
+      %tr
+        %td= @team[:tp_so]
+        %td= @team[:tp_wp]
+        %td= @team[:tp_w]
+        %td= @team[:tp_l]
+        %td= @team[:tp_cg]
+        %td= @team[:tp_sho]
+        %td= @team[:tp_sv]
+        %td= @team[:tp_bsv]
+        %td= @team[:tp_svo]
+        %td
 
-.row-fluid
-  .span12
-    .span6
-      %table.table.table-bordered.table-striped.table-condensed
-        %tbody
-          %tr
-            %th 内野手
-            %th Pos
-            %th avg
-            %th last10 ab
-            %th last10 h
-            %th last10 hr
-            %th last10 rbi
-          -@if_batter.each do |batter|
-            %tr
-              %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
-              %td= batter.pos
-              %td= batter.avg
-              %td= batter.last10_ab
-              %td= batter.last10_h
-              %td= batter.last10_hr
-              %td= batter.last10_rbi
-          %tr
-            %th 外野手
-            %th Pos
-            %th avg
-            %th last10 ab
-            %th last10 h
-            %th last10 hr
-            %th last10 rbi
+.span5
+  %table.table.table-striped.table-condensed
+    %tbody
+      %tr
+        %th 内野手
+        %th POS
+        %th AB
+        %th AVG
+        %th HR
+        %th OBP
+        %th OPS
+      -@if_batter.each do |batter|
+        %tr
+          %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
+          %td= batter.pos
+          %td= batter.ab
+          %td= batter.avg_sort.round(3)
+          %td= batter.hr
+          %td= batter.obp_sort.round(3)
+          %td= batter.ops_sort.round(3)
+      %tr
+        %th 外野手
+        %th POS
+        %th AB
+        %th AVG
+        %th HR
+        %th OBP
+        %th OPS
 
-          -@of_batter.each do |batter|
-            %tr
-              %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
-              %td= batter.pos
-              %td= batter.avg
-              %td= batter.last10_ab
-              %td= batter.last10_h
-              %td= batter.last10_hr
-              %td= batter.last10_rbi
-    .span5
-      %table.table.table-bordered.table-striped.table-condensed
-        %tbody
+      -@of_batter.each do |batter|
+        %tr
+          %td= link_to batter.name_display_first_last, {:controller => 'batters', :action => 'show', :p_id => batter.p_id}
+          %td= batter.pos
+          %td= batter.ab
+          %td= batter.avg_sort.round(3)
+          %td= batter.hr
+          %td= batter.obp_sort.round(3)
+          %td= batter.ops_sort.round(3)
+.span5
+  %table.table.table-striped.table-condensed
+    %tbody
+      %tr
+        %th 投手
+        %th IP
+        %th ERA
+        %th WHIP
+        %th HLD
+        %th SV
+        -@team_pitcher.each do |p|
           %tr
-            %th 投手
-            %th ip
-            %th era
-            %th whip
-            %th avg
-            %th slg
-            -@team_pitcher.each do |p|
-              %tr
-                %td= link_to p.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => p.p_id}
-                %td= p.ip
-                %td= p.era
-                %td= p.whip
-                %td= p.avg
-                %td= p.slg
+            %td= link_to p.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => p.p_id}
+            %td= p.ip
+            %td= p.era
+            %td= p.whip
+            %td= p.hld
+            %td= p.sv

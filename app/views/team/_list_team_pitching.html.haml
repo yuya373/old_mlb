@@ -17,5 +17,7 @@
       -case head
       -when 'team_id'
         %td
+      -when 'team_name'
+        %td= link_to team[head.to_sym], {controller: 'team', action: 'show', team_id: team[:team_id]}
       -else
         %td= team[head.to_sym]

@@ -51,7 +51,7 @@ game_id.each do |gid|
     Atbat.seed(gid)
 end
 
-CSV.foreach("game_id.csv") do |row|
+CSV.foreach("gameid_4.csv") do |row|
   row.each do |gid|
     Pitching.seed(gid)
   end
