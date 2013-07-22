@@ -1,33 +1,105 @@
 .span9
-  %table.table.table-hover.table.table-condensed
+  %table.table.table-striped.table-condensed
     %thead
-      %tr.success
-      -@thead.each do |head|
-        -case head
-        -when 'Name'
-          %th
-        -when 'Team'
-          %th Team
-        -else
-          %th=link_to t(head, :scope => 'pitch'), :sort => head
+      %tr
+        %th Name
+        %th Team
+        %th= sortable('w')
+        %th= sortable('l')
+        %th= sortable('g')
+        %th= sortable('gs')
+        %th= sortable('hld')
+        %th= sortable('sv')
+        %th= sortable('bsv')
+        %th= sortable('svo')
+        %th= sortable('era')
+        %th= sortable('ip')
+        %th= sortable('whip')
+        %th= sortable('avg')
+        %th= sortable('slg')
+        %th= sortable('so')
+        %th= sortable('ao')
+        %th= sortable('go')
+        %th=sortable('gidp')
+        %th=sortable('er')
+        %th=sortable('r')
+        %th=sortable('h')
+        %th=sortable('hr')
+        %th=sortable('hb')
+        %th=sortable('bb')
+        %th=sortable('ibb')
+        %th=sortable('wp')
+        %th=sortable('bk')
+        %th=sortable('np')
+        %th=sortable('cg')
+        %th=sortable('sho')
     %tbody
+    -num = 1
     -@r_pitcher.each do |pitcher|
       %tr
-      -@thead.each do |head|
-        -case head
-        -when 'Name'
-          %td= link_to pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitcher.p_id}
-        -when 'Team'
-          %td= pitcher.team_abbrev
-        -when 'ip'
-          %td= pitcher.ip_sort.round(1)
-        -when 'era'
-          %td= pitcher.era_sort.round(2)
-        -when 'whip'
-          %td= pitcher.whip_sort.round(2)
-        -when 'avg'
-          %td= pitcher.avg_sort.round(3)
-        -when 'slg'
-          %td= pitcher.slg_sort.round(3)
-        -else
-          %td= pitcher[head.to_sym]
+        %td= link_to pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitcher.p_id}
+        %td= pitcher.team_abbrev
+        %td= pitcher.w
+        %td= pitcher.l
+        %td= pitcher.g
+        %td= pitcher.gs
+        %td= pitcher.hld
+        %td= pitcher.sv
+        %td= pitcher.bsv
+        %td= pitcher.svo
+        %td= pitcher.era_sort.round(3)
+        %td= pitcher.ip_sort.round(1)
+        %td= pitcher.whip_sort.round(3)
+        %td= pitcher.avg_sort.round(3)
+        %td= pitcher.slg_sort.round(3)
+        %td= pitcher.so
+        %td= pitcher.ao
+        %td= pitcher.go
+        %td= pitcher.gidp
+        %td= pitcher.er
+        %td= pitcher.r
+        %td= pitcher.h
+        %td= pitcher.hr
+        %td= pitcher.hb
+        %td= pitcher.bb
+        %td= pitcher.ibb
+        %td= pitcher.wp
+        %td= pitcher.bk
+        %td= pitcher.np
+        %td= pitcher.cg
+        %td= pitcher.sho
+      -num += 1
+      -if num % 20 == 0
+        %thead
+          %tr
+            %th Name
+            %th Team
+            %th= sortable('w')
+            %th= sortable('l')
+            %th= sortable('g')
+            %th= sortable('gs')
+            %th= sortable('hld')
+            %th= sortable('sv')
+            %th= sortable('bsv')
+            %th= sortable('svo')
+            %th= sortable('era')
+            %th= sortable('ip')
+            %th= sortable('whip')
+            %th= sortable('avg')
+            %th= sortable('slg')
+            %th= sortable('so')
+            %th= sortable('ao')
+            %th= sortable('go')
+            %th=sortable('gidp')
+            %th=sortable('er')
+            %th=sortable('r')
+            %th=sortable('h')
+            %th=sortable('hr')
+            %th=sortable('hb')
+            %th=sortable('bb')
+            %th=sortable('ibb')
+            %th=sortable('wp')
+            %th=sortable('bk')
+            %th=sortable('np')
+            %th=sortable('cg')
+            %th=sortable('sho')

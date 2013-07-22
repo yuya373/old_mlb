@@ -1,27 +1,81 @@
-.span9
+.span10
   %table.table.table-hover.table.table-condensed
     %thead
       %tr
-      -@thead.each do |k|
-        -case k
-        -when 'name'
-          %th
-        -when 'Team'
-          %th= t(k, :scope => 'bat')
-        -else
-          %th= link_to t(k, :scope => :bat), :sort => "#{k}"
+        %th Name
+        %th Team
+        %th Pos
+        %th= sortable('avg')
+        %th= sortable('obp')
+        %th= sortable('slg')
+        %th= sortable('ops')
+        %th= sortable('ab')
+        %th= sortable('h')
+        %th= sortable('r')
+        %th= sortable('rbi')
+        %th= sortable('2b')
+        %th= sortable('3b')
+        %th= sortable('hr')
+        %th= sortable('bb')
+        %th= sortable('hbp')
+        %th= sortable('sb')
+        %th= sortable('cs')
+        %th= sortable('so')
+        %th= sortable('go')
+        %th= sortable('ao')
+        %th= sortable('np')
     %tbody
-    -r_number = 0
-    -while @r_atbat[r_number]
+    -num = 1
+    -@r_atbat.each do |batter|
       %tr
-        -@thead.each do |k|
-          -if k == 'Team'
-            %td= @r_atbat[r_number].team.team_abbrev
-          -elsif k == 'name'
-            %td= link_to @r_atbat[r_number][k.to_sym], {:controller => 'batters', :action => 'show', :p_id => @r_atbat[r_number].p_id}
-          -else
-            %td= @r_atbat[r_number][k.to_sym]
-        -r_number += 1
+        %td=link_to batter.name_display_first_last, {controller: 'batters', action: 'show', p_id: batter.p_id}
+        %td= batter.team_abbrev
+        %td= batter.pos
+        %td= batter.avg_sort.round(3)
+        %td= batter.obp_sort.round(3)
+        %td= batter.slg_sort.round(3)
+        %td= batter.ops_sort.round(3)
+        %td= batter.ab
+        %td= batter.h
+        %td= batter.r
+        %td= batter.rbi
+        %td= batter.b2
+        %td= batter.b3
+        %td= batter.hr
+        %td= batter.bb
+        %td= batter.hbp
+        %td= batter.sb
+        %td= batter.cs
+        %td= batter.so
+        %td= batter.go
+        %td= batter.ao
+        %td= batter.np
+      -num += 1
+      -if num % 20 == 0
+        %thead
+          %tr
+            %th Name
+            %th Team
+            %th Pos
+            %th= sortable('avg')
+            %th= sortable('obp')
+            %th= sortable('slg')
+            %th= sortable('ops')
+            %th= sortable('ab')
+            %th= sortable('h')
+            %th= sortable('r')
+            %th= sortable('rbi')
+            %th= sortable('2b')
+            %th= sortable('3b')
+            %th= sortable('hr')
+            %th= sortable('bb')
+            %th= sortable('hbp')
+            %th= sortable('sb')
+            %th= sortable('cs')
+            %th= sortable('so')
+            %th= sortable('go')
+            %th= sortable('ao')
+            %th= sortable('np')
   / %table.table.table-hover.table.table-condensed
   /   %thead
   /     %tr

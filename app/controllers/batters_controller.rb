@@ -177,6 +177,10 @@ class BattersController < ApplicationController
       'sb',
       'cs',
       'so',
+      'go',
+      'ao',
+      'np'
+
     ]
   end
 

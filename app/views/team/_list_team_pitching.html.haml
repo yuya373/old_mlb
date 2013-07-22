@@ -9,7 +9,7 @@
       -when 'team_id'
         %th
       -else
-        %th= link_to t(head.slice(3,10), :scope => 'pitch'), :sort => head
+        %th= sortable(head.slice(3,10))
   %tbody
   -@t_p.each do |team|
     %tr

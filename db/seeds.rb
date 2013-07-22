@@ -11,6 +11,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+
+CSV.foreach("gameid_4.csv") do |row|
+  row.each do |gid|
+    Pitching.seed(gid)
+  end
+end
+
 # Pitching.delete_all
 # Atbat.where('game_id like ?',"2013/07/14%").delete_all
 
@@ -51,11 +58,6 @@ require 'csv'
 #     Atbat.seed(gid)
 # end
 
-CSV.foreach("gameid_4.csv") do |row|
-  row.each do |gid|
-    Pitching.seed(gid)
-  end
-end
 
 
 
