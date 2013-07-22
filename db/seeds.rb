@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'rubygems'
-require 'nokogiri'
+# require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
