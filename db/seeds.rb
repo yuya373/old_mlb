@@ -12,7 +12,7 @@ require 'open-uri'
 require 'csv'
 
 
-CSV.foreach("gameid_4.csv") do |row|
+CSV.foreach("gameid_7.csv") do |row|
   row.each do |gid|
     Pitching.seed(gid)
   end
