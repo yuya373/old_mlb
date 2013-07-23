@@ -12,11 +12,11 @@ require 'open-uri'
 require 'csv'
 
 
-CSV.foreach("gameid_7.csv") do |row|
-  row.each do |gid|
-    Pitching.seed(gid)
-  end
-end
+# CSV.foreach("gameid_7.csv") do |row|
+#   row.each do |gid|
+#     Pitching.seed(gid)
+#   end
+# end
 
 # Pitching.delete_all
 # Atbat.where('game_id like ?',"2013/07/14%").delete_all
