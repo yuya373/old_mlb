@@ -41,7 +41,7 @@
           %td= @game.line_scores.first.home_team_runs
           %td= @game.line_scores.first.home_team_hits
           %td= @game.line_scores.first.home_team_errors
-    .page-header= @game.away_team_abbrev
+    .page-header=link_to @game.away_team_abbrev, {controller: 'team', action: 'show', team_id: @game.away_team_id}
     %table.table.table-hover
       %thead
         %tr
@@ -136,7 +136,7 @@
             %td= pitcher.sv
             %td= pitcher.bs
             %td= pitcher.note
-    .page-header= @game.home_team_abbrev
+    .page-header=link_to @game.home_team_abbrev, {controller: 'team', action: 'show', team_id: @game.home_team_id}
     %table.table.table-hover
       %thead
         %tr

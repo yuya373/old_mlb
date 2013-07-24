@@ -68,6 +68,7 @@ class TeamController < ApplicationController
 
     @of_batter = @team.batters.of_batter
     @if_batter = @team.batters.if_batter
+    @team_pitcher = @team.pitchers
 
   end
 
