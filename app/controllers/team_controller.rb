@@ -1,64 +1,12 @@
 class TeamController < ApplicationController
 
-  before_action :set_team, only: [:show]
 
   def all_hitting
     @sort = sort('tb_avg')
     @item = @sort[0]
     @direction = @sort[1]
 
-    @team = Team.all.order(@item + ' ' + @direction)
-    @tb_head = [
-      'team_name',
-      'team_id',
-      'tb_g',
-      'tb_ab',
-      'tb_r',
-      'tb_tb',
-      'tb_h',
-      'tb_b2',
-      'tb_b3',
-      'tb_hr',
-      'tb_rbi',
-      'tb_sac',
-      'tb_sf',
-      'tb_bb',
-      'tb_ibb',
-      'tb_so',
-      'tb_sb',
-      'tb_cs',
-      'tb_gidp',
-      'tb_avg',
-      'tb_obp',
-      'tb_slg',
-      'tb_ops'
-    ]
-    @t_b = @team.select('
-      team_name,
-      team_id,
-      tb_g,
-      tb_ab,
-      tb_r,
-      tb_tb,
-      tb_h,
-      tb_b2,
-      tb_b3,
-      tb_hr,
-      tb_rbi,
-      tb_sac,
-      tb_sf,
-      tb_bb,
-      tb_ibb,
-      tb_so,
-      tb_sb,
-      tb_cs,
-      tb_gidp,
-      tb_avg,
-      tb_obp,
-      tb_slg,
-      tb_ops
-      ')
-
+    @team = Team.all.stats(@item,@direction).batting
   end
 
   def all_pitching
@@ -66,111 +14,14 @@ class TeamController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @team = Team.all.order(@item + ' ' + @direction)
-    @t_p = @team.select('
-      team_name,
-      team_id,
-      tp_w,
-      tp_l,
-      tp_era,
-      tp_g,
-      tp_gs,
-      tp_sv,
-      tp_bsv,
-      tp_svo,
-      tp_ip,
-      tp_h,
-      tp_r,
-      tp_er,
-      tp_hr,
-      tp_bb,
-      tp_wp,
-      tp_so,
-      tp_cg,
-      tp_gf,
-      tp_sho,
-      tp_whip
-      ')
-    @tp_head = [
-      'team_name',
-      'team_id',
-      'tp_w',
-      'tp_l',
-      'tp_era',
-      'tp_g',
-      'tp_gs',
-      'tp_sv',
-      'tp_bsv',
-      'tp_svo',
-      'tp_ip',
-      'tp_h',
-      'tp_r',
-      'tp_er',
-      'tp_hr',
-      'tp_bb',
-      'tp_wp',
-      'tp_so',
-      'tp_cg',
-      'tp_sho',
-      'tp_whip'
-    ]
+    @team = Team.all.stats(@item,@direction).pitching
   end
   def al_hitting
     @sort = sort('tb_avg')
     @item = @sort[0]
     @direction = @sort[1]
 
-    @team = Team.where('league_id = 103').order(@item + ' ' + @direction)
-    @tb_head = [
-      'team_name',
-      'team_id',
-      'tb_g',
-      'tb_ab',
-      'tb_r',
-      'tb_tb',
-      'tb_h',
-      'tb_b2',
-      'tb_b3',
-      'tb_hr',
-      'tb_rbi',
-      'tb_sac',
-      'tb_sf',
-      'tb_bb',
-      'tb_ibb',
-      'tb_so',
-      'tb_sb',
-      'tb_cs',
-      'tb_gidp',
-      'tb_avg',
-      'tb_obp',
-      'tb_slg',
-      'tb_ops'
-    ]
-    @t_b = @team.select('
-      team_name,
-      team_id,
-      tb_g,
-      tb_ab,
-      tb_r,
-      tb_tb,
-      tb_h,
-      tb_b2,
-      tb_b3,
-      tb_hr,
-      tb_rbi,
-      tb_sac,
-      tb_sf,
-      tb_bb,
-      tb_ibb,
-      tb_so,
-      tb_sb,
-      tb_cs,
-      tb_gidp,
-      tb_avg,
-      tb_obp,
-      tb_slg,
-      tb_ops
-      ')
+    @team = Team.al.stats(@item,@direction).batting
   end
 
   def al_pitching
@@ -178,54 +29,7 @@ class TeamController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @team = Team.where('league_id = 103').order(@item + ' ' + @direction)
-    @t_p = @team.select('
-      team_name,
-      team_id,
-      tp_w,
-      tp_l,
-      tp_era,
-      tp_g,
-      tp_gs,
-      tp_sv,
-      tp_bsv,
-      tp_svo,
-      tp_ip,
-      tp_h,
-      tp_r,
-      tp_er,
-      tp_hr,
-      tp_bb,
-      tp_wp,
-      tp_so,
-      tp_cg,
-      tp_gf,
-      tp_sho,
-      tp_whip
-      ')
-    @tp_head = [
-      'team_name',
-      'team_id',
-      'tp_w',
-      'tp_l',
-      'tp_era',
-      'tp_g',
-      'tp_gs',
-      'tp_sv',
-      'tp_bsv',
-      'tp_svo',
-      'tp_ip',
-      'tp_h',
-      'tp_r',
-      'tp_er',
-      'tp_hr',
-      'tp_bb',
-      'tp_wp',
-      'tp_so',
-      'tp_cg',
-      'tp_sho',
-      'tp_whip'
-    ]
+    @team = Team.al.stats(@item,@direction).pitching
   end
 
   def nl_hitting
@@ -233,57 +37,8 @@ class TeamController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @team = Team.where('league_id = 104').order(@item + ' ' + @direction)
-    @tb_head = [
-      'team_name',
-      'team_id',
-      'tb_g',
-      'tb_ab',
-      'tb_r',
-      'tb_tb',
-      'tb_h',
-      'tb_b2',
-      'tb_b3',
-      'tb_hr',
-      'tb_rbi',
-      'tb_sac',
-      'tb_sf',
-      'tb_bb',
-      'tb_ibb',
-      'tb_so',
-      'tb_sb',
-      'tb_cs',
-      'tb_gidp',
-      'tb_avg',
-      'tb_obp',
-      'tb_slg',
-      'tb_ops'
-    ]
-    @t_b = @team.select('
-      team_name,
-      team_id,
-      tb_g,
-      tb_ab,
-      tb_r,
-      tb_tb,
-      tb_h,
-      tb_b2,
-      tb_b3,
-      tb_hr,
-      tb_rbi,
-      tb_sac,
-      tb_sf,
-      tb_bb,
-      tb_ibb,
-      tb_so,
-      tb_sb,
-      tb_cs,
-      tb_gidp,
-      tb_avg,
-      tb_obp,
-      tb_slg,
-      tb_ops
-      ')
+    @team = Team.nl.stats(@item,@direction).batting
+
   end
 
   def nl_pitching
@@ -292,62 +47,14 @@ class TeamController < ApplicationController
     @direction = @sort[1]
 
 
-    @team = Team.where('league_id = 104').order(@item + ' ' + @direction)
-    @t_p = @team.select('
-      team_name,
-      team_id,
-      tp_w,
-      tp_l,
-      tp_era,
-      tp_g,
-      tp_gs,
-      tp_sv,
-      tp_bsv,
-      tp_svo,
-      tp_ip,
-      tp_h,
-      tp_r,
-      tp_er,
-      tp_hr,
-      tp_bb,
-      tp_wp,
-      tp_so,
-      tp_cg,
-      tp_gf,
-      tp_sho,
-      tp_whip
-      ')
-    @tp_head = [
-      'team_name',
-      'team_id',
-      'tp_w',
-      'tp_l',
-      'tp_era',
-      'tp_g',
-      'tp_gs',
-      'tp_sv',
-      'tp_bsv',
-      'tp_svo',
-      'tp_ip',
-      'tp_h',
-      'tp_r',
-      'tp_er',
-      'tp_hr',
-      'tp_bb',
-      'tp_wp',
-      'tp_so',
-      'tp_cg',
-      'tp_sho',
-      'tp_whip'
-    ]
+    @team = Team.nl.stats(@item,@direction).pitching
   end
 
   def index
   end
 
   def new
-    @team = Team.new
-    @team_name = Team.select('DISTINCT team_name')
+
     @ale_team = Team.league_division(['110','111','141','139','147'])
     @alc_team = Team.league_division(['114','116','142','118','145'])
     @alw_team = Team.league_division(['108','117','133','136','140'])
@@ -357,69 +64,11 @@ class TeamController < ApplicationController
   end
 
   def show
-    @b_thead = [
-      'tb_avg',
-      'tb_slg',
-      'tb_obp',
-      'tb_ops',
-      'tb_ab',
-      'tb_tb',
-      'tb_h',
-      'tb_b2',
-      'tb_b3',
-      'tb_hr',
-      'tb_rbi',
-      'tb_sac',
-      'tb_sf',
-      'tb_bb',
-      'tb_ibb',
-      'tb_so',
-      'tb_sb',
-      'tb_cs',
-      'tb_gidp'
-    ]
+    @team = Team.where('team_id = ?', params[:team_id]).first
 
-    @p_thead = [
-      'tp_era',
-      'tp_whip',
-      'tp_ip',
-      'tp_er',
-      'tp_h',
-      'tp_r',
-      'tp_hr',
-      'tp_hb',
-      'tp_bb',
-      'tp_ibb',
-      'tp_so',
-      'tp_wp',
-      'tp_w',
-      'tp_l',
-      'tp_cg',
-      'tp_sho',
-      'tp_sv',
-      'tp_bsv',
-      'tp_svo',
-    ]
-    @of_batter = []
-    @if_batter = []
-    @team_batter.each do |batter|
-      case batter.pos
-      when 'CF'
-        @of_batter << batter
+    @of_batter = @team.batters.of_batter
+    @if_batter = @team.batters.if_batter
 
-      when 'LF'
-        @of_batter << batter
-
-      when 'RF'
-        @of_batter << batter
-      when 'O'
-        @of_batter << batter
-      when 'P'
-      else
-        @if_batter << batter
-      end
-
-    end
   end
 
   def create
@@ -568,10 +217,4 @@ class TeamController < ApplicationController
 
   end
 
-  private
-  def set_team
-    @team = Team.where('team_id = ?', params[:team_id]).first
-    @team_batter = @team.batters.order('pos asc')
-    @team_pitcher = @team.pitchers.order('ip desc')
-  end
 end

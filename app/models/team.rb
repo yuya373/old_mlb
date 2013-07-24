@@ -6,6 +6,12 @@ class Team < ActiveRecord::Base
   has_many :pitchers, :primary_key => 'team_id'
 
   scope :league_division, lambda{|team_id| where(:team_id => team_id).order('win_pct desc').select('team_name, team_id, tp_w, tp_l,win_pct')}
+  scope :stats, lambda{|item,direction| order(item + ' ' + direction)}
+  scope :al, lambda{where('league_id = 103')}
+  scope :nl, lambda{where('league_id = 104')}
+  scope :batting, lambda{select('team_name,team_id,tb_g,tb_ab,tb_r,tb_tb,tb_h,tb_b2,tb_b3,tb_hr,tb_rbi,tb_sac,tb_sf,tb_bb,tb_ibb,tb_so,tb_sb,tb_cs,tb_gidp,tb_avg,tb_obp,tb_slg,tb_ops')}
+  scope :pitching, lambda{select('team_name,team_id,tp_w,tp_l,tp_era,tp_g,tp_gs,tp_sv,tp_bsv,tp_svo,tp_ip,tp_h,tp_r,tp_er,tp_hr,tp_bb,tp_wp,tp_so,tp_cg,tp_gf,tp_sho,tp_whip')}
+
   def self.get
     team_id = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
     team_id.each do |t|

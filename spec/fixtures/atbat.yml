@@ -1,0 +1,41 @@
+one:
+  num: 1
+  b: 1
+  s: 1
+  o: 1
+  start_tfs: 1
+  start_tfs_zulu: Test1
+  batter_id: 1
+  pitcher_id: 1
+  stand: Test1
+  b_height: Test1
+  p_throws: Test1
+  des: Test1
+  event: Test1
+  game_id: Test1
+  game_id_num: Test1
+  pitcher_name: Test1
+  batter_name: Test1
+  pitcher_team: Test1
+  batter_team: Test1
+
+two:
+  num: 2
+  b: 2
+  s: 2
+  o: 2
+  start_tfs: 2
+  start_tfs_zulu: Test2
+  batter_id: 2
+  pitcher_id: 2
+  stand: Test2
+  b_height: Test2
+  p_throws: Test2
+  des: Test2
+  event: Test2
+  game_id: Test2
+  game_id_num: Test2
+  pitcher_name: Test2
+  batter_name: Test2
+  pitcher_team: Test2
+  batter_team: Test2

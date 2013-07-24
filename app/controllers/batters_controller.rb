@@ -138,12 +138,14 @@ class BattersController < ApplicationController
 
   def show
     @p_id = params[:p_id]
-    @batter = Batter.where('p_id = ?',@p_id).first
+
+    @batter = Batter.from_p_id(@p_id)
+
     @details = @batter.pitch_type_details
 
-    @pitcher = Atbat.where.not('pitcher_name = ?', '-').where('batter_id = ?',@p_id).select('DISTINCT pitcher_id, pitcher_name, pitcher_team').order('pitcher_name asc')
+    @pitcher = Atbat.from_batter_id(@p_id).for_batter
 
-    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?', params[:batter]).select('DISTINCT game_id,game_id_num,pitcher_name,batter_name,b,s,o,event,des')
+    @atbat = Atbat.from_pitcher_id(params[:pitcher]).from_batter_id(params[:batter]).show
   end
 
 
@@ -153,35 +155,11 @@ class BattersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @batter = Batter.where('not pos = ?',  'P').order(@item + ' ' + @direction)
+    @batter = Batter.stats(@item,@direction)
 
     @r_atbat = r_batter(@batter)
     @nr_atbat = nr_batter(@batter)
-    @thead = [
-      'name',
-      'Team',
-      'pos',
-      'avg',
-      'obp',
-      'slg',
-      'ops',
-      'ab',
-      'h',
-      'r',
-      'rbi',
-      'b2',
-      'b3',
-      'hr',
-      'bb',
-      'hbp',
-      'sb',
-      'cs',
-      'so',
-      'go',
-      'ao',
-      'np'
 
-    ]
   end
 
   def nl
@@ -190,32 +168,11 @@ class BattersController < ApplicationController
     @direction = @sort[1]
 
 
-    @batter = Batter.where('league_id = :league_id',{:league_id => '104'}).where('not pos = ?',  'P').order(@item + ' ' + @direction)
+    @batter = Batter.nl.stats(@item,@direction)
 
     @r_atbat = r_batter(@batter)
     @nr_atbat = nr_batter(@batter)
 
-    @thead = [
-      'name',
-      'Team',
-      'pos',
-      'avg',
-      'obp',
-      'slg',
-      'ops',
-      'ab',
-      'h',
-      'r',
-      'rbi',
-      'b2',
-      'b3',
-      'hr',
-      'bb',
-      'hbp',
-      'sb',
-      'cs',
-      'so',
-    ]
   end
 
   def r_batter(batter)
@@ -247,31 +204,10 @@ class BattersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @batter = Batter.where('league_id = :league_id',{:league_id => '103'}).where('not pos = ?',  'P').order(@item + ' ' + @direction)
+    @batter = Batter.al.stats(@item,@direction)
 
     @r_atbat = r_batter(@batter)
     @nr_atbat = nr_batter(@batter)
 
-    @thead = [
-      'name',
-      'Team',
-      'pos',
-      'avg',
-      'obp',
-      'slg',
-      'ops',
-      'ab',
-      'h',
-      'r',
-      'rbi',
-      'b2',
-      'b3',
-      'hr',
-      'bb',
-      'hbp',
-      'sb',
-      'cs',
-      'so',
-    ]
   end
 end

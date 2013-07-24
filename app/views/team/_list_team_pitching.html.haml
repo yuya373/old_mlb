@@ -1,23 +1,47 @@
-.span9
-%table.table.table-hover.table.table-condensed
-  %thead
-    %tr
-    -@tp_head.each do |head|
-      -case head
-      -when 'team_name'
-        %th
-      -when 'team_id'
-        %th
-      -else
-        %th= sortable(head.slice(3,10))
-  %tbody
-  -@t_p.each do |team|
-    %tr
-    -@tp_head.each do |head|
-      -case head
-      -when 'team_id'
-        %td
-      -when 'team_name'
-        %td= link_to team[head.to_sym], {controller: 'team', action: 'show', team_id: team[:team_id]}
-      -else
-        %td= team[head.to_sym]
+.span10
+  %table.table.table-hover.table.table-condensed
+    %thead
+      %tr
+        %th Name
+        %th= tp_sort('w',@item,@direction)
+        %th= tp_sort('l',@item,@direction)
+        %th= tp_sort('era',@item,@direction)
+        %th= tp_sort('g',@item,@direction)
+        %th= tp_sort('gs',@item,@direction)
+        %th= tp_sort('sv',@item,@direction)
+        %th= tp_sort('bsv',@item,@direction)
+        %th= tp_sort('svo',@item,@direction)
+        %th= tp_sort('ip',@item,@direction)
+        %th= tp_sort('h',@item,@direction)
+        %th= tp_sort('r',@item,@direction)
+        %th= tp_sort('er',@item,@direction)
+        %th= tp_sort('hr',@item,@direction)
+        %th= tp_sort('bb',@item,@direction)
+        %th= tp_sort('wp',@item,@direction)
+        %th= tp_sort('so',@item,@direction)
+        %th= tp_sort('cg',@item,@direction)
+        %th= tp_sort('sho',@item,@direction)
+        %th= tp_sort('whip',@item,@direction)
+    %tbody
+    -@team.each do |team|
+      %tr
+        %td= link_to team.team_name, {controller: 'team', action: 'show', team_id: team[:team_id]}
+        %td= team.tp_w
+        %td= team.tp_l
+        %td= team.tp_era
+        %td= team.tp_g
+        %td= team.tp_gs
+        %td= team.tp_sv
+        %td= team.tp_bsv
+        %td= team.tp_svo
+        %td= team.tp_ip
+        %td= team.tp_h
+        %td= team.tp_r
+        %td= team.tp_er
+        %td= team.tp_hr
+        %td= team.tp_bb
+        %td= team.tp_wp
+        %td= team.tp_so
+        %td= team.tp_cg
+        %td= team.tp_sho
+        %td= team.tp_whip

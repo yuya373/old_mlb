@@ -1,23 +1,52 @@
-.span9
-%table.table.table-hover.table.table-condensed
-  %thead
-    %tr
-    -@tb_head.each do |head|
-      -case head
-      -when 'team_name'
-        %th
-      -when 'team_id'
-        %th
-      -else
-        %th= sortable(head.slice(3,10))
-  %tbody
-  -@t_b.each do |team|
-    %tr
-    -@tb_head.each do |head|
-      -case head
-      -when 'team_id'
-        %td
-      -when 'team_name'
-        %td= link_to team[head.to_sym], {controller: 'team', action: 'show', team_id: team[:team_id]}
-      -else
-        %td= team[head.to_sym]
+.span10
+  %table.table.table-hover.table.table-condensed
+    %thead
+      %tr
+        %th Name
+        %th= tb_sort('g',@item,@direction)
+        %th= tb_sort('ab',@item,@direction)
+        %th= tb_sort('r',@item,@direction)
+        %th= tb_sort('tb',@item,@direction)
+        %th= tb_sort('h',@item,@direction)
+        %th= tb_sort('b2',@item,@direction)
+        %th= tb_sort('b3',@item,@direction)
+        %th= tb_sort('hr',@item,@direction)
+        %th= tb_sort('rbi',@item,@direction)
+        %th= tb_sort('sac',@item,@direction)
+        %th= tb_sort('sf',@item,@direction)
+        %th= tb_sort('bb',@item,@direction)
+        %th= tb_sort('ibb',@item,@direction)
+        %th= tb_sort('so',@item,@direction)
+        %th= tb_sort('sb',@item,@direction)
+        %th= tb_sort('cs',@item,@direction)
+        %th= tb_sort('gidp',@item,@direction)
+        %th= tb_sort('avg',@item,@direction)
+        %th= tb_sort('obp',@item,@direction)
+        %th= tb_sort('slg',@item,@direction)
+        %th= tb_sort('ops',@item,@direction)
+    %tbody
+    -@team.each do |team|
+      %tr
+        %td= link_to team.team_name, {controller: 'team', action: 'show', team_id: team[:team_id]}
+        %td= team.tb_g
+        %td= team.tb_ab
+        %td= team.tb_r
+        %td= team.tb_tb
+        %td= team.tb_h
+        %td= team.tb_b2
+        %td= team.tb_b3
+        %td= team.tb_hr
+        %td= team.tb_rbi
+        %td= team.tb_sac
+        %td= team.tb_sf
+        %td= team.tb_bb
+        %td= team.tb_ibb
+        %td= team.tb_so
+        %td= team.tb_sb
+        %td= team.tb_cs
+        %td= team.tb_gidp
+        %td= team.tb_avg
+        %td= team.tb_obp
+        %td= team.tb_slg
+        %td= team.tb_ops
+

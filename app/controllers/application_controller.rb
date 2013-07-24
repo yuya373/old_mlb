@@ -13,11 +13,7 @@ class ApplicationController < ActionController::Base
     end
 
     if @sort == session[:sort]
-      if session[:direction] == 'asc'
-        session[:direction] = 'desc'
-      else
-        session[:direction] = 'asc'
-      end
+      session[:direction] = session[:direction] == 'asc' ? 'desc' : 'asc'
       @direction = session[:direction]
     else
       @direction = 'desc'

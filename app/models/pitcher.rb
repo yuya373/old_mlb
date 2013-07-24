@@ -8,7 +8,10 @@ class Pitcher < ActiveRecord::Base
   has_many :atbats, :foreign_key => 'p_id'
   has_many :pitch_type_details, :foreign_key => 'p_id'
   has_many :pitch_tendencies, :foreign_key => 'p_id'
-
+  scope :stats, lambda{|item,direction| where.not('g = ?',0).select('p_id,team_id,team_abbrev,name_display_first_last,g,gs,w,l,hld,sv,bsv,svo,ip_sort,era_sort,whip_sort,avg_sort,slg_sort,so,ao,go,gidp,p_inh_runner,p_inh_runner_scored,cg,sho,gf,np,er,h,r,hr,hb,bb,ibb,wp,tpa,ab,sf,sac,pct_sort,bk').order(item + ' ' + direction)}
+  scope :al, lambda{where('league_id = 103')}
+  scope :nl, lambda{where('league_id = 104')}
+  scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}
   def self.get
     Team.find_each do |team|
       team_id = team[:team_id]

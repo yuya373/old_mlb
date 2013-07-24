@@ -186,16 +186,18 @@
     %tbody
       %tr
         %th 投手
-        %th IP
         %th ERA
         %th WHIP
+        %th IP
+        %th W-L
         %th HLD
         %th SV
         -@team_pitcher.each do |p|
           %tr
             %td= link_to p.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => p.p_id}
-            %td= p.ip
             %td= p.era
             %td= p.whip
+            %td= p.ip
+            %td= "#{p.w} - #{p.l}"
             %td= p.hld
             %td= p.sv

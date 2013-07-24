@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 set :environment, :production
 set :output, { :error => 'log/error.log', :standard => 'log/cron.log' }
-job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e :environment ':task' :output"
+job_type :rbenv_bundle_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e development ':task' :output"
 job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init -)\"; cd :path && rails runner -e production ':task' :output"
 
 
@@ -42,12 +42,15 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 #   rbenv_bundle_runner "PitchTendency.get"
 
 # end
+every 1.day :at => '13:00' do
+  sakura_runner "Team.get"
+end
 
-every 1.day, :at => '18:17' do
-  # sakura_runner "Team.get"
-  # sakura_runner "Batter.get"
-  # sakura_runner "Pitcher.get"
-  # sakura_runner "Pitching.get"
+
+every 1.day, :at => '14:00' do
+  sakura_runner "Batter.get"
+  sakura_runner "Pitcher.get"
+  sakura_runner "Pitching.get"
   sakura_runner "Atbat.get"
   sakura_runner "PitchTypeDetail.batter_get"
   sakura_runner "PitchTypeDetail.pitcher_get"

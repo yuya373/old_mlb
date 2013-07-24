@@ -8,6 +8,13 @@ class Atbat < ActiveRecord::Base
   belongs_to :pitcher, :foreign_key => 'pitcher_id'
   has_many :pitchings, :foreign_key => 'game_id_num'
 
+  scope :from_batter_id, lambda{|p_id| where('batter_id = ?',p_id)}
+  scope :from_pitcher_id, lambda{|p_id| where('pitcher_id = ?',p_id)}
+  scope :for_batter, lambda{ where.not('pitcher_name = ?', '-').select('DISTINCT pitcher_id, pitcher_name, pitcher_team').order('pitcher_name asc')}
+  scope :for_pitcher, lambda{where.not('batter_name = ?','-').select('DISTINCT batter_name, batter_id, batter_team').order('batter_name asc')}
+  scope :show, lambda{ select('DISTINCT game_id,game_id_num,pitcher_name,batter_name,b,s,o,event,des')}
+
+
   def self.get
     Team.find_each do |team|
 

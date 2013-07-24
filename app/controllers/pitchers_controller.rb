@@ -129,41 +129,31 @@ class PitchersController < ApplicationController
 
   def show
     @p_id = params[:p_id]
-    @pitcher = Pitcher.where('p_id = ?',@p_id).first
+    @pitcher = Pitcher.from_p_id(@p_id)
 
     @pitch_tendencies = @pitcher.pitch_tendencies.where('game_id = ?','last_five').order('num desc')
     @pitch_type = @pitcher.pitch_type_details
 
-    @batter = Atbat.where.not('batter_name = ?','-').where('pitcher_id = ?', @p_id).select('DISTINCT batter_name, batter_id, batter_team').order('batter_name asc')
+    @batter = Atbat.from_pitcher_id(@p_id).for_pitcher
 
-    @atbat = Atbat.where('pitcher_id = ?',params[:pitcher]).where('batter_id = ?',params[:batter]).select('game_id,pitcher_name,batter_name,b,s,o,event,des,game_id_num')
-
+    @atbat = Atbat.from_pitcher_id(params[:pitcher]).from_batter_id(params[:batter]).show
 
   end
 
-  def r_pitcher(pitcher)
+  def r_pitcher(pitcher,item)
     r_pitcher = []
-    pitcher.each do |pitcher|
-      team_game = pitcher.team.tp_g
-      ip = pitcher.ip_sort
-      if ip >= team_game
+    if item == 'era' || item == 'whip' || item == 'avg' || item == 'slg'
+      pitcher.each do |pitcher|
+        team_game = pitcher.team.tp_g
+        ip = pitcher.ip_sort
+        r_pitcher << pitcher if ip >= team_game
+      end
+    else
+      pitcher.each do |pitcher|
         r_pitcher << pitcher
       end
     end
     return r_pitcher
-  end
-
-  def nr_pitcher(pitcher)
-    nr_pitcher = []
-    pitcher.each do |pitcher|
-      team_game = pitcher.team.tp_g
-      ip = pitcher.ip_sort
-      if ip >= team_game
-      else
-        nr_pitcher << pitcher
-      end
-    end
-    return nr_pitcher
   end
 
   def all
@@ -172,98 +162,10 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
+    @pitcher = Pitcher.stats(@item,@direction)
 
+    @r_pitcher = r_pitcher(@pitcher,@item)
 
-    @pitcher = Pitcher.where.not('g = ?',0).select('
-      p_id,
-      team_id,
-      team_abbrev,
-      name_display_first_last,
-      g,
-      gs,
-      w,
-      l,
-      hld,
-      sv,
-      bsv,
-      svo,
-      ip_sort,
-      era_sort,
-      whip_sort,
-      avg_sort,
-      slg_sort,
-      so,
-      ao,
-      go,
-      gidp,
-      p_inh_runner,
-      p_inh_runner_scored,
-      cg,
-      sho,
-      gf,
-      np,
-      er,
-      h,
-      r,
-      hr,
-      hb,
-      bb,
-      ibb,
-      wp,
-      tpa,
-      ab,
-      sf,
-      sac,
-      pct_sort,
-      bk
-          ').order(@item + ' ' + @direction)
-
-    if @item == 'era'
-
-      @s_pitcher = @pitcher.where('gs > 0')
-      @r_pitcher = r_pitcher(@s_pitcher)
-
-    else
-      @r_pitcher = @pitcher
-    end
-
-    # @nr_pitcher = nr_pitcher(@s_pitcher)
-
-    @thead = [
-      'Name',
-      'Team',
-      'w',
-      'l',
-      'g',
-      'gs',
-      'hld',
-      'sv',
-      'bsv',
-      'svo',
-      'era',
-      'ip',
-      'whip',
-      'avg',
-      'slg',
-      'so',
-      'ao',
-      'go',
-      'gidp',
-      'er',
-      'r',
-      'h',
-      'hr',
-      'hb',
-      'bb',
-      'ibb',
-      'wp',
-      'bk',
-      'np',
-      'cg',
-      'sho'
-      # 'gf'
-
-    ]
   end
 
   def nl
@@ -271,96 +173,12 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @pitcher = Pitcher.where.not('g = ?',0).where('league_id = 104').select('
-      p_id,
-      team_id,
-      team_abbrev,
-      name_display_first_last,
-      g,
-      gs,
-      w,
-      l,
-      hld,
-      sv,
-      bsv,
-      svo,
-      ip_sort,
-      era_sort,
-      whip_sort,
-      avg_sort,
-      slg_sort,
-      so,
-      ao,
-      go,
-      gidp,
-      p_inh_runner,
-      p_inh_runner_scored,
-      cg,
-      sho,
-      gf,
-      np,
-      er,
-      h,
-      r,
-      hr,
-      hb,
-      bb,
-      ibb,
-      wp,
-      tpa,
-      ab,
-      sf,
-      sac,
-      pct_sort,
-      bk
-          ').order(@item + ' ' + @direction)
+    @pitcher = Pitcher.stats(@item,@direction).nl
 
-    if @item == 'era'
-
-      @s_pitcher = @pitcher.where('gs > 0')
-      @r_pitcher = r_pitcher(@s_pitcher)
-
-    else
-      @r_pitcher = @pitcher
-    end
+    @r_pitcher = r_pitcher(@pitcher,@item)
 
     # @nr_pitcher = nr_pitcher(@s_pitcher)
 
-    @thead = [
-      'Name',
-      'Team',
-      'w',
-      'l',
-      'g',
-      'gs',
-      'hld',
-      'sv',
-      'bsv',
-      'svo',
-      'era',
-      'ip',
-      'whip',
-      'avg',
-      'slg',
-      'so',
-      'ao',
-      'go',
-      'gidp',
-      'er',
-      'r',
-      'h',
-      'hr',
-      'hb',
-      'bb',
-      'ibb',
-      'wp',
-      'bk',
-      'np',
-      'cg',
-      'sho'
-      # 'gf'
-
-    ]
   end
 
   def al
@@ -368,96 +186,12 @@ class PitchersController < ApplicationController
     @item = @sort[0]
     @direction = @sort[1]
 
-    @pitcher = Pitcher.where.not('g = ?',0).where('league_id = 103').select('
-      p_id,
-      team_id,
-      team_abbrev,
-      name_display_first_last,
-      g,
-      gs,
-      w,
-      l,
-      hld,
-      sv,
-      bsv,
-      svo,
-      ip_sort,
-      era_sort,
-      whip_sort,
-      avg_sort,
-      slg_sort,
-      so,
-      ao,
-      go,
-      gidp,
-      p_inh_runner,
-      p_inh_runner_scored,
-      cg,
-      sho,
-      gf,
-      np,
-      er,
-      h,
-      r,
-      hr,
-      hb,
-      bb,
-      ibb,
-      wp,
-      tpa,
-      ab,
-      sf,
-      sac,
-      pct_sort,
-      bk
-          ').order(@item + ' ' + @direction)
+    @pitcher = Pitcher.stats(@item,@direction).al
 
-    if @item == 'era'
-
-      @s_pitcher = @pitcher.where('gs > 0')
-      @r_pitcher = r_pitcher(@s_pitcher)
-
-    else
-      @r_pitcher = @pitcher
-    end
+    @r_pitcher = r_pitcher(@pitcher,@item)
 
     # @nr_pitcher = nr_pitcher(@s_pitcher)
 
-    @thead = [
-      'Name',
-      'Team',
-      'w',
-      'l',
-      'g',
-      'gs',
-      'hld',
-      'sv',
-      'bsv',
-      'svo',
-      'era',
-      'ip',
-      'whip',
-      'avg',
-      'slg',
-      'so',
-      'ao',
-      'go',
-      'gidp',
-      'er',
-      'r',
-      'h',
-      'hr',
-      'hb',
-      'bb',
-      'ibb',
-      'wp',
-      'bk',
-      'np',
-      'cg',
-      'sho'
-      # 'gf'
-
-    ]
   end
 
 end
