@@ -62,3 +62,19 @@ every 1.day, :at => '14:00' do
   sakura_runner "LineScore.get"
 end
 
+
+every 1.day, :at => '16:00' do
+  sakura_runner "Batter.get"
+  sakura_runner "Pitcher.get"
+  sakura_runner "Pitching.get"
+  sakura_runner "Atbat.get"
+  sakura_runner "PitchTypeDetail.batter_get"
+  sakura_runner "PitchTypeDetail.pitcher_get"
+  sakura_runner "PitchTendency.get"
+  sakura_runner "Bench.get"
+  sakura_runner "Game.get"
+  sakura_runner "GameBatter.get"
+  sakura_runner "GamePitcher.get"
+  sakura_runner "LineScore.get"
+end
+
