@@ -1,7 +1,7 @@
 Mlb::Application.routes.draw do
   resources :examples
 
-  root to: 'team#new'
+  root to: 'team#index'
   resources :stat
   get 'batter/:p_id' => 'batters#show'
   get 'pitcher/:p_id' => 'pitchers#show'
