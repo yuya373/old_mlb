@@ -8,7 +8,7 @@
   -else
     - @game.each do |game|
       .hero-unit
-        %p.text-right= link_to "詳細", {controller: 'game', action: 'show', game_id: game.gameday}
+        %p.text-right= link_to "詳細", {controller: 'game', action: 'show', g_id: game.gameday}
         %h2= "#{game.away_team_name_full} - #{game.home_team_name_full}"
         %ul.inline
           %li= "#{game.away_team_name_brief}: #{game.away_w} - #{game.away_l}"

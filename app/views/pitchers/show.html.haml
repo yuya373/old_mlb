@@ -2,6 +2,8 @@
 / =debug @pitch_type
 / =debug @atbat.first.pitchings
 / =debug @atbat[1].pitchings
+/ =debug @batte
+/ =debug @ary
 .row-fluid
   .span12
     .hero-unit
@@ -89,7 +91,7 @@
     .span10
       %h5 対バッター
       %form.form-inline
-        = select_tag :batter, options_from_collection_for_select(@batter, :batter_id, :batter_name)
+        = select_tag :batter, grouped_options_for_select(@batter)
         = hidden_field_tag :pitcher, @p_id
         = submit_tag 'Go!', {:controller => 'pitchers', :action => 'show'}
       - num = 1

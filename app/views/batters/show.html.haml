@@ -79,7 +79,7 @@
     .span10
       %h5 対ピッチャー
       %form.form-inline
-        = select_tag :pitcher, options_from_collection_for_select(@pitcher, :pitcher_id, :pitcher_name)
+        = select_tag :pitcher, grouped_options_for_select(@pitcher)
         = hidden_field_tag :batter, @p_id
         = submit_tag 'Go!', {:controller => 'batters', :action => 'show'}
       - num = 1

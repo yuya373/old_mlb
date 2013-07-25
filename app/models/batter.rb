@@ -7,7 +7,7 @@ class Batter < ActiveRecord::Base
   has_many :pitchings, :foreign_key => 'batter_id'
   has_many :batter_details, :foreign_key => 'p_id'
   has_many :pitch_type_details, :foreign_key => 'p_id'
-  has_many :atbats, :foreign_key => 'p_id'
+  has_many :atbats, :foreign_key => 'batter_id'
 
 
   scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}

@@ -6,7 +6,7 @@ Mlb::Application.routes.draw do
   get 'batter/:p_id' => 'batters#show'
   get 'pitcher/:p_id' => 'pitchers#show'
   get 'team/:team_id' => 'team#show'
-  get 'team' => 'team#new'
+  get 'team' => 'team#index'
   get 'all_team_hitting', to: 'team#all_hitting'
   get 'all_team_pitching', to: 'team#all_pitching'
   get 'al_team_hitting', to: 'team#al_hitting'
@@ -17,6 +17,7 @@ Mlb::Application.routes.draw do
   resources :data
   get 'game/show', to: 'game#show'
   get 'game/index', to: 'game#index'
+  get 'game/atbat', to: 'game#atbat'
   get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'

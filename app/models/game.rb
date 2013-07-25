@@ -7,6 +7,7 @@ class Game < ActiveRecord::Base
   has_many :benches, :foreign_key => 'game_id'
   has_many :game_batters, :foreign_key => 'game_id'
   has_many :game_pitchers, :foreign_key => 'game_id'
+  has_many :atbats, :foreign_key => 'game_id'
   def self.get
     Team.find_each do |team|
       # gid = '2013_05_19_detmlb_texmlb_1'

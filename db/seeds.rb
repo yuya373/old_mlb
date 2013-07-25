@@ -7,10 +7,13 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'rubygems'
-# require 'nokogiri'
+require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+
+Atbat.where('game_id = ?','2013_07_14_anamlb-seamlb-1').delete_all
+Atbat.seed('2013_07_14_anamlb-seamlb-1')
 
 # CSV.foreach("gameid_7.csv") do |row|
 #   row.each do |gid|

@@ -4,10 +4,11 @@ class Atbat < ActiveRecord::Base
 
   self.primary_key = 'game_id_num'
 
-  belongs_to :batter, :foreign_key => 'batter_id'
-  belongs_to :pitcher, :foreign_key => 'pitcher_id'
+  belongs_to :batter, :foreign_key => 'p_id'
+  belongs_to :pitcher, :foreign_key => 'p_id'
+  belongs_to :game, :foreign_key => 'gameday'
   has_many :pitchings, :foreign_key => 'game_id_num'
-
+  scope :from_game_id, lambda{|game_id| where('game_id = ?',game_id)}
   scope :from_batter_id, lambda{|p_id| where('batter_id = ?',p_id)}
   scope :from_pitcher_id, lambda{|p_id| where('pitcher_id = ?',p_id)}
   scope :for_batter, lambda{ where.not('pitcher_name = ?', '-').select('DISTINCT pitcher_id, pitcher_name, pitcher_team').order('pitcher_name asc')}
@@ -39,6 +40,8 @@ class Atbat < ActiveRecord::Base
           @at_bat = {
             game_id: gid,
             num: atbat.attribute('num').text,
+            inning: atbat.parent.parent.attribute('num').text,
+            t_b: atbat.parent.node_name,
             b: atbat.attribute('b').text,
             s: atbat.attribute('s').text,
             o: atbat.attribute('o').text,
@@ -55,35 +58,10 @@ class Atbat < ActiveRecord::Base
           }
 
           begin
-            Atbat.where('game_id_num = ?',@at_bat[:game_id_num]).first.update_attributes(@at_bat)
+            Atbat.where('game_id_num = ?',@at_bat[:game_id_num]).first.update_attributes!(@at_bat)
           rescue
             Atbat.create(@at_bat)
           end
-
-          # begin
-          #   pitcher = n_atbat.pitcher
-          #   p_name = pitcher.name_display_first_last
-          #   p_team = pitcher.team_abbrev
-          # rescue
-          #   p_name = '-'
-          #   p_team = '-'
-          # end
-
-          # begin
-          #   batter = n_atbat.batter
-          #   b_name = batter.name_display_first_last
-          #   b_team = batter.team_abbrev
-          # rescue
-          #   b_name = '-'
-          #   b_team = '-'
-          # end
-
-          # n_atbat.update_attributes(
-          #   pitcher_name: p_name,
-          #   pitcher_team: p_team,
-          #   batter_name: b_name,
-          #   batter_team: b_team
-          #   )
         end
 
         n_atbat = Atbat.where('game_id = ?',gid)
@@ -156,11 +134,12 @@ class Atbat < ActiveRecord::Base
 
       atbat = doc.css('atbat')
 
-
       atbat.each do |atbat|
         @at_bat = {
           game_id: gid,
           num: atbat.attribute('num').text,
+          inning: atbat.parent.parent.attribute('num').text,
+          t_b: atbat.parent.node_name,
           b: atbat.attribute('b').text,
           s: atbat.attribute('s').text,
           o: atbat.attribute('o').text,
@@ -177,38 +156,39 @@ class Atbat < ActiveRecord::Base
         }
 
         begin
-          n_atbat = Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first
-
-          n_atbat.update_attributes!(@at_bat)
+          Atbat.where('game_id_num = ?',@atbat[:game_id_num]).first.update_attributes!(@at_bat)
         rescue
-          n_atbat = Atbat.create(@at_bat)
+          Atbat.create(@at_bat)
         end
-
-        begin
-          pitcher = n_atbat.pitcher
-          p_name = pitcher.name_display_first_last
-          p_team = pitcher.team_abbrev
-        rescue
-          p_name = '-'
-          p_team = '-'
-        end
-
-        begin
-          batter = n_atbat.batter
-          b_name = batter.name_display_first_last
-          b_team = batter.team_abbrev
-        rescue
-          b_name = '-'
-          b_team = '-'
-        end
-
-        n_atbat.update_attributes(
-          pitcher_name: p_name,
-          pitcher_team: p_team,
-          batter_name: b_name,
-          batter_team: b_team
-          )
       end
+
+        n_atbat = Atbat.where('game_id = ?',gid)
+        n_atbat.each do |n_atbat|
+          begin
+            pitcher = n_atbat.pitcher
+            p_name = pitcher.name_display_first_last
+            p_team = pitcher.team_abbrev
+          rescue
+            p_name = '-'
+            p_team = '-'
+          end
+
+          begin
+            batter = n_atbat.batter
+            b_name = batter.name_display_first_last
+            b_team = batter.team_abbrev
+          rescue
+            b_name = '-'
+            b_team = '-'
+          end
+
+          n_atbat.update_attributes(
+            pitcher_name: p_name,
+            pitcher_team: p_team,
+            batter_name: b_name,
+            batter_team: b_team
+            )
+        end
     rescue
     end
   end

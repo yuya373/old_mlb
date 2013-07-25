@@ -5,7 +5,7 @@ class Pitcher < ActiveRecord::Base
   self.primary_key = 'p_id'
   belongs_to :team, :foreign_key => 'team_id'
   has_many :pitchings, :foreign_key => 'pitcher_id'
-  has_many :atbats, :foreign_key => 'p_id'
+  has_many :atbats, :foreign_key => 'pitcher_id'
   has_many :pitch_type_details, :foreign_key => 'p_id'
   has_many :pitch_tendencies, :foreign_key => 'p_id'
   scope :stats, lambda{|item,direction| where.not('g = ?',0).select('p_id,team_id,team_abbrev,name_display_first_last,g,gs,w,l,hld,sv,bsv,svo,ip_sort,era_sort,whip_sort,avg_sort,slg_sort,so,ao,go,gidp,p_inh_runner,p_inh_runner_scored,cg,sho,gf,np,er,h,r,hr,hb,bb,ibb,wp,tpa,ab,sf,sac,pct_sort,bk').order(item + ' ' + direction)}

@@ -1,9 +1,13 @@
 / = debug @game_id
-/ =debug @game
+/ # =debug @inning
 / =debug @game.line_scores
 / =debug @game.benches
 / =debug @game.game_batters
 / =debug @game.game_pitchers
+/ =debug @atbat.first
+%ul.nav.nav-tabs
+  %li= link_to 'BoxScore',{controller: 'game', action: 'show'}
+  %li= link_to 'Atbats', {controller: 'game', action: 'atbat', g_id: @g_id}
 .hero-unit
   %h2= "#{@game.away_team_name_full} - #{@game.home_team_name_full}"
   %ul.inline

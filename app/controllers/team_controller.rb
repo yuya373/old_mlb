@@ -50,10 +50,8 @@ class TeamController < ApplicationController
     @team = Team.nl.stats(@item,@direction).pitching
   end
 
-  def index
-  end
 
-  def new
+  def index
 
     @ale_team = Team.league_division(['110','111','141','139','147'])
     @alc_team = Team.league_division(['114','116','142','118','145'])

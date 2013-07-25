@@ -1,0 +1,80 @@
+/ =debug @num
+/ =debug @inning
+/ =debug @data[1][:top]
+/ =debug @data[1][:bot]
+%ul.nav.nav-tabs
+  %li= link_to 'BoxScore',{controller: 'game', action: 'show', g_id: @g_id}
+  %li= link_to 'Atbats', {controller: 'game', action: 'atbat', g_id: @g_id}
+.span10
+  .hero-unit
+    %h2= "#{@game.away_team_name_full} - #{@game.home_team_name_full}"
+    %ul.inline
+      %li= "#{@game.away_team_name_brief}: #{@game.away_w} - #{@game.away_l}"
+      %li= "#{@game.home_team_name_brief}: #{@game.home_w} - #{@game.home_l}"
+    %ul.inline
+      %li.text-success= "@ #{@game.stadium}"
+      %li.text-success= @game.location
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th
+          -@game.line_scores.each do|line|
+            %th=link_to line.inning, "##{line.inning}"
+          %th R
+          %th H
+          %th E
+      %tbody
+        %tr
+          %td= @game.away_team_abbrev
+          -@game.line_scores.each do |line|
+            %td= line.away
+          %td= @game.line_scores.first.away_team_runs
+          %td= @game.line_scores.first.away_team_hits
+          %td= @game.line_scores.first.away_team_errors
+        %tr
+          %td= @game.home_team_abbrev
+          -@game.line_scores.each do |line|
+            %td= line.home
+          %td= @game.line_scores.first.home_team_runs
+          %td= @game.line_scores.first.home_team_hits
+          %td= @game.line_scores.first.home_team_errors
+    - @data.each do |inn,data|
+      %a{'name' => inn}
+        .page-header
+          %h3="INNING: #{inn}"
+      %table.table.table-hover.table-condensed
+        %thead
+          %tr
+            %th Top
+            %th Pitcher
+            %th Batter
+            %th BSO
+            %th Event
+            %th Des
+        %tbody
+        -data[:top].each do |atbat|
+          %tr
+            %td
+            %td=link_to atbat.pitcher_name, {controller: 'pitchers', action:'show', p_id: atbat.pitcher_id}
+            %td=link_to atbat.batter_name, {controller: 'batters', action: 'show', p_id: atbat.batter_id}
+            %td= "#{atbat.b}-#{atbat.s}-#{atbat.o}"
+            %td= atbat.event
+            %td= atbat.des
+
+        %thead
+          %tr
+            %th Bottom
+            %th Pitcher
+            %th Batter
+            %th BSO
+            %th Event
+            %th Des
+        %tbody
+        -data[:bot].each do |atbat|
+          %tr
+            %td
+            %td=link_to atbat.pitcher_name, {controller: 'pitchers', action:'show', p_id: atbat.pitcher_id}
+            %td=link_to atbat.batter_name, {controller: 'batters', action: 'show', p_id: atbat.batter_id}
+            %td= "#{atbat.b}-#{atbat.s}-#{atbat.o}"
+            %td= atbat.event
+            %td= atbat.des
