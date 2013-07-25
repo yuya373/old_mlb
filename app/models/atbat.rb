@@ -15,6 +15,34 @@ class Atbat < ActiveRecord::Base
   scope :for_pitcher, lambda{where.not('batter_name = ?','-').select('DISTINCT batter_name, batter_id, batter_team').order('batter_name asc')}
   scope :show, lambda{ select('DISTINCT game_id,game_id_num,pitcher_name,batter_name,b,s,o,event,des')}
 
+  def self.update
+    Atbat.find_each do |atbat|
+      begin
+        pitcher = atbat.pitcher
+        p_name = pitcher.name_display_first_last
+        p_team = pitcher.team_abbrev
+      rescue
+        p_name = '-'
+        p_team = '-'
+      end
+
+      begin
+        batter = atbat.batter
+        b_name = batter.name_display_first_last
+        b_team = batter.team_abbrev
+      rescue
+        b_name = '-'
+        b_team = '-'
+      end
+
+      atbat.update_attributes(
+        pitcher_name: p_name,
+        pitcher_team: p_team,
+        batter_name: b_name,
+        batter_team: b_team
+        )
+    end
+  end
 
   def self.get
     Team.find_each do |team|

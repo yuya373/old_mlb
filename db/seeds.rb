@@ -12,12 +12,10 @@ require 'open-uri'
 require 'csv'
 
 
-Atbat.where('game_id = ?','2013_07_14_anamlb-seamlb-1').delete_all
-Atbat.seed('2013_07_14_anamlb-seamlb-1')
 
-# CSV.foreach("gameid_7.csv") do |row|
+# CSV.foreach("game_id.csv") do |row|
 #   row.each do |gid|
-#     Pitching.seed(gid)
+#     Atbat.seed(gid)
 #   end
 # end
 
