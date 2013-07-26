@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726061538) do
+ActiveRecord::Schema.define(version: 20130726135503) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -266,6 +266,8 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.string   "note"
   end
 
+  add_index "game_batters", ["game_id"], name: "index_game_batters_on_game_id"
+
   create_table "game_pitchers", force: true do |t|
     t.string   "game_id"
     t.string   "team_flag"
@@ -304,6 +306,8 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "game_pitchers", ["game_id"], name: "index_game_pitchers_on_game_id"
 
   create_table "games", force: true do |t|
     t.string   "gameday"
@@ -367,6 +371,8 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.integer  "sv_sv"
   end
 
+  add_index "line_scores", ["game_id"], name: "index_line_scores_on_game_id"
+
   create_table "pitch_tendencies", force: true do |t|
     t.integer  "p_id"
     t.string   "game_id"
@@ -383,7 +389,9 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.datetime "updated_at"
   end
 
+  add_index "pitch_tendencies", ["game_id", "p_id", "pitch_type"], name: "index_pitch_tendencies_on_game_id_and_p_id_and_pitch_type"
   add_index "pitch_tendencies", ["game_id"], name: "index_pitch_tendencies_on_game_id"
+  add_index "pitch_tendencies", ["p_id"], name: "index_pitch_tendencies_on_p_id"
 
   create_table "pitch_type_details", force: true do |t|
     t.string   "p_b"
@@ -403,7 +411,9 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.datetime "updated_at"
   end
 
+  add_index "pitch_type_details", ["p_id", "p_b"], name: "index_pitch_type_details_on_p_id_and_p_b"
   add_index "pitch_type_details", ["p_id"], name: "index_pitch_type_details_on_p_id"
+  add_index "pitch_type_details", ["p_id_ty", "p_b"], name: "index_pitch_type_details_on_p_id_ty_and_p_b"
 
   create_table "pitchers", force: true do |t|
     t.integer  "p_id"
@@ -646,6 +656,8 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.string   "game_id_num_id"
   end
 
+  add_index "pitchings", ["game_id"], name: "index_pitchings_on_game_id"
+  add_index "pitchings", ["game_id_num"], name: "index_pitchings_on_game_id_num"
   add_index "pitchings", ["game_id_num_id"], name: "index_pitchings_on_game_id_num_id"
 
   create_table "teams", force: true do |t|
@@ -702,5 +714,7 @@ ActiveRecord::Schema.define(version: 20130726061538) do
     t.string   "game_id"
     t.float    "win_pct"
   end
+
+  add_index "teams", ["team_id"], name: "index_teams_on_team_id"
 
 end

@@ -1,0 +1,10 @@
+require 'spec_helper'
+
+describe Game do
+  it {should validate_uniqueness_of(:gameday)}
+  it {should have_many(:line_scores)}
+  it {should have_many(:benches)}
+  it {should have_many(:game_batters)}
+  it {should have_many(:game_pitchers)}
+  it {should have_many(:atbats)}
+end

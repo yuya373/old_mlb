@@ -70,7 +70,7 @@ class PitchTendency < ActiveRecord::Base
               end
             end
             begin
-              PitchTendency.where('game_id = ?', @pt_lf[:game_id]).where('p_id = ?', @pt_lf[:p_id]).where('pitch_type = ?',@pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
+              PitchTendency.where('game_id = ? and p_id =? and pitch_type = ?', @pt_lf[:game_id], @pt_lf[:p_id], @pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
             rescue
               PitchTendency.create(@pt_lf)
             end
@@ -94,7 +94,7 @@ class PitchTendency < ActiveRecord::Base
                 end
               end
               begin
-                PitchTendency.where('game_id = ?', @pt_g[:game_id]).where('p_id = ?', @pt_g[:p_id]).where('pitch_type = ?',@pt_g[:pitch_type]).first.update_attributes!(@pt_g)
+                PitchTendency.where('game_id = ? and p_id =? and pitch_type = ?', @pt_g[:game_id], @pt_g[:p_id], @pt_g[:pitch_type]).first.update_attributes!(@pt_g)
               rescue
                 PitchTendency.create(@pt_g)
               end
@@ -145,7 +145,7 @@ class PitchTendency < ActiveRecord::Base
           end
         end
         begin
-          PitchTendency.where('game_id = ?', @pt_lf[:game_id]).where('p_id = ?', @pt_lf[:p_id]).where('pitch_type = ?',@pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
+          PitchTendency.where('game_id = ? and p_id =? and pitch_type = ?', @pt_lf[:game_id], @pt_lf[:p_id], @pt_lf[:pitch_type]).first.update_attributes!(@pt_lf)
         rescue
           PitchTendency.create(@pt_lf)
         end
@@ -169,7 +169,7 @@ class PitchTendency < ActiveRecord::Base
             end
           end
           begin
-            PitchTendency.where('game_id = ?', @pt_g[:game_id]).where('p_id = ?', @pt_g[:p_id]).where('pitch_type = ?',@pt_g[:pitch_type]).first.update_attributes!(@pt_g)
+            PitchTendency.where('game_id = ? and p_id =? and pitch_type = ?', @pt_g[:game_id], @pt_g[:p_id], @pt_g[:pitch_type]).first.update_attributes!(@pt_g)
           rescue
             PitchTendency.create(@pt_g)
           end

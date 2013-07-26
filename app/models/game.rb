@@ -3,6 +3,7 @@ require 'open-uri'
 class Game < ActiveRecord::Base
 
   self.primary_key = 'gameday'
+  validates_uniqueness_of :gameday
   has_many :line_scores, :foreign_key => 'game_id'
   has_many :benches, :foreign_key => 'game_id'
   has_many :game_batters, :foreign_key => 'game_id'

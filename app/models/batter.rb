@@ -3,9 +3,9 @@ require 'csv'
 
 class Batter < ActiveRecord::Base
   self.primary_key = 'p_id'
+  validates_uniqueness_of :p_id
   belongs_to :team, :foreign_key => 'team_id'
   has_many :pitchings, :foreign_key => 'batter_id'
-  has_many :batter_details, :foreign_key => 'p_id'
   has_many :pitch_type_details, :foreign_key => 'p_id'
   has_many :atbats, :foreign_key => 'batter_id'
 

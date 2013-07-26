@@ -1,7 +1,7 @@
 require "open-uri"
 
 class GameBatter < ActiveRecord::Base
-  belongs_to :game, :foreign_key => 'gameday'
+  belongs_to :game, :foreign_key => 'game_id'
 
   def self.get
     Team.find_each do |team|

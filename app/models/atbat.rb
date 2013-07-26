@@ -3,10 +3,10 @@ require 'csv'
 class Atbat < ActiveRecord::Base
 
   self.primary_key = 'game_id_num'
-
+  validates_uniqueness_of :game_id_num
   belongs_to :batter, :foreign_key => 'batter_id'
   belongs_to :pitcher, :foreign_key => 'pitcher_id'
-  belongs_to :game, :foreign_key => 'gameday'
+  belongs_to :game, :foreign_key => 'game_id'
   has_many :pitchings, :foreign_key => 'game_id_num'
   scope :from_game_id, lambda{|game_id| where('game_id = ?',game_id)}
   scope :from_batter_id, lambda{|p_id| where('batter_id = ?',p_id)}
@@ -90,8 +90,9 @@ class Atbat < ActiveRecord::Base
             Atbat.create(@at_bat)
           end
         end
-
-        n_atbat = Atbat.where('game_id = ?',gid)
+      rescue
+      end
+      n_atbat = Atbat.where('game_id = ?',gid)
         n_atbat.each do |n_atbat|
           begin
             pitcher = n_atbat.pitcher
@@ -118,8 +119,6 @@ class Atbat < ActiveRecord::Base
             batter_team: b_team
             )
         end
-      rescue
-      end
     end
   end
 
@@ -188,8 +187,9 @@ class Atbat < ActiveRecord::Base
           Atbat.create(@at_bat)
         end
       end
-
-        n_atbat = Atbat.where('game_id = ?',gid)
+    rescue
+    end
+    n_atbat = Atbat.where('game_id = ?',gid)
         n_atbat.each do |n_atbat|
           begin
             pitcher = n_atbat.pitcher
@@ -216,7 +216,5 @@ class Atbat < ActiveRecord::Base
             batter_team: b_team
             )
         end
-    rescue
-    end
   end
 end

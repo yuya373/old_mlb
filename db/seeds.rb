@@ -11,7 +11,11 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+Atbat.delete_all
+PitchTendency.delete_all
 
+PitchTendency.seed('2013_07_19_oakmlb-anamlb-1')
+Atbat.seed('2013_07_19_oakmlb-anamlb-1')
 
 # CSV.foreach("game_id.csv") do |row|
 #   row.each do |gid|
