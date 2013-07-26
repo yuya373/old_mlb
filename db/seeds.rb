@@ -11,11 +11,32 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Atbat.delete_all
-PitchTendency.delete_all
+Atbat.where('pitcher_name = ? or batter_name = ?','-','-').find_each do |atbat|
+  begin
+    pitcher = atbat.pitcher
+    p_name = pitcher.name_display_first_last
+    p_team = pitcher.team_abbrev
+  rescue
+    p_name = '-'
+    p_team = '-'
+  end
 
-PitchTendency.seed('2013_07_19_oakmlb-anamlb-1')
-Atbat.seed('2013_07_19_oakmlb-anamlb-1')
+  begin
+    batter = atbat.batter
+    b_name = batter.name_display_first_last
+    b_team = batter.team_abbrev
+  rescue
+    b_name = '-'
+    b_team = '-'
+  end
+  atbat.update_attributes(
+    pitcher_name: p_name,
+    pitcher_team: p_team,
+    batter_name: b_name,
+    batter_team: b_team
+    )
+end
+
 
 # CSV.foreach("game_id.csv") do |row|
 #   row.each do |gid|
