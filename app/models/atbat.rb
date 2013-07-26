@@ -4,8 +4,8 @@ class Atbat < ActiveRecord::Base
 
   self.primary_key = 'game_id_num'
 
-  belongs_to :batter, :foreign_key => 'p_id'
-  belongs_to :pitcher, :foreign_key => 'p_id'
+  belongs_to :batter, :foreign_key => 'batter_id'
+  belongs_to :pitcher, :foreign_key => 'pitcher_id'
   belongs_to :game, :foreign_key => 'gameday'
   has_many :pitchings, :foreign_key => 'game_id_num'
   scope :from_game_id, lambda{|game_id| where('game_id = ?',game_id)}
@@ -34,7 +34,6 @@ class Atbat < ActiveRecord::Base
         b_name = '-'
         b_team = '-'
       end
-
       atbat.update_attributes(
         pitcher_name: p_name,
         pitcher_team: p_team,
