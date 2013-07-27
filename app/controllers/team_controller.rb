@@ -52,13 +52,13 @@ class TeamController < ApplicationController
 
 
   def index
-
-    @ale_team = Team.league_division(['110','111','141','139','147'])
-    @alc_team = Team.league_division(['114','116','142','118','145'])
-    @alw_team = Team.league_division(['108','117','133','136','140'])
-    @nle_team = Team.league_division(['120','121','143','144','146'])
-    @nlc_team = Team.league_division(['112','113','134','138','158'])
-    @nlw_team = Team.league_division(['109','115','119','135','137'])
+    @team = Team.first
+    @ale_team = Team.al.division('e').order_by_win_pct
+    @alc_team = Team.al.division('c').order_by_win_pct
+    @alw_team = Team.al.division('w').order_by_win_pct
+    @nle_team = Team.nl.division('e').order_by_win_pct
+    @nlc_team = Team.nl.division('c').order_by_win_pct
+    @nlw_team = Team.nl.division('w').order_by_win_pct
   end
 
   def show

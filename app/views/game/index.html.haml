@@ -4,8 +4,9 @@
   = submit_tag "Go", {controller: "game", action: "index"}
 -if @note
   -if @game.blank?
-    .alert 試合はありません
+    .alert.alert-error 試合はありません
   -else
+    .alert.alert-info= when_updated(@game.first)
     - @game.each do |game|
       .hero-unit
         %p.text-right= link_to "詳細", {controller: 'game', action: 'show', g_id: game.gameday}

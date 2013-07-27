@@ -30,4 +30,13 @@
     %ul.dropdown-menu
       %li= link_to 'Pitcher', {:controller => 'pitch_type_details', :action => 'pitchings'}
       %li= link_to 'Batter', {:controller => 'pitch_type_details', :action => 'battings'}
+- if @team
+  .alert.alert-info= when_updated(@team.first)
+- elsif @r_pitcher
+  .alert.alert-info= when_updated(@r_pitcher.first)
+- elsif @r_atbat
+  .alert.alert-info= when_updated(@r_atbat.first)
+/ - elsif @pitchings
+/   .alert.alert-info= when_updated(@pitchings.first)
+
 

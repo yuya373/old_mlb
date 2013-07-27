@@ -11,31 +11,43 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Atbat.where('pitcher_name = ? or batter_name = ?','-','-').find_each do |atbat|
-  begin
-    pitcher = atbat.pitcher
-    p_name = pitcher.name_display_first_last
-    p_team = pitcher.team_abbrev
-  rescue
-    p_name = '-'
-    p_team = '-'
-  end
-
-  begin
-    batter = atbat.batter
-    b_name = batter.name_display_first_last
-    b_team = batter.team_abbrev
-  rescue
-    b_name = '-'
-    b_team = '-'
-  end
-  atbat.update_attributes(
-    pitcher_name: p_name,
-    pitcher_team: p_team,
-    batter_name: b_name,
-    batter_team: b_team
-    )
+Team.league_division(['110','111','141','139','147','120','121','143','144','146']).each do |team|
+  team.update_attributes(division: 'e')
 end
+
+Team.league_division(['114','116','142','118','145','112','113','134','138','158']).each do |team|
+  team.update_attributes(division: 'c')
+end
+
+Team.league_division(['108','117','133','136','140','109','115','119','135','137']).each do |team|
+  team.update_attributes(division: 'w')
+end
+
+# Atbat.where('pitcher_name = ? or batter_name = ?','-','-').find_each do |atbat|
+#   begin
+#     pitcher = atbat.pitcher
+#     p_name = pitcher.name_display_first_last
+#     p_team = pitcher.team_abbrev
+#   rescue
+#     p_name = '-'
+#     p_team = '-'
+#   end
+
+#   begin
+#     batter = atbat.batter
+#     b_name = batter.name_display_first_last
+#     b_team = batter.team_abbrev
+#   rescue
+#     b_name = '-'
+#     b_team = '-'
+#   end
+#   atbat.update_attributes(
+#     pitcher_name: p_name,
+#     pitcher_team: p_team,
+#     batter_name: b_name,
+#     batter_team: b_team
+#     )
+# end
 
 
 # CSV.foreach("game_id.csv") do |row|

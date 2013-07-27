@@ -23,5 +23,7 @@ module Mlb
     config.less.paths << "#{Rails.root}/lib/less/protractor/stylesheets"
     config.less.compress = true
     config.assets.compress = true
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
