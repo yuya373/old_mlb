@@ -11,15 +11,15 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Team.league_division(['110','111','141','139','147','120','121','143','144','146']).each do |team|
+Team.where(:team_id => ['110','111','141','139','147','120','121','143','144','146']).each do |team|
   team.update_attributes(division: 'e')
 end
 
-Team.league_division(['114','116','142','118','145','112','113','134','138','158']).each do |team|
+Team.where(:team_id => ['114','116','142','118','145','112','113','134','138','158']).each do |team|
   team.update_attributes(division: 'c')
 end
 
-Team.league_division(['108','117','133','136','140','109','115','119','135','137']).each do |team|
+Team.where(:team_id => ['108','117','133','136','140','109','115','119','135','137']).each do |team|
   team.update_attributes(division: 'w')
 end
 
