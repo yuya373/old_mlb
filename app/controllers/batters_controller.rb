@@ -43,7 +43,7 @@ class BattersController < ApplicationController
 
     end
       @team.each do |v|
-        @batter.atbats.where('pitcher_team = ?',v).select('distinct pitcher_name, pitcher_id,pitcher_team').each do |pit|
+        @batter.atbats.where.not('pitcher_name = ?','-').where('pitcher_team = ?',v).select('distinct pitcher_name, pitcher_id,pitcher_team').each do |pit|
           @pitcher[v] << [pit.pitcher_name,pit.pitcher_id]
         end
       end

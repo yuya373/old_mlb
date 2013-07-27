@@ -19,7 +19,7 @@ class PitchersController < ApplicationController
       @batter[atbat.batter_team] = []
     end
       @team.each do |v|
-        @pitcher.atbats.where('batter_team = ?',v).for_pitcher.each do |bat|
+        @pitcher.atbats.where.not('batter_name = ?', '-').where('batter_team = ?',v).for_pitcher.each do |bat|
           @batter[v] << [bat.batter_name,bat.batter_id]
         end
       end
