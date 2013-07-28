@@ -107,7 +107,7 @@
               %th Description
           %tbody
             %tr
-              %th= atbat.game_id.slice(0,10)
+              %th= atbat.game_id.slice(0,10).tr('_','/')
               %td= atbat.pitcher_name
               %td= atbat.batter_name
               %td= "B:#{atbat.b} S:#{atbat.s} O:#{atbat.o}"
