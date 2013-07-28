@@ -2,10 +2,14 @@ require 'open-uri'
 require 'csv'
 class Team < ActiveRecord::Base
   self.primary_key = 'team_id'
-  has_many :batters, :primary_key => 'team_id'
-  has_many :pitchers, :primary_key => 'team_id'
+  has_many :batters, :foreign_key => 'team_id'
+  has_many :pitchers, :foreign_key => 'team_id'
+  has_many :home_team_game, :foreign_key => 'home_team_id', :class_name => 'Game'
+  has_many :away_team_game, :foreign_key => 'away_team_id', :class_name => 'Game'
 
-  scope :division, lambda{|division| where('division = ?',division)}
+
+
+  scope :division, lambda{|division| where(division: division)}
   scope :stats, lambda{|item,direction| order(item + ' ' + direction)}
   scope :al, lambda{where('league_id = 103')}
   scope :nl, lambda{where('league_id = 104')}

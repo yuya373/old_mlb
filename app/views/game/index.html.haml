@@ -6,7 +6,8 @@
   -if @game.blank?
     .alert.alert-error 試合はありません
   -else
-    .alert.alert-info= when_updated(@game.first)
+    / =debug @game.first.home_team
+    = when_updated(@game.first)
     - @game.each do |game|
       .hero-unit
         %p.text-right= link_to "詳細", {controller: 'game', action: 'show', g_id: game.gameday}

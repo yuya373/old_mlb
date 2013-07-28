@@ -63,7 +63,7 @@ class TeamController < ApplicationController
 
   def show
     @team = Team.where('team_id = ?', params[:team_id]).first
-
+    @home_game = @team.home_team_game.order('updated_at asc').limit(5)
     @of_batter = @team.batters.of_batter
     @if_batter = @team.batters.if_batter
     @team_pitcher = @team.pitchers

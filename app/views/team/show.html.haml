@@ -4,6 +4,7 @@
 / = debug @if_batter
 / 外野手
 / = debug @of_batter
+=when_updated(@team)
 .span10
   .hero-unit
     %h2= @team.team_name
@@ -36,6 +37,7 @@
         %td= @team[:tb_rbi]
     %thead
       %tr
+        %th OPS
         %th SAC
         %th SF
         %th BB
@@ -45,9 +47,9 @@
         %th SB
         %th CS
         %th GIDP
-        %th
     %tbody
       %tr
+        %td= @team[:tb_ops]
         %td= @team[:tb_sac]
         %td= @team[:tb_sf]
         %td= @team[:tb_bb]
@@ -57,7 +59,6 @@
         %td= @team[:tb_sb]
         %td= @team[:tb_cs]
         %td= @team[:tb_gidp]
-        %td
 .span10
   %h4 PITCHING
   %table.table.table-striped
