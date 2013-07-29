@@ -2,7 +2,6 @@ Mlb::Application.routes.draw do
   resources :examples
 
   root to: 'team#index'
-  resources :stat
   get 'batter/:p_id' => 'batters#show'
   get 'pitcher/:p_id' => 'pitchers#show'
   get 'team/:team_id' => 'team#show'
@@ -14,7 +13,6 @@ Mlb::Application.routes.draw do
   get 'nl_team_hitting', to: 'team#nl_hitting'
   get 'nl_team_pitching', to: 'team#nl_pitching'
   resources :team
-  resources :data
   get 'game/show', to: 'game#show'
   get 'game/index', to: 'game#index'
   get 'game/atbat', to: 'game#atbat'
@@ -22,9 +20,6 @@ Mlb::Application.routes.draw do
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'
   resources :game_detail
-  post 'pitcher' => 'pitchers#pitcher'
-  post 'batter' => 'batters#batter'
-  get 'batters', to: 'batters#index'
   get 'all_batters', to: 'batters#all'
   get 'al_batter', to: 'batters#al'
   get 'nl_batter', to: 'batters#nl'
@@ -34,7 +29,6 @@ Mlb::Application.routes.draw do
   get 'nl_pitcher', to: 'pitchers#nl'
   get 'pitchings', to: 'pitch_type_details#pitchings'
   get 'battings', to: 'pitch_type_details#battings'
-  get 'atbat', to: 'atbat#show'
 
   # get 'master_scoreboard' => 'master_scoreboard#index'
   # get 'master_scoreboard/show' => 'master_scoreboard#show'
