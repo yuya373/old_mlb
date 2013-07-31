@@ -11,16 +11,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-day = 1.upto(31).to_a
-month = 4.upto(7).to_a
+day = 1.upto(31)
+month = 4.upto(7)
 
-month.each do |month|
   day.each do |day|
     day = sprintf("%.2d",day)
     month = sprintf("%.2d",month)
-    Media.seed(2013,07,day)
+    Media.seed('2013',month,day)
   end
-end
+
+  Media.seed('2013','03','31')
 
 # Team.where(:team_id => ['110','111','141','139','147','120','121','143','144','146']).each do |team|
 #   team.update_attributes(division: 'e')
