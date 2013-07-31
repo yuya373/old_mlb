@@ -51,8 +51,8 @@ class Media < ActiveRecord::Base
             Media.create(@media)
           end
         end
-      rescue
       end
+    rescue
     end
   end
 
