@@ -13,6 +13,10 @@ class GamePitcher < ActiveRecord::Base
       home_team = gid.slice(18,6)
       num = gid.slice(25,1)
 
+      if num == '2'
+        GamePitcher.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
+      end
+
       url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/boxscore.xml"
       begin
         doc = Nokogiri::XML(open(url))

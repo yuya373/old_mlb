@@ -6,8 +6,9 @@
 / =debug @game.game_pitchers
 / =debug @atbat.first
 %ul.nav.nav-tabs
-  %li= link_to 'BoxScore',{controller: 'game', action: 'show'}
+  %li= link_to 'BoxScore',{controller: 'game', action: 'show', g_id: @g_id}
   %li= link_to 'Atbats', {controller: 'game', action: 'atbat', g_id: @g_id}
+  %li= link_to 'HighLights', {controller: 'media', action: 'show', g_id: @g_id}
 .hero-unit
   %h2= "#{@game.away_team_name_full} - #{@game.home_team_name_full}"
   %ul.inline

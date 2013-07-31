@@ -40,6 +40,10 @@ class PitchTypeDetail < ActiveRecord::Base
       home_team = gid.slice(18,6)
       num = gid.slice(25,1)
 
+      if num == '2'
+        PitchTendency.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
+      end
+
 
       p_id_url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
       begin

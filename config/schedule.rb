@@ -60,6 +60,8 @@ every 1.day, :at => '14:00' do
   sakura_runner "GameBatter.get"
   sakura_runner "GamePitcher.get"
   sakura_runner "LineScore.get"
+  sakura_runner "Media.get"
+  sakura_runner "Media.cg_get"
 end
 
 
@@ -76,5 +78,8 @@ every 1.day, :at => '16:00' do
   sakura_runner "GameBatter.get"
   sakura_runner "GamePitcher.get"
   sakura_runner "LineScore.get"
+  sakura_runner "Media.get"
+  sakura_runner "Media.cg_get"
+
 end
 
