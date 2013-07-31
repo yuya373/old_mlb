@@ -6,6 +6,7 @@ describe BattersController do
   end
 
   describe "#show" do
+
   end
 
 

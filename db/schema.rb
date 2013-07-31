@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130727084708) do
+ActiveRecord::Schema.define(version: 20130730225637) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -372,6 +372,21 @@ ActiveRecord::Schema.define(version: 20130727084708) do
   end
 
   add_index "line_scores", ["game_id"], name: "index_line_scores_on_game_id"
+
+  create_table "media", force: true do |t|
+    t.string   "game_id"
+    t.string   "home_team_id"
+    t.string   "away_team_id"
+    t.string   "media_type"
+    t.string   "date"
+    t.string   "headline"
+    t.string   "duration"
+    t.string   "thumb"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "sv_id"
+  end
 
   create_table "pitch_tendencies", force: true do |t|
     t.integer  "p_id"
