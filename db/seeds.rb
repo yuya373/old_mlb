@@ -11,11 +11,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-CSV.foreach("game_id.csv") do |row|
-  row.each do |gid|
-    Media.cg_seed(gid)
-  end
-end
+
+
+# CSV.foreach("game_id.csv") do |row|
+#   row.each do |gid|
+#     Media.cg_seed(gid)
+#   end
+# end
 
 
 # Team.get
