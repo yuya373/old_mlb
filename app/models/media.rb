@@ -196,9 +196,9 @@ class Media < ActiveRecord::Base
               url = m_url.text
             end
           end
-
+# 2013_07_30_arimlb-tbamlb-1
           @media = {
-            game_id: gid,
+            game_id: "#{year}_#{month}_#{day}_#{away_team}-#{home_team}-#{num}"
             sv_id: id,
             date: date,
             media_type: 'condensed',

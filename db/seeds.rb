@@ -30,16 +30,16 @@ end
 # GamePitcher.get
 # Atbat.get
 # LineScore.get
-day = 1.upto(31)
-month = 4.upto(7)
+# day = 1.upto(31)
+# month = 4.upto(7)
 
-month.each do |month|
-  day.each do |day|
-    day = sprintf("%.2d",day)
-    month = sprintf("%.2d",month)
-    Media.seed('2013',month,day)
-  end
-end
+# month.each do |month|
+#   day.each do |day|
+#     day = sprintf("%.2d",day)
+#     month = sprintf("%.2d",month)
+#     Media.seed('2013',month,day)
+#   end
+# end
 
 #   Media.seed('2013','03','31')
 

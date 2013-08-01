@@ -10,7 +10,13 @@
       %li.media
         .media-body
           %h4.media-heading= media.headline
-        .media-object
-          =video_tag media.url, controls: true, autoplay: false, autobuffer: true, size: '640x480'
+        -if media.media_type == 'condensed'
+          .media-object
+            =video_tag media.url, controls: true, autoplay: false, autobuffer: false, size: '480x320'
+            / '336'
+        -else
+          .media-object
+            =video_tag media.url, controls: true, autoplay: false, autobuffer: false
+            / , size: '640x360'
 
 
