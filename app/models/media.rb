@@ -198,7 +198,7 @@ class Media < ActiveRecord::Base
           end
 # 2013_07_30_arimlb-tbamlb-1
           @media = {
-            game_id: "#{year}_#{month}_#{day}_#{away_team}-#{home_team}-#{num}"
+            game_id: "#{year}_#{month}_#{day}_#{away_team}-#{home_team}-#{num}",
             sv_id: id,
             date: date,
             media_type: 'condensed',
