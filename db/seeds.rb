@@ -12,6 +12,10 @@ require 'open-uri'
 require 'csv'
 
 
+sakura_runner "Media.get"
+sakura_runner "Media.cg_get"
+
+
 
 # CSV.foreach("game_id.csv") do |row|
 #   row.each do |gid|
