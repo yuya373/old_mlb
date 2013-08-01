@@ -12,16 +12,16 @@ require 'open-uri'
 require 'csv'
 
 
-sakura_runner "Media.get"
-sakura_runner "Media.cg_get"
 
 
 
-# CSV.foreach("game_id.csv") do |row|
-#   row.each do |gid|
-#     Media.cg_seed(gid)
-#   end
-# end
+
+
+CSV.foreach("game_id.csv") do |row|
+  row.each do |gid|
+    Media.cg_seed(gid)
+  end
+end
 
 
 # Team.get
@@ -30,14 +30,16 @@ sakura_runner "Media.cg_get"
 # GamePitcher.get
 # Atbat.get
 # LineScore.get
-# day = 1.upto(31)
-# month = 4.upto(7)
+day = 1.upto(31)
+month = 4.upto(7)
 
-#   day.each do |day|
-#     day = sprintf("%.2d",day)
-#     month = sprintf("%.2d",month)
-#     Media.seed('2013',month,day)
-#   end
+month.each do |month|
+  day.each do |day|
+    day = sprintf("%.2d",day)
+    month = sprintf("%.2d",month)
+    Media.seed('2013',month,day)
+  end
+end
 
 #   Media.seed('2013','03','31')
 
