@@ -24,6 +24,9 @@ gem 'twitter-bootswatch-rails'
 gem 'twitter-bootswatch-rails-fontawesome'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'yaml_db'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'rails_config'
 
 group :production do
   gem 'rails_12factor'

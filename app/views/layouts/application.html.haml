@@ -33,8 +33,10 @@
               %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
               %li= link_to 'Team', team_path
               %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
-              %li
-              %li
+              -if current_user
+                %li= link_to 'SignOut', '/signout'
+              -else
+                %li= link_to 'SignIn', '/auth/facebook'
               %li
               %li
               %li

@@ -50,7 +50,7 @@ class LineScore < ActiveRecord::Base
 
         line.each do |line|
           @score = {
-            game_id: gid,
+            game_id: gid.tr('-','_'),
             inning: line.attribute('inning').text,
             home: line.attribute('home_inning_runs').text,
             away: line.attribute('away_inning_runs').text,
@@ -110,7 +110,7 @@ class LineScore < ActiveRecord::Base
 
       line.each do |line|
         @score = {
-          game_id: gid,
+          game_id: gid.tr('-','_'),
           inning: line.attribute('inning').text,
           home: line.attribute('home_inning_runs').text,
           away: line.attribute('away_inning_runs').text,

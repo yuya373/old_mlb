@@ -19,7 +19,7 @@ class Media < ActiveRecord::Base
         high.css('media').each do |media|
           home_team_id = high.attribute('home_team_id').text
           away_team_id = high.attribute('away_team_id').text
-          game_id = high.attribute('id').text.tr('/','_')
+          game_id = high.attribute('id').text.tr('/','_').tr('-','_')
 
 
           media_type = media.attribute('type').text
@@ -68,7 +68,7 @@ class Media < ActiveRecord::Base
         high.css('media').each do |media|
           home_team_id = high.attribute('home_team_id').text
           away_team_id = high.attribute('away_team_id').text
-          game_id = high.attribute('id').text.tr('/','_')
+          game_id = high.attribute('id').text.tr('/','_').tr('-','_')
 
 
           media_type = media.attribute('type').text
@@ -144,7 +144,7 @@ class Media < ActiveRecord::Base
             end
 
             @media = {
-              game_id: gid,
+              game_id: gid.tr('-','_'),
               sv_id: id,
               date: date,
               media_type: 'condensed',
@@ -198,7 +198,7 @@ class Media < ActiveRecord::Base
           end
 # 2013_07_30_arimlb-tbamlb-1
           @media = {
-            game_id: "#{year}_#{month}_#{day}_#{away_team}-#{home_team}-#{num}",
+            game_id: "#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}",
             sv_id: id,
             date: date,
             media_type: 'condensed',

@@ -27,7 +27,7 @@ class GameBatter < ActiveRecord::Base
 
         batter_h.each do |b|
           @batter = {}
-          @batter[:game_id] = gid
+          @batter[:game_id] = gid.tr('-','_')
           @batter[:team_flag] = batting[0].attribute('team_flag').text
           key = b.keys.to_a
           key.each do |k|
@@ -49,7 +49,7 @@ class GameBatter < ActiveRecord::Base
 
         batter_a.each do |b|
           @batter = {}
-          @batter[:game_id] = gid
+          @batter[:game_id] = gid.tr('-','_')
           @batter[:team_flag] = batting[1].attribute('team_flag').text
           key = b.keys.to_a
           key.each do |k|
@@ -89,7 +89,7 @@ class GameBatter < ActiveRecord::Base
 
       batter_h.each do |b|
         @batter = {}
-        @batter[:game_id] = gid
+        @batter[:game_id] = gid.tr('-','_')
         @batter[:team_flag] = batting[0].attribute('team_flag').text
         key = b.keys.to_a
         key.each do |k|
@@ -111,7 +111,7 @@ class GameBatter < ActiveRecord::Base
 
       batter_a.each do |b|
         @batter = {}
-        @batter[:game_id] = gid
+        @batter[:game_id] = gid.tr('-','_')
         @batter[:team_flag] = batting[1].attribute('team_flag').text
         key = b.keys.to_a
         key.each do |k|

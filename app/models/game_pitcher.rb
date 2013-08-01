@@ -26,7 +26,7 @@ class GamePitcher < ActiveRecord::Base
 
         pitcher_h.each do |b|
           @pitcher = {}
-          @pitcher[:game_id] = gid
+          @pitcher[:game_id] = gid.tr('-','_')
           @pitcher[:team_flag] = pitching[0].attribute('team_flag').text
           key = b.keys.to_a
           key.each do |k|
@@ -50,7 +50,7 @@ class GamePitcher < ActiveRecord::Base
 
         pitcher_a.each do |b|
           @pitcher = {}
-          @pitcher[:game_id] = gid
+          @pitcher[:game_id] = gid.tr('-','_')
           @pitcher[:team_flag] = pitching[1].attribute('team_flag').text
           key = b.keys.to_a
           key.each do |k|
@@ -92,7 +92,7 @@ class GamePitcher < ActiveRecord::Base
 
       pitcher_h.each do |b|
         @pitcher = {}
-        @pitcher[:game_id] = gid
+        @pitcher[:game_id] = gid.tr('-','_')
         @pitcher[:team_flag] = pitching[0].attribute('team_flag').text
         key = b.keys.to_a
         key.each do |k|
@@ -116,7 +116,7 @@ class GamePitcher < ActiveRecord::Base
 
       pitcher_a.each do |b|
         @pitcher = {}
-        @pitcher[:game_id] = gid
+        @pitcher[:game_id] = gid.tr('-','_')
         @pitcher[:team_flag] = pitching[1].attribute('team_flag').text
         key = b.keys.to_a
         key.each do |k|

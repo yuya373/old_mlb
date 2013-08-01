@@ -1,4 +1,10 @@
 Mlb::Application.routes.draw do
+  get "users/show"
+  get "users/index"
+  get "/auth/:provider/callback" => "sessions#create"
+  get "/signout" => "sessions#destroy"
+  get "sessions/create"
+  get "sessions/destroy"
   resources :examples
 
   root to: 'team#index'
