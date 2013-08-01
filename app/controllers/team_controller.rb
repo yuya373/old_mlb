@@ -66,7 +66,7 @@ class TeamController < ApplicationController
     @home_game = @team.home_team_game.order('updated_at asc').limit(5)
     @of_batter = @team.batters.of_batter
     @if_batter = @team.batters.if_batter
-    @team_pitcher = @team.pitchers
+    @team_pitcher = @team.pitchers.order('ip desc')
 
   end
 
