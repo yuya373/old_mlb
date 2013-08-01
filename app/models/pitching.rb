@@ -60,7 +60,7 @@ class Pitching < ActiveRecord::Base
           b = atbat.attribute('batter').text
           atbat.css('pitch').each do |pitch|
             @pitching = {}
-            @pitching[:game_id] = gid
+            @pitching[:game_id] = gid.tr('-','_')
             @pitching[:num] = atbat_num
             @pitching[:pitcher_id] = p
             @pitching[:batter_id] = b
@@ -112,7 +112,7 @@ class Pitching < ActiveRecord::Base
         b = atbat.attribute('batter').text
         atbat.css('pitch').each do |pitch|
           @pitching = {}
-          @pitching[:game_id] = gid
+          @pitching[:game_id] = gid.tr('-','_')
           @pitching[:num] = atbat_num
           @pitching[:pitcher_id] = p
           @pitching[:batter_id] = b

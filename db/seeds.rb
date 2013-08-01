@@ -36,6 +36,16 @@ Media.find_each do |media|
   media.update_attributes(game_id: g_id)
 end
 
+Atbat.find_each do |atbat|
+  g_id = atbat.game_id.tr('-','_')
+  atbat.update_attributes(game_id: g_id)
+end
+
+Pitching.find_each do |pit|
+  g_id = pit.game_id.tr('-','_')
+  pit.update_attributes(game_id: g_id)
+end
+
 
 
 

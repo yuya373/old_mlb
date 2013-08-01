@@ -69,7 +69,7 @@ class Atbat < ActiveRecord::Base
 
         atbat.each do |atbat|
           @at_bat = {
-            game_id: gid,
+            game_id: gid.tr('-','_'),
             num: atbat.attribute('num').text,
             inning: atbat.parent.parent.attribute('num').text,
             t_b: atbat.parent.node_name,
@@ -166,7 +166,7 @@ class Atbat < ActiveRecord::Base
 
       atbat.each do |atbat|
         @at_bat = {
-          game_id: gid,
+          game_id: gid.tr('-','_'),
           num: atbat.attribute('num').text,
           inning: atbat.parent.parent.attribute('num').text,
           t_b: atbat.parent.node_name,
