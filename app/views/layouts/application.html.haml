@@ -84,7 +84,11 @@
         %li.text-center W:勝
         %li.text-center WP:暴投
     .container-fluid
-
+      -if notice
+        .span6
+          .alert.alert-info= notice
+      / -if flash[:notice]
+      /   = flash[:notice]
       .row-fluid
         = yield
 

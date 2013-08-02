@@ -1,6 +1,8 @@
 class PitchersController < ApplicationController
+  after_filter :flush, only: [:all, :al, :nl]
 
-  def index
+  def flush
+    flash[:notice] = when_updated(@pitcher.first)
   end
 
 

@@ -16,35 +16,35 @@ Game.find_each do |game|
   game.update_attributes(gameday: g_id)
 end
 
-LineScore.find_each do |line|
-  g_id = line.game_id.tr('-','_')
-  line.update_attributes(game_id: g_id)
-end
+# LineScore.find_each do |line|
+#   g_id = line.game_id.tr('-','_')
+#   line.update_attributes(game_id: g_id)
+# end
 
-GamePitcher.find_each do |pit|
-  g_id = pit.game_id.tr('-','_')
-  pit.update_attributes(game_id: g_id)
-end
+# GamePitcher.find_each do |pit|
+#   g_id = pit.game_id.tr('-','_')
+#   pit.update_attributes(game_id: g_id)
+# end
 
-GameBatter.find_each do |bat|
-  g_id = bat.game_id.tr('-','_')
-  bat.update_attributes(game_id: g_id)
-end
+# GameBatter.find_each do |bat|
+#   g_id = bat.game_id.tr('-','_')
+#   bat.update_attributes(game_id: g_id)
+# end
 
-Media.find_each do |media|
-  g_id = media.game_id.tr('-','_')
-  media.update_attributes(game_id: g_id)
-end
+# Media.find_each do |media|
+#   g_id = media.game_id.tr('-','_')
+#   media.update_attributes(game_id: g_id)
+# end
 
-Atbat.find_each do |atbat|
-  g_id = atbat.game_id.tr('-','_')
-  atbat.update_attributes(game_id: g_id)
-end
+# Atbat.find_each do |atbat|
+#   g_id = atbat.game_id.tr('-','_')
+#   atbat.update_attributes(game_id: g_id)
+# end
 
-Pitching.find_each do |pit|
-  g_id = pit.game_id.tr('-','_')
-  pit.update_attributes(game_id: g_id)
-end
+# Pitching.find_each do |pit|
+#   g_id = pit.game_id.tr('-','_')
+#   pit.update_attributes(game_id: g_id)
+# end
 
 
 

@@ -1,43 +1,44 @@
-%ul.nav.nav-tabs
-  %li.dropdown
-    %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
-      Team
-      %b.caret
-    %ul.dropdown-menu
-      %li= link_to 'MLB', {:controller => 'team', :action => 'all_hitting'}
-      %li= link_to 'AL', {:controller => 'team', :action => 'al_hitting'}
-      %li= link_to 'NL', {:controller => 'team', :action => 'nl_hitting'}
-  %li.dropdown
-    %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
-      Batter
-      %b.caret
-    %ul.dropdown-menu
-      %li= link_to 'MLB', {:controller => 'batters', :action => 'all'}
-      %li= link_to 'AL', {:controller => 'batters', :action => 'al'}
-      %li= link_to 'NL', {:controller => 'batters', :action => 'nl'}
-  %li.dropdown
-    %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
-      Pitcher
-      %b.caret
-    %ul.dropdown-menu
-      %li= link_to 'MLB', {:controller => 'pitchers', :action => 'all'}
-      %li= link_to 'AL', {:controller => 'pitchers', :action => 'al'}
-      %li= link_to 'NL', {:controller => 'pitchers', :action => 'nl'}
-  %li.dropdown
-    %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
-      球種別
-      %b.caret
-    %ul.dropdown-menu
-      %li= link_to 'Pitcher', {:controller => 'pitch_type_details', :action => 'pitchings'}
-      %li= link_to 'Batter', {:controller => 'pitch_type_details', :action => 'battings'}
 .span12
-  - if @team
-    = when_updated(@team.first)
-  - elsif @r_pitcher
-    = when_updated(@r_pitcher.first)
-  - elsif @r_atbat
-    = when_updated(@r_atbat.first)
-/ - elsif @pitchings
-/   .alert.alert-info= when_updated(@pitchings.first)
+  %ul.nav.nav-tabs
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        Team
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'MLB', {:controller => 'team', :action => 'all_hitting'}
+        %li= link_to 'AL', {:controller => 'team', :action => 'al_hitting'}
+        %li= link_to 'NL', {:controller => 'team', :action => 'nl_hitting'}
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        Batter
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'MLB', {:controller => 'batters', :action => 'all'}
+        %li= link_to 'AL', {:controller => 'batters', :action => 'al'}
+        %li= link_to 'NL', {:controller => 'batters', :action => 'nl'}
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        Pitcher
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'MLB', {:controller => 'pitchers', :action => 'all'}
+        %li= link_to 'AL', {:controller => 'pitchers', :action => 'al'}
+        %li= link_to 'NL', {:controller => 'pitchers', :action => 'nl'}
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        球種別
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'Pitcher', {:controller => 'pitch_type_details', :action => 'pitchings'}
+        %li= link_to 'Batter', {:controller => 'pitch_type_details', :action => 'battings'}
+  / .span12
+  /   - if @team
+  /     = when_updated(@team.first)
+  /   - elsif @r_pitcher
+  /     = when_updated(@r_pitcher.first)
+  /   - elsif @r_atbat
+  /     = when_updated(@r_atbat.first)
+  / - elsif @pitchings
+  /   .alert.alert-info= when_updated(@pitchings.first)
 
 

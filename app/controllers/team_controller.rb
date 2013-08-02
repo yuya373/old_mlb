@@ -1,5 +1,9 @@
 class TeamController < ApplicationController
+  after_filter :flush, only: [:all_hitting, :all_pitching, :al_hitting, :al_pitching, :nl_hitting, :nl_pitching]
 
+  def flush
+    flash[:notice] = when_updated(@team.first)
+  end
 
   def all_hitting
     @sort = sort('tb_avg')
@@ -7,6 +11,7 @@ class TeamController < ApplicationController
     @direction = @sort[1]
 
     @team = Team.all.stats(@item,@direction).batting
+
   end
 
   def all_pitching
@@ -15,6 +20,7 @@ class TeamController < ApplicationController
     @direction = @sort[1]
 
     @team = Team.all.stats(@item,@direction).pitching
+
   end
   def al_hitting
     @sort = sort('tb_avg')
@@ -53,6 +59,7 @@ class TeamController < ApplicationController
 
   def index
     @team = Team.first
+    flash[:notice] = when_updated(@team)
     @ale_team = Team.al.division('e').order_by_win_pct
     @alc_team = Team.al.division('c').order_by_win_pct
     @alw_team = Team.al.division('w').order_by_win_pct
