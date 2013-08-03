@@ -5,20 +5,9 @@ class FavoritesController < ApplicationController
   # GET /favorites.json
   def index
     if current_user
-      @favorites = current_user.favorites
-
-      @pitcher = []
-      @batter = []
-      @team = []
-      @favorites.each do |fav|
-        if fav.c_type == 'p'
-          @pitcher << fav.pitcher
-        elsif fav.c_type == 'b'
-          @batter << fav.batter
-        elsif fav.c_type == 't'
-          @team << fav.team
-        end
-      end
+     @fav_team = current_user.team_favorites
+     @fav_pitcher = current_user.pitcher_favorites
+     @fav_batter = current_user.batter_favorites
     else
     end
   end

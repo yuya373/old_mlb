@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130803051108) do
+ActiveRecord::Schema.define(version: 20130803172943) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20130803051108) do
   add_index "atbats", ["game_id_num"], name: "index_atbats_on_game_id_num"
   add_index "atbats", ["pitcher_id"], name: "index_atbats_on_pitcher_id"
   add_index "atbats", ["pitcher_name"], name: "index_atbats_on_pitcher_name"
+
+  create_table "batter_favorites", force: true do |t|
+    t.integer  "batter_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "batters", force: true do |t|
     t.integer  "p_id"
@@ -451,6 +458,13 @@ ActiveRecord::Schema.define(version: 20130803051108) do
   add_index "pitch_type_details", ["p_id"], name: "index_pitch_type_details_on_p_id"
   add_index "pitch_type_details", ["p_id_ty", "p_b"], name: "index_pitch_type_details_on_p_id_ty_and_p_b"
 
+  create_table "pitcher_favorites", force: true do |t|
+    t.integer  "pitcher_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pitchers", force: true do |t|
     t.integer  "p_id"
     t.string   "name"
@@ -695,6 +709,13 @@ ActiveRecord::Schema.define(version: 20130803051108) do
   add_index "pitchings", ["game_id"], name: "index_pitchings_on_game_id"
   add_index "pitchings", ["game_id_num"], name: "index_pitchings_on_game_id_num"
   add_index "pitchings", ["game_id_num_id"], name: "index_pitchings_on_game_id_num_id"
+
+  create_table "team_favorites", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "teams", force: true do |t|
     t.string   "team_name"

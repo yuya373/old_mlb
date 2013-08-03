@@ -8,6 +8,5 @@ describe Pitcher do
   it {should have_many(:pitch_tendencies)}
   it {should validate_uniqueness_of(:p_id)}
   it {should have_db_index(:p_id)}
-  it {should have_one(:favorite)}
-
+  it {should have_many(:pitcher_favorites)}
 end

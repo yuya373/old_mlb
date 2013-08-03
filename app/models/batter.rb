@@ -8,8 +8,7 @@ class Batter < ActiveRecord::Base
   has_many :pitchings, :foreign_key => 'batter_id'
   has_many :pitch_type_details, :foreign_key => 'p_id'
   has_many :atbats, :foreign_key => 'batter_id'
-  has_one :favorite, foreign_key: 'b_id'
-
+  has_many :batter_favorites
 
   scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}
   scope :if_batter, lambda{where('pos = ? or pos = ? or pos = ? or pos = ? or pos = ? or pos = ?', '1B', '2B', '3B', 'SS', 'C', 'D').order('pos')}

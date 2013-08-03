@@ -9,5 +9,5 @@ describe Batter do
 
   it {should have_db_index(:p_id)}
   it {should have_db_index(:team_id)}
-  it {should have_one(:favorite)}
+  it {should have_many(:batter_favorites)}
 end

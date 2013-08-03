@@ -14,7 +14,7 @@
         %li= "ポジション:#{@batter.pos}"
         / %li= "#{@year}/#{@month}/#{@day} 現在"
       -if current_user
-        =button_to '★ Fav', {controller: 'favorites', action: 'create', favorite: { b_id: @batter.p_id, user_id: current_user.id, c_type: 'b' }}, method: :post, class: "btn btn-small pull-right"
+        =button_to '★ Fav', {controller: 'batter_favorites', action: 'create', favorite: { batter_id: @batter.p_id, user_id: current_user.id,  }}, method: :post, class: "btn btn-small pull-right"
     .span12
       %h5 成績
       %table.table.table-striped

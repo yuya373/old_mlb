@@ -4,15 +4,15 @@
 -if current_user
   .span10
     %h2 Your favorites
-    -if @team.any?
+    -if @fav_team.any?
       .hero-unit
         %h3 Teams
-        -@team.each do |team|
+        -@fav_team.each do |fav|
           .hero-unit
-            .btn.btn-mini.pull-right= link_to "Delete", {controller: 'favorites', action: 'destroy', id: team.favorite.id}, method: :delete
+            .btn.btn-mini.pull-right= link_to "Delete", {controller: 'team_favorites', action: 'destroy', id: fav.id}, method: :delete
             %h4
-              =link_to team.team_name, {controller: "team", action: "show", team_id: team.team_id}
-              %small= "#{team.tp_w}wins/#{team.tp_l}loses - #{team.win_pct.round(3)}"
+              =link_to fav.team.team_name, {controller: "team", action: "show", team_id: fav.team.team_id}
+              %small= "#{fav.team.tp_w}wins/#{fav.team.tp_l}loses - #{fav.team.win_pct.round(3)}"
             %h5 Batting
             %table.table.table-striped
               %thead
@@ -29,16 +29,16 @@
                   %th SB
               %tbody
                 %tr
-                  %td= team.tb_avg
-                  %td= team.tb_slg
-                  %td= team.tb_obp
-                  %td= team.tb_ops
-                  %td= team.tb_hr
-                  %td= team.tb_rbi
-                  %td= team.tb_sac
-                  %td= team.tb_bb
-                  %td= team.tb_so
-                  %td= team.tb_sb
+                  %td= fav.team.tb_avg
+                  %td= fav.team.tb_slg
+                  %td= fav.team.tb_obp
+                  %td= fav.team.tb_ops
+                  %td= fav.team.tb_hr
+                  %td= fav.team.tb_rbi
+                  %td= fav.team.tb_sac
+                  %td= fav.team.tb_bb
+                  %td= fav.team.tb_so
+                  %td= fav.team.tb_sb
             %h5 Pitching
             %table.table.table-striped
               %thead
@@ -55,17 +55,17 @@
                   %th SVO
               %tbody
                 %tr
-                  %td= team.tp_era
-                  %td= team.tp_whip
-                  %td= team.tp_hr
-                  %td= team.tp_bb
-                  %td= team.tp_so
-                  %td= team.tp_h
-                  %td= team.tp_sho
-                  %td= team.tp_sv
-                  %td= team.tp_bsv
-                  %td= team.tp_svo
-    -if @pitcher.any?
+                  %td= fav.team.tp_era
+                  %td= fav.team.tp_whip
+                  %td= fav.team.tp_hr
+                  %td= fav.team.tp_bb
+                  %td= fav.team.tp_so
+                  %td= fav.team.tp_h
+                  %td= fav.team.tp_sho
+                  %td= fav.team.tp_sv
+                  %td= fav.team.tp_bsv
+                  %td= fav.team.tp_svo
+    -if @fav_pitcher.any?
       .hero-unit
         %h3 Pitchers
         %table.table.table-striped
@@ -86,24 +86,24 @@
               %th SO
               %th
           %tbody
-            -@pitcher.each do |pitcher|
+            -@fav_pitcher.each do |fav|
               %tr
-                %td=link_to pitcher.name_display_first_last,{controller: 'pitchers', action: 'show', p_id: pitcher.p_id}
-                %td= pitcher.team.team_abbrev
-                %td= pitcher.era_sort.round(3)
-                %td= pitcher.avg_sort.round(3)
-                %td= pitcher.whip_sort.round(3)
-                %td= pitcher.ip
-                %td= pitcher.r
-                %td= pitcher.er
-                %td= pitcher.h
-                %td= pitcher.hr
-                %td= pitcher.bb
-                %td= pitcher.ibb
-                %td= pitcher.so
+                %td=link_to fav.pitcher.name_display_first_last,{controller: 'pitchers', action: 'show', p_id: fav.pitcher.p_id}
+                %td= fav.pitcher.team.team_abbrev
+                %td= fav.pitcher.era_sort.round(3)
+                %td= fav.pitcher.avg_sort.round(3)
+                %td= fav.pitcher.whip_sort.round(3)
+                %td= fav.pitcher.ip
+                %td= fav.pitcher.r
+                %td= fav.pitcher.er
+                %td= fav.pitcher.h
+                %td= fav.pitcher.hr
+                %td= fav.pitcher.bb
+                %td= fav.pitcher.ibb
+                %td= fav.pitcher.so
                 %td
-                  .btn.btn-mini= link_to 'Delete', {controller: :favorites, action: :destroy, id: pitcher.favorite.id}, method: :delete
-    -if @batter.any?
+                  .btn.btn-mini= link_to 'Delete', {controller: :pitcher_favorites, action: :destroy, id: fav.id}, method: :delete
+    -if @fav_batter.any?
       .hero-unit
         %h3 Batters
         %table.table.table-striped
@@ -128,29 +128,29 @@
               %th CS
               %th
           %tbody
-            -@batter.each do |batter|
+            -@fav_batter.each do |fav|
               %tr
-                %td=link_to batter.name_display_first_last, {controller: :batters, action: :show, p_id: batter.p_id}
-                %td= batter.team.team_abbrev
-                %td= batter.avg_sort.round(3)
-                %td= batter.obp_sort.round(3)
-                %td= batter.slg_sort.round(3)
-                %td= batter.ops_sort.round(3)
-                %td= batter.ab
-                %td= batter.h
-                %td= batter.b2
-                %td= batter.b3
-                %td= batter.hr
-                %td= batter.rbi
-                %td= batter.r
-                %td= batter.bb
-                %td= batter.so
-                %td= batter.sb
-                %td= batter.cs
+                %td=link_to fav.batter.name_display_first_last, {controller: :batters, action: :show, p_id: fav.batter.p_id}
+                %td= fav.batter.team.team_abbrev
+                %td= fav.batter.avg_sort.round(3)
+                %td= fav.batter.obp_sort.round(3)
+                %td= fav.batter.slg_sort.round(3)
+                %td= fav.batter.ops_sort.round(3)
+                %td= fav.batter.ab
+                %td= fav.batter.h
+                %td= fav.batter.b2
+                %td= fav.batter.b3
+                %td= fav.batter.hr
+                %td= fav.batter.rbi
+                %td= fav.batter.r
+                %td= fav.batter.bb
+                %td= fav.batter.so
+                %td= fav.batter.sb
+                %td= fav.batter.cs
                 %td
-                  .btn.btn-mini= link_to "Delete", {controller: :favorites, action: :destroy, id: batter.favorite.id}, method: :delete
+                  .btn.btn-mini= link_to "Delete", {controller: :batter_favorites, action: :destroy, id: fav.id}, method: :delete
 
-    -if @team.blank? && @pitcher.blank? && @batter.blank?
+    -if @fav_team.blank? && @fav_pitcher.blank? && @fav_batter.blank?
       %p.lead Please Add Your Favorite Players or Teams
 -else
   .span10

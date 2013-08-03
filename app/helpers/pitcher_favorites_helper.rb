@@ -1,0 +1,2 @@
+module PitcherFavoritesHelper
+end

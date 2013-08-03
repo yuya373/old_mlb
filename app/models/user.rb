@@ -4,8 +4,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   validates_uniqueness_of :uid, scope: :provider
-  has_many :favorites
-
+  has_many :pitcher_favorites
+  has_many :batter_favorites
+  has_many :team_favorites
 
   def self.create_with_omniauth(auth)
     create! do |user|

@@ -7,6 +7,5 @@ describe Team do
   it {should have_many(:away_team_game).class_name('Game')}
 
   it {should have_db_index(:team_id)}
-  it {should have_one(:favorite)}
-
+  it {should have_many(:team_favorites)}
 end

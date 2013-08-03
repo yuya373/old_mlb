@@ -1,6 +1,8 @@
 Mlb::Application.routes.draw do
   resources :favorites
-
+  resources :batter_favorites
+  resources :pitcher_favorites
+  resources :team_favorites
   get "users/show"
   get "users/index"
   get "/auth/:provider/callback" => "sessions#create"
