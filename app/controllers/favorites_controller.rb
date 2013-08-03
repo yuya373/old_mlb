@@ -46,7 +46,8 @@ class FavoritesController < ApplicationController
       if @favorite.save
         format.html { redirect_to :back, notice: ' Added your favorite successfully.' }
       else
-
+        format.html { redirect_to :back, notice: "同じ選手または同じチームは重複して選べません。"}
+        p @favorite.errors
       end
     end
   end
