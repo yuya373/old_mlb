@@ -11,47 +11,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Game.find_each do |game|
-  g_id = game.gameday.tr('-','_')
-  game.update_attributes(gameday: g_id)
-end
-
-# LineScore.find_each do |line|
-#   g_id = line.game_id.tr('-','_')
-#   line.update_attributes(game_id: g_id)
-# end
-
-# GamePitcher.find_each do |pit|
-#   g_id = pit.game_id.tr('-','_')
-#   pit.update_attributes(game_id: g_id)
-# end
-
-# GameBatter.find_each do |bat|
-#   g_id = bat.game_id.tr('-','_')
-#   bat.update_attributes(game_id: g_id)
-# end
-
-# Media.find_each do |media|
-#   g_id = media.game_id.tr('-','_')
-#   media.update_attributes(game_id: g_id)
-# end
-
-# Atbat.find_each do |atbat|
-#   g_id = atbat.game_id.tr('-','_')
-#   atbat.update_attributes(game_id: g_id)
-# end
-
-# Pitching.find_each do |pit|
-#   g_id = pit.game_id.tr('-','_')
-#   pit.update_attributes(game_id: g_id)
-# end
-
-
-
-
-
-
-
 
 
 
@@ -113,11 +72,11 @@ end
 # end
 
 
-# CSV.foreach("game_id.csv") do |row|
-#   row.each do |gid|
-#     Atbat.seed(gid)
-#   end
-# end
+CSV.foreach("game_id.csv") do |row|
+  row.each do |gid|
+   Media.cg_seed(gid)
+  end
+end
 
 # Pitching.delete_all
 # Atbat.where('game_id like ?',"2013/07/14%").delete_all
