@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def when_updated(obj)
-   "updated at: #{l(obj[:updated_at])}"
+   "updated at: #{l(obj.updated_at)}"
   end
 
   def sort(default)
