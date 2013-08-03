@@ -65,7 +65,7 @@
                   %td= team.tp_sv
                   %td= team.tp_bsv
                   %td= team.tp_svo
-    -elsif @pitcher.any?
+    -if @pitcher.any?
       .hero-unit
         %h3 Pitchers
         %table.table.table-striped
@@ -103,7 +103,7 @@
                 %td= pitcher.so
                 %td
                   .btn.btn-mini= link_to 'Delete', {controller: :favorites, action: :destroy, id: pitcher.favorite.id}, method: :delete
-    -elsif @batter.any?
+    -if @batter.any?
       .hero-unit
         %h3 Batters
         %table.table.table-striped
@@ -150,7 +150,7 @@
                 %td
                   .btn.btn-mini= link_to "Delete", {controller: :favorites, action: :destroy, id: batter.favorite.id}, method: :delete
 
-    -else
+    -if @team.blank? && @pitcher.blank? && @batter.blank?
       %p.lead Please Add Your Favorite Players or Teams
 -else
   .span10
