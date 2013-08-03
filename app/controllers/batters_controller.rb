@@ -3,7 +3,7 @@ class BattersController < ApplicationController
 
 
   def flush
-    flash[:notice] = when_updated(@r_atbat.first)
+    flash.now[:update] = when_updated(@r_atbat.first)
   end
 
   def r_batter(batter)

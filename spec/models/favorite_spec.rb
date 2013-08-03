@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Favorite do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it {should belong_to(:user)}
+  it {should belong_to(:team)}
+  it {should belong_to(:pitcher)}
+  it {should belong_to(:batter)}
 end

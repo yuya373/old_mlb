@@ -33,62 +33,59 @@
               %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
               %li= link_to 'Team', team_path
               %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
+              %li= link_to 'Your Fav', {controller: 'favorites', action: 'index'}
               -if current_user
                 %li= link_to 'SignOut', '/signout'
               -else
                 %li= link_to 'SignIn', '/auth/facebook'
-              %li
-              %li
-              %li
-              %li
 
-    .btn-group.pull-right
-      %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
-        Info
-        %span.caret
-      %ul.dropdown-menu
-        %li.text-center B2:2塁打
-        %li.text-center B3:3塁打
-        %li.text-center AB:打数
-        %li.text-center AO:フライアウト
-        %li.text-center AVG:打率
-        %li.text-center BB:四球
-        %li.text-center BF:対戦打者数
-        %li.text-center BK:ボーク
-        %li.text-center BSV:セーブ失敗
-        %li.text-center CG:完投
-        %li.text-center CS:盗塁死
-        %li.text-center ERA:防御率
-        %li.text-center GO:ゴロアウト
-        %li.text-center GIDP:併殺
-        %li.text-center GS:先発回数
-        %li.text-center H:ヒット
-        %li.text-center HB:与死球
-        %li.text-center HR:本塁打
-        %li.text-center IBB:故意四球
-        %li.text-center IP:投球回
-        %li.text-center L:負
-        %li.text-center LOB:残塁数
-        %li.text-center NP:球数
-        %li.text-center OBP:出塁率
-        %li.text-center SAC:犠打
-        %li.text-center SB:盗塁
-        %li.text-center SF:犠牲フライ
-        %li.text-center SHO:完封
-        %li.text-center SLG:長打率
-        %li.text-center SO:三振
-        %li.text-center SV:セーブ
-        %li.text-center SVO:セーブ機会
-        %li.text-center TB:塁打数
-        %li.text-center TPA:総打席数
-        %li.text-center W:勝
-        %li.text-center WP:暴投
     .container-fluid
+      .span1.pull-right
+        .btn-group.pull-right
+          %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+            Info
+            %span.caret
+          %ul.dropdown-menu
+            %li.text-center B2:2塁打
+            %li.text-center B3:3塁打
+            %li.text-center AB:打数
+            %li.text-center AO:フライアウト
+            %li.text-center AVG:打率
+            %li.text-center BB:四球
+            %li.text-center BF:対戦打者数
+            %li.text-center BK:ボーク
+            %li.text-center BSV:セーブ失敗
+            %li.text-center CG:完投
+            %li.text-center CS:盗塁死
+            %li.text-center ERA:防御率
+            %li.text-center GO:ゴロアウト
+            %li.text-center GIDP:併殺
+            %li.text-center GS:先発回数
+            %li.text-center H:ヒット
+            %li.text-center HB:与死球
+            %li.text-center HR:本塁打
+            %li.text-center IBB:故意四球
+            %li.text-center IP:投球回
+            %li.text-center L:負
+            %li.text-center LOB:残塁数
+            %li.text-center NP:球数
+            %li.text-center OBP:出塁率
+            %li.text-center SAC:犠打
+            %li.text-center SB:盗塁
+            %li.text-center SF:犠牲フライ
+            %li.text-center SHO:完封
+            %li.text-center SLG:長打率
+            %li.text-center SO:三振
+            %li.text-center SV:セーブ
+            %li.text-center SVO:セーブ機会
+            %li.text-center TB:塁打数
+            %li.text-center TPA:総打席数
+            %li.text-center W:勝
+            %li.text-center WP:暴投
       -if notice
-        .span6
-          .alert.alert-info= notice
-      / -if flash[:notice]
-      /   = flash[:notice]
+        .alert.alert-info.span6.text-center= notice
+      -if flash[:update]
+        .alert.span3.text-center= flash[:update]
       .row-fluid
         = yield
 

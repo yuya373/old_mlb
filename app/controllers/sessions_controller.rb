@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     else
       User.create_with_omniauth(auth)
     end
-      redirect_to root_path, notice: "Signed In!"
+      redirect_to :back, notice: "Signed In!"
   end
 
   def destroy

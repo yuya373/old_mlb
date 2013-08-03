@@ -6,6 +6,7 @@ class Team < ActiveRecord::Base
   has_many :pitchers, :foreign_key => 'team_id'
   has_many :home_team_game, :foreign_key => 'home_team_id', :class_name => 'Game'
   has_many :away_team_game, :foreign_key => 'away_team_id', :class_name => 'Game'
+  has_one :favorite, foreign_key: 'team_id'
 
 
 

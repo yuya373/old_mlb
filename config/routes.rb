@@ -1,4 +1,6 @@
 Mlb::Application.routes.draw do
+  resources :favorites
+
   get "users/show"
   get "users/index"
   get "/auth/:provider/callback" => "sessions#create"
@@ -6,7 +8,7 @@ Mlb::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
   resources :examples
-
+  resources :favorites
   root to: 'team#index'
   get 'batter/:p_id' => 'batters#show'
   get 'pitcher/:p_id' => 'pitchers#show'

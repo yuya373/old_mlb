@@ -2,7 +2,7 @@ class PitchersController < ApplicationController
   after_filter :flush, only: [:all, :al, :nl]
 
   def flush
-    flash[:notice] = when_updated(@pitcher.first)
+    flash.now[:update] = when_updated(@pitcher.first)
   end
 
 

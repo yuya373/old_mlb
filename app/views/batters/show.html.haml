@@ -1,7 +1,7 @@
 / =debug @batter
 / =debug @atbat
 .row-fluid
-  .span12
+  .span10
     .hero-unit
       %p.text-right= link_to @batter.team.team_name, {:controller => 'team', :action => 'show', :team_id => @batter.team_id}
       %h2= @batter.name_display_first_last
@@ -13,6 +13,8 @@
         %li= "#{t(@batter[:throws])}投#{t(@batter[:bats])}打"
         %li= "ポジション:#{@batter.pos}"
         / %li= "#{@year}/#{@month}/#{@day} 現在"
+      -if current_user
+        =button_to '★ Fav', {controller: 'favorites', action: 'create', favorite: { b_id: @batter.p_id, user_id: current_user.id, c_type: 'b' }}, method: :post, class: "btn btn-small pull-right"
     .span12
       %h5 成績
       %table.table.table-striped

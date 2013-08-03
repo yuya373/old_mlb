@@ -1,0 +1,158 @@
+/ = debug @pitcher
+/ = debug @batter.first.favorite
+/ = debug @team
+-if current_user
+  .span10
+    %h2 Your favorites
+    -if @team.any?
+      .hero-unit
+        %h3 Teams
+        -@team.each do |team|
+          .hero-unit
+            .btn.btn-mini.pull-right= link_to "Delete", {controller: 'favorites', action: 'destroy', id: team.favorite.id}, method: :delete
+            %h4
+              =link_to team.team_name, {controller: "team", action: "show", team_id: team.team_id}
+              %small= "#{team.tp_w}wins/#{team.tp_l}loses - #{team.win_pct.round(3)}"
+            %h5 Batting
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th AVG
+                  %th SLG
+                  %th OBP
+                  %th OPS
+                  %th HR
+                  %th RBI
+                  %th SAC
+                  %th BB
+                  %th SO
+                  %th SB
+              %tbody
+                %tr
+                  %td= team.tb_avg
+                  %td= team.tb_slg
+                  %td= team.tb_obp
+                  %td= team.tb_ops
+                  %td= team.tb_hr
+                  %td= team.tb_rbi
+                  %td= team.tb_sac
+                  %td= team.tb_bb
+                  %td= team.tb_so
+                  %td= team.tb_sb
+            %h5 Pitching
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th ERA
+                  %th WHIP
+                  %th HR
+                  %th BB
+                  %th SO
+                  %th HOLD
+                  %th SHO
+                  %th SV
+                  %th BSV
+                  %th SVO
+              %tbody
+                %tr
+                  %td= team.tp_era
+                  %td= team.tp_whip
+                  %td= team.tp_hr
+                  %td= team.tp_bb
+                  %td= team.tp_so
+                  %td= team.tp_h
+                  %td= team.tp_sho
+                  %td= team.tp_sv
+                  %td= team.tp_bsv
+                  %td= team.tp_svo
+    -elsif @pitcher.any?
+      .hero-unit
+        %h3 Pitchers
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th ERA
+              %th AVG
+              %th WHIP
+              %th IP
+              %th R
+              %th ER
+              %th H
+              %th HR
+              %th BB
+              %th IBB
+              %th SO
+              %th
+          %tbody
+            -@pitcher.each do |pitcher|
+              %tr
+                %td=link_to pitcher.name_display_first_last,{controller: 'pitchers', action: 'show', p_id: pitcher.p_id}
+                %td= pitcher.team.team_abbrev
+                %td= pitcher.era_sort.round(3)
+                %td= pitcher.avg_sort.round(3)
+                %td= pitcher.whip_sort.round(3)
+                %td= pitcher.ip
+                %td= pitcher.r
+                %td= pitcher.er
+                %td= pitcher.h
+                %td= pitcher.hr
+                %td= pitcher.bb
+                %td= pitcher.ibb
+                %td= pitcher.so
+                %td
+                  .btn.btn-mini= link_to 'Delete', {controller: :favorites, action: :destroy, id: pitcher.favorite.id}, method: :delete
+    -elsif @batter.any?
+      .hero-unit
+        %h3 Batters
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th AVG
+              %th OBP
+              %th SLG
+              %th OPS
+              %th AB
+              %th H
+              %th 2B
+              %th 3B
+              %th HR
+              %th RBI
+              %th R
+              %th BB
+              %th SO
+              %th SB
+              %th CS
+              %th
+          %tbody
+            -@batter.each do |batter|
+              %tr
+                %td=link_to batter.name_display_first_last, {controller: :batters, action: :show, p_id: batter.p_id}
+                %td= batter.team.team_abbrev
+                %td= batter.avg_sort.round(3)
+                %td= batter.obp_sort.round(3)
+                %td= batter.slg_sort.round(3)
+                %td= batter.ops_sort.round(3)
+                %td= batter.ab
+                %td= batter.h
+                %td= batter.b2
+                %td= batter.b3
+                %td= batter.hr
+                %td= batter.rbi
+                %td= batter.r
+                %td= batter.bb
+                %td= batter.so
+                %td= batter.sb
+                %td= batter.cs
+                %td
+                  .btn.btn-mini= link_to "Delete", {controller: :favorites, action: :destroy, id: batter.favorite.id}, method: :delete
+
+    -else
+      %p.lead Please Add Your Favorite Players or Teams
+-else
+  .span10
+    %p.lead Please Sign In
+    .btn.btn-inverse= link_to 'Sign in with Facebook', 'auth/facebook'
