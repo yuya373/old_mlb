@@ -1,0 +1,90 @@
+=render partial: "layouts/fav_frame"
+-if current_user
+  .span10
+    -if @fav.any?
+      .hero-unit
+        %h3 Batters
+        %h4 Season
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th AVG
+              %th OBP
+              %th SLG
+              %th OPS
+              %th AB
+              %th H
+              %th 2B
+              %th 3B
+              %th HR
+              %th RBI
+              %th R
+              %th BB
+              %th SO
+              %th SB
+              %th CS
+              %th
+          %tbody
+            -@fav.each do |fav|
+              %tr
+                %td=link_to fav.batter.name_display_first_last, {controller: :batters, action: :show, p_id: fav.batter.p_id}
+                %td= fav.batter.team.team_abbrev
+                %td= fav.batter.avg_sort.round(3)
+                %td= fav.batter.obp_sort.round(3)
+                %td= fav.batter.slg_sort.round(3)
+                %td= fav.batter.ops_sort.round(3)
+                %td= fav.batter.ab
+                %td= fav.batter.h
+                %td= fav.batter.b2
+                %td= fav.batter.b3
+                %td= fav.batter.hr
+                %td= fav.batter.rbi
+                %td= fav.batter.r
+                %td= fav.batter.bb
+                %td= fav.batter.so
+                %td= fav.batter.sb
+                %td= fav.batter.cs
+                %td
+                  .btn.btn-mini= link_to "Delete", {controller: :batter_favorites, action: :destroy, id: fav.id}, method: :delete
+        %h4 Month
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th AVG
+              %th AB
+              %th H
+              %th HR
+              %th RBI
+              %th R
+              %th BB
+              %th SO
+              %th SB
+              %th
+          %tbody
+            -@fav.each do |fav|
+              %tr
+                %td=link_to fav.batter.name_display_first_last, {controller: :batters, action: :show, p_id: fav.batter.p_id}
+                %td= fav.batter.team.team_abbrev
+                %td= fav.batter.month_avg
+                %td= fav.batter.month_ab
+                %td= fav.batter.month_h
+                %td= fav.batter.month_hr
+                %td= fav.batter.month_rbi
+                %td= fav.batter.month_r
+                %td= fav.batter.month_bb
+                %td= fav.batter.month_so
+                %td= fav.batter.month_sb
+                %td
+                  .btn.btn-mini= link_to "Delete", {controller: :batter_favorites, action: :destroy, id: fav.id}, method: :delete
+    -else
+      .span10
+        %p.lead Please Add Your Favorite Players
+-else
+  .span10
+    %p.lead Please Sign In
+    .btn.btn-inverse= link_to 'Sign in with Facebook', 'auth/facebook'
+

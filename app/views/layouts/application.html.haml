@@ -33,7 +33,7 @@
               %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
               %li= link_to 'Team', team_path
               %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
-              %li= link_to 'Your Fav', {controller: 'favorites', action: 'index'}
+              %li= link_to 'Your Fav', {controller: 'team_favorites', action: 'index'}
               -if current_user
                 %li= link_to 'SignOut', '/signout'
               -else

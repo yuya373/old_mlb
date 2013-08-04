@@ -1,5 +1,10 @@
 class TeamFavoritesController < ApplicationController
   before_action :set_favorite, only: [:destroy]
+  before_action :logged_in
+  def index
+    @fav = current_user.team_favorites
+
+  end
 
   def create
     @fav = TeamFavorite.new(favorite_params)

@@ -1,0 +1,97 @@
+=render partial: "layouts/fav_frame"
+-if current_user
+  .span10
+    -if @fav.any?
+      .hero-unit
+        %h3 Pitchers
+        %h4 Season
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th ERA
+              %th AVG
+              %th WHIP
+              %th IP
+              %th G
+              %th GS
+              %th R
+              %th ER
+              %th H
+              %th HR
+              %th BB
+              %th IBB
+              %th SO
+              %th WIN
+              %th LOSE
+              %th HOLD
+              %th SAVE
+              %th
+          %tbody
+            -@fav.each do |fav|
+              %tr
+                %td=link_to fav.pitcher.name_display_first_last,{controller: 'pitchers', action: 'show', p_id: fav.pitcher.p_id}
+                %td= fav.pitcher.team.team_abbrev
+                %td= fav.pitcher.era_sort.round(3)
+                %td= fav.pitcher.avg_sort.round(3)
+                %td= fav.pitcher.whip_sort.round(3)
+                %td= fav.pitcher.ip
+                %td= fav.pitcher.g
+                %td= fav.pitcher.gs
+                %td= fav.pitcher.r
+                %td= fav.pitcher.er
+                %td= fav.pitcher.h
+                %td= fav.pitcher.hr
+                %td= fav.pitcher.bb
+                %td= fav.pitcher.ibb
+                %td= fav.pitcher.so
+                %td= fav.pitcher.w
+                %td= fav.pitcher.l
+                %td= fav.pitcher.hld
+                %td= fav.pitcher.sv
+                %td
+                  .btn.btn-mini= link_to 'Delete', {controller: :pitcher_favorites, action: :destroy, id: fav.id}, method: :delete
+        %h4 Month
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+              %th Team
+              %th ERA
+              %th AVG
+              %th WHIP
+              %th IP
+              %th H
+              %th HR
+              %th BB
+              %th SO
+              %th WIN
+              %th LOSE
+              %th SAVE
+              %th
+          -@fav.each do |fav|
+            %tbody
+              %tr
+                %td=link_to fav.pitcher.name_display_first_last,{controller: 'pitchers', action: 'show', p_id: fav.pitcher.p_id}
+                %td= fav.pitcher.team.team_abbrev
+                %td= fav.pitcher.month_era
+                %td= fav.pitcher.month_avg
+                %td= fav.pitcher.month_whip
+                %td= fav.pitcher.month_ip
+                %td= fav.pitcher.month_h
+                %td= fav.pitcher.month_hr
+                %td= fav.pitcher.month_bb
+                %td= fav.pitcher.month_so
+                %td= fav.pitcher.month_w
+                %td= fav.pitcher.month_l
+                %td= fav.pitcher.month_sv
+                %td
+                  .btn.btn-mini= link_to 'Delete', {controller: :pitcher_favorites, action: :destroy, id: fav.id}, method: :delete
+    -else
+      .span10
+        %p.lead Please Add Your Favorite Players
+-else
+  .span10
+    %p.lead Please Sign In
+    .btn.btn-inverse= link_to 'Sign in with Facebook', 'auth/facebook'

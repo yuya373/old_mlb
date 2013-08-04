@@ -1,5 +1,8 @@
 class BatterFavoritesController < ApplicationController
   before_action :set_favorite, only: [:destroy]
+  def index
+    @fav = current_user.batter_favorites
+  end
 
   def create
     @fav = BatterFavorite.new(favorite_params)

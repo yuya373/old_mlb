@@ -118,6 +118,12 @@ class ApplicationController < ActionController::Base
 
     end
 
+    def logged_in
+      if current_user
+      else
+        redirect_to :back, notice: "Please Sign In!"
+      end
+    end
 
 
 end
