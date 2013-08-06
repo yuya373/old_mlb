@@ -4,6 +4,13 @@ class TeamFavoritesController < ApplicationController
   def index
     @fav = current_user.team_favorites
 
+    @home_game = []
+    @away_game = []
+    @fav.each do |fav|
+      @home_game << Game.where("home_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc").limit(5)
+      @away_game << Game.where("away_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc").limit(5)
+    end
+
   end
 
   def create

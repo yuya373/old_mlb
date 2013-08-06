@@ -145,12 +145,16 @@ end
 
 
 
-# CSV.foreach("gameid_7.csv") do |row|
-#   row.each do |gid|
-#     # Pitching.seed(gid)
-#     Atbat.seed(gid)
-#   end
-# end
+CSV.foreach("game_id.csv") do |row|
+  row.each do |gid|
+    Atbat.seed(gid)
+    Game.seed(gid)
+    LineScore.seed(gid)
+    GameBatter.seed(gid)
+    GamePitcher.seed(gid)
+    Media.cg_seed(gid)
+  end
+end
 
 
  # Game.seed('2013_04_19_slnmlb_phimlb_1')

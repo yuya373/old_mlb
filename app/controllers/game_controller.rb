@@ -7,7 +7,6 @@ class GameController < ApplicationController
       @day = params[:date][:day]
 
       @game = Game.where('year = ?',@year).where('month = ?',@month).where('day = ?',@day)
-      flash.now[:update] = when_updated(@game.first)
     else
       @note = nil
     end
