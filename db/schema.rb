@@ -750,7 +750,7 @@ ActiveRecord::Schema.define(version: 20130803172943) do
     t.string   "division"
   end
 
-  add_index "teams", ["team_id"], name: "index_teams_on_team_id"
+  add_index "teams", ["team_id"], name: "index_teams_on_eam_id"
 
   create_table "users", force: true do |t|
     t.string   "provider"

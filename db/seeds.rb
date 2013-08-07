@@ -74,7 +74,7 @@ require 'csv'
 
 CSV.foreach("game_id.csv") do |row|
   row.each do |gid|
-   Media.cg_seed(gid)
+    LineScore.seed(gid)
   end
 end
 

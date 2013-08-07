@@ -11,7 +11,7 @@
     / =debug @game.first.home_team
     / = when_updated(@game.first)
     - @game.each do |game|
-      .span12
+      .span11
         .hero-unit
           %p.text-right= link_to "詳細", {controller: 'game', action: 'show', g_id: game.gameday}
           %h2
@@ -19,8 +19,7 @@
             %small= "@ #{game.stadium}" + "#{game.location}"
           -if (game.status != 'Final') && (game.status != 'Completed Early')
             .alert.alert-error
-              %ul.inline
-                %li= game.status
+              %p= game.status
           -else
             -begin
               - media = game.medias.where(media_type: 'condensed').first
@@ -29,7 +28,7 @@
                   .media-object.pull-left
                     =image_tag media.thumb
                   .media-body
-                    %table.table.table-bordered.table-condensed
+                    %table.table.table-bordered.table.table-condensed
                       %thead
                         %tr
                           %th
@@ -61,7 +60,7 @@
                       %span.label.label-info Save
                       = "#{game.line_scores.first.sv_name} (#{game.line_scores.first.sv_w}-#{game.line_scores.first.sv_l})  #{game.line_scores.first.sv_era}  #{game.line_scores.first.sv_sv}sv"
             -rescue
-              %table.table.table-bordered.table-condensed
+              %table.table.table-bordered.table.table-condensed
                 %thead
                   %tr
                     %th
