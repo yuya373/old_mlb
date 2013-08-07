@@ -11,6 +11,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+Media.seed('2013','08','04')
 
 
 
@@ -72,11 +73,11 @@ require 'csv'
 # end
 
 
-CSV.foreach("game_id.csv") do |row|
-  row.each do |gid|
-    LineScore.seed(gid)
-  end
-end
+# CSV.foreach("game_id.csv") do |row|
+#   row.each do |gid|
+#     LineScore.seed(gid)
+#   end
+# end
 
 # Pitching.delete_all
 # Atbat.where('game_id like ?',"2013/07/14%").delete_all
@@ -145,16 +146,16 @@ end
 
 
 
-CSV.foreach("game_id.csv") do |row|
-  row.each do |gid|
-    Atbat.seed(gid)
-    Game.seed(gid)
-    LineScore.seed(gid)
-    GameBatter.seed(gid)
-    GamePitcher.seed(gid)
-    Media.cg_seed(gid)
-  end
-end
+# CSV.foreach("game_id.csv") do |row|
+#   row.each do |gid|
+#     Atbat.seed(gid)
+#     Game.seed(gid)
+#     LineScore.seed(gid)
+#     GameBatter.seed(gid)
+#     GamePitcher.seed(gid)
+#     Media.cg_seed(gid)
+#   end
+# end
 
 
  # Game.seed('2013_04_19_slnmlb_phimlb_1')

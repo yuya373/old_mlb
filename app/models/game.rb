@@ -11,6 +11,8 @@ class Game < ActiveRecord::Base
   has_many :medias, :foreign_key => 'game_id'
   belongs_to :home_team, :class_name => 'Team', :foreign_key => 'home_team_id'
   belongs_to :away_team, :class_name => 'Team', :foreign_key => 'away_team_id'
+  scope  :from_game_id, lambda{|game_id| where('gameday = ?',game_id)}
+  scope :y_m_d, lambda{|year,month,day| where('year = ? and month = ? and day = ?',year,month,day)}
   def self.get
     Team.find_each do |team|
       # gid = '2013_05_19_detmlb_texmlb_1'

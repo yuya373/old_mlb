@@ -6,7 +6,7 @@ class GameController < ApplicationController
       @month = params[:date][:month]
       @day = params[:date][:day]
 
-      @game = Game.where('year = ?',@year).where('month = ?',@month).where('day = ?',@day)
+      @game = Game.y_m_d(@year,@month,@day)
     else
       @note = nil
     end
@@ -14,12 +14,12 @@ class GameController < ApplicationController
 
   def show
     @g_id = params[:g_id]
-    @game = Game.where('gameday = ?',@g_id).first
+    @game = Game.from_game_id(@g_id).first
   end
 
   def atbat
     @g_id = params[:g_id]
-    @game = Game.where('gameday = ?',@g_id).first
+    @game = Game.from_game_id(@g_id).first
     @atbat = @game.atbats
     @inning = @atbat.select('distinct inning')
     @num = []
