@@ -85,7 +85,7 @@ class Game < ActiveRecord::Base
                 location: stadium.attribute('location').text,
                 status: game.attribute('status').text,
                 # reason: game.attribute('reason').text
-                start_time: DateTime.new(year,month,day)
+                start_time: DateTime.new(year.to_i,month.to_i,day.to_i)
         }
 
         begin
@@ -157,7 +157,7 @@ class Game < ActiveRecord::Base
               stadium: stadium.attribute('name').text,
               location: stadium.attribute('location').text,
               status: status,
-              start_time: DateTime.new(year,month,day)
+              start_time: DateTime.new(year.to_i,month.to_i,day.to_i)
               # reason: reason
       }
 
