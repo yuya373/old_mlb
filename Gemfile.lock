@@ -158,6 +158,8 @@ GEM
     sexp_processor (4.2.1)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
+    simple_calendar (0.1.9)
+      rails (>= 3.0)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -221,6 +223,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.0.rc1)
   shoulda-matchers
+  simple_calendar
   sqlite3
   therubyracer
   twitter-bootswatch-rails

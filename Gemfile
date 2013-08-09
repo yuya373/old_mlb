@@ -27,6 +27,7 @@ gem 'yaml_db'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'rails_config'
+gem "simple_calendar"
 
 group :production do
   gem 'rails_12factor'

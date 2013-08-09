@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130803172943) do
+ActiveRecord::Schema.define(version: 20130808215116) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -395,6 +395,7 @@ ActiveRecord::Schema.define(version: 20130803172943) do
     t.integer  "day"
     t.string   "status"
     t.string   "reason"
+    t.datetime "start_time"
   end
 
   create_table "line_scores", force: true do |t|
@@ -750,7 +751,7 @@ ActiveRecord::Schema.define(version: 20130803172943) do
     t.string   "division"
   end
 
-  add_index "teams", ["team_id"], name: "index_teams_on_eam_id"
+  add_index "teams", ["team_id"], name: "index_teams_on_team_id"
 
   create_table "users", force: true do |t|
     t.string   "provider"

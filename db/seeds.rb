@@ -11,7 +11,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Media.seed('2013','08','04')
+
+Game.find_each do |game|
+  year = game.year
+  month = game.month
+  day = game.day
+
+  st_time = DateTime.new(year,month,day)
+
+  game.update_attributes(start_time: st_time)
+end
 
 
 

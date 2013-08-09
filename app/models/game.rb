@@ -13,6 +13,14 @@ class Game < ActiveRecord::Base
   belongs_to :away_team, :class_name => 'Team', :foreign_key => 'away_team_id'
   scope  :from_game_id, lambda{|game_id| where('gameday = ?',game_id)}
   scope :y_m_d, lambda{|year,month,day| where('year = ? and month = ? and day = ?',year,month,day)}
+
+
+
+
+
+
+
+
   def self.get
     Team.find_each do |team|
       # gid = '2013_05_19_detmlb_texmlb_1'
@@ -75,8 +83,9 @@ class Game < ActiveRecord::Base
                 away_league: away.attribute('league').text,
                 stadium: stadium.attribute('name').text,
                 location: stadium.attribute('location').text,
-                status: game.attribute('status').text
+                status: game.attribute('status').text,
                 # reason: game.attribute('reason').text
+                start_time: DateTime.new(year,month,day)
         }
 
         begin
@@ -147,7 +156,8 @@ class Game < ActiveRecord::Base
               away_league: away.attribute('league').text,
               stadium: stadium.attribute('name').text,
               location: stadium.attribute('location').text,
-              status: status
+              status: status,
+              start_time: DateTime.new(year,month,day)
               # reason: reason
       }
 

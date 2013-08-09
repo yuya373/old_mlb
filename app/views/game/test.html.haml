@@ -1,0 +1,4 @@
+.span10
+  = calendar @games do |game|
+    %p
+      %small=link_to "#{game.away_team_name} - #{game.home_team_name}", {controller: :game, action: :show, g_id: game.gameday}

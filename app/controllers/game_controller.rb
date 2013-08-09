@@ -1,4 +1,7 @@
 class GameController < ApplicationController
+  def test
+    @games = Game.where('year = ? and month = ?', params[:year], params[:month])
+  end
   def index
     if params[:date]
       @note = true
