@@ -56,7 +56,7 @@ every 1.day, :at => '14:00' do
   sakura_runner "PitchTypeDetail.pitcher_get"
   sakura_runner "PitchTendency.get"
   sakura_runner "Bench.get"
-  sakura_runner "Game.get"
+  # sakura_runner "Game.get"
   sakura_runner "GameBatter.get"
   sakura_runner "GamePitcher.get"
   sakura_runner "LineScore.get"
@@ -65,7 +65,7 @@ every 1.day, :at => '14:00' do
 end
 
 
-every 1.day, :at => '16:00' do
+every 1.day, :at => '17:25' do
   sakura_runner "Batter.get"
   sakura_runner "Pitcher.get"
   sakura_runner "Pitching.get"
@@ -74,7 +74,7 @@ every 1.day, :at => '16:00' do
   sakura_runner "PitchTypeDetail.pitcher_get"
   sakura_runner "PitchTendency.get"
   sakura_runner "Bench.get"
-  sakura_runner "Game.get"
+  # sakura_runner "Game.get"
   sakura_runner "GameBatter.get"
   sakura_runner "GamePitcher.get"
   sakura_runner "LineScore.get"
