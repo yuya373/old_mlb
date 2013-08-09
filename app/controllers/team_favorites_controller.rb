@@ -12,7 +12,7 @@ class TeamFavoritesController < ApplicationController
       @away_game = Game.where("away_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc")
 
       k = fav.team.team_id
-      v = Game.where("home_team_id = ? or away_team_id = ?", fav.team.team_id, fav.team.team_id).order("gameday desc").limit
+      v = Game.where("home_team_id = ? or away_team_id = ?", fav.team.team_id, fav.team.team_id).order("gameday desc")
       @game[k] = v
     end
 
