@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  before_action :set_favorite, only: [:show, :edit, :update, :destroy]
+  before_action :set_favorite, only: [:edit, :update, :destroy]
 
   # GET /favorites
   # GET /favorites.json
@@ -15,6 +15,14 @@ class FavoritesController < ApplicationController
   # GET /favorites/1
   # GET /favorites/1.json
   def show
+    if current_user
+      @fav = current_user.team_favorites
+      @team = []
+      @fav.each do |fav|
+        @team << fav.team_id
+      end
+      @games = Game.where('year = ? and month = ?',params[:year],params[:month]).where({home_team_id: '144'})
+    end
   end
 
   # GET /favorites/new

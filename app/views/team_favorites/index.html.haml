@@ -8,24 +8,26 @@
         -@fav.each do |fav|
           .hero-unit
             .btn.btn-mini.pull-right= link_to "Delete", {controller: 'team_favorites', action: 'destroy', id: fav.id}, method: :delete
-            %h4
+            %h3
               =link_to fav.team.team_name, {controller: "team", action: "show", team_id: fav.team.team_id}
               %small= "#{fav.team.tp_w}wins/#{fav.team.tp_l}loses - #{fav.team.win_pct.round(3)}"
-            %h5 最近5試合
-            .well.well-small
-              %dl
-                - game = @game[fav.team.team_id]
-                - game.each do |game|
-                  -if game.line_scores.first
-                    %dt
-                      = "#{game.month}/#{game.day}"
-                      =link_to "#{game.away_team_name_brief}",{controller: :team, action: :show, team_id: game.away_team_id}
-                      ="(#{game.line_scores.first.away_team_runs}) - "
-                      =link_to "#{game.home_team_name_brief}",{controller: :team, action: :show, team_id: game.home_team_id}
-                      ="(#{game.line_scores.first.home_team_runs})"
-                    %dd
-                      = "WP: #{game.line_scores.first.wp_name}, LP: #{game.line_scores.first.lp_name}"
-                      =link_to "詳細", {controller: :game, action: :show, g_id: game.gameday}
+            / %h5 最近5試合
+            / .well.well-small
+            /   %dl
+            /     - game.each do |game|
+            /       -if game.line_scores.first
+            /         %dt
+            /           = "#{game.month}/#{game.day}"
+            /           =link_to "#{game.away_team_name_brief}",{controller: :team, action: :show, team_id: game.away_team_id}
+            /           ="(#{game.line_scores.first.away_team_runs}) - "
+            /           =link_to "#{game.home_team_name_brief}",{controller: :team, action: :show, team_id: game.home_team_id}
+            /           ="(#{game.line_scores.first.home_team_runs})"
+            /         %dd
+            /           = "WP: #{game.line_scores.first.wp_name}, LP: #{game.line_scores.first.lp_name}"
+            /           =link_to "詳細", {controller: :game, action: :show, g_id: game.gameday}
+            - game = @game[fav.team.team_id]
+            = calendar game do |game|
+              %small=link_to "#{game.away_team_name_brief}(#{game.line_scores.first.away_team_runs}) - #{game.home_team_name_brief}(#{game.line_scores.first.home_team_runs})", {controller: :game, action: :show, g_id: game.gameday}
             %h5 Batting
             %table.table.table-striped
               %thead

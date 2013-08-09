@@ -1,15 +1,3 @@
-%p#notice= notice
-
-%p
-  %b Team:
-  = @favorite.team_id
-%p
-  %b P:
-  = @favorite.p_id
-%p
-  %b User:
-  = @favorite.user_id
-
-= link_to 'Edit', edit_favorite_path(@favorite)
-\|
-= link_to 'Back', favorites_path
+.span10
+  = calendar @games do |game|
+    = game.gameday

@@ -1,6 +1,6 @@
 Mlb::Application.routes.draw do
   get 'game/test', to: 'game#test'
-  resources :favorites
+  resource :favorites
   resources :batter_favorites
   resources :pitcher_favorites
   resources :team_favorites
