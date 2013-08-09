@@ -10,12 +10,12 @@ class TeamFavoritesController < ApplicationController
 
     @fav = current_user.team_favorites
 
-    @home_game = []
-    @away_game = []
+    # @home_game = []
+    # @away_game = []
     @game = {}
     @fav.each do |fav|
-      @home_game = Game.where("home_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc")
-      @away_game = Game.where("away_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc")
+      # @home_game = Game.where("home_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc")
+      # @away_game = Game.where("away_team_id = ? ",fav.team.team_id).select(:gameday).order("gameday desc")
 
       k = fav.team.team_id
       v = Game.where("home_team_id = ? or away_team_id = ?", fav.team.team_id, fav.team.team_id).order("gameday desc").where("year = ? and month = ?",params[:year], params[:month])

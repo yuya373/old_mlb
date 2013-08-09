@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130808215116) do
+ActiveRecord::Schema.define(version: 20130809213811) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -397,6 +397,11 @@ ActiveRecord::Schema.define(version: 20130808215116) do
     t.string   "reason"
     t.datetime "start_time"
   end
+
+  add_index "games", ["gameday"], name: "index_games_on_gameday"
+  add_index "games", ["home_team_id", "away_team_id"], name: "index_games_on_home_team_id_and_away_team_id"
+  add_index "games", ["year", "month", "day"], name: "index_games_on_year_and_month_and_day"
+  add_index "games", ["year", "month"], name: "index_games_on_year_and_month"
 
   create_table "line_scores", force: true do |t|
     t.string   "game_id"
