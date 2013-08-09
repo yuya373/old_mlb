@@ -27,7 +27,8 @@
             /           =link_to "詳細", {controller: :game, action: :show, g_id: game.gameday}
             - game = @game[fav.team.team_id]
             = calendar game do |game|
-              %small=link_to "#{game.away_team_name_brief}(#{game.line_scores.first.away_team_runs}) - #{game.home_team_name_brief}(#{game.line_scores.first.home_team_runs})", {controller: :game, action: :show, g_id: game.gameday}
+              -if game.line_scores.first
+                %small=link_to "#{game.away_team_name_brief}(#{game.line_scores.first.away_team_runs}) - #{game.home_team_name_brief}(#{game.line_scores.first.home_team_runs})", {controller: :game, action: :show, g_id: game.gameday}
             %h5 Batting
             %table.table.table-striped
               %thead
