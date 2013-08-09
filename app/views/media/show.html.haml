@@ -10,9 +10,9 @@
     %ul.media-list
       %li.media
         .media-body
-          %h4.media-heading= @cg.headline
+          %h4.media-heading= @cg.first.headline
         .media-object
-          =video_tag @cg.url, controls: true, autoplay: false, autobuffer: true, size: '480x320', poster: @cg.thumb
+          =video_tag @cg.first.url, controls: true, autoplay: false, autobuffer: true, size: '480x320', poster: @cg.first.thumb
 -if @media.any?
   -@media.each do |media|
     .hero-unit.span7
