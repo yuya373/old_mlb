@@ -64,6 +64,15 @@ every 1.day, :at => '14:00' do
   sakura_runner "Media.cg_get"
 end
 
+every 1.day, at: '15:00' do
+  sakura_runner "Game.get"
+  sakura_runner "GameBatter.get"
+  sakura_runner "GamePitcher.get"
+  sakura_runner "LineScore.get"
+  sakura_runner "Media.get"
+  sakura_runner "Media.cg_get"
+end
+
 
 every 1.day, :at => '17:00' do
   sakura_runner "Batter.get"
