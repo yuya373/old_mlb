@@ -27,6 +27,9 @@ class Batter < ActiveRecord::Base
       url = "http://gd2.mlb.com/components/team/stats/#{team_id}-stats.xml"
       begin
         doc = Nokogiri::XML(open(url))
+      rescue
+        break
+      else
 
         batter = doc.css('TeamStats batter')
         batter.each do |batter|
@@ -57,14 +60,12 @@ class Batter < ActiveRecord::Base
           begin
             data = Nokogiri::XML(open(b_url))
           rescue
-            data = nil
-          end
-          if data == nil
             begin
               Batter.where('p_id = ?', p_id).first.update_attributes!(@batter)
             rescue
               Batter.create(@batter)
             end
+
           else
             player = data.css('Player')
             @batter[:jersey_number] = player.attribute('jersey_number').text
@@ -152,7 +153,6 @@ class Batter < ActiveRecord::Base
             end
           end
         end
-      rescue
       end
     end
   end
