@@ -28,6 +28,7 @@ class PitchersController < ApplicationController
 
 
     @atbat = Atbat.from_pitcher_id(params[:pitcher]).from_batter_id(params[:batter]).show
+    flash[:update] = when_updated(@pitcher)
 
   end
 
