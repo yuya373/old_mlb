@@ -82,33 +82,6 @@ class ApplicationController < ActionController::Base
     url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/batters/#{b_id}.xml"
   end
 
-	def get_gid(team_name,year,month,day)
-
-		url = build_score_board_url(year,month,day)
-    doc = Nokogiri::XML(open(url))
-
-    # team = {}
-    name = team_name
-    gid = []
-    doc.css('game').each do |game|
-      # team[team_name] = {}
-
-      if game.attribute('away_code').text == name
-
-        # team[team_name][:team_id] = game.attribute('away_team_id').text
-
-        gid << game.attribute('gameday').text
-
-      elsif game.attribute('home_code').text == name
-
-        # team[team_name][:team_id] = game.attribute('home_team_id').text
-
-       gid << game.attribute('gameday').text
-
-      end
-    end
-    return gid
-  end
 
   helper_method :current_user
 

@@ -12,15 +12,27 @@ require 'open-uri'
 require 'csv'
 
 
-Game.find_each do |game|
-  year = game.year
-  month = game.month
-  day = game.day
-
-  st_time = DateTime.new(year,month,day)
-
-  game.update_attributes(start_time: st_time)
+CSV.foreach("game_id.csv") do |row|
+  row.each do |gid|
+    Game.seed(gid)
+    GamePitcher.seed(gid)
+    LineScore.seed(gid)
+    Atbat.seed(gid)
+    Media.seed(gid)
+    Media.cg_seed(gid)
+  end
 end
+
+
+# Game.find_each do |game|
+#   year = game.year
+#   month = game.month
+#   day = game.day
+
+#   st_time = DateTime.new(year,month,day)
+
+#   game.update_attributes(start_time: st_time)
+# end
 
 
 

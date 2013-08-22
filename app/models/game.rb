@@ -113,60 +113,65 @@ class Game < ActiveRecord::Base
     begin
       doc = Nokogiri::XML(open(url))
       doc2 = Nokogiri::XML(open(url2))
-
-      @team = {}
-      if doc.css('team')[0].attribute('type').text == 'home'
-        home = doc.css('team')[0]
-      else
-        away = doc.css('team')[0]
-      end
-
-      if doc.css('team')[1].attribute('type').text == 'away'
-        away = doc.css('team')[1]
-      else
-        home = doc.css('team')[1]
-      end
-
-      stadium = doc.css('stadium')
-      status = doc2.css('game').attribute('status').text
-      # reason = doc2.css('game').attribute('reason').text
-
-      @team = {
-              year: year.to_i,
-              month: month.to_i,
-              day: day.to_i,
-              gameday: gid.tr('-','_'),
-              home_team_id: home.attribute('id').text,
-              home_team_abbrev: home.attribute('abbrev').text,
-              home_team_name_full: home.attribute('name_full').text,
-              home_team_name: home.attribute('name').text,
-              home_team_name_brief: home.attribute('name_brief').text,
-              home_w: home.attribute('w').text,
-              home_l: home.attribute('l').text,
-              home_league_id: home.attribute('league_id').text,
-              home_league: home.attribute('league').text,
-              away_team_id: away.attribute('id').text,
-              away_team_abbrev: away.attribute('abbrev').text,
-              away_team_name_full: away.attribute('name_full').text,
-              away_team_name: away.attribute('name').text,
-              away_team_name_brief: away.attribute('name_brief').text,
-              away_w: away.attribute('w').text,
-              away_l: away.attribute('l').text,
-              away_league_id: away.attribute('league_id').text,
-              away_league: away.attribute('league').text,
-              stadium: stadium.attribute('name').text,
-              location: stadium.attribute('location').text,
-              status: status,
-              start_time: DateTime.new(year.to_i,month.to_i,day.to_i)
-              # reason: reason
-      }
-
-      begin
-        Game.where('gameday = ?',@team[:gameday]).first.update_attributes!(@team)
-      rescue
-        Game.create(@team)
-      end
     rescue
+    else
+      game = doc.css('game')
+      if game.attribute('type').text != 'S'
+
+        @team = {}
+        if doc.css('team')[0].attribute('type').text == 'home'
+          home = doc.css('team')[0]
+        else
+          away = doc.css('team')[0]
+        end
+
+        if doc.css('team')[1].attribute('type').text == 'away'
+          away = doc.css('team')[1]
+        else
+          home = doc.css('team')[1]
+        end
+
+        stadium = doc.css('stadium')
+        status = doc2.css('game').attribute('status').text
+        # reason = doc2.css('game').attribute('reason').text
+
+        @team = {
+                year: year.to_i,
+                month: month.to_i,
+                day: day.to_i,
+                gameday: gid.tr('-','_'),
+                home_team_id: home.attribute('id').text,
+                home_team_abbrev: home.attribute('abbrev').text,
+                home_team_name_full: home.attribute('name_full').text,
+                home_team_name: home.attribute('name').text,
+                home_team_name_brief: home.attribute('name_brief').text,
+                home_w: home.attribute('w').text,
+                home_l: home.attribute('l').text,
+                home_league_id: home.attribute('league_id').text,
+                home_league: home.attribute('league').text,
+                away_team_id: away.attribute('id').text,
+                away_team_abbrev: away.attribute('abbrev').text,
+                away_team_name_full: away.attribute('name_full').text,
+                away_team_name: away.attribute('name').text,
+                away_team_name_brief: away.attribute('name_brief').text,
+                away_w: away.attribute('w').text,
+                away_l: away.attribute('l').text,
+                away_league_id: away.attribute('league_id').text,
+                away_league: away.attribute('league').text,
+                stadium: stadium.attribute('name').text,
+                location: stadium.attribute('location').text,
+                status: status,
+                start_time: DateTime.new(year.to_i,month.to_i,day.to_i)
+                # reason: reason
+        }
+
+        begin
+          Game.where('gameday = ?',@team[:gameday]).first.update_attributes!(@team)
+        rescue
+          Game.create(@team)
+        end
+      else
+      end
     end
   end
 

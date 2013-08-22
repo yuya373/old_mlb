@@ -30,7 +30,7 @@
           .container.nav-collapse
             %ul.nav
               %li= link_to "ScoreBoard", {controller: 'game', action: 'index'}
-              %li= link_to "今日のスコアボード", master_scoreboard_today_score_path
+              %li= link_to "今日のスコアボード", {controller: :game, action: :today_index}
               %li= link_to 'Team', team_path
               %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
               %li= link_to 'Your Fav', {controller: 'team_favorites', action: 'index'}

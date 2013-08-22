@@ -28,7 +28,8 @@ Mlb::Application.routes.draw do
   get 'game/show', to: 'game#show'
   get 'game/index', to: 'game#index'
   get 'game/atbat', to: 'game#atbat'
-  get 'master_scoreboard/today_score', to: 'master_scoreboard#today_score'
+  get 'game/today', to: 'game#today_index'
+  get 'game/today/:g_id', to: 'game#today_show'
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'
   resources :game_detail

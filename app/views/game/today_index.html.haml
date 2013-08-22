@@ -1,0 +1,64 @@
+/ = debug @gid
+/ = debug @game['2013_08_19_nynmlb_minmlb_1']
+/ = debug @game
+.span10
+  -@game.each do |gid,game|
+    .hero-unit
+      -if game[:ind] == 'F'
+        %p.text-right=link_to '詳細', {controller: :game, action: :today_show, g_id: gid}
+      %h2
+        ="#{game[:away_team_name]}"
+        = " - "
+        ="#{game[:home_team_name]}"
+        %small= "@#{game[:venue]}"
+      -if game[:line_score].key?('1')
+        - score = game[:line_score]
+        %table.table.table-bordered
+          %thead
+            %th
+            -score.each do |inn,val|
+              %th= inn
+            %th R
+            %th H
+            %th E
+          %tbody
+            %td=link_to game[:away_team_name], {controller: :team, action: :show, team_id: game[:away_team_id]}
+            -score.each do |inn,val|
+              %td= val[:away_inning_runs]
+            %td= game[:away_team_runs]
+            %td= game[:away_team_hits]
+            %td= game[:away_team_errors]
+            %tr
+              %td=link_to game[:home_team_name], {controller: :team, action: :show, team_id: game[:home_team_id]}
+              -score.each do |inn,val|
+                %td= val[:home_inning_runs]
+              %td= game[:home_team_runs]
+              %td= game[:home_team_hits]
+              %td= game[:home_team_errors]
+      - if game[:ind] == 'F'
+        - wp = game[:winning_pitcher]
+        - lp = game[:losing_pitcher]
+        - save = game[:save_pitcher]
+        %ul.inline
+          %li
+            .label.label-success Win
+            =link_to "#{wp[:first_name]} #{wp[:last_name]}(#{wp[:wins]}-#{wp[:losses]}), #{wp[:era]}", {controller: :pitchers, action: :show, p_id: wp[:id]}
+          %li
+            .label Lose
+            =link_to "#{lp[:first_name]} #{lp[:last_name]}(#{lp[:wins]}-#{lp[:losses]}), #{lp[:era]}", {controller: :pitchers, action: :show, p_id: lp[:id]}
+          - unless save[:id] == ''
+            %li
+              .label.label-info Save
+              =link_to "#{save[:first_name]} #{save[:last_name]}(#{save[:wins]}-#{save[:losses]},#{save[:saves]}), #{save[:era]}", {controller: :pitchers, action: :show, p_id: save[:id]}
+      -if game[:ind] == 'S'
+        -hp = game[:home_probable_pitcher]
+        -ap = game[:away_probable_pitcher]
+        %h4.text-success Probable Pitcher
+        %p
+          ="#{game[:away_name_abbrev]}: "
+          =link_to "#{ap[:first_name]} #{ap[:last_name]}", {controller: :pitchers, action: :show, p_id: ap[:id]}
+          ="(#{ap[:wins]}-#{ap[:losses]}), #{ap[:era]}"
+        %p
+        ="#{game[:home_name_abbrev]}: "
+        =link_to "#{hp[:first_name]} #{hp[:last_name]}", {controller: :pitchers, action: :show, p_id: hp[:id]}
+        ="(#{hp[:wins]}-#{hp[:losses]}), #{hp[:era]}"

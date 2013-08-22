@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130809213811) do
+ActiveRecord::Schema.define(version: 20130816012121) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -218,6 +218,16 @@ ActiveRecord::Schema.define(version: 20130809213811) do
     t.float    "loaded_ops"
     t.float    "vs_lhp_ops"
     t.float    "vs_rhp_ops"
+    t.integer  "career_cs"
+    t.integer  "month_cs"
+    t.integer  "empty_cs"
+    t.integer  "risp_cs"
+    t.integer  "men_on_cs"
+    t.integer  "loaded_cs"
+    t.integer  "vs_lhp"
+    t.integer  "vs_rhp"
+    t.integer  "vs_rhp_cs"
+    t.integer  "vs_lhp_cs"
   end
 
   add_index "batters", ["p_id"], name: "index_batters_on_p_id"

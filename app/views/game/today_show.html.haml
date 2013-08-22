@@ -1,0 +1,221 @@
+/ =debug @batting
+/ =debug @pitching
+/ =debug @game
+.span10
+  .hero-unit
+    %h2
+      = "#{@game[:away_fname]} - #{@game[:home_fname]}"
+      %small= "@#{@game[:venue_name]}"
+    %ul.inline
+      %li= "#{@game[:away_sname]}: #{@game[:away_wins]} - #{@game[:away_loss]}"
+      %li= "#{@game[:home_sname]}: #{@game[:home_wins]} - #{@game[:home_loss]}"
+    - inning = @game[:linescore][:inning]
+    %table.table.table-bordered
+      %thead
+        %th
+        - inning.each do |inn,v|
+          %th= inn
+        %th R
+        %th H
+        %th E
+      %tbody
+        %td= @game[:away_sname]
+        -inning.each do |k,score|
+          %td= score[:away]
+        %td= @game[:linescore][:away_team_runs]
+        %td= @game[:linescore][:away_team_hits]
+        %td= @game[:linescore][:away_team_errors]
+        %tr
+        %td= @game[:home_sname]
+        -inning.each do |k,score|
+          %td= score[:home]
+        %td= @game[:linescore][:home_team_runs]
+        %td= @game[:linescore][:home_team_hits]
+        %td= @game[:linescore][:home_team_errors]
+    .page-header
+      %h4= link_to @game[:away_sname], {controller: :team, action: :show, team_id: @game[:away_id]}
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Batter
+          %th POS
+          %th BO
+          %th AB
+          %th AVG
+          %th H
+          %th 2B
+          %th 3B
+          %th HR
+          %th RBI
+          %th R
+          %th SO
+          %th BB
+          %th HBP
+          %th SB
+          %th CS
+          %th SAC
+          %th SF
+          %th GO
+          %th AO
+          %th GIDP
+          %th LOB
+      %tbody
+      - @batting[:away][:batters].each do |batter|
+        %tr
+          %td=link_to batter[:name_display_first_last], {controller: :batters, action: :show, p_id: batter[:id]}
+          %td= batter[:pos]
+          %td= batter[:bo].slice(0,1)
+          %td= batter[:ab]
+          %td= batter[:avg]
+          %td= batter[:h]
+          %td= batter[:d]
+          %td= batter[:t]
+          %td= batter[:hr]
+          %td= batter[:rbi]
+          %td= batter[:r]
+          %td= batter[:so]
+          %td= batter[:bb]
+          %td= batter[:hbp]
+          %td= batter[:sb]
+          %td= batter[:cs]
+          %td= batter[:sac]
+          %td= batter[:sf]
+          %td= batter[:go]
+          %td= batter[:ao]
+          %td= batter[:gidp]
+          %td= batter[:lob]
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Pitcher
+          %th BF
+          %th OUT
+          %th ERA
+          %th ER
+          %th R
+          %th NP
+          %th S
+          %th H
+          %th HR
+          %th SO
+          %th BB
+          %th W
+          %th L
+          %th HLD
+          %th SV
+          %th BS
+          %th
+      %tbody
+      - @pitching[:away][:pitchers].each do |pitcher|
+        %tr
+          %td=link_to pitcher[:name_display_first_last], {controller: :pitchers, action: :show, p_id: pitcher[:id]}
+          %td= pitcher[:bf]
+          %td= pitcher[:out]
+          %td= pitcher[:era]
+          %td= pitcher[:er]
+          %td= pitcher[:r]
+          %td= pitcher[:np]
+          %td= pitcher[:s]
+          %td= pitcher[:h]
+          %td= pitcher[:hr]
+          %td= pitcher[:so]
+          %td= pitcher[:bb]
+          %td= pitcher[:w]
+          %td= pitcher[:l]
+          %td= pitcher[:hld]
+          %td= pitcher[:sv]
+          %td= pitcher[:bs]
+    .page-header
+      %h4= link_to @game[:home_sname], {controller: :team, action: :show, team_id: @game[:home_id]}
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Batter
+          %th POS
+          %th BO
+          %th AB
+          %th AVG
+          %th H
+          %th 2B
+          %th 3B
+          %th HR
+          %th RBI
+          %th R
+          %th SO
+          %th BB
+          %th HBP
+          %th SB
+          %th CS
+          %th SAC
+          %th SF
+          %th GO
+          %th AO
+          %th GIDP
+          %th LOB
+      %tbody
+      - @batting[:home][:batters].each do |batter|
+        %tr
+          %td=link_to batter[:name_display_first_last], {controller: :batters, action: :show, p_id: batter[:id]}
+          %td= batter[:pos]
+          %td= batter[:bo].slice(0,1)
+          %td= batter[:ab]
+          %td= batter[:avg]
+          %td= batter[:h]
+          %td= batter[:d]
+          %td= batter[:t]
+          %td= batter[:hr]
+          %td= batter[:rbi]
+          %td= batter[:r]
+          %td= batter[:so]
+          %td= batter[:bb]
+          %td= batter[:hbp]
+          %td= batter[:sb]
+          %td= batter[:cs]
+          %td= batter[:sac]
+          %td= batter[:sf]
+          %td= batter[:go]
+          %td= batter[:ao]
+          %td= batter[:gidp]
+          %td= batter[:lob]
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Pitcher
+          %th BF
+          %th OUT
+          %th ERA
+          %th ER
+          %th R
+          %th NP
+          %th S
+          %th H
+          %th HR
+          %th SO
+          %th BB
+          %th W
+          %th L
+          %th HLD
+          %th SV
+          %th BS
+          %th
+      %tbody
+      - @pitching[:home][:pitchers].each do |pitcher|
+        %tr
+          %td=link_to pitcher[:name_display_first_last], {controller: :pitchers, action: :show, p_id: pitcher[:id]}
+          %td= pitcher[:bf]
+          %td= pitcher[:out]
+          %td= pitcher[:era]
+          %td= pitcher[:er]
+          %td= pitcher[:r]
+          %td= pitcher[:np]
+          %td= pitcher[:s]
+          %td= pitcher[:h]
+          %td= pitcher[:hr]
+          %td= pitcher[:so]
+          %td= pitcher[:bb]
+          %td= pitcher[:w]
+          %td= pitcher[:l]
+          %td= pitcher[:hld]
+          %td= pitcher[:sv]
+          %td= pitcher[:bs]
+
