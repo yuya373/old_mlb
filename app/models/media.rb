@@ -3,60 +3,104 @@ require 'open-uri'
 class Media < ActiveRecord::Base
 
   belongs_to :game, :foreign_key => 'game_id'
+  belongs_to :pitcher, foreign_key: :p_id
+  belongs_to :batter, foreign_key: :p_id
+  belongs_to :team
+
+
   def self.get
-    date = Date.yesterday.to_s
-    year = date.slice(0,4)
-    month = date.slice(5,2)
-    day = date.slice(8,2)
-
-    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/media/highlights.xml"
-    begin
-      doc = Nokogiri::XML(open(url))
-
-      highlights = doc.css('highlights')
-
-      highlights.each do |high|
-        high.css('media').each do |media|
-          home_team_id = high.attribute('home_team_id').text
-          away_team_id = high.attribute('away_team_id').text
-          game_id = high.attribute('id').text.tr('/','_').tr('-','_')
+    Team.find_each do |team|
 
 
-          media_type = media.attribute('type').text
-          date = media.attribute('date').text
-          headline = media.css('headline').text
-          duration = media.css('duration').text
+      # gid = '2013_05_19_detmlb_texmlb_1'
+      gid = team.game_id
+      year = gid.slice(0,4)
+      month = gid.slice(5,2)
+      day = gid.slice(8,2)
+      # 2013/06/01/wasmlb-atlmlb-1
+      away_team = gid.slice(11,6)
+      home_team = gid.slice(18,6)
+      num = gid.slice(25,1)
 
-          thumb = media.css('thumb').text
+      url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/media/mobile.xml"
 
-          url = media.css('url').text
-          keyword = media.css('keyword')[0]
-          sv_id = keyword.attribute('value').text
-
-          @media = {
-            home_team_id: home_team_id,
-            away_team_id: away_team_id,
-            game_id: game_id,
-            media_type: media_type,
-            date: date,
-            thumb: thumb,
-            url: url,
-            sv_id: sv_id,
-            headline: headline,
-            duration: duration
-          }
-          begin
-            Media.where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
-          rescue
-            Media.create(@media)
-          end
-        end
+      if num == '2'
+        Media.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
       end
-    rescue
+      begin
+        doc = Nokogiri::XML(open(url))
+      rescue
+      else
+        high = doc.css('highlights')
+
+          high.css('media').each do |media|
+            @media = {}
+            @media[:game_id] = gid
+            @media[:des] = media.css('bigblurb').text
+            @media[:date] = Date.new(year.to_i,month.to_i,day.to_i)
+            @media[:headline] = media.css('headline').text
+            @media[:duration] = media.css('duration').text
+            @media[:sv_id] = media.attribute('id').text.to_i
+
+
+
+            if media.key?('condensed')
+              @media[:media_type] = 'condensed'
+            else
+              @media[:media_type] = media.attribute('type').text
+            end
+
+
+
+            if media.css('player').empty?
+            else
+              @media[:p_id] = media.css('player').attribute('player_id').text.to_i
+            end
+
+            media.css('keywords>keyword').each do |keyword|
+              if keyword.attribute('type').text == 'team_id'
+                @media[:team_id] =keyword.attribute('value').text.to_i
+              else keyword.attribute('type').text == 'sv_id'
+                # @media[:sv_id] = keyword.attribute('value').text.to_i
+              end
+            end
+
+            media.css('thumbnails>thumb').each do |thumbnail|
+              case thumbnail.attribute('type').text
+              when '8'
+                @media[:thumb] = thumbnail.text
+              when '43'
+                @media[:thumb] = thumbnail.text
+              end
+            end
+
+            media.css('url').each do |url|
+              if (media.attribute('condensed')) && (media.attribute('condensed').text == 'true')
+                case url.attribute('playback-scenario').text
+                when '3GP_H264_550K_320X240'
+                  @media[:url] = url.text
+                end
+              else
+                case url.attribute('playback-scenario').text
+                when 'FLASH_1200K_640X360'
+                  @media[:url] = url.text
+                end
+              end
+            end
+
+
+            begin
+              Media.where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
+            rescue
+              Media.create(@media)
+            end
+          end
+      end
     end
   end
 
   def self.seed(gid)
+    # gid = '2013_05_19_detmlb_texmlb_1'
     year = gid.slice(0,4)
     month = gid.slice(5,2)
     day = gid.slice(8,2)
@@ -65,50 +109,66 @@ class Media < ActiveRecord::Base
     home_team = gid.slice(18,6)
     num = gid.slice(25,1)
 
-    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/media/highlights.xml"
+    url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/media/mobile.xml"
     begin
       doc = Nokogiri::XML(open(url))
+    rescue
+    else
+      high = doc.css('highlights')
 
-      highlights = doc.css('highlights')
-
-      highlights.each do |high|
         high.css('media').each do |media|
-          home_team_id = high.attribute('home_team_id').text
-          away_team_id = high.attribute('away_team_id').text
-          game_id = high.attribute('id').text.tr('/','_').tr('-','_')
+          @media = {}
+          @media[:game_id] = gid
 
 
-          media_type = media.attribute('type').text
-          date = media.attribute('date').text
-          headline = media.css('headline').text
-          duration = media.css('duration').text
+          if media.css('player').empty?
+          else
+            @media[:p_id] = media.css('player').attribute('player_id').text.to_i
+          end
+          @media[:des] = media.css('bigblurb').text
+          @media[:date] = Date.new(year.to_i,month.to_i,day.to_i)
+          @media[:headline] = media.css('headline').text
+          @media[:duration] = media.css('duration').text
+          @media[:sv_id] = media.attribute('id').text.to_i
 
-          thumb = media.css('thumb').text
+          media.css('keywords>keyword').each do |keyword|
+            if keyword.attribute('type').text == 'team_id'
+              @media[:team_id] =keyword.attribute('value').text.to_i
+            else keyword.attribute('type').text == 'sv_id'
+              # @media[:sv_id] = keyword.attribute('value').text.to_i
+            end
+          end
 
-          url = media.css('url').text
-          keyword = media.css('keyword')[0]
-          sv_id = keyword.attribute('value').text
+          media.css('thumbnails>thumb').each do |thumbnail|
+            case thumbnail.attribute('type').text
+            when '8'
+              @media[:thumb] = thumbnail.text
+            when '43'
+              @media[:thumb] = thumbnail.text
+            end
+          end
 
-          @media = {
-            home_team_id: home_team_id,
-            away_team_id: away_team_id,
-            game_id: game_id,
-            media_type: media_type,
-            date: date,
-            thumb: thumb,
-            url: url,
-            sv_id: sv_id,
-            headline: headline,
-            duration: duration
-          }
+          media.css('url').each do |url|
+            if (media.attribute('condensed')) && (media.attribute('condensed').text == 'true')
+              case url.attribute('playback-scenario').text
+              when '3GP_H264_550K_320X240'
+                @media[:url] = url.text
+              end
+            else
+              case url.attribute('playback-scenario').text
+              when 'FLASH_1200K_640X360'
+                @media[:url] = url.text
+              end
+            end
+          end
+
+
           begin
-            Media.where(game_id: @media[:game_id]).where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
+            Media.where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
           rescue
             Media.create(@media)
           end
         end
-      end
-    rescue
     end
   end
 
@@ -203,7 +263,7 @@ class Media < ActiveRecord::Base
               url = m_url.text
             end
           end
-# 2013_07_30_arimlb-tbamlb-1
+          # 2013_07_30_arimlb-tbamlb-1
           @media = {
             game_id: "#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}",
             sv_id: id,
@@ -225,6 +285,7 @@ class Media < ActiveRecord::Base
     rescue
     end
   end
+
 end
 
 

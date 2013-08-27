@@ -8,4 +8,5 @@ describe Team do
 
   it {should have_db_index(:team_id)}
   it {should have_many(:team_favorites)}
+  it {should have_many(:medias)}
 end

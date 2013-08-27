@@ -9,6 +9,7 @@ class Batter < ActiveRecord::Base
   has_many :pitch_type_details, :foreign_key => 'p_id'
   has_many :atbats, :foreign_key => 'batter_id'
   has_many :batter_favorites
+  has_many :medias, foreign_key: :p_id
 
   scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}
   scope :if_batter, lambda{where('pos = ? or pos = ? or pos = ? or pos = ? or pos = ? or pos = ?', '1B', '2B', '3B', 'SS', 'C', 'D').order('pos')}
@@ -16,6 +17,8 @@ class Batter < ActiveRecord::Base
   scope :stats, lambda{|item,direction| where('not pos = ?',  'P').order(item + ' ' + direction)}
   scope :nl, lambda{where('league_id = 104')}
   scope :al, lambda{where('league_id = 103')}
+
+
   def self.test
     print "Hello whenever"
   end

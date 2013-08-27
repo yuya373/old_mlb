@@ -7,6 +7,7 @@ class Team < ActiveRecord::Base
   has_many :home_team_game, :foreign_key => 'home_team_id', :class_name => 'Game'
   has_many :away_team_game, :foreign_key => 'away_team_id', :class_name => 'Game'
   has_many :team_favorites
+  has_many :medias
 
 
   scope :division, lambda{|division| where(division: division)}
