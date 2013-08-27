@@ -110,65 +110,75 @@ class Media < ActiveRecord::Base
     num = gid.slice(25,1)
 
     url = "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/media/mobile.xml"
+
     begin
       doc = Nokogiri::XML(open(url))
     rescue
     else
       high = doc.css('highlights')
 
-        high.css('media').each do |media|
-          @media = {}
-          @media[:game_id] = gid
+      high.css('media').each do |media|
+        @media = {}
+        @media[:game_id] = gid
+        @media[:des] = media.css('bigblurb').text
+        @media[:date] = Date.new(year.to_i,month.to_i,day.to_i)
+        @media[:headline] = media.css('headline').text
+        @media[:duration] = media.css('duration').text
+        @media[:sv_id] = media.attribute('id').text.to_i
 
 
-          if media.css('player').empty?
-          else
-            @media[:p_id] = media.css('player').attribute('player_id').text.to_i
-          end
-          @media[:des] = media.css('bigblurb').text
-          @media[:date] = Date.new(year.to_i,month.to_i,day.to_i)
-          @media[:headline] = media.css('headline').text
-          @media[:duration] = media.css('duration').text
-          @media[:sv_id] = media.attribute('id').text.to_i
 
-          media.css('keywords>keyword').each do |keyword|
-            if keyword.attribute('type').text == 'team_id'
-              @media[:team_id] =keyword.attribute('value').text.to_i
-            else keyword.attribute('type').text == 'sv_id'
-              # @media[:sv_id] = keyword.attribute('value').text.to_i
-            end
-          end
-
-          media.css('thumbnails>thumb').each do |thumbnail|
-            case thumbnail.attribute('type').text
-            when '8'
-              @media[:thumb] = thumbnail.text
-            when '43'
-              @media[:thumb] = thumbnail.text
-            end
-          end
-
-          media.css('url').each do |url|
-            if (media.attribute('condensed')) && (media.attribute('condensed').text == 'true')
-              case url.attribute('playback-scenario').text
-              when '3GP_H264_550K_320X240'
-                @media[:url] = url.text
-              end
-            else
-              case url.attribute('playback-scenario').text
-              when 'FLASH_1200K_640X360'
-                @media[:url] = url.text
-              end
-            end
-          end
+        if media.key?('condensed')
+          @media[:media_type] = 'condensed'
+        else
+          @media[:media_type] = media.attribute('type').text
+        end
 
 
-          begin
-            Media.where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
-          rescue
-            Media.create(@media)
+
+        if media.css('player').empty?
+        else
+          @media[:p_id] = media.css('player').attribute('player_id').text.to_i
+        end
+
+        media.css('keywords>keyword').each do |keyword|
+          if keyword.attribute('type').text == 'team_id'
+            @media[:team_id] =keyword.attribute('value').text.to_i
+          else keyword.attribute('type').text == 'sv_id'
+            # @media[:sv_id] = keyword.attribute('value').text.to_i
           end
         end
+
+        media.css('thumbnails>thumb').each do |thumbnail|
+          case thumbnail.attribute('type').text
+          when '8'
+            @media[:thumb] = thumbnail.text
+          when '43'
+            @media[:thumb] = thumbnail.text
+          end
+        end
+
+        media.css('url').each do |url|
+          if (media.attribute('condensed')) && (media.attribute('condensed').text == 'true')
+            case url.attribute('playback-scenario').text
+            when '3GP_H264_550K_320X240'
+              @media[:url] = url.text
+            end
+          else
+            case url.attribute('playback-scenario').text
+            when 'FLASH_1200K_640X360'
+              @media[:url] = url.text
+            end
+          end
+        end
+
+
+        begin
+          Media.where(sv_id: @media[:sv_id]).first.update_attributes!(@media)
+        rescue
+          Media.create(@media)
+        end
+      end
     end
   end
 
