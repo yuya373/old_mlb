@@ -1,12 +1,15 @@
 =render 'frame'
-.span7
+.span8
   -@media.each do |media|
     .hero-unit
+      %small.pull-right=link_to 'Watch', {controller: :media, action: :show, id: media.id}
       %ul.media-list
         %li.media
+          .media-object.pull-left
+            =image_tag media.thumb, width: '240'
+            / , size: '256x128'
           .media-body
             %h4.media-heading= media.headline
             %blockquote
               %small.muted= media.des
-          .media-object
-            =video_tag media.url, controls: true, autoplay: false, autobuffer: true, poster: media.thumb
+

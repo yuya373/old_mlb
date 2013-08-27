@@ -30,12 +30,13 @@ Mlb::Application.routes.draw do
   get 'nl_team_hitting', to: 'team#nl_hitting'
   get 'nl_team_pitching', to: 'team#nl_pitching'
   resources :team
-  resource :media
+  resources :media
   get 'game/show', to: 'game#show'
   get 'game/index', to: 'game#index'
   get 'game/atbat', to: 'game#atbat'
   get 'game/today', to: 'game#today_index'
   get 'game/today/:g_id', to: 'game#today_show'
+  get 'game/highlight', to: 'game#highlight'
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'
   resources :game_detail

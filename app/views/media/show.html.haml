@@ -1,26 +1,11 @@
-/ =debug @g_id
-/ =debug @media
-.span12
-  %ul.nav.nav-tabs
-    %li= link_to 'BoxScore',{controller: 'game', action: 'show', g_id: @g_id}
-    %li= link_to 'Atbats', {controller: 'game', action: 'atbat', g_id: @g_id}
-    %li= link_to 'HighLights', {controller: 'media', action: 'show', g_id: @g_id}
--if @cg.any?
-  .hero-unit.span6
+.span7
+  -media = @media
+  .hero-unit
     %ul.media-list
       %li.media
         .media-body
-          %h4.media-heading= @cg.first.headline
+          %h4.media-heading= media.headline
+          %blockquote
+            %small.muted= media.des
         .media-object
-          =video_tag @cg.first.url, controls: true, autoplay: false, autobuffer: true, size: '480x320', poster: @cg.first.thumb
--if @media.any?
-  -@media.each do |media|
-    .hero-unit.span7
-      %ul.media-list
-        %li.media
-          .media-body
-            %h4.media-heading= media.headline
-          .media-object
-            =video_tag media.url, controls: true, autoplay: false, autobuffer: true, poster: media.thumb
-
-
+          =video_tag media.url, controls: true, autoplay: false, autobuffer: true, poster: media.thumb

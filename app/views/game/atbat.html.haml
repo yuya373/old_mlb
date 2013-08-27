@@ -6,7 +6,7 @@
   %ul.nav.nav-tabs
     %li= link_to 'BoxScore',{controller: 'game', action: 'show', g_id: @g_id}
     %li= link_to 'Atbats', {controller: 'game', action: 'atbat', g_id: @g_id}
-    %li= link_to 'HighLights', {controller: 'media', action: 'show', g_id: @g_id}
+    %li= link_to 'HighLights', {controller: 'game', action: 'highlight', g_id: @g_id}
 .span10
   .hero-unit
     %h2= "#{@game.away_team_name_full} - #{@game.home_team_name_full}"
