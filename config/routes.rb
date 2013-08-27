@@ -14,7 +14,13 @@ Mlb::Application.routes.draw do
   resources :favorites
   root to: 'team#index'
   get 'batter/:p_id' => 'batters#show'
+  get 'batter/:p_id/split' => 'batters#split'
+  get 'batter/:p_id/vs_pitcher' => 'batters#vs_pitcher'
+  get 'batter/:p_id/highlight' => 'batters#highlight'
   get 'pitcher/:p_id' => 'pitchers#show'
+  get 'pitcher/:p_id/split' => 'pitchers#split'
+  get 'pitcher/:p_id/vs_batter' => 'pitchers#vs_batter'
+  get 'pitcher/:p_id/highlight' => 'pitchers#highlight'
   get 'team/:team_id' => 'team#show'
   get 'team' => 'team#index'
   get 'all_team_hitting', to: 'team#all_hitting'

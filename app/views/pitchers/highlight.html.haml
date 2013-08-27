@@ -1,0 +1,12 @@
+=render 'frame'
+.span7
+  -@media.each do |media|
+    .hero-unit
+      %ul.media-list
+        %li.media
+          .media-body
+            %h4.media-heading= media.headline
+            %blockquote
+              %small.muted= media.des
+          .media-object
+            =video_tag media.url, controls: true, autoplay: false, autobuffer: true, poster: media.thumb

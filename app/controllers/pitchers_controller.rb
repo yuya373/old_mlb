@@ -32,6 +32,44 @@ class PitchersController < ApplicationController
 
   end
 
+
+  def split
+    @p_id = params[:p_id]
+    @pitcher = Pitcher.from_p_id(@p_id)
+
+    @pitch_tendencies = @pitcher.pitch_tendencies.where('game_id = ?','last_five').order('num desc')
+    @pitch_type = @pitcher.pitch_type_details
+  end
+
+  def vs_batter
+    @p_id = params[:p_id]
+    @pitcher = Pitcher.from_p_id(@p_id)
+
+    @batter = {}
+    @team = []
+    @pitcher.atbats.select('distinct batter_team').each do |atbat|
+      @team << atbat.batter_team
+      @batter[atbat.batter_team] = []
+    end
+      @team.each do |v|
+        @pitcher.atbats.where.not('batter_name = ?', '-').where('batter_team = ?',v).for_pitcher.each do |bat|
+          @batter[v] << [bat.batter_name,bat.batter_id]
+        end
+      end
+
+
+    @atbat = Atbat.from_pitcher_id(params[:pitcher]).from_batter_id(params[:batter]).show
+  end
+
+  def highlight
+    @p_id = params[:p_id]
+    @pitcher = Pitcher.from_p_id(@p_id)
+
+    @media = @pitcher.medias
+  end
+
+
+
   def r_pitcher(pitcher,item)
     r_pitcher = []
     if item == 'era' || item == 'whip' || item == 'avg' || item == 'slg'

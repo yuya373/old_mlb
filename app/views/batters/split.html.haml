@@ -1,0 +1,144 @@
+=render 'frame'
+.span10
+  .span5
+    %h5 球種別
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th AB
+          %th AVG
+          %th HR
+          %th RBI
+          %th BB
+          %th SO
+          %th OPS
+          %th Rating
+          %th Sweetness
+      %tbody
+      -@details.each do |d|
+        -if d.pitch_type == 'fa'
+        -else
+          %tr
+            %th= d.pitch_type.upcase
+            %td= d.ab
+            %td= d.avg
+            %td= d.hr
+            %td= d.rbi
+            %td= d.bb
+            %td= d.so
+            %td= d.ops
+            %td= d.rating
+            %td= d.sweetness
+  .span5
+    %h5 Split
+    %table.table.table-striped
+      %thead
+        %th
+          %th AVG
+          %th AB
+          %th BB
+          %th H
+          %th HR
+          %th R
+          %th RBI
+          %th SB
+          %th SO
+          %th OPS
+      %tbody
+        %tr
+          %th 今シーズン
+          %td= @batter[:avg]
+          %td= @batter[:ab]
+          %td= @batter[:bb]
+          %td= @batter[:h]
+          %td= @batter[:hr]
+          %td= @batter[:r]
+          %td= @batter[:rbi]
+          %td= @batter[:sb]
+          %td= @batter[:so]
+          %td= @batter[:ops]
+        %tr
+          %th 通算
+          %td= @batter[:career_avg]
+          %td= @batter[:career_ab]
+          %td= @batter[:career_bb]
+          %td= @batter[:career_h]
+          %td= @batter[:career_hr]
+          %td= @batter[:career_r]
+          %td= @batter[:career_rbi]
+          %td= @batter[:career_sb]
+          %td= @batter[:career_so]
+          %td= @batter[:career_ops]
+        %tr
+          %th= "Month:#{@batter[:month_des]}"
+          %td= @batter[:month_avg]
+          %td= @batter[:month_ab]
+          %td= @batter[:month_bb]
+          %td= @batter[:month_h]
+          %td= @batter[:month_hr]
+          %td= @batter[:month_r]
+          %td= @batter[:month_rbi]
+          %td= @batter[:month_sb]
+          %td= @batter[:month_so]
+          %td= @batter[:month_ops]
+        %tr
+          %th ランナー1塁
+          %td= @batter[:men_on_avg]
+          %td= @batter[:men_on_ab]
+          %td= @batter[:men_on_bb]
+          %td= @batter[:men_on_h]
+          %td= @batter[:men_on_hr]
+          %td= @batter[:men_on_r]
+          %td= @batter[:men_on_rbi]
+          %td= @batter[:men_on_sb]
+          %td= @batter[:men_on_so]
+          %td= @batter[:men_on_ops]
+        %tr
+          %th 得点圏
+          %td= @batter[:risp_avg]
+          %td= @batter[:risp_ab]
+          %td= @batter[:risp_bb]
+          %td= @batter[:risp_h]
+          %td= @batter[:risp_hr]
+          %td= @batter[:risp_r]
+          %td= @batter[:risp_rbi]
+          %td= @batter[:risp_sb]
+          %td= @batter[:risp_so]
+          %td= @batter[:risp_ops]
+        %tr
+          %th 満塁
+          %td= @batter[:loaded_avg]
+          %td= @batter[:loaded_ab]
+          %td= @batter[:loaded_bb]
+          %td= @batter[:loaded_h]
+          %td= @batter[:loaded_hr]
+          %td= @batter[:loaded_r]
+          %td= @batter[:loaded_rbi]
+          %td= @batter[:loaded_sb]
+          %td= @batter[:loaded_so]
+          %td= @batter[:loaded_ops]
+        %tr
+          %th 対右投手
+          %td= @batter[:vs_rhp_avg]
+          %td= @batter[:vs_rhp_ab]
+          %td= @batter[:vs_rhp_bb]
+          %td= @batter[:vs_rhp_h]
+          %td= @batter[:vs_rhp_hr]
+          %td= @batter[:vs_rhp_r]
+          %td= @batter[:vs_rhp_rbi]
+          %td= @batter[:vs_rhp_sb]
+          %td= @batter[:vs_rhp_so]
+          %td= @batter[:vs_rhp_ops]
+        %tr
+          %th 対左投手
+          %td= @batter[:vs_lhp_avg]
+          %td= @batter[:vs_lhp_ab]
+          %td= @batter[:vs_lhp_bb]
+          %td= @batter[:vs_lhp_h]
+          %td= @batter[:vs_lhp_hr]
+          %td= @batter[:vs_lhp_r]
+          %td= @batter[:vs_lhp_rbi]
+          %td= @batter[:vs_lhp_sb]
+          %td= @batter[:vs_lhp_so]
+          %td= @batter[:vs_lhp_ops]

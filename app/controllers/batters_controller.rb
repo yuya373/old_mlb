@@ -33,10 +33,21 @@ class BattersController < ApplicationController
     @p_id = params[:p_id]
 
     @batter = Batter.from_p_id(@p_id)
+    flash[:update] = when_updated(@batter)
+  end
 
+  def split
+    @p_id = params[:p_id]
+
+    @batter = Batter.from_p_id(@p_id)
     @details = @batter.pitch_type_details
 
+  end
 
+  def vs_pitcher
+    @p_id = params[:p_id]
+
+    @batter = Batter.from_p_id(@p_id)
     @team = []
     @pitcher = {}
     @batter.atbats.select('distinct pitcher_team').each do |atbat|
@@ -52,8 +63,16 @@ class BattersController < ApplicationController
 
     @atbat = Atbat.from_pitcher_id(params[:pitcher]).from_batter_id(params[:batter]).show
 
-    flash[:update] = when_updated(@batter)
   end
+
+  def highlight
+    @p_id = params[:p_id]
+    @batter = Batter.from_p_id(@p_id)
+
+    @media = @batter.medias
+  end
+
+
 
 
   def all

@@ -1,0 +1,42 @@
+=render 'frame'
+.span10
+  %h5 対バッター
+  %form.form-inline
+    = select_tag :batter, grouped_options_for_select(@batter)
+    = hidden_field_tag :pitcher, @p_id
+    = submit_tag 'Go!', {:controller => 'pitchers', :action => 'show'}
+  - num = 1
+  %table.table.table-striped
+    -@atbat.each do |atbat|
+      %thead
+        %tr
+          %th= num
+          %th Pitcher
+          %th Batter
+          %th Count
+          %th Event
+          %th Description
+      %tbody
+        %tr
+          %th= atbat.game_id.slice(0,10).tr('_','/')
+          %td= atbat.pitcher_name
+          %td= atbat.batter_name
+          %td= "B:#{atbat.b} S:#{atbat.s} O:#{atbat.o}"
+          %td= atbat.event
+          %td= atbat.des
+        %tr
+          %th
+          %th Call
+          %th Velocity
+          %th Type
+          %th Nasty
+          %th Zone
+        -atbat.pitchings.each do |pitch|
+          %tr
+            %td
+            %td= pitch.des
+            %td= pitch.end_speed
+            %td= pitch.pitch_type
+            %td= pitch.nasty
+            %td= pitch.zone
+      -num += 1

@@ -1,0 +1,23 @@
+.span10
+  .hero-unit
+    %p.text-right= link_to @batter.team.team_name, {:controller => 'team', :action => 'show', :team_id => @batter.team_id}
+    %h2= @batter.name_display_first_last
+    %ul.inline
+      %li= "生年月日:#{@batter[:dob]}"
+      %li= "背番号##{@batter[:jersey_number]}"
+      %li= "身長:#{@batter[:height]}"
+      %li= "体重:#{@batter[:weight]}"
+      %li= "#{t(@batter[:throws])}投#{t(@batter[:bats])}打"
+      %li= "ポジション:#{@batter.pos}"
+      / %li= "#{@year}/#{@month}/#{@day} 現在"
+    -if current_user
+      =button_to '★ Fav', {controller: 'batter_favorites', action: 'create', favorite: { batter_id: @batter.p_id, user_id: current_user.id,  }}, method: :post, class: "btn btn-small pull-right"
+  %ul.nav.nav-tabs
+    %li
+      =link_to 'Season', {controller: :batters, action: :show}
+    %li
+      =link_to 'Split', {controller: :batters, action: :split}
+    %li
+      =link_to 'vs Pitcher', {controller: :batters, action: :vs_pitcher}
+    %li
+      =link_to 'Highlights', {controller: :batters, action: :highlight}

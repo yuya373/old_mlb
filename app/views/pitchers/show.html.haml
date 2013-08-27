@@ -5,301 +5,75 @@
 / =debug @batte
 / =debug @ary
 .row-fluid
+  =render 'frame'
   .span10
-    .hero-unit
-      %p.text-right= link_to @pitcher.team.team_name, {:controller => 'team', :action => 'show', :team_id => @pitcher.team_id}
-      %h2= @pitcher.name_display_first_last
-      %ul.inline
-        %li= "生年月日:#{@pitcher[:dob]}"
-        %li= "背番号##{@pitcher[:jersey_number]}"
-        %li= "身長:#{@pitcher[:height]}"
-        %li= "体重:#{@pitcher[:weight]}"
-        %li= "#{t(@pitcher[:throws])}投#{t(@pitcher[:bats])}打"
-        / %li= "#{@year}/#{@month}/#{@day} 現在"
-      -if current_user
-        =button_to '★ Fav', {controller: 'pitcher_favorites', action: 'create', favorite: { pitcher_id: @pitcher.p_id, user_id: current_user.id}}, method: :post, class: "btn btn-small pull-right"
+    %table.table.table-striped
+      %thead
+        %tr
+          %th IP
+          %th ERA
+          %th R
+          %th H
+          %th HR
+          %th BB
+          %th IBB
+          %th SO
+          %th HB
+          %th WP
+          %th AVG
+          %th WHIP
+          %th AB
+          %th SF
+          %th SAC
+      %tbody
+        %tr
+          %td= @pitcher.ip
+          %td= @pitcher.era_sort.round(3)
+          %td= @pitcher.r
+          %td= @pitcher.h
+          %td= @pitcher.hr
+          %td= @pitcher.bb
+          %td= @pitcher.ibb
+          %td= @pitcher.so
+          %td= @pitcher.hb
+          %td= @pitcher.wp
+          %td= @pitcher.avg_sort.round(3)
+          %td= @pitcher.whip_sort.round(3)
+          %td= @pitcher.ab
+          %td= @pitcher.sf
+          %td= @pitcher.sac
+      %thead
+        %tr
+          %th GIDP
+          %th GO
+          %th AO
+          %th TPA
+          %th NP
+          %th BK
+          %th HLD
+          %th SV
+          %th BSV
+          %th SVO
+          %th G
+          %th GS
+          %th CG
+          %th GF
+          %th SHO
+      %tbody
+        %tr
+          %td= @pitcher.gidp
+          %td= @pitcher.go
+          %td= @pitcher.ao
+          %td= @pitcher.tpa
+          %td= @pitcher.np
+          %td= @pitcher.bk
+          %td= @pitcher.hld
+          %td= @pitcher.sv
+          %td= @pitcher.bsv
+          %td= @pitcher.svo
+          %td= @pitcher.g
+          %td= @pitcher.gs
+          %td= @pitcher.cg
+          %td= @pitcher.gf
+          %td= @pitcher.sho
 
-    .span10
-      %h5 成績
-      %table.table.table-striped
-        %thead
-          %tr
-            %th IP
-            %th ERA
-            %th R
-            %th H
-            %th HR
-            %th BB
-            %th IBB
-            %th SO
-            %th HB
-            %th WP
-            %th AVG
-            %th WHIP
-            %th AB
-            %th SF
-            %th SAC
-        %tbody
-          %tr
-            %td= @pitcher.ip
-            %td= @pitcher.era_sort.round(3)
-            %td= @pitcher.r
-            %td= @pitcher.h
-            %td= @pitcher.hr
-            %td= @pitcher.bb
-            %td= @pitcher.ibb
-            %td= @pitcher.so
-            %td= @pitcher.hb
-            %td= @pitcher.wp
-            %td= @pitcher.avg_sort.round(3)
-            %td= @pitcher.whip_sort.round(3)
-            %td= @pitcher.ab
-            %td= @pitcher.sf
-            %td= @pitcher.sac
-        %thead
-          %tr
-            %th GIDP
-            %th GO
-            %th AO
-            %th TPA
-            %th NP
-            %th BK
-            %th HLD
-            %th SV
-            %th BSV
-            %th SVO
-            %th G
-            %th GS
-            %th CG
-            %th GF
-            %th SHO
-        %tbody
-          %tr
-            %td= @pitcher.gidp
-            %td= @pitcher.go
-            %td= @pitcher.ao
-            %td= @pitcher.tpa
-            %td= @pitcher.np
-            %td= @pitcher.bk
-            %td= @pitcher.hld
-            %td= @pitcher.sv
-            %td= @pitcher.bsv
-            %td= @pitcher.svo
-            %td= @pitcher.g
-            %td= @pitcher.gs
-            %td= @pitcher.cg
-            %td= @pitcher.gf
-            %td= @pitcher.sho
-
-    .span10
-      %h5 対バッター
-      %form.form-inline
-        = select_tag :batter, grouped_options_for_select(@batter)
-        = hidden_field_tag :pitcher, @p_id
-        = submit_tag 'Go!', {:controller => 'pitchers', :action => 'show'}
-      - num = 1
-      %table.table.table-striped
-        -@atbat.each do |atbat|
-          %thead
-            %tr
-              %th= num
-              %th Pitcher
-              %th Batter
-              %th Count
-              %th Event
-              %th Description
-          %tbody
-            %tr
-              %th= atbat.game_id.slice(0,10).tr('_','/')
-              %td= atbat.pitcher_name
-              %td= atbat.batter_name
-              %td= "B:#{atbat.b} S:#{atbat.s} O:#{atbat.o}"
-              %td= atbat.event
-              %td= atbat.des
-            %tr
-              %th
-              %th Call
-              %th Velocity
-              %th Type
-              %th Nasty
-              %th Zone
-            -atbat.pitchings.each do |pitch|
-              %tr
-                %td
-                %td= pitch.des
-                %td= pitch.end_speed
-                %td= pitch.pitch_type
-                %td= pitch.nasty
-                %td= pitch.zone
-          -num += 1
-
-    .span6
-      %h5 球種別
-      %table.table.table-striped
-        %thead
-          %tr
-            %th
-            %th %
-            %th mp/h
-            %th AB
-            %th AVG
-            %th HR
-            %th RBI
-            %th BB
-            %th SO
-            %th OPS
-        %tbody
-          -@pitch_tendencies.each do |pitch|
-            %tr
-              %th= pitch.pitch_type
-              %td= ((pitch.num.to_f/pitch.game_num.to_f) * 100).round(1)
-              %td= pitch.vel
-              -@pitch_type.each do |ty|
-                -if (ty.pitch_type.upcase == pitch.pitch_type)and (ty.p_b == 'p')
-                  %td= ty.ab
-                  %td= ty.avg
-                  %td= ty.hr
-                  %td= ty.rbi
-                  %td= ty.bb
-                  %td= ty.so
-                  %td= ty.ops
-    .span8
-      %h5 Split
-      %table.table.table-striped
-        %thead
-          %tr
-            %th
-            %th ERA
-            %th AVG
-            %th WHIP
-            %th H
-            %th HR
-            %th BB
-            %th SO
-            %th IP
-            %th AB
-            %th RBI
-            %th WIN
-            %th LOSE
-            %th SAVE
-        %tbody
-          %tr
-            %th 今シーズン
-            %td= @pitcher[:era].round(2)
-            %td= @pitcher[:avg]
-            %td= @pitcher[:whip]
-            %td= @pitcher[:h]
-            %td= @pitcher[:hr]
-            %td= @pitcher[:bb]
-            %td= @pitcher[:so]
-            %td= @pitcher[:ip]
-            %td= @pitcher[:ab]
-            %td= @pitcher[:er]
-            %td= @pitcher[:w]
-            %td= @pitcher[:l]
-            %td= @pitcher[:sv]
-          %tr
-            %th 通算
-            %td= @pitcher[:career_era]
-            %td= @pitcher[:career_avg]
-            %td= @pitcher[:career_whip]
-            %td= @pitcher[:career_h]
-            %td= @pitcher[:career_hr]
-            %td= @pitcher[:career_bb]
-            %td= @pitcher[:career_so]
-            %td= @pitcher[:career_ip]
-            %td= @pitcher[:career_ab]
-            %td= @pitcher[:career_rbi]
-            %td= @pitcher[:career_w]
-            %td= @pitcher[:career_l]
-            %td= @pitcher[:career_sv]
-          %tr
-            %th= "Month:#{@pitcher[:month_des]}"
-            %td= @pitcher[:month_era]
-            %td= @pitcher[:month_avg]
-            %td= @pitcher[:month_whip]
-            %td= @pitcher[:month_h]
-            %td= @pitcher[:month_hr]
-            %td= @pitcher[:month_bb]
-            %td= @pitcher[:month_so]
-            %td= @pitcher[:month_ip]
-            %td= @pitcher[:month_ab]
-            %td= @pitcher[:month_rbi]
-            %td= @pitcher[:month_w]
-            %td= @pitcher[:month_l]
-            %td= @pitcher[:month_sv]
-          %tr
-            %th ランナー1塁
-            %td= @pitcher[:men_on_era]
-            %td= @pitcher[:men_on_avg]
-            %td= @pitcher[:men_on_whip]
-            %td= @pitcher[:men_on_h]
-            %td= @pitcher[:men_on_hr]
-            %td= @pitcher[:men_on_bb]
-            %td= @pitcher[:men_on_so]
-            %td= @pitcher[:men_on_ip]
-            %td= @pitcher[:men_on_ab]
-            %td= @pitcher[:men_on_rbi]
-            %td= @pitcher[:men_on_w]
-            %td= @pitcher[:men_on_l]
-            %td= @pitcher[:men_on_sv]
-          %tr
-            %th 得点圏
-            %td= @pitcher[:risp_era]
-            %td= @pitcher[:risp_avg]
-            %td= @pitcher[:risp_whip]
-            %td= @pitcher[:risp_h]
-            %td= @pitcher[:risp_hr]
-            %td= @pitcher[:risp_bb]
-            %td= @pitcher[:risp_so]
-            %td= @pitcher[:risp_ip]
-            %td= @pitcher[:risp_ab]
-            %td= @pitcher[:risp_rbi]
-            %td= @pitcher[:risp_w]
-            %td= @pitcher[:risp_l]
-            %td= @pitcher[:risp_sv]
-          %tr
-            %th 満塁
-            %td= @pitcher[:loaded_era]
-            %td= @pitcher[:loaded_avg]
-            %td= @pitcher[:loaded_whip]
-            %td= @pitcher[:loaded_h]
-            %td= @pitcher[:loaded_hr]
-            %td= @pitcher[:loaded_bb]
-            %td= @pitcher[:loaded_so]
-            %td= @pitcher[:loaded_ip]
-            %td= @pitcher[:loaded_ab]
-            %td= @pitcher[:loaded_rbi]
-            %td= @pitcher[:loaded_w]
-            %td= @pitcher[:loaded_l]
-            %td= @pitcher[:loaded_sv]
-          %tr
-            %th 対右打者
-            %td= @pitcher[:vs_rhb_era]
-            %td= @pitcher[:vs_rhb_avg]
-            %td= @pitcher[:vs_rhb_whip]
-            %td= @pitcher[:vs_rhb_h]
-            %td= @pitcher[:vs_rhb_hr]
-            %td= @pitcher[:vs_rhb_bb]
-            %td= @pitcher[:vs_rhb_so]
-            %td= @pitcher[:vs_rhb_ip]
-            %td= @pitcher[:vs_rhb_ab]
-            %td= @pitcher[:vs_rhb_rbi]
-            %td= @pitcher[:vs_rhb_w]
-            %td= @pitcher[:vs_rhb_l]
-            %td= @pitcher[:vs_rhb_sv]
-          %tr
-            %th 対左打者
-            %td= @pitcher[:vs_lhb_era]
-            %td= @pitcher[:vs_lhb_avg]
-            %td= @pitcher[:vs_lhb_whip]
-            %td= @pitcher[:vs_lhb_h]
-            %td= @pitcher[:vs_lhb_hr]
-            %td= @pitcher[:vs_lhb_bb]
-            %td= @pitcher[:vs_lhb_so]
-            %td= @pitcher[:vs_lhb_ip]
-            %td= @pitcher[:vs_lhb_ab]
-            %td= @pitcher[:vs_lhb_rbi]
-            %td= @pitcher[:vs_lhb_w]
-            %td= @pitcher[:vs_lhb_l]
-            %td= @pitcher[:vs_lhb_sv]
