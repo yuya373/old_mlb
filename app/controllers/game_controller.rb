@@ -1,7 +1,5 @@
 class GameController < ApplicationController
-  def test
-    @games = Game.where('year = ? and month = ?', params[:year], params[:month])
-  end
+
   def index
     if params[:date]
       @note = true
@@ -243,6 +241,7 @@ class GameController < ApplicationController
         away_batters = []
         bat.css('batter').each do |batter|
           hash = {}
+          hash[:bo] = '-'
           batter.attributes.each do |k,v|
             hash[k.to_sym] = v.text
           end
@@ -259,6 +258,7 @@ class GameController < ApplicationController
         home_batters = []
         bat.css('batter').each do |batter|
           hash = {}
+          hash[:bo] = '-'
           batter.attributes.each do |k,v|
             hash[k.to_sym] = v.text
           end
