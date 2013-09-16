@@ -41,7 +41,7 @@ class PitchTypeDetail < ActiveRecord::Base
       num = gid.slice(25,1)
 
       if num == '2'
-        PitchTendency.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
+        PitchTypeDetail.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
       end
 
 

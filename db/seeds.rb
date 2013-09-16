@@ -11,17 +11,23 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+Team.get
+Game.get
+GameBatter.get
+GamePitcher.get
+LineScore.get
+Media.get
 
-CSV.foreach("game_id.csv") do |row|
-  row.each do |gid|
-    Game.seed(gid)
-    GamePitcher.seed(gid)
-    LineScore.seed(gid)
-    Atbat.seed(gid)
-    Media.seed(gid)
-    Media.cg_seed(gid)
-  end
-end
+# CSV.foreach("game_id.csv") do |row|
+#   row.each do |gid|
+#     Game.seed(gid)
+#     GamePitcher.seed(gid)
+#     LineScore.seed(gid)
+#     Atbat.seed(gid)
+#     Media.seed(gid)
+#     Media.cg_seed(gid)
+#   end
+# end
 
 
 # Game.find_each do |game|

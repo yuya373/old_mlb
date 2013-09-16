@@ -1,95 +1,50 @@
-.span10
-  %form.form-inline
-    / =form_tag do
-    = select_date Date.yesterday, :discard_year => true
-    = submit_tag "Go", {controller: "game", action: "index"}
+%form.form-inline
+  / =form_tag do
+  = select_date Date.yesterday, :discard_year => true
+  = submit_tag "Go", {controller: "game", action: "index"}
 -if @note
   -if @game.blank?
-    .span10
-      .alert.alert-error 試合はありません
+    .alert.alert-error.span6 試合はありません
   -else
-    / =debug @game.first.home_team
+    / =debug @game.first.line_scores
     / = when_updated(@game.first)
     - @game.each do |game|
-      .span11
-        .hero-unit
-          %p.text-right= link_to "詳細", {controller: 'game', action: 'show', g_id: game.gameday}
-          %h2
-            = "#{game.away_team_name_full} - #{game.home_team_name_full}"
-            %small= "@ #{game.stadium}" + "#{game.location}"
-          -if (game.status != 'Final') && (game.status != 'Completed Early')
-            .alert.alert-error
-              %p= game.status
-          -else
-            -begin
-              - media = game.medias.where(media_type: 'condensed').first
-              %ul.media-list
-                %li.media
-                  .media-object.pull-left
-                    =image_tag media.thumb
-                  .media-body
-                    %table.table.table-bordered.table.table-condensed
-                      %thead
-                        %tr
-                          %th
-                          -game.line_scores.each do|line|
-                            %th= line.inning
-                          %th R
-                          %th H
-                          %th E
-                      %tbody
-                        %tr
-                          %td= game.away_team_abbrev
-                          -game.line_scores.each do |line|
-                            %td= line.away
-                          %td= game.line_scores.first.away_team_runs
-                          %td= game.line_scores.first.away_team_hits
-                          %td= game.line_scores.first.away_team_errors
-                        %tr
-                          %td= game.home_team_abbrev
-                          -game.line_scores.each do |line|
-                            %td= line.home
-                          %td= game.line_scores.first.home_team_runs
-                          %td= game.line_scores.first.home_team_hits
-                          %td= game.line_scores.first.home_team_errors
-                    %span.label.label-success Win
-                    = "#{game.line_scores.first.wp_name} (#{game.line_scores.first.wp_w}-#{game.line_scores.first.wp_l})  #{game.line_scores.first.wp_era}"
-                    %span.label.label-important Lose
-                    = "#{game.line_scores.first.lp_name} (#{game.line_scores.first.lp_w}-#{game.line_scores.first.lp_l})  #{game.line_scores.first.lp_era}"
-                    -if game.line_scores.first.sv_id != nil
-                      %span.label.label-info Save
-                      = "#{game.line_scores.first.sv_name} (#{game.line_scores.first.sv_w}-#{game.line_scores.first.sv_l})  #{game.line_scores.first.sv_era}  #{game.line_scores.first.sv_sv}sv"
-            -rescue
-              %table.table.table-bordered.table.table-condensed
-                %thead
-                  %tr
-                    %th
-                    -game.line_scores.each do|line|
-                      %th= line.inning
-                    %th R
-                    %th H
-                    %th E
-                %tbody
-                  %tr
-                    %td= game.away_team_abbrev
-                    -game.line_scores.each do |line|
-                      %td= line.away
-                    %td= game.line_scores.first.away_team_runs
-                    %td= game.line_scores.first.away_team_hits
-                    %td= game.line_scores.first.away_team_errors
-                  %tr
-                    %td= game.home_team_abbrev
-                    -game.line_scores.each do |line|
-                      %td= line.home
-                    %td= game.line_scores.first.home_team_runs
-                    %td= game.line_scores.first.home_team_hits
-                    %td= game.line_scores.first.home_team_errors
-              %span.label.label-success Win
-              = "#{game.line_scores.first.wp_name} (#{game.line_scores.first.wp_w}-#{game.line_scores.first.wp_l})  #{game.line_scores.first.wp_era}"
-              %span.label.label-important Lose
-              = "#{game.line_scores.first.lp_name} (#{game.line_scores.first.lp_w}-#{game.line_scores.first.lp_l})  #{game.line_scores.first.lp_era}"
-              -if game.line_scores.first.sv_id != nil
-                %span.label.label-info Save
-                = "#{game.line_scores.first.sv_name} (#{game.line_scores.first.sv_w}-#{game.line_scores.first.sv_l})  #{game.line_scores.first.sv_era}  #{game.line_scores.first.sv_sv}sv"
-
-
+      .hero-unit.span3
+        %h4
+          = link_to "#{game.away_team_abbrev} - #{game.home_team_abbrev}", {controller: :game, action: :show, g_id: game.gameday}
+        -if (game.status != 'Final') && (game.status != 'Completed Early')
+          %p= game.status
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+        -else
+          %table.table.table-bordered.table-condensed
+            %thead
+              %tr
+                %th
+                %th R
+                %th H
+                %th E
+            %tbody
+              %tr
+                %td= game.away_team_abbrev
+                %td= game.line_scores.first.away_team_runs
+                %td= game.line_scores.first.away_team_hits
+                %td= game.line_scores.first.away_team_errors
+              %tr
+                %td= game.home_team_abbrev
+                %td= game.line_scores.first.home_team_runs
+                %td= game.line_scores.first.home_team_hits
+                %td= game.line_scores.first.home_team_errors
+          %p
+            %span.label.label-success Win
+            %small= game.line_scores.first.wp_lname
+          %p
+            %span.label.label-important Lose
+            %small= game.line_scores.first.lp_lname
+          %p
+            %span.label.label-info Save
+            %small= game.line_scores.first.sv_lname
