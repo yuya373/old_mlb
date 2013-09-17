@@ -1,51 +1,50 @@
-.span12
-  %form.form-inline
-    / =form_tag do
-    = select_date Date.yesterday, :discard_year => true
-    = submit_tag "Go", {controller: "game", action: "index"}
--if @note
-  -if @game.blank?
-    .alert.alert-error.span6 試合はありません
-  -else
-    / =debug @game.first.line_scores
-    / = when_updated(@game.first)
-    - @game.each do |game|
-      .hero-unit.span3
-        %h4
-          = link_to "#{game.away_team_abbrev} - #{game.home_team_abbrev}", {controller: :game, action: :show, g_id: game.gameday}
-        -if (game.status != 'Final') && (game.status != 'Completed Early')
-          %p= game.status
-          %br
-          %br
-          %br
-          %br
-          %br
-          %br
-        -else
-          %table.table.table-bordered.table-condensed
-            %thead
-              %tr
-                %th
-                %th R
-                %th H
-                %th E
-            %tbody
-              %tr
-                %td= game.away_team_abbrev
-                %td= game.line_scores.first.away_team_runs
-                %td= game.line_scores.first.away_team_hits
-                %td= game.line_scores.first.away_team_errors
-              %tr
-                %td= game.home_team_abbrev
-                %td= game.line_scores.first.home_team_runs
-                %td= game.line_scores.first.home_team_hits
-                %td= game.line_scores.first.home_team_errors
-          %p
-            %span.label.label-success Win
-            %small= game.line_scores.first.wp_lname
-          %p
-            %span.label.label-important Lose
-            %small= game.line_scores.first.lp_lname
-          %p
-            %span.label.label-info Save
-            %small= game.line_scores.first.sv_lname
+.row-fluid.show-grid
+  .span12
+    %form.form-inline
+      / =form_tag do
+      = select_date Date.yesterday, :discard_year => true
+      = submit_tag "Go", {controller: "game", action: "index"}
+    -if @note
+      -if @game.blank?
+        .alert.alert-error.span6 試合はありません
+      -else
+        - @game.each do |game|
+          .hero-unit.span3
+            %h4
+              = link_to "#{game.away_team_abbrev} - #{game.home_team_abbrev}", {controller: :game, action: :show, g_id: game.gameday}
+            -if (game.status != 'Final') && (game.status != 'Completed Early')
+              %p= game.status
+              %br
+              %br
+              %br
+              %br
+              %br
+              %br
+            -else
+              %table.table.table-bordered.table-condensed
+                %thead
+                  %tr
+                    %th
+                    %th R
+                    %th H
+                    %th E
+                %tbody
+                  %tr
+                    %td= game.away_team_abbrev
+                    %td= game.line_scores.first.away_team_runs
+                    %td= game.line_scores.first.away_team_hits
+                    %td= game.line_scores.first.away_team_errors
+                  %tr
+                    %td= game.home_team_abbrev
+                    %td= game.line_scores.first.home_team_runs
+                    %td= game.line_scores.first.home_team_hits
+                    %td= game.line_scores.first.home_team_errors
+              %p
+                %span.label.label-success Win
+                %small= game.line_scores.first.wp_lname
+              %p
+                %span.label.label-important Lose
+                %small= game.line_scores.first.lp_lname
+              %p
+                %span.label.label-info Save
+                %small= game.line_scores.first.sv_lname
