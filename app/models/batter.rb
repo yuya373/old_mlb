@@ -17,7 +17,7 @@ class Batter < ActiveRecord::Base
   scope :stats, lambda{|item,direction| where('not pos = ?',  'P').order(item + ' ' + direction)}
   scope :nl, lambda{where('league_id = 104')}
   scope :al, lambda{where('league_id = 103')}
-
+  scope :leaders, lambda{|stats| where('reg = 0').order(" #{stats} DESC").limit(3)}
 
   def self.test
     print "Hello whenever"
@@ -177,6 +177,17 @@ class Batter < ActiveRecord::Base
         end
 
         csv << col
+      end
+    end
+  end
+
+  def self.regulation
+    Batter.find_each do |batter|
+      game_counts = batter.team.tb_g
+      if batter.ab > (game_counts * 3.1)
+        batter.update_attributes(reg: 0)
+      else
+        batter.update_attributes(reg: 1)
       end
     end
   end

@@ -1,5 +1,4 @@
 class BattersController < ApplicationController
-  after_filter :flush, only: [:all, :al, :nl]
 
 
   def flush
@@ -33,7 +32,6 @@ class BattersController < ApplicationController
     @p_id = params[:p_id]
 
     @batter = Batter.from_p_id(@p_id)
-    flash[:update] = when_updated(@batter)
   end
 
   def split
@@ -113,5 +111,58 @@ class BattersController < ApplicationController
     @r_atbat = r_batter(@batter)
     @nr_atbat = nr_batter(@batter)
 
+  end
+
+  def leaders
+    @leaders = {
+      avg: Batter.leaders('avg'),
+      hr: Batter.leaders('hr'),
+      rbi: Batter.leaders('rbi'),
+      b2: Batter.leaders('b2'),
+      b3: Batter.leaders('b3'),
+      h: Batter.leaders('h'),
+      so: Batter.leaders('so'),
+      bb: Batter.leaders('bb'),
+      sb: Batter.leaders('sb'),
+      cs: Batter.leaders('cs'),
+      hbp: Batter.leaders('hbp'),
+      ab: Batter.leaders('ab')
+    }
+  end
+
+  def al_leaders
+
+    @leaders = {
+      avg: Batter.al.leaders('avg'),
+      hr: Batter.al.leaders('hr'),
+      rbi: Batter.al.leaders('rbi'),
+      b2: Batter.al.leaders('b2'),
+      b3: Batter.al.leaders('b3'),
+      h: Batter.al.leaders('h'),
+      so: Batter.al.leaders('so'),
+      bb: Batter.al.leaders('bb'),
+      sb: Batter.al.leaders('sb'),
+      cs: Batter.al.leaders('cs'),
+      hbp: Batter.al.leaders('hbp'),
+      ab: Batter.al.leaders('ab')
+
+    }
+  end
+
+  def nl_leaders
+    @leaders = {
+      avg: Batter.nl.leaders('avg'),
+      hr: Batter.nl.leaders('hr'),
+      rbi: Batter.nl.leaders('rbi'),
+      b2: Batter.nl.leaders('b2'),
+      b3: Batter.nl.leaders('b3'),
+      h: Batter.nl.leaders('h'),
+      so: Batter.nl.leaders('so'),
+      bb: Batter.nl.leaders('bb'),
+      sb: Batter.nl.leaders('sb'),
+      cs: Batter.nl.leaders('cs'),
+      hbp: Batter.nl.leaders('hbp'),
+      ab: Batter.nl.leaders('ab')
+    }
   end
 end

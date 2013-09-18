@@ -1,0 +1,20 @@
+.span10
+  %ul.nav.nav-tabs
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        MLB
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'Batter', {controller: :batters, action: :leaders}
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        AL
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'Batter', {controller: :batters, action: :al_leaders}
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+        NL
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'Batter', {controller: :batters, action: :nl_leaders}

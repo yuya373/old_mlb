@@ -1,0 +1,7 @@
+-@leaders.each do |k,v|
+  .hero-unit.span3
+    %h3= k.to_s.upcase
+    -v.each do |batter|
+      %p
+        =link_to "#{batter.name_display_roster}", {controller: :batters, action: :show, p_id: batter.p_id}
+        ="- #{batter[k.to_sym]}"

@@ -124,4 +124,9 @@ class PitchersController < ApplicationController
 
   end
 
+  def leaders
+    @leaders = {
+    }
+  end
+
 end

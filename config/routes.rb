@@ -13,10 +13,22 @@ Mlb::Application.routes.draw do
   resources :examples
   resources :favorites
   root to: 'team#index'
+  get 'batter/leaders', to: 'batters#leaders'
+  get 'batter/leaders/al', to: 'batters#al_leaders'
+  get 'batter/leaders/nl', to: 'batters#nl_leaders'
+  get 'batter/all', to: 'batters#all'
+  get 'batter/al', to: 'batters#al'
+  get 'batter/nl', to: 'batters#nl'
   get 'batter/:p_id' => 'batters#show'
   get 'batter/:p_id/split' => 'batters#split'
   get 'batter/:p_id/vs_pitcher' => 'batters#vs_pitcher'
   get 'batter/:p_id/highlight' => 'batters#highlight'
+  get 'pitcher/leaders', to: 'pitchers#leaders'
+  get 'pitcher/leaders/al', to: 'pitchers#al_leaders'
+  get 'pitcher/leaders/nl', to: 'pitchers#nl_leaders'
+  get 'pitcher/all', to: 'pitchers#all'
+  get 'pitcher/al', to: 'pitchers#al'
+  get 'pitcher/nl', to: 'pitchers#nl'
   get 'pitcher/:p_id' => 'pitchers#show'
   get 'pitcher/:p_id/split' => 'pitchers#split'
   get 'pitcher/:p_id/vs_batter' => 'pitchers#vs_batter'
@@ -40,13 +52,7 @@ Mlb::Application.routes.draw do
   resources :master_scoreboard
   post 'game_detail' => 'game_detail#game_details'
   resources :game_detail
-  get 'all_batters', to: 'batters#all'
-  get 'al_batter', to: 'batters#al'
-  get 'nl_batter', to: 'batters#nl'
   get 'pitchers', to: 'pitchers#index'
-  get 'all_pitchers', to: 'pitchers#all'
-  get 'al_pitcher', to: 'pitchers#al'
-  get 'nl_pitcher', to: 'pitchers#nl'
   get 'pitchings', to: 'pitch_type_details#pitchings'
   get 'battings', to: 'pitch_type_details#battings'
 

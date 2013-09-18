@@ -1,15 +1,15 @@
-.row-fluid.show-grid
-  .span12
-    %form.form-inline
-      / =form_tag do
-      = select_date Date.yesterday, :discard_year => true
-      = submit_tag "Go", {controller: "game", action: "index"}
-    -if @note
-      -if @game.blank?
-        .alert.alert-error.span6 試合はありません
-      -else
-        - @game.each do |game|
-          .hero-unit.span3
+.span12
+  %form.form-inline
+    / =form_tag do
+    = select_date Date.yesterday, :discard_year => true
+    = submit_tag "Go", {controller: "game", action: "index"}
+  -if @note
+    -if @game.blank?
+      .alert.alert-error.span6 試合はありません
+    -else
+      - @game.each do |game|
+        .span3
+          .hero-unit
             %h4
               = link_to "#{game.away_team_abbrev} - #{game.home_team_abbrev}", {controller: :game, action: :show, g_id: game.gameday}
             -if (game.status != 'Final') && (game.status != 'Completed Early')

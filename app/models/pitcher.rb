@@ -153,6 +153,7 @@ class Pitcher < ActiveRecord::Base
 
   def self.csv
     CSV.open('test/fixtures/pitcher.csv','wb', headers: true) do |csv|
+
       att = Pitcher.attribute_names
       att.delete('id')
       att.delete('created_at')
@@ -168,6 +169,17 @@ class Pitcher < ActiveRecord::Base
         end
 
         csv << col
+      end
+    end
+  end
+
+  def regulation
+    Pitcher.find_each do |pitcher|
+      game_counts = pitcher.team.tp_g
+      if pitcher.ip > (game_counts * 1)
+        pitcher.update_attributes(reg: 0)
+      else
+        pitcher.update_attributes(reg: 1)
       end
     end
   end
