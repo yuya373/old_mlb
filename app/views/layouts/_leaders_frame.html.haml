@@ -6,15 +6,18 @@
         %b.caret
       %ul.dropdown-menu
         %li= link_to 'Batter', {controller: :batters, action: :leaders}
+        %li= link_to 'Pitcher', {controller: :pitchers, action: :leaders}
     %li.dropdown
       %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
         AL
         %b.caret
       %ul.dropdown-menu
         %li= link_to 'Batter', {controller: :batters, action: :al_leaders}
+        %li= link_to 'Pitcher', {controller: :pitchers, action: :al_leaders}
     %li.dropdown
       %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
         NL
         %b.caret
       %ul.dropdown-menu
         %li= link_to 'Batter', {controller: :batters, action: :nl_leaders}
+        %li= link_to 'Pitcher', {controller: :pitchers, action: :nl_leaders}

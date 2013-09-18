@@ -17,6 +17,9 @@ class Pitcher < ActiveRecord::Base
   scope :al, lambda{where('league_id = 103')}
   scope :nl, lambda{where('league_id = 104')}
   scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}
+  scope :sp_leaders_pct, lambda{|stats| where('reg = 0').order("#{stats} ASC").limit(3)}
+  scope :sp_leaders, lambda{|stats| where('reg = 0').order("#{stats} DESC").limit(3)}
+  scope :leaders, lambda{|stats| order("#{stats} DESC").limit(3)}
 
 
 
@@ -173,7 +176,7 @@ class Pitcher < ActiveRecord::Base
     end
   end
 
-  def regulation
+  def self.regulation
     Pitcher.find_each do |pitcher|
       game_counts = pitcher.team.tp_g
       if pitcher.ip > (game_counts * 1)

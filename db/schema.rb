@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917051517) do
+ActiveRecord::Schema.define(version: 20130918040032) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -705,6 +705,7 @@ ActiveRecord::Schema.define(version: 20130917051517) do
     t.float    "vs_rhb_ip"
     t.float    "vs_rhb_whip"
     t.float    "vs_rhb_era"
+    t.integer  "reg"
   end
 
   add_index "pitchers", ["p_id"], name: "index_pitchers_on_p_id"

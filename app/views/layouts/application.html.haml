@@ -33,6 +33,7 @@
               %li= link_to "今日のスコアボード", {controller: :game, action: :today_index}
               %li= link_to 'Team', team_path
               %li= link_to 'Stats', {:controller => 'team', :action => 'all_hitting'}
+              %li= link_to 'League Leaders', {controller: :batters, action: :leaders}
               %li= link_to 'Your Fav', {controller: 'team_favorites', action: 'index'}
               -if current_user
                 %li= link_to 'SignOut', '/signout'

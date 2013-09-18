@@ -126,6 +126,70 @@ class PitchersController < ApplicationController
 
   def leaders
     @leaders = {
+      era: Pitcher.sp_leaders_pct('era'),
+      w: Pitcher.sp_leaders('w'),
+      so: Pitcher.sp_leaders('so'),
+      ip: Pitcher.sp_leaders('ip'),
+      np: Pitcher.sp_leaders('np'),
+      whip: Pitcher.sp_leaders_pct('whip'),
+      ao: Pitcher.sp_leaders('ao'),
+      go: Pitcher.sp_leaders('go'),
+      gidp: Pitcher.sp_leaders('gidp'),
+      ab: Pitcher.sp_leaders('ab'),
+      cg: Pitcher.sp_leaders('cg'),
+      sho: Pitcher.sp_leaders('sho'),
+      hr: Pitcher.leaders('hr'),
+      avg: Pitcher.sp_leaders_pct('avg'),
+      slg: Pitcher.sp_leaders_pct('slg'),
+      hld: Pitcher.leaders('hld'),
+      sv: Pitcher.leaders('sv'),
+      bsv: Pitcher.leaders('bsv')
+    }
+  end
+
+  def al_leaders
+    @leaders = {
+      era: Pitcher.al.sp_leaders_pct('era'),
+      w: Pitcher.al.sp_leaders('w'),
+      so: Pitcher.al.sp_leaders('so'),
+      ip: Pitcher.al.sp_leaders('ip'),
+      np: Pitcher.al.sp_leaders('np'),
+      whip: Pitcher.al.sp_leaders_pct('whip'),
+      ao: Pitcher.al.sp_leaders('ao'),
+      go: Pitcher.al.sp_leaders('go'),
+      gidp: Pitcher.al.sp_leaders('gidp'),
+      ab: Pitcher.al.sp_leaders('ab'),
+      cg: Pitcher.al.sp_leaders('cg'),
+      sho: Pitcher.al.sp_leaders('sho'),
+      hr: Pitcher.al.leaders('hr'),
+      avg: Pitcher.al.sp_leaders_pct('avg'),
+      slg: Pitcher.al.sp_leaders_pct('slg'),
+      hld: Pitcher.al.leaders('hld'),
+      sv: Pitcher.al.leaders('sv'),
+      bsv: Pitcher.al.leaders('bsv')
+    }
+  end
+
+  def nl_leaders
+    @leaders = {
+      era: Pitcher.nl.sp_leaders_pct('era'),
+      w: Pitcher.nl.sp_leaders('w'),
+      so: Pitcher.nl.sp_leaders('so'),
+      ip: Pitcher.nl.sp_leaders('ip'),
+      np: Pitcher.nl.sp_leaders('np'),
+      whip: Pitcher.nl.sp_leaders_pct('whip'),
+      ao: Pitcher.nl.sp_leaders('ao'),
+      go: Pitcher.nl.sp_leaders('go'),
+      gidp: Pitcher.nl.sp_leaders('gidp'),
+      ab: Pitcher.nl.sp_leaders('ab'),
+      cg: Pitcher.nl.sp_leaders('cg'),
+      sho: Pitcher.nl.sp_leaders('sho'),
+      hr: Pitcher.nl.leaders('hr'),
+      avg: Pitcher.nl.sp_leaders_pct('avg'),
+      slg: Pitcher.nl.sp_leaders_pct('slg'),
+      hld: Pitcher.nl.leaders('hld'),
+      sv: Pitcher.nl.leaders('sv'),
+      bsv: Pitcher.nl.leaders('bsv')
     }
   end
 
