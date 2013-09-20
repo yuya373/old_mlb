@@ -1,7 +1,4 @@
-/ %ul.nav.nav-tabs
-/   %li.active= link_to 'MLB', {:controller => 'pitchers', :action => 'all_pitchers'}
-/   %li= link_to 'American League', {:controller => 'pitchers', :action => 'al_pitcher'}
-/   %li= link_to 'National League', {:controller => 'pitchers', :action => 'nl_pitcher'}
-= render :partial => 'layouts/frame'
+.span10
+  = render :partial => 'layouts/frame'
+  = render :partial => 'pitcher_list'
 
-= render :partial => 'pitcher_list'

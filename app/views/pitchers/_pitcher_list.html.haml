@@ -1,105 +1,104 @@
-.span9
-  %table.table.table-striped.table.table-condensed
-    %thead
-      %tr
-        %th Name
-        %th Team
-        %th= pitcher_sort('w',@item,@direction)
-        %th= pitcher_sort('l',@item,@direction)
-        %th= pitcher_sort('g',@item,@direction)
-        %th= pitcher_sort('gs',@item,@direction)
-        %th= pitcher_sort('hld',@item,@direction)
-        %th= pitcher_sort('sv',@item,@direction)
-        %th= pitcher_sort('bsv',@item,@direction)
-        %th= pitcher_sort('svo',@item,@direction)
-        %th= pitcher_sort('era',@item,@direction)
-        %th= pitcher_sort('ip',@item,@direction)
-        %th= pitcher_sort('whip',@item,@direction)
-        %th= pitcher_sort('avg',@item,@direction)
-        %th= pitcher_sort('slg',@item,@direction)
-        %th= pitcher_sort('so',@item,@direction)
-        %th= pitcher_sort('ao',@item,@direction)
-        %th= pitcher_sort('go',@item,@direction)
-        %th= pitcher_sort('gidp',@item,@direction)
-        %th= pitcher_sort('er',@item,@direction)
-        %th= pitcher_sort('r',@item,@direction)
-        %th= pitcher_sort('h',@item,@direction)
-        %th= pitcher_sort('hr',@item,@direction)
-        %th= pitcher_sort('hb',@item,@direction)
-        %th= pitcher_sort('bb',@item,@direction)
-        %th= pitcher_sort('ibb',@item,@direction)
-        %th= pitcher_sort('wp',@item,@direction)
-        %th= pitcher_sort('bk',@item,@direction)
-        %th= pitcher_sort('np',@item,@direction)
-        %th= pitcher_sort('cg',@item,@direction)
-        %th= pitcher_sort('sho',@item,@direction)
-    %tbody
-    -num = 1
-    -@r_pitcher.each do |pitcher|
-      %tr
-        %td= link_to pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitcher.p_id}
-        %td= pitcher.team_abbrev
-        %td= pitcher.w
-        %td= pitcher.l
-        %td= pitcher.g
-        %td= pitcher.gs
-        %td= pitcher.hld
-        %td= pitcher.sv
-        %td= pitcher.bsv
-        %td= pitcher.svo
-        %td= pitcher.era_sort.round(2)
-        %td= pitcher.ip_sort.round(1)
-        %td= pitcher.whip_sort.round(3)
-        %td= pitcher.avg_sort.round(3)
-        %td= pitcher.slg_sort.round(3)
-        %td= pitcher.so
-        %td= pitcher.ao
-        %td= pitcher.go
-        %td= pitcher.gidp
-        %td= pitcher.er
-        %td= pitcher.r
-        %td= pitcher.h
-        %td= pitcher.hr
-        %td= pitcher.hb
-        %td= pitcher.bb
-        %td= pitcher.ibb
-        %td= pitcher.wp
-        %td= pitcher.bk
-        %td= pitcher.np
-        %td= pitcher.cg
-        %td= pitcher.sho
-      -num += 1
-      -if num % 20 == 0
-        %thead
-          %tr
-            %th Name
-            %th Team
-            %th= pitcher_sort('w',@item,@direction)
-            %th= pitcher_sort('l',@item,@direction)
-            %th= pitcher_sort('g',@item,@direction)
-            %th= pitcher_sort('gs',@item,@direction)
-            %th= pitcher_sort('hld',@item,@direction)
-            %th= pitcher_sort('sv',@item,@direction)
-            %th= pitcher_sort('bsv',@item,@direction)
-            %th= pitcher_sort('svo',@item,@direction)
-            %th= pitcher_sort('era',@item,@direction)
-            %th= pitcher_sort('ip',@item,@direction)
-            %th= pitcher_sort('whip',@item,@direction)
-            %th= pitcher_sort('avg',@item,@direction)
-            %th= pitcher_sort('slg',@item,@direction)
-            %th= pitcher_sort('so',@item,@direction)
-            %th= pitcher_sort('ao',@item,@direction)
-            %th= pitcher_sort('go',@item,@direction)
-            %th=pitcher_sort('gidp',@item,@direction)
-            %th=pitcher_sort('er',@item,@direction)
-            %th=pitcher_sort('r',@item,@direction)
-            %th=pitcher_sort('h',@item,@direction)
-            %th=pitcher_sort('hr',@item,@direction)
-            %th=pitcher_sort('hb',@item,@direction)
-            %th=pitcher_sort('bb',@item,@direction)
-            %th=pitcher_sort('ibb',@item,@direction)
-            %th=pitcher_sort('wp',@item,@direction)
-            %th=pitcher_sort('bk',@item,@direction)
-            %th=pitcher_sort('np',@item,@direction)
-            %th=pitcher_sort('cg',@item,@direction)
-            %th=pitcher_sort('sho',@item,@direction)
+%table.table.table-striped.table.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Team
+      %th= pitcher_sort('w',@item,@direction)
+      %th= pitcher_sort('l',@item,@direction)
+      %th= pitcher_sort('g',@item,@direction)
+      %th= pitcher_sort('gs',@item,@direction)
+      %th= pitcher_sort('hld',@item,@direction)
+      %th= pitcher_sort('sv',@item,@direction)
+      %th= pitcher_sort('bsv',@item,@direction)
+      %th= pitcher_sort('svo',@item,@direction)
+      %th= pitcher_sort('era',@item,@direction)
+      %th= pitcher_sort('ip',@item,@direction)
+      %th= pitcher_sort('whip',@item,@direction)
+      %th= pitcher_sort('avg',@item,@direction)
+      %th= pitcher_sort('slg',@item,@direction)
+      %th= pitcher_sort('so',@item,@direction)
+      %th= pitcher_sort('ao',@item,@direction)
+      %th= pitcher_sort('go',@item,@direction)
+      %th= pitcher_sort('gidp',@item,@direction)
+      %th= pitcher_sort('er',@item,@direction)
+      %th= pitcher_sort('r',@item,@direction)
+      %th= pitcher_sort('h',@item,@direction)
+      %th= pitcher_sort('hr',@item,@direction)
+      %th= pitcher_sort('hb',@item,@direction)
+      %th= pitcher_sort('bb',@item,@direction)
+      %th= pitcher_sort('ibb',@item,@direction)
+      %th= pitcher_sort('wp',@item,@direction)
+      %th= pitcher_sort('bk',@item,@direction)
+      %th= pitcher_sort('np',@item,@direction)
+      %th= pitcher_sort('cg',@item,@direction)
+      %th= pitcher_sort('sho',@item,@direction)
+  %tbody
+  -num = 1
+  -@r_pitcher.each do |pitcher|
+    %tr
+      %td= link_to pitcher.name_display_first_last, {:controller => 'pitchers', :action => 'show', :p_id => pitcher.p_id}
+      %td= pitcher.team_abbrev
+      %td= pitcher.w
+      %td= pitcher.l
+      %td= pitcher.g
+      %td= pitcher.gs
+      %td= pitcher.hld
+      %td= pitcher.sv
+      %td= pitcher.bsv
+      %td= pitcher.svo
+      %td= pitcher.era_sort.round(2)
+      %td= pitcher.ip_sort.round(1)
+      %td= pitcher.whip_sort.round(3)
+      %td= pitcher.avg_sort.round(3)
+      %td= pitcher.slg_sort.round(3)
+      %td= pitcher.so
+      %td= pitcher.ao
+      %td= pitcher.go
+      %td= pitcher.gidp
+      %td= pitcher.er
+      %td= pitcher.r
+      %td= pitcher.h
+      %td= pitcher.hr
+      %td= pitcher.hb
+      %td= pitcher.bb
+      %td= pitcher.ibb
+      %td= pitcher.wp
+      %td= pitcher.bk
+      %td= pitcher.np
+      %td= pitcher.cg
+      %td= pitcher.sho
+    -num += 1
+    -if num % 20 == 0
+      %thead
+        %tr
+          %th Name
+          %th Team
+          %th= pitcher_sort('w',@item,@direction)
+          %th= pitcher_sort('l',@item,@direction)
+          %th= pitcher_sort('g',@item,@direction)
+          %th= pitcher_sort('gs',@item,@direction)
+          %th= pitcher_sort('hld',@item,@direction)
+          %th= pitcher_sort('sv',@item,@direction)
+          %th= pitcher_sort('bsv',@item,@direction)
+          %th= pitcher_sort('svo',@item,@direction)
+          %th= pitcher_sort('era',@item,@direction)
+          %th= pitcher_sort('ip',@item,@direction)
+          %th= pitcher_sort('whip',@item,@direction)
+          %th= pitcher_sort('avg',@item,@direction)
+          %th= pitcher_sort('slg',@item,@direction)
+          %th= pitcher_sort('so',@item,@direction)
+          %th= pitcher_sort('ao',@item,@direction)
+          %th= pitcher_sort('go',@item,@direction)
+          %th=pitcher_sort('gidp',@item,@direction)
+          %th=pitcher_sort('er',@item,@direction)
+          %th=pitcher_sort('r',@item,@direction)
+          %th=pitcher_sort('h',@item,@direction)
+          %th=pitcher_sort('hr',@item,@direction)
+          %th=pitcher_sort('hb',@item,@direction)
+          %th=pitcher_sort('bb',@item,@direction)
+          %th=pitcher_sort('ibb',@item,@direction)
+          %th=pitcher_sort('wp',@item,@direction)
+          %th=pitcher_sort('bk',@item,@direction)
+          %th=pitcher_sort('np',@item,@direction)
+          %th=pitcher_sort('cg',@item,@direction)
+          %th=pitcher_sort('sho',@item,@direction)
