@@ -41,13 +41,16 @@ class PitchTypeDetail < ActiveRecord::Base
       num = gid.slice(25,1)
 
       if num == '2'
-        PitchTypeDetail.seed("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
+        PitchTypeDetail.seed_pitcher("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
       end
 
 
       p_id_url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/pitchers/"
       begin
         doc = Nokogiri::XML(open(p_id_url)).css('a')
+      rescue
+      else
+
         p_id = []
 
         doc.each do |doc|
@@ -82,17 +85,16 @@ class PitchTypeDetail < ActiveRecord::Base
 
           end
         end
-      rescue
+
       end
     end
-
-
-
 
     url.each do |k,v|
       v.each do |v|
         begin
           doc2 = Nokogiri::XML(open(v))
+        rescue
+        else
           sit = doc2.css('sit')
           cont = {
             p_b: 'p',
@@ -114,7 +116,6 @@ class PitchTypeDetail < ActiveRecord::Base
           rescue
             PitchTypeDetail.create(cont)
           end
-        rescue
         end
       end
     end
@@ -133,6 +134,10 @@ class PitchTypeDetail < ActiveRecord::Base
       away_team = gid.slice(11,6)
       home_team = gid.slice(18,6)
       num = gid.slice(25,1)
+
+      if num == '2'
+        PitchTypeDetail.seed_batter("#{year}_#{month}_#{day}_#{away_team}_#{home_team}_1")
+      end
 
 
       p_id_url = "http://gd2.mlb.com/components/game/mlb/year_2013/month_#{month}/day_#{day}/gid_#{year}_#{month}_#{day}_#{away_team}_#{home_team}_#{num}/premium/batters/"
