@@ -15,6 +15,29 @@ class Game < ActiveRecord::Base
   scope :y_m_d, lambda{|year,month,day| where('year = ? and month = ? and day = ?',year,month,day)}
 
 
+  # month[4] = 1.upto(31).to_a
+  def self.get_gid(year,hash)
+    url = []
+    hash.each do |k,v|
+      month = sprintf("%.2d",k)
+      v.each do |v|
+        day = sprintf("%.2d",v)
+        url << "http://gd2.mlb.com/components/game/mlb/year_#{year}/month_#{month}/day_#{day}/master_scoreboard.xml"
+      end
+    end
+
+    game_id = []
+    url.each do |url|
+      begin
+        doc = Nokogiri::XML(open(url))
+        doc.css('game').each do |game|
+          game_id << game.attribute('gameday').text
+        end
+      rescue
+      end
+    end
+      return game_id
+  end
 
 
 

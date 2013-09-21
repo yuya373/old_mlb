@@ -11,12 +11,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-Team.get
-Game.get
-GameBatter.get
-GamePitcher.get
-LineScore.get
-Media.get
+
+g_id = Game.get_gid(2013,{'9' => ['18']})
+
+g_id.each do |gid|
+  Atbat.seed(gid)
+  Pitching.seed(gid)
+end
 
 # CSV.foreach("game_id.csv") do |row|
 #   row.each do |gid|
