@@ -223,8 +223,8 @@ class Pitcher < ActiveRecord::Base
           fip: fip,
           e_f: pitcher.era_sort - fip,
           fip_minus: fip/lg_fip,
-          p_r: ((lg_era - pitcher.era) * 9) * pitcher.ip_sort,
-          rsaa: ((lg_ra - ra) * 9) / pitcher.ip_sort
+          p_r: ((lg_era - pitcher.era) / 9) * pitcher.ip_sort,
+          rsaa: ((lg_ra - ra) /9) * pitcher.ip_sort
         }
 
         pitcher.update_attributes(@stats)
