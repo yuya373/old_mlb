@@ -93,8 +93,8 @@
           %th RSAA
       %tbody
         %tr
-          %td= @pitcher.k_pct.round(3) * 100
-          %td= @pitcher.bb_pct.round(3) * 100
+          %td= @pitcher.k_pct.round(1)
+          %td= @pitcher.bb_pct.round(1)
           %td= @pitcher.k_9.round(3)
           %td= @pitcher.bb_9.round(3)
           %td= @pitcher.hr_9.round(3)
@@ -102,7 +102,7 @@
           %td= @pitcher.fip.round(3)
           %td= @pitcher.e_f.round(3)
           %td= @pitcher.fip_minus.round(3)
-          %td= @pitcher.lob_pct.round(3) * 100
+          %td= @pitcher.lob_pct.round(1)
           %td= @pitcher.babip.round(3)
           %td= @pitcher.p_r.round(4)
           %td= @pitcher.rsaa.round(3)

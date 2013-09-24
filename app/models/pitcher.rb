@@ -211,15 +211,15 @@ class Pitcher < ActiveRecord::Base
 
 
         @stats = {
-          k_pct: pitcher.so.to_f/pitcher.ab.to_f,
-          bb_pct: pitcher.bb.to_f/pitcher.ab.to_f,
+          k_pct: (pitcher.so.to_f/pitcher.ab.to_f) * 100,
+          bb_pct: (pitcher.bb.to_f/pitcher.ab.to_f) * 100,
           k_9: (pitcher.so * 9.0)/pitcher.ip_sort,
           bb_9: (pitcher.bb * 9.0)/pitcher.ip_sort,
           hr_9: (pitcher.hr * 9.0)/pitcher.ip_sort,
           k_bb: pitcher.so.to_f/pitcher.bb.to_f,
           babip: (pitcher.h - pitcher.hr).to_f/(pitcher.ab - pitcher.so - pitcher.hr + pitcher.sf).to_f,
           uera: (pitcher.r - pitcher.er) * 9.0/pitcher.ip.to_f,
-          lob_pct: (pitcher.h + pitcher.bb + pitcher.hb - pitcher.r).to_f / (pitcher.h + pitcher.bb  + pitcher.hb - 1.4 * pitcher.hr),
+          lob_pct: ((pitcher.h + pitcher.bb + pitcher.hb - pitcher.r).to_f / (pitcher.h + pitcher.bb  + pitcher.hb - 1.4 * pitcher.hr)) * 100,
           fip: fip,
           e_f: pitcher.era_sort - fip,
           fip_minus: fip/lg_fip,
