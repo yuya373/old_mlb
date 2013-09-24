@@ -202,9 +202,12 @@ class Pitcher < ActiveRecord::Base
         lg_so = pitcher.team.lg_so
         lg_ip = pitcher.team.lg_ip
         lg_fip = pitcher.team.lg_fip
+        lg_ra = pitcher.team.lg_ra
 
         c_fip = lg_era - ((13 * lg_hr + 3 * (lg_bb + lg_hb) - 2 * lg_so) / lg_ip)
         fip = (13 * pitcher.hr + 3 * (pitcher.bb + pitcher.hb) - 2 * pitcher.so) / pitcher.ip_sort + 3.047
+
+        ra = (pitcher.r / pitcher.ip_sort) * 9
 
 
         @stats = {
@@ -219,8 +222,9 @@ class Pitcher < ActiveRecord::Base
           lob_pct: (pitcher.h + pitcher.bb + pitcher.hb - pitcher.r).to_f / (pitcher.h + pitcher.bb  + pitcher.hb - 1.4 * pitcher.hr),
           fip: fip,
           e_f: pitcher.era_sort - fip,
-          fip_minus: fip/lg_fip
-
+          fip_minus: fip/lg_fip,
+          p_r: ((lg_era - pitcher.era) / 9) * pitcher.ip_sort,
+          rsaa: ((lg_ra - ra) * 9) / pitcher.ip_sort
         }
 
         pitcher.update_attributes(@stats)

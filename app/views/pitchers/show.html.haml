@@ -76,4 +76,34 @@
           %td= @pitcher.cg
           %td= @pitcher.gf
           %td= @pitcher.sho
+      %thead
+        %tr
+          %th K%
+          %th BB%
+          %th K9
+          %th BB9
+          %th HR9
+          %th K/BB
+          %th FIP
+          %th E-F
+          %th FIP-
+          %th LOB%
+          %th BABIP
+          %th PRun
+          %th RSAA
+      %tbody
+        %tr
+          %td= @pitcher.k_pct.round(3) * 100
+          %td= @pitcher.bb_pct.round(3) * 100
+          %td= @pitcher.k_9.round(3)
+          %td= @pitcher.bb_9.round(3)
+          %td= @pitcher.hr_9.round(3)
+          %td= @pitcher.k_bb.round(3)
+          %td= @pitcher.fip.round(3)
+          %td= @pitcher.e_f.round(3)
+          %td= @pitcher.fip_minus.round(3)
+          %td= @pitcher.lob_pct.round(3) * 100
+          %td= @pitcher.babip.round(3)
+          %td= @pitcher.p_r
+          %td= @pitcher.rsaa
 

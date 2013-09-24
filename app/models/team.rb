@@ -86,7 +86,9 @@ class Team < ActiveRecord::Base
     al_hb = Team.al.sum(:tp_hb)
     al_ibb = Team.al.sum(:tp_ibb)
     al_so = Team.al.sum(:tp_so)
+    al_r = Team.al.sum(:tp_r)
     al_era = (al_er.to_f / al_ip.to_f) * 9
+    al_ra = (al_r.to_f / al_ip.to_f) * 9
 
     Team.al.each do |team|
       team_fip = team.pitchers.average(:fip)
@@ -104,7 +106,8 @@ class Team < ActiveRecord::Base
       lg_so: al_so,
       lg_ip: al_ip,
       lg_er: al_er,
-      lg_fip: al_fip
+      lg_fip: al_fip,
+      lg_ra: al_ra
       )
 
     nl_ip = Team.nl.sum(:tp_ip)
@@ -114,7 +117,9 @@ class Team < ActiveRecord::Base
     nl_hb = Team.nl.sum(:tp_hb)
     nl_ibb = Team.nl.sum(:tp_ibb)
     nl_so = Team.nl.sum(:tp_so)
+    nl_r = Team.nl.sum(:tp_r)
     nl_era = (nl_er.to_f / nl_ip.to_f) * 9
+    nl_ra = (nl_r.to_f / nl_ip.to_f) * 9
 
     Team.nl.each do |team|
       team_fip = team.pitchers.average(:fip)
@@ -132,7 +137,8 @@ class Team < ActiveRecord::Base
       lg_so: nl_so,
       lg_ip: nl_ip,
       lg_er: nl_er,
-      lg_fip: nl_fip
+      lg_fip: nl_fip,
+      lg_ra: nl_ra
       )
   end
 end
