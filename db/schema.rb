@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918040032) do
+ActiveRecord::Schema.define(version: 20130924125145) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -706,6 +706,22 @@ ActiveRecord::Schema.define(version: 20130918040032) do
     t.float    "vs_rhb_whip"
     t.float    "vs_rhb_era"
     t.integer  "reg"
+    t.float    "k_pct"
+    t.float    "bb_pct"
+    t.float    "k_9"
+    t.float    "bb_9"
+    t.float    "hr_9"
+    t.float    "k_bb"
+    t.float    "e_f"
+    t.float    "fip_minus"
+    t.float    "fip"
+    t.float    "xfip"
+    t.float    "babip"
+    t.float    "uera"
+    t.float    "rsaa"
+    t.float    "dips"
+    t.float    "lob_pct"
+    t.float    "p_r"
   end
 
   add_index "pitchers", ["p_id"], name: "index_pitchers_on_p_id"
@@ -748,7 +764,7 @@ ActiveRecord::Schema.define(version: 20130918040032) do
     t.integer  "tb_gidp"
     t.float    "tb_obp"
     t.float    "tb_ops"
-    t.integer  "tp_ip"
+    t.float    "tp_ip"
     t.integer  "tp_er"
     t.float    "tp_era"
     t.float    "tp_whip"
@@ -775,6 +791,16 @@ ActiveRecord::Schema.define(version: 20130918040032) do
     t.string   "game_id"
     t.float    "win_pct"
     t.string   "division"
+    t.float    "lg_era"
+    t.integer  "lg_hr"
+    t.integer  "lg_bb"
+    t.integer  "lg_hb"
+    t.integer  "lg_ibb"
+    t.integer  "lg_so"
+    t.float    "lg_ip"
+    t.integer  "lg_er"
+    t.float    "lg_fip"
+    t.float    "tp_fip"
   end
 
   add_index "teams", ["team_id"], name: "index_teams_on_team_id"

@@ -142,6 +142,7 @@ class Pitcher < ActiveRecord::Base
               end
             end
 
+
             begin
               Pitcher.where('p_id = ?', p_id).first.update_attributes!(@pitcher)
             rescue
@@ -183,6 +184,46 @@ class Pitcher < ActiveRecord::Base
         pitcher.update_attributes(reg: 0)
       else
         pitcher.update_attributes(reg: 1)
+      end
+    end
+  end
+
+  def self.full_stats
+    Pitcher.find_each do |pitcher|
+      if pitcher.ab == 0 or pitcher.ip_sort == 0 or pitcher.bb == 0
+        next
+      else
+
+        lg_era = pitcher.team.lg_era
+        lg_bb = pitcher.team.lg_bb
+        lg_hr = pitcher.team.lg_hr
+        lg_ibb = pitcher.team.lg_ibb
+        lg_hb = pitcher.team.lg_hb
+        lg_so = pitcher.team.lg_so
+        lg_ip = pitcher.team.lg_ip
+        lg_fip = pitcher.team.lg_fip
+
+        c_fip = lg_era - ((13 * lg_hr + 3 * (lg_bb + lg_hb) - 2 * lg_so) / lg_ip)
+        fip = (13 * pitcher.hr + 3 * (pitcher.bb + pitcher.hb) - 2 * pitcher.so) / pitcher.ip_sort + 3.047
+
+
+        @stats = {
+          k_pct: pitcher.so.to_f/pitcher.ab.to_f,
+          bb_pct: pitcher.bb.to_f/pitcher.ab.to_f,
+          k_9: (pitcher.so * 9.0)/pitcher.ip_sort,
+          bb_9: (pitcher.bb * 9.0)/pitcher.ip_sort,
+          hr_9: (pitcher.hr * 9.0)/pitcher.ip_sort,
+          k_bb: pitcher.so.to_f/pitcher.bb.to_f,
+          babip: (pitcher.h - pitcher.hr).to_f/(pitcher.ab - pitcher.so - pitcher.hr + pitcher.sf).to_f,
+          uera: (pitcher.r - pitcher.er) * 9.0/pitcher.ip.to_f,
+          lob_pct: (pitcher.h + pitcher.bb + pitcher.hb - pitcher.r).to_f / (pitcher.h + pitcher.bb  + pitcher.hb - 1.4 * pitcher.hr),
+          fip: fip,
+          e_f: pitcher.era_sort - fip,
+          fip_minus: fip/lg_fip
+
+        }
+
+        pitcher.update_attributes(@stats)
       end
     end
   end

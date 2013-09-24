@@ -77,4 +77,62 @@ class Team < ActiveRecord::Base
     end
 
   end
+
+  def self.lg_stats
+    al_ip = Team.al.sum(:tp_ip)
+    al_er = Team.al.sum(:tp_er)
+    al_hr = Team.al.sum(:tp_hr)
+    al_bb = Team.al.sum(:tp_bb)
+    al_hb = Team.al.sum(:tp_hb)
+    al_ibb = Team.al.sum(:tp_ibb)
+    al_so = Team.al.sum(:tp_so)
+    al_era = (al_er.to_f / al_ip.to_f) * 9
+
+    Team.al.each do |team|
+      team_fip = team.pitchers.average(:fip)
+      team.update_attributes(tp_fip: team_fip)
+    end
+
+    al_fip = Team.al.average(:tp_fip)
+
+    Team.al.update_all(
+      lg_era: al_era,
+      lg_hr: al_hr,
+      lg_bb: al_bb,
+      lg_hb: al_hb,
+      lg_ibb: al_ibb,
+      lg_so: al_so,
+      lg_ip: al_ip,
+      lg_er: al_er,
+      lg_fip: al_fip
+      )
+
+    nl_ip = Team.nl.sum(:tp_ip)
+    nl_er = Team.nl.sum(:tp_er)
+    nl_hr = Team.nl.sum(:tp_hr)
+    nl_bb = Team.nl.sum(:tp_bb)
+    nl_hb = Team.nl.sum(:tp_hb)
+    nl_ibb = Team.nl.sum(:tp_ibb)
+    nl_so = Team.nl.sum(:tp_so)
+    nl_era = (nl_er.to_f / nl_ip.to_f) * 9
+
+    Team.nl.each do |team|
+      team_fip = team.pitchers.average(:fip)
+      team.update_attributes(tp_fip: team_fip)
+    end
+
+    nl_fip = Team.nl.average(:tp_fip)
+
+    Team.nl.update_all(
+      lg_era: nl_era,
+      lg_hr: nl_hr,
+      lg_bb: nl_bb,
+      lg_hb: nl_hb,
+      lg_ibb: nl_ibb,
+      lg_so: nl_so,
+      lg_ip: nl_ip,
+      lg_er: nl_er,
+      lg_fip: nl_fip
+      )
+  end
 end
