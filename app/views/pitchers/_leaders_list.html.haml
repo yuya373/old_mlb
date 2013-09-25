@@ -1,7 +1,15 @@
 -@leaders.each do |k,v|
   .hero-unit.span3
+    %button.btn.btn-mini.pull-right{'data-toggle' => 'collapse', 'data-target' => "##{k}"} more
     %h3= k.to_s.upcase
-    -v.each do |pitcher|
+    -v[0..2].each do |pitcher|
       %p
         =link_to "#{pitcher.name_display_roster}", {controller: :batters, action: :show, p_id: pitcher.p_id}
         ="- #{pitcher[k.to_sym]}"
+    .collapse{id: "#{k}"}
+      -v[3..9].each do |pitcher|
+        %p
+        =link_to "#{pitcher.name_display_roster}", {controller: :batters, action: :show, p_id: pitcher.p_id}
+        ="- #{pitcher[k.to_sym]}"
+
+

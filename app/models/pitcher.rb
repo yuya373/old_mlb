@@ -17,9 +17,9 @@ class Pitcher < ActiveRecord::Base
   scope :al, lambda{where('league_id = 103')}
   scope :nl, lambda{where('league_id = 104')}
   scope :from_p_id, lambda{|p_id| where('p_id = ?',p_id).first}
-  scope :sp_leaders_pct, lambda{|stats| where('reg = 0').order("#{stats} ASC").limit(3)}
-  scope :sp_leaders, lambda{|stats| where('reg = 0').order("#{stats} DESC").limit(3)}
-  scope :leaders, lambda{|stats| order("#{stats} DESC").limit(3)}
+  scope :sp_leaders_pct, lambda{|stats,num| where('reg = 0').order("#{stats} ASC").limit(num)}
+  scope :sp_leaders, lambda{|stats,num| where('reg = 0').order("#{stats} DESC").limit(num)}
+  scope :leaders, lambda{|stats,num| order("#{stats} DESC").limit(num)}
 
 
 
@@ -224,7 +224,7 @@ class Pitcher < ActiveRecord::Base
           e_f: pitcher.era_sort - fip,
           fip_minus: fip/lg_fip,
           p_r: ((lg_era - pitcher.era) / 9) * pitcher.ip_sort,
-          rsaa: ((lg_ra - ra) /9) * pitcher.ip_sort
+          rsaa: ((lg_ra - ra) / 9) * pitcher.ip_sort
         }
 
         pitcher.update_attributes(@stats)

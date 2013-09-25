@@ -17,7 +17,7 @@ class Batter < ActiveRecord::Base
   scope :stats, lambda{|item,direction| where('not pos = ?',  'P').order(item + ' ' + direction)}
   scope :nl, lambda{where('league_id = 104')}
   scope :al, lambda{where('league_id = 103')}
-  scope :leaders, lambda{|stats| where('reg = 0').order(" #{stats} DESC").limit(3)}
+  scope :leaders, lambda{|stats,num| where('reg = 0').order(" #{stats} DESC").limit(num)}
 
   def self.test
     print "Hello whenever"

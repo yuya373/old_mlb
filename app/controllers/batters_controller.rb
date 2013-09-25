@@ -115,54 +115,54 @@ class BattersController < ApplicationController
 
   def leaders
     @leaders = {
-      avg: Batter.leaders('avg'),
-      hr: Batter.leaders('hr'),
-      rbi: Batter.leaders('rbi'),
-      b2: Batter.leaders('b2'),
-      b3: Batter.leaders('b3'),
-      h: Batter.leaders('h'),
-      so: Batter.leaders('so'),
-      bb: Batter.leaders('bb'),
-      sb: Batter.leaders('sb'),
-      cs: Batter.leaders('cs'),
-      hbp: Batter.leaders('hbp'),
-      ab: Batter.leaders('ab')
+      avg: Batter.leaders('avg',10),
+      hr: Batter.leaders('hr',10),
+      rbi: Batter.leaders('rbi',10),
+      b2: Batter.leaders('b2',10),
+      b3: Batter.leaders('b3',10),
+      h: Batter.leaders('h',10),
+      so: Batter.leaders('so',10),
+      bb: Batter.leaders('bb',10),
+      sb: Batter.leaders('sb',10),
+      cs: Batter.leaders('cs',10),
+      hbp: Batter.leaders('hbp',10),
+      ab: Batter.leaders('ab',10)
     }
   end
 
   def al_leaders
 
     @leaders = {
-      avg: Batter.al.leaders('avg'),
-      hr: Batter.al.leaders('hr'),
-      rbi: Batter.al.leaders('rbi'),
-      b2: Batter.al.leaders('b2'),
-      b3: Batter.al.leaders('b3'),
-      h: Batter.al.leaders('h'),
-      so: Batter.al.leaders('so'),
-      bb: Batter.al.leaders('bb'),
-      sb: Batter.al.leaders('sb'),
-      cs: Batter.al.leaders('cs'),
-      hbp: Batter.al.leaders('hbp'),
-      ab: Batter.al.leaders('ab')
+      avg: Batter.al.leaders('avg',10),
+      hr: Batter.al.leaders('hr',10),
+      rbi: Batter.al.leaders('rbi',10),
+      b2: Batter.al.leaders('b2',10),
+      b3: Batter.al.leaders('b3',10),
+      h: Batter.al.leaders('h',10),
+      so: Batter.al.leaders('so',10),
+      bb: Batter.al.leaders('bb',10),
+      sb: Batter.al.leaders('sb',10),
+      cs: Batter.al.leaders('cs',10),
+      hbp: Batter.al.leaders('hbp',10),
+      ab: Batter.al.leaders('ab',10)
 
     }
   end
 
   def nl_leaders
     @leaders = {
-      avg: Batter.nl.leaders('avg'),
-      hr: Batter.nl.leaders('hr'),
-      rbi: Batter.nl.leaders('rbi'),
-      b2: Batter.nl.leaders('b2'),
-      b3: Batter.nl.leaders('b3'),
-      h: Batter.nl.leaders('h'),
-      so: Batter.nl.leaders('so'),
-      bb: Batter.nl.leaders('bb'),
-      sb: Batter.nl.leaders('sb'),
-      cs: Batter.nl.leaders('cs'),
-      hbp: Batter.nl.leaders('hbp'),
-      ab: Batter.nl.leaders('ab')
+      avg: Batter.nl.leaders('avg',10),
+      hr: Batter.nl.leaders('hr',10),
+      rbi: Batter.nl.leaders('rbi',10),
+      b2: Batter.nl.leaders('b2',10),
+      b3: Batter.nl.leaders('b3',10),
+      h: Batter.nl.leaders('h',10),
+      so: Batter.nl.leaders('so',10),
+      bb: Batter.nl.leaders('bb',10),
+      sb: Batter.nl.leaders('sb',10),
+      cs: Batter.nl.leaders('cs',10),
+      hbp: Batter.nl.leaders('hbp',10),
+      ab: Batter.nl.leaders('ab',10)
     }
   end
 end
