@@ -4,12 +4,12 @@
     %h3= k.to_s.upcase
     -v[0..2].each do |pitcher|
       %p
-        =link_to "#{pitcher.name_display_roster}", {controller: :batters, action: :show, p_id: pitcher.p_id}
+        =link_to "#{pitcher.name_display_roster}", {controller: :pitchers, action: :show, p_id: pitcher.p_id}
         %small="- #{pitcher[k.to_sym]}"
     .collapse{id: "#{k}"}
       -v[3..9].each do |pitcher|
         %p
-        =link_to "#{pitcher.name_display_roster}", {controller: :batters, action: :show, p_id: pitcher.p_id}
+        =link_to "#{pitcher.name_display_roster}", {controller: :pitchers, action: :show, p_id: pitcher.p_id}
         %small="- #{pitcher[k.to_sym]}"
 
 

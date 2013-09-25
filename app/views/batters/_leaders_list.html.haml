@@ -7,8 +7,8 @@
         =link_to "#{batter.name_display_roster}", {controller: :batters, action: :show, p_id: batter.p_id}
         %small="- #{batter[k.to_sym]}"
     .collapse{id: "#{k}"}
-      -v[3..9].each do |pitcher|
+      -v[3..9].each do |batter|
         %p
-        =link_to "#{pitcher.name_display_roster}", {controller: :batters, action: :show, p_id: pitcher.p_id}
-        %small="- #{pitcher[k.to_sym]}"
+        =link_to "#{batter.name_display_roster}", {controller: :batters, action: :show, p_id: batter.p_id}
+        %small="- #{batter[k.to_sym]}"
 
