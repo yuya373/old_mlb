@@ -73,8 +73,8 @@
           %td= @batter.e
           %td= @batter.np
           %td= @batter.tpa
-          %td= @batter.babip.round(3)
           -if @batter.ab != 0
+            %td= @batter.babip.round(3)
             %td= @batter.iso.round(3)
             %td= @batter.k_pct.round(1)
             %td= @batter.bb_pct.round(1)
@@ -82,6 +82,7 @@
             %td= @batter.wraa.round(1)
             %td= @batter.wrc.round(1)
           -else
+            %td -
             %td -
             %td -
             %td -

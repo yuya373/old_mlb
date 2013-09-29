@@ -204,9 +204,9 @@ class Batter < ActiveRecord::Base
   def self.full_stats
 
     Batter.find_each do |batter|
-      babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
-      iso = batter.slg_sort - batter.avg_sort
       if batter.ab != 0
+        iso = batter.slg_sort - batter.avg_sort
+        babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
         k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
         bb_pct = (batter.bb).to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
         woba = (((batter.bb - batter.ibb) * WBB) + (batter.hbp * WHBP) + ((batter.h - batter.b2 - batter.b3 - batter.hr) * WB1) + (batter.b2 * WB2) + (batter.b3 * WB3) + (batter.hr * WHR) ).to_f / (batter.ab + batter.bb - batter.ibb + batter.sf + batter.hbp).to_f
@@ -220,6 +220,8 @@ class Batter < ActiveRecord::Base
         woba = nil
         wraa = nil
         wrc = nil
+        iso = nil
+        babip = nil
       end
 
       batter.update_attributes(
