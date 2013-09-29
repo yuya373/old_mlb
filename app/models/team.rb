@@ -92,10 +92,14 @@ class Team < ActiveRecord::Base
 
     Team.al.each do |team|
       team_fip = team.pitchers.average(:fip)
-      team.update_attributes(tp_fip: team_fip)
+
+      team_woba = team.batters.average(:woba)
+
+      team.update_attributes(tp_fip: team_fip, tb_woba: team_woba)
     end
 
     al_fip = Team.al.average(:tp_fip)
+    al_woba = Team.al.average(:tb_woba)
 
     Team.al.update_all(
       lg_era: al_era,
@@ -107,7 +111,8 @@ class Team < ActiveRecord::Base
       lg_ip: al_ip,
       lg_er: al_er,
       lg_fip: al_fip,
-      lg_ra: al_ra
+      lg_ra: al_ra,
+      lg_woba: al_woba
       )
 
     nl_ip = Team.nl.sum(:tp_ip)
@@ -123,10 +128,14 @@ class Team < ActiveRecord::Base
 
     Team.nl.each do |team|
       team_fip = team.pitchers.average(:fip)
-      team.update_attributes(tp_fip: team_fip)
+
+      team_woba = team.batters.average(:woba)
+
+      team.update_attributes(tp_fip: team_fip, tb_woba: team_woba)
     end
 
     nl_fip = Team.nl.average(:tp_fip)
+    nl_woba = Team.nl.average(:tb_woba)
 
     Team.nl.update_all(
       lg_era: nl_era,
@@ -138,7 +147,8 @@ class Team < ActiveRecord::Base
       lg_ip: nl_ip,
       lg_er: nl_er,
       lg_fip: nl_fip,
-      lg_ra: nl_ra
+      lg_ra: nl_ra,
+      lg_woba: nl_woba
       )
   end
 end

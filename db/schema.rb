@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929104517) do
+ActiveRecord::Schema.define(version: 20130929105136) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -812,6 +812,7 @@ ActiveRecord::Schema.define(version: 20130929104517) do
     t.float    "tp_fip"
     t.float    "lg_ra"
     t.float    "lg_woba"
+    t.float    "tb_woba"
   end
 
   add_index "teams", ["team_id"], name: "index_teams_on_team_id"
