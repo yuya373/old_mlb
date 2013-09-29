@@ -55,6 +55,11 @@
           %th E
           %th NP
           %th TPA
+          %th ISO
+          %th K%
+          %th BB%
+          %th BABIP
+          %th wOBA
       %tbody
         %tr
           %td= @batter.sac
@@ -66,3 +71,8 @@
           %td= @batter.e
           %td= @batter.np
           %td= @batter.tpa
+          %td= @batter.iso.round(3)
+          %td= @batter.k_pct.round(1)
+          %td= @batter.bb_pct.round(1)
+          %td= @batter.babip.round(3)
+          %td= @batter.woba.round(3)
