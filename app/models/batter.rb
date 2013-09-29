@@ -202,8 +202,8 @@ class Batter < ActiveRecord::Base
 
     Batter.where(reg: 0).each do |batter|
       iso = batter.slg_sort - batter.avg_sort
-      k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f
-      bb_pct = (batter.bb).to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f
+      k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
+      bb_pct = (batter.bb).to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
       babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
       woba = (((batter.bb - batter.ibb) * wbb) + (batter.hbp * whbp) + ((batter.h - batter.b2 - batter.b3 - batter.hr) * wb1) + (batter.b2 * wb2) + (batter.b3 * wb3) + (batter.hr * whr) ).to_f / (batter.ab + batter.bb - batter.ibb + batter.sf + batter.hbp).to_f
 
