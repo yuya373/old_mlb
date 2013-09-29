@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924143909) do
+ActiveRecord::Schema.define(version: 20130929085429) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -229,6 +229,15 @@ ActiveRecord::Schema.define(version: 20130924143909) do
     t.integer  "vs_rhp_cs"
     t.integer  "vs_lhp_cs"
     t.integer  "reg"
+    t.float    "woba"
+    t.float    "wraa"
+    t.float    "wrc"
+    t.float    "wrc_plus"
+    t.float    "iso"
+    t.float    "k_pct"
+    t.float    "bb_pct"
+    t.float    "babip"
+    t.float    "spd"
   end
 
   add_index "batters", ["p_id"], name: "index_batters_on_p_id"

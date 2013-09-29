@@ -191,4 +191,29 @@ class Batter < ActiveRecord::Base
       end
     end
   end
+
+  def self.full_stats
+    wbb = 0.690
+    whbp = 0.722
+    wb1 = 0.888
+    wb2 = 1.270
+    wb3 = 1.615
+    whr = 2.1
+
+    Batter.where(reg: 0).each do |batter|
+      iso = batter.slg_sort - batter.avg_sort
+      k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f
+      bb_pct = (batter.bb).to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f
+      babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
+      woba = (((batter.bb - batter.ibb) * wbb) + (batter.hbp * whbp) + ((batter.h - batter.b2 - batter.b3 - batter.hr) * wb1) + (batter.b2 * wb2) + (batter.b3 * wb3) + (batter.hr * whr) ).to_f / (batter.ab + batter.bb - batter.ibb + batter.sf + batter.hbp).to_f
+
+      batter.update_attributes(
+        iso: iso,
+        k_pct: k_pct,
+        bb_pct: bb_pct,
+        babip: babip,
+        woba: woba
+        )
+    end
+  end
 end
