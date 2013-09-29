@@ -60,6 +60,8 @@
           %th BB%
           %th BABIP
           %th wOBA
+          %th wRAA
+          %th wRC
       %tbody
         %tr
           %td= @batter.sac
@@ -76,3 +78,5 @@
           %td= @batter.bb_pct.round(1)
           %td= @batter.babip.round(3)
           %td= @batter.woba.round(3)
+          %td= @batter.wraa.round(1)
+          %td= @batter.wrc.round(1)
