@@ -44,13 +44,13 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 # end
 every 1.day, :at => '13:00' do
   sakura_runner "Team.get"
-  sakura_runner "Team.lg_stats"
+  sakura_runner "Team.tp_lg_stats"
 end
 
 
 every 1.day, :at => '14:00' do
   sakura_runner "Team.get"
-  sakura_runner "Team.lg_stats"
+  sakura_runner "Team.tp_lg_stats"
   sakura_runner "Batter.get"
   sakura_runner "Pitcher.get"
   sakura_runner "Pitching.get"

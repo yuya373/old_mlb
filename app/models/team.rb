@@ -78,7 +78,7 @@ class Team < ActiveRecord::Base
 
   end
 
-  def self.lg_stats
+  def self.tp_lg_stats
     al_ip = Team.al.sum(:tp_ip)
     al_er = Team.al.sum(:tp_er)
     al_hr = Team.al.sum(:tp_hr)
@@ -92,14 +92,10 @@ class Team < ActiveRecord::Base
 
     Team.al.each do |team|
       team_fip = team.pitchers.average(:fip)
-
-      team_woba = team.batters.average(:woba)
-
-      team.update_attributes(tp_fip: team_fip, tb_woba: team_woba)
+      team.update_attributes(tp_fip: team_fip)
     end
 
     al_fip = Team.al.average(:tp_fip)
-    al_woba = Team.al.average(:tb_woba)
 
     Team.al.update_all(
       lg_era: al_era,
@@ -111,9 +107,8 @@ class Team < ActiveRecord::Base
       lg_ip: al_ip,
       lg_er: al_er,
       lg_fip: al_fip,
-      lg_ra: al_ra,
-      lg_woba: al_woba
-      )
+      lg_ra: al_ra
+            )
 
     nl_ip = Team.nl.sum(:tp_ip)
     nl_er = Team.nl.sum(:tp_er)
@@ -128,14 +123,10 @@ class Team < ActiveRecord::Base
 
     Team.nl.each do |team|
       team_fip = team.pitchers.average(:fip)
-
-      team_woba = team.batters.average(:woba)
-
-      team.update_attributes(tp_fip: team_fip, tb_woba: team_woba)
+      team.update_attributes(tp_fip: team_fip)
     end
 
     nl_fip = Team.nl.average(:tp_fip)
-    nl_woba = Team.nl.average(:tb_woba)
 
     Team.nl.update_all(
       lg_era: nl_era,
@@ -147,8 +138,65 @@ class Team < ActiveRecord::Base
       lg_ip: nl_ip,
       lg_er: nl_er,
       lg_fip: nl_fip,
-      lg_ra: nl_ra,
-      lg_woba: nl_woba
+      lg_ra: nl_ra
       )
+  end
+
+  def self.tb_lg_stats
+    wbb = Batter::WBB
+    whbp = Batter::WHBP
+    wb1 = Batter::WB1
+    wb2 = Batter::WB2
+    wb3 = Batter::WB3
+    whr = Batter::WHR
+
+
+    al_bb = Team.al.sum(:tb_bb)
+    al_hbp = Team.al.sum(:tb_hbp)
+    al_b1 = Team.al.sum(:tb_h) - Team.al.sum(:tb_b2) - Team.al.sum(:tb_b3) - Team.al.sum(:tb_hr)
+    al_b2 = Team.al.sum(:tb_b2)
+    al_b3 = Team.al.sum(:tb_b3)
+    al_hr = Team.al.sum(:tb_hr)
+    al_ab = Team.al.sum(:tb_ab)
+    al_ibb = Team.al.sum(:tb_ibb)
+    al_sf = Team.al.sum(:tb_sf)
+    al_r = Team.al.sum(:tb_r)
+
+    al_tpa = 0
+    Team.al.each do |team|
+      team_tpa = team.batters.sum(:tpa)
+      al_tpa += team_tpa
+    end
+
+
+    al_lg_woba = ((al_bb - al_ibb) * wbb + (al_hbp * whbp) + al_b1 * wb1 + al_b2 * wb2 + al_b3 * wb3 + al_hr * whr).to_f / (al_ab + al_bb - al_ibb + al_sf + al_hbp).to_f
+
+    Team.al.update_all(lg_woba: al_lg_woba, lg_r: al_r, lg_tpa: al_tpa)
+
+    nl_bb = Team.nl.sum(:tb_bb)
+    nl_hbp = Team.nl.sum(:tb_hbp)
+    nl_b1 = Team.nl.sum(:tb_h) - Team.nl.sum(:tb_b2) - Team.nl.sum(:tb_b3) - Team.nl.sum(:tb_hr)
+    nl_b2 = Team.nl.sum(:tb_b2)
+    nl_b3 = Team.nl.sum(:tb_b3)
+    nl_hr = Team.nl.sum(:tb_hr)
+    nl_ab = Team.nl.sum(:tb_ab)
+    nl_ibb = Team.nl.sum(:tb_ibb)
+    nl_sf = Team.nl.sum(:tb_sf)
+    nl_r = Team.nl.sum(:tb_r)
+
+    nl_tpa = 0
+    Team.nl.each do |team|
+      team_tpa = team.batters.sum(:tpa)
+      nl_tpa += team_tpa
+    end
+
+    nl_lg_woba = ((nl_bb - nl_ibb) * wbb + (nl_hbp * whbp) + nl_b1 * wb1 + nl_b2 * wb2 + nl_b3 * wb3 + nl_hr * whr).to_f / (nl_ab + nl_bb - nl_ibb + nl_sf + nl_hbp).to_f
+
+    Team.nl.update_all(lg_woba: nl_lg_woba, lg_r: nl_r, lg_tpa: nl_tpa)
+
+
+
+
+
   end
 end

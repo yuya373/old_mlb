@@ -19,6 +19,7 @@ class Batter < ActiveRecord::Base
   scope :al, lambda{where('league_id = 103')}
   scope :leaders, lambda{|stats,num| where('reg = 0').order(" #{stats} DESC").limit(num)}
 
+
   def self.test
     print "Hello whenever"
   end
@@ -192,27 +193,32 @@ class Batter < ActiveRecord::Base
     end
   end
 
+  WBB = 0.690
+  WHBP = 0.722
+  WB1 = 0.888
+  WB2 = 1.270
+  WB3 = 1.615
+  WHR = 2.1
+  WOBA_SCALE = 1.276
+
   def self.full_stats
-    wbb = 0.690
-    whbp = 0.722
-    wb1 = 0.888
-    wb2 = 1.270
-    wb3 = 1.615
-    whr = 2.1
 
     Batter.where(reg: 0).each do |batter|
       iso = batter.slg_sort - batter.avg_sort
       k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
       bb_pct = (batter.bb).to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
       babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
-      woba = (((batter.bb - batter.ibb) * wbb) + (batter.hbp * whbp) + ((batter.h - batter.b2 - batter.b3 - batter.hr) * wb1) + (batter.b2 * wb2) + (batter.b3 * wb3) + (batter.hr * whr) ).to_f / (batter.ab + batter.bb - batter.ibb + batter.sf + batter.hbp).to_f
+      woba = (((batter.bb - batter.ibb) * WBB) + (batter.hbp * WHBP) + ((batter.h - batter.b2 - batter.b3 - batter.hr) * WB1) + (batter.b2 * WB2) + (batter.b3 * WB3) + (batter.hr * WHR) ).to_f / (batter.ab + batter.bb - batter.ibb + batter.sf + batter.hbp).to_f
+      wraa = ((batter.woba.round(3) - batter.team.lg_woba.round(3)) / WOBA_SCALE) * batter.tpa.to_f
+      wrc =
 
       batter.update_attributes(
         iso: iso,
         k_pct: k_pct,
         bb_pct: bb_pct,
         babip: babip,
-        woba: woba
+        woba: woba,
+        wraa: wraa
         )
     end
   end
