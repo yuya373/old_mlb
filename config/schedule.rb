@@ -45,12 +45,14 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 every 1.day, :at => '13:00' do
   sakura_runner "Team.get"
   sakura_runner "Team.tp_lg_stats"
+  sakura_runner "Team.tb_lg_stats"
 end
 
 
 every 1.day, :at => '14:00' do
   sakura_runner "Team.get"
   sakura_runner "Team.tp_lg_stats"
+  sakura_runner "Team.tb_lg_stats"
   sakura_runner "Batter.get"
   sakura_runner "Pitcher.get"
   sakura_runner "Pitching.get"
@@ -61,6 +63,7 @@ every 1.day, :at => '14:00' do
   sakura_runner "Batter.regulation"
   sakura_runner "Pitcher.regulation"
   sakura_runner "Pitcher.full_stats"
+  sakura_runner "Batter.full_stats"
 end
 
 every 1.day, at: '16:00' do
@@ -72,6 +75,8 @@ every 1.day, at: '16:00' do
   sakura_runner "Batter.regulation"
   sakura_runner "Pitcher.regulation"
   sakura_runner "Pitcher.full_stats"
+  sakura_runner "Team.tp_lg_stats"
+  sakura_runner "Team.tb_lg_stats"
 end
 
 
@@ -79,6 +84,8 @@ every 1.day, :at => '17:00' do
   sakura_runner "Media.get"
   sakura_runner "Batter.regulation"
   sakura_runner "Pitcher.regulation"
+  sakura_runner "Pitcher.full_stats"
+  sakura_runner "Batter.full_stats"
 
 end
 

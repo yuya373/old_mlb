@@ -218,7 +218,7 @@ class Pitcher < ActiveRecord::Base
           hr_9: (pitcher.hr * 9.0)/pitcher.ip_sort,
           k_bb: pitcher.so.to_f/pitcher.bb.to_f,
           babip: (pitcher.h - pitcher.hr).to_f/(pitcher.ab - pitcher.so - pitcher.hr + pitcher.sf).to_f,
-          uera: (pitcher.r - pitcher.er) * 9.0/pitcher.ip.to_f,
+          uera: (pitcher.r - pitcher.er) * 9.0 / pitcher.ip_sort,
           lob_pct: ((pitcher.h + pitcher.bb + pitcher.hb - pitcher.r).to_f / (pitcher.h + pitcher.bb  + pitcher.hb - 1.4 * pitcher.hr)) * 100,
           fip: fip,
           e_f: pitcher.era_sort - fip,
