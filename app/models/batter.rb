@@ -204,7 +204,7 @@ class Batter < ActiveRecord::Base
   def self.full_stats
 
     Batter.find_each do |batter|
-      if batter.ab != 0.0
+      if batter.ab != 0.0 and (batter.ab - batter.hr - batter.so + batter.sf).to_f !=0
         iso = batter.slg_sort - batter.avg_sort
         babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
         k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
