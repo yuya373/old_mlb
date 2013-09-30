@@ -204,7 +204,7 @@ class Batter < ActiveRecord::Base
   def self.full_stats
 
     Batter.find_each do |batter|
-      if batter.ab != 0
+      if batter.ab != 0.0
         iso = batter.slg_sort - batter.avg_sort
         babip = (batter.h - batter.hr).to_f / (batter.ab - batter.hr - batter.so + batter.sf).to_f
         k_pct = batter.so.to_f / (batter.ab + batter.bb + batter.hbp + batter.sf).to_f * 100
@@ -214,6 +214,7 @@ class Batter < ActiveRecord::Base
 
         # (((wOBA – lgwOBA) / wOBAScale) + (lgR/PA)) * PA
         wrc = wraa + (batter.team.lg_r.to_f / batter.team.lg_tpa.to_f) * batter.tpa
+
       else
         k_pct = nil
         bb_pct = nil
