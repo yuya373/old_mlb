@@ -12,20 +12,7 @@ require 'open-uri'
 require 'csv'
 
 
-al_ip = 0
-al_er = 0
-al_id = []
-
-Team.al.each do |team|
-  al_ip += team.tp_ip
-  al_er += team.tp_er
-  al_id << team.id
-end
-
-era = (al_er.to_f / al_ip.to_f) * 9
-
-Team.update_all("lg_era = #{era}", 'league_id = 103')
-
+Batter.seed('2013_09_29_pitmlb_cinmlb_1','134')
 
 # g_id = Game.get_gid(2013,{'9' => ['18']})
 

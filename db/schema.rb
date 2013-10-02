@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929120850) do
+ActiveRecord::Schema.define(version: 20131002135859) do
 
   create_table "atbats", force: true do |t|
     t.integer  "num"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.string   "pitcher_team"
     t.integer  "inning"
     t.string   "t_b"
+    t.integer  "year"
+    t.string   "season"
   end
 
   add_index "atbats", ["batter_id"], name: "index_atbats_on_batter_id"
@@ -238,6 +240,7 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.float    "bb_pct"
     t.float    "babip"
     t.float    "spd"
+    t.string   "season"
   end
 
   add_index "batters", ["p_id"], name: "index_batters_on_p_id"
@@ -416,6 +419,7 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.string   "status"
     t.string   "reason"
     t.datetime "start_time"
+    t.string   "season"
   end
 
   add_index "games", ["gameday"], name: "index_games_on_gameday"
@@ -478,6 +482,8 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.integer  "p_id"
     t.integer  "team_id"
     t.text     "des"
+    t.integer  "year"
+    t.string   "season"
   end
 
   add_index "media", ["game_id"], name: "index_media_on_game_id"
@@ -497,6 +503,8 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.float    "avg_z0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year"
+    t.string   "season"
   end
 
   add_index "pitch_tendencies", ["game_id", "p_id", "pitch_type"], name: "index_pitch_tendencies_on_game_id_and_p_id_and_pitch_type"
@@ -519,6 +527,8 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.string   "sweetness"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year"
+    t.string   "season"
   end
 
   add_index "pitch_type_details", ["p_id", "p_b"], name: "index_pitch_type_details_on_p_id_and_p_b"
@@ -731,6 +741,7 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.float    "dips"
     t.float    "lob_pct"
     t.float    "p_r"
+    t.string   "season"
   end
 
   add_index "pitchers", ["p_id"], name: "index_pitchers_on_p_id"
@@ -815,6 +826,8 @@ ActiveRecord::Schema.define(version: 20130929120850) do
     t.float    "tb_woba"
     t.integer  "lg_r"
     t.integer  "lg_tpa"
+    t.integer  "year"
+    t.string   "season"
   end
 
   add_index "teams", ["team_id"], name: "index_teams_on_team_id"
