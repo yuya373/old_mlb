@@ -42,54 +42,56 @@ job_type :sakura_runner, "export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv
 #   rbenv_bundle_runner "PitchTendency.get"
 
 # end
-every 1.day, :at => '13:00' do
-  sakura_runner "Team.get"
-  sakura_runner "Team.tp_lg_stats"
-  sakura_runner "Team.tb_lg_stats"
-end
 
 
-every 1.day, :at => '14:00' do
-  sakura_runner "Team.get"
-  sakura_runner "Team.tp_lg_stats"
-  sakura_runner "Team.tb_lg_stats"
-  sakura_runner "Batter.get"
-  sakura_runner "Pitcher.get"
-  sakura_runner "Pitching.get"
-  sakura_runner "Atbat.get"
-  sakura_runner "PitchTypeDetail.batter_get"
-  sakura_runner "PitchTypeDetail.pitcher_get"
-  sakura_runner "PitchTendency.get"
-  sakura_runner "Batter.regulation"
-  sakura_runner "Pitcher.regulation"
-  sakura_runner "Pitcher.full_stats"
-  sakura_runner "Batter.full_stats"
-end
-
-every 1.day, at: '16:00' do
-  sakura_runner "Game.get"
-  sakura_runner "GameBatter.get"
-  sakura_runner "GamePitcher.get"
-  sakura_runner "LineScore.get"
-  sakura_runner "Media.get"
-  sakura_runner "Batter.regulation"
-  sakura_runner "Pitcher.regulation"
-  sakura_runner "Pitcher.full_stats"
-  sakura_runner "Team.tp_lg_stats"
-  sakura_runner "Team.tb_lg_stats"
-end
+# every 1.day, :at => '13:00' do
+#   sakura_runner "Team.get"
+#   sakura_runner "Team.tp_lg_stats"
+#   sakura_runner "Team.tb_lg_stats"
+# end
 
 
-every 1.day, :at => '17:00' do
-  sakura_runner "Media.get"
-  sakura_runner "Batter.regulation"
-  sakura_runner "Pitcher.regulation"
-  sakura_runner "Pitcher.full_stats"
-  sakura_runner "Batter.full_stats"
+# every 1.day, :at => '14:00' do
+#   sakura_runner "Team.get"
+#   sakura_runner "Team.tp_lg_stats"
+#   sakura_runner "Team.tb_lg_stats"
+#   sakura_runner "Batter.get"
+#   sakura_runner "Pitcher.get"
+#   sakura_runner "Pitching.get"
+#   sakura_runner "Atbat.get"
+#   sakura_runner "PitchTypeDetail.batter_get"
+#   sakura_runner "PitchTypeDetail.pitcher_get"
+#   sakura_runner "PitchTendency.get"
+#   sakura_runner "Batter.regulation"
+#   sakura_runner "Pitcher.regulation"
+#   sakura_runner "Pitcher.full_stats"
+#   sakura_runner "Batter.full_stats"
+# end
 
-end
+# every 1.day, at: '16:00' do
+#   sakura_runner "Game.get"
+#   sakura_runner "GameBatter.get"
+#   sakura_runner "GamePitcher.get"
+#   sakura_runner "LineScore.get"
+#   sakura_runner "Media.get"
+#   sakura_runner "Batter.regulation"
+#   sakura_runner "Pitcher.regulation"
+#   sakura_runner "Pitcher.full_stats"
+#   sakura_runner "Team.tp_lg_stats"
+#   sakura_runner "Team.tb_lg_stats"
+# end
 
-every 1.day, at: '20:00' do
-  sakura_runner "Media.get"
-end
+
+# every 1.day, :at => '17:00' do
+#   sakura_runner "Media.get"
+#   sakura_runner "Batter.regulation"
+#   sakura_runner "Pitcher.regulation"
+#   sakura_runner "Pitcher.full_stats"
+#   sakura_runner "Batter.full_stats"
+
+# end
+
+# every 1.day, at: '20:00' do
+#   sakura_runner "Media.get"
+# end
 

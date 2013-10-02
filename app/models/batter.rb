@@ -146,9 +146,11 @@ class Batter < ActiveRecord::Base
             end
           end
 
+          @batter[:season] = Game::SEASON
+
 
           begin
-            Batter.where('p_id = ?', p_id).first.update_attributes!(@batter)
+            Batter.where('p_id = ?', p_id).where(year: Game::YEAR).where(season: Game::SEASON).first.update_attributes!(@batter)
           rescue
             Batter.create(@batter)
           end

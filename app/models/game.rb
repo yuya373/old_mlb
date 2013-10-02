@@ -2,6 +2,9 @@ require 'open-uri'
 
 class Game < ActiveRecord::Base
 
+  YEAR = 2013
+  SEASON = 'regular'
+
   self.primary_key = 'gameday'
   has_many :line_scores, :foreign_key => 'game_id'
   has_many :benches, :foreign_key => 'game_id'
