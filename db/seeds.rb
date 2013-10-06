@@ -11,8 +11,55 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
+def csv_to_batters(file_name)
 
-Batter.seed('2013_09_29_pitmlb_cinmlb_1','134')
+  batters = CSV.table(file_name)
+  batters.each do |row|
+    batter = {
+      name_display_first_last: row[:name],
+      g: row[:g],
+      ab: row[:ab],
+      tpa: row[:pa],
+      h: row[:h],
+      b2: row['2b'],
+      b3: row['3b'],
+      hr: row[:hr],
+      r: row[:r],
+      rbi: row[:rbi],
+      bb: row[:bb],
+      ibb:row[:ibb],
+      so: row[:so],
+      hbp: row[:hbp],
+      sf: row[:sf],
+      sac: row[:sh],
+      gidp: row[:gdp],
+      sb: row[:sb],
+      cs: row[:cs],
+      avg: row[:avg],
+      avg_sort: row[:avg],
+      rbi: row[:rbi],
+      r: row[:r],
+      obp: row[:obp],
+      obp_sort: row[:obp],
+      slg: row[:slg],
+      slg_sort: row[:slg],
+      ops: row[:ops],
+      ops_sort: row[:ops]
+      }
+    begin
+      Batter.where(name_display_first_last: batter[:name_display_first_last]).first.update_attributes!(batter)
+    rescue
+      Batter.create(batter)
+    end
+  end
+end
+
+
+
+
+
+
+
 
 # g_id = Game.get_gid(2013,{'9' => ['18']})
 
