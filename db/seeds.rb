@@ -11,48 +11,52 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-def csv_to_batters(file_name)
-
-  batters = CSV.table(file_name)
-  batters.each do |row|
-    batter = {
+def csv_to_pitchers(file_name)
+  pitchers = CSV.table(file_name)
+  pitchers.each do |row|
+    pitcher = {
       name_display_first_last: row[:name],
+      w: row[:w],
+      l: row[:l],
+      sv: row[:sv],
       g: row[:g],
-      ab: row[:ab],
-      tpa: row[:pa],
+      gs: row[:gs],
+      ip: row[:ip],
+      era: row[:era],
+      era_sort: row[:era],
+      cg: row[:cg],
+      sho: row[:sho],
+      bsv: row[:bs],
+      ip: row[:ip],
+      ip_sort: row[:ip],
       h: row[:h],
-      b2: row['2b'],
-      b3: row['3b'],
-      hr: row[:hr],
       r: row[:r],
-      rbi: row[:rbi],
+      er: row[:er],
+      hr: row[:hr],
       bb: row[:bb],
-      ibb:row[:ibb],
+      ibb: row[:ibb],
+      hb: row[:hbp],
+      wp: row[:wp],
+      bk: row[:bk],
       so: row[:so],
-      hbp: row[:hbp],
-      sf: row[:sf],
-      sac: row[:sh],
-      gidp: row[:gdp],
-      sb: row[:sb],
-      cs: row[:cs],
       avg: row[:avg],
       avg_sort: row[:avg],
-      rbi: row[:rbi],
-      r: row[:r],
-      obp: row[:obp],
-      obp_sort: row[:obp],
-      slg: row[:slg],
-      slg_sort: row[:slg],
-      ops: row[:ops],
-      ops_sort: row[:ops]
-      }
+      whip: row[:whip],
+      whip_sort: row[:whip],
+      hld: row[:hld]
+    }
+
     begin
-      Batter.where(name_display_first_last: batter[:name_display_first_last]).first.update_attributes!(batter)
+      Pitcher.where(name_display_first_last: pitcher[:name_display_first_last]).first.update_attributes!(pitcher)
     rescue
-      Batter.create(batter)
+      Pitcher.create(pitcher)
     end
   end
 end
+
+
+csv_to_pitchers('reds_pitchers.csv')
+
 
 
 

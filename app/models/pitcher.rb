@@ -22,6 +22,49 @@ class Pitcher < ActiveRecord::Base
   scope :leaders, lambda{|stats,num| order("#{stats} DESC").limit(num)}
 
 
+  def self.csv_to_pitchers(file_name)
+    pitchers = CSV.table(file_name)
+    pitchers.each do |row|
+      pitcher = {
+        name_display_first_last: row[:name],
+        w: row[:w],
+        l: row[:l],
+        sv: row[:sv],
+        g: row[:g],
+        gs: row[:gs],
+        ip: row[:ip],
+        era: row[:era],
+        era_sort: row[:era],
+        cg: row[:cg],
+        sho: row[:sho],
+        bsv: row[:bs],
+        ip: row[:ip],
+        ip_sort: row[:ip],
+        h: row[:h],
+        r: row[:r],
+        er: row[:er],
+        hr: row[:hr],
+        bb: row[:bb],
+        ibb: row[:ibb],
+        hb: row[:hbp],
+        wp: row[:wp],
+        bk: row[:bk],
+        so: row[:so],
+        avg: row[:avg],
+        avg_sort: row[:avg],
+        whip: row[:whip],
+        whip_sort: row[:whip],
+        hld: row[:hld]
+      }
+
+      begin
+        Pitcher.where(name_display_first_last: pitcher[:name_display_first_last]).first.update_attributes!(pitcher)
+      rescue
+        Pitcher.create(pitcher)
+      end
+    end
+  end
+
   def self.seed(game_id,team_id)
     gid = game_id
     url = "http://gd2.mlb.com/components/team/stats/#{team_id}-stats.xml"
