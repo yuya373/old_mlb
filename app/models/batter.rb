@@ -23,6 +23,13 @@ class Batter < ActiveRecord::Base
   def self.csv_to_batters(file_name)
 
     batters = CSV.table(file_name)
+    case file_name
+    when 'pit_batters'
+      team_id = 134
+    when 'reds_batters'
+      team_id = 113
+    end
+
     batters.each do |row|
       batter = {
         name_display_first_last: row[:name],
@@ -53,7 +60,8 @@ class Batter < ActiveRecord::Base
         slg: row[:slg],
         slg_sort: row[:slg],
         ops: row[:ops],
-        ops_sort: row[:ops]
+        ops_sort: row[:ops],
+        team_id: team_id
       }
       begin
         Batter.where(name_display_first_last: batter[:name_display_first_last]).first.update_attributes!(batter)
