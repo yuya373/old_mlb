@@ -24,9 +24,9 @@ class Batter < ActiveRecord::Base
 
     batters = CSV.table(file_name)
     case file_name
-    when 'pit_batters'
+    when 'pit_batters.csv'
       team_id = 134
-    when 'reds_batters'
+    when 'reds_batters.csv'
       team_id = 113
     end
 
