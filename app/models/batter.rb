@@ -231,7 +231,7 @@ class Batter < ActiveRecord::Base
   def self.regulation
     Batter.find_each do |batter|
       game_counts = batter.team.tb_g
-      if batter.ab > (game_counts * 3.1)
+      if batter.ab > (162 * 3.1)
         batter.update_attributes(reg: 0)
       else
         batter.update_attributes(reg: 1)
