@@ -11,51 +11,47 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-def csv_to_pitchers(file_name)
-  pitchers = CSV.table(file_name)
-  pitchers.each do |row|
-    pitcher = {
-      name_display_first_last: row[:name],
-      w: row[:w],
-      l: row[:l],
-      sv: row[:sv],
-      g: row[:g],
-      gs: row[:gs],
-      ip: row[:ip],
-      era: row[:era],
-      era_sort: row[:era],
-      cg: row[:cg],
-      sho: row[:sho],
-      bsv: row[:bs],
-      ip: row[:ip],
-      ip_sort: row[:ip],
-      h: row[:h],
-      r: row[:r],
-      er: row[:er],
-      hr: row[:hr],
-      bb: row[:bb],
-      ibb: row[:ibb],
-      hb: row[:hbp],
-      wp: row[:wp],
-      bk: row[:bk],
-      so: row[:so],
-      avg: row[:avg],
-      avg_sort: row[:avg],
-      whip: row[:whip],
-      whip_sort: row[:whip],
-      hld: row[:hld]
+def csv_to_team_pitching(file_name)
+  pitching = CSV.table(file_name)
+
+  case file_name
+  when 'pit_team_pitching.csv'
+    team_id = 134
+  when 'reds_team_pitching.csv'
+    team_id = 113
+  end
+
+
+  pitching.each do |row|
+    tp = {
+      tp_w: row[:w],
+      tp_l: row[:l],
+      tp_era: row[:era],
+      tp_g: row[:g],
+      tp_gs: row[:gs],
+      tp_cg: row[:cg],
+      tp_sho: row[:sho],
+      tp_sv: row[:sv],
+      tp_bsv: row[:bs],
+      tp_ip: row[:ip],
+      tp_h: row[:h],
+      tp_r: row[:r],
+      tp_er: row[:er],
+      tp_hr: row[:hr],
+      tp_bb: row[:bb],
+      tp_ibb: row[:ibb],
+      tp_hb: row[:hbp],
+      tp_wp: row[:wp],
+      tp_so: row[:so],
+      tp_whip: row[:whip]
     }
 
-    begin
-      Pitcher.where(name_display_first_last: pitcher[:name_display_first_last]).first.update_attributes!(pitcher)
-    rescue
-      Pitcher.create(pitcher)
-    end
+    Team.where(team_id: team_id).first.update_attributes!(tp)
+
   end
 end
 
-
-csv_to_pitchers('reds_pitchers.csv')
+csv_to_team_pitching('pit_team_pitching.csv')
 
 
 

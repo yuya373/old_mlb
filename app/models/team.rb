@@ -18,6 +18,47 @@ class Team < ActiveRecord::Base
   scope :pitching, lambda{select('team_name,team_id,tp_w,tp_l,tp_era,tp_g,tp_gs,tp_sv,tp_bsv,tp_svo,tp_ip,tp_h,tp_r,tp_er,tp_hr,tp_bb,tp_wp,tp_so,tp_cg,tp_gf,tp_sho,tp_whip,updated_at')}
   scope :order_by_win_pct ,lambda{order('win_pct desc')}
 
+
+  def self.csv_to_team_pitching(file_name)
+    pitching = CSV.table(file_name)
+
+    case file_name
+    when 'pit_team_pitching.csv'
+      team_id = 134
+    when 'reds_team_pitching.csv'
+      team_id = 113
+    end
+
+
+    pitching.each do |row|
+      tp = {
+        tp_w: row[:w],
+        tp_l: row[:l],
+        tp_era: row[:era],
+        tp_g: row[:g],
+        tp_gs: row[:gs],
+        tp_cg: row[:cg],
+        tp_sho: row[:sho],
+        tp_sv: row[:sv],
+        tp_bsv: row[:bs],
+        tp_ip: row[:ip],
+        tp_h: row[:h],
+        tp_r: row[:r],
+        tp_er: row[:er],
+        tp_hr: row[:hr],
+        tp_bb: row[:bb],
+        tp_ibb: row[:ibb],
+        tp_hb: row[:hbp],
+        tp_wp: row[:wp],
+        tp_so: row[:so],
+        tp_whip: row[:whip]
+      }
+
+      Team.where(team_id: team_id).first.update_attributes!(tp)
+
+    end
+  end
+
   def self.get
     team_id = [108,109,110,111,112,113,114,115,116,117,118,119,120,121,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,158]
     team_id.each do |t|
